@@ -17,6 +17,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0001-two-sum](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0001-two-sum) |
+| [0003-longest-substring-without-repeating-characters](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0003-longest-substring-without-repeating-characters) |
 | [0036-valid-sudoku](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0036-valid-sudoku) |
 | [0049-group-anagrams](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0049-group-anagrams) |
 | [0128-longest-consecutive-sequence](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0128-longest-consecutive-sequence) |
@@ -37,6 +38,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 ## String
 |  |
 | ------- |
+| [0003-longest-substring-without-repeating-characters](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0003-longest-substring-without-repeating-characters) |
 | [0049-group-anagrams](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0049-group-anagrams) |
 | [0242-valid-anagram](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0242-valid-anagram) |
 ## Divide and Conquer
@@ -79,4 +81,8 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0002-add-two-numbers](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0002-add-two-numbers) |
+## Sliding Window
+|  |
+| ------- |
+| [0003-longest-substring-without-repeating-characters](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0003-longest-substring-without-repeating-characters) |
 <!---LeetCode Topics End-->
