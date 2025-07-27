@@ -85,4 +85,20 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0003-longest-substring-without-repeating-characters](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0003-longest-substring-without-repeating-characters) |
+## Dynamic Programming
+|  |
+| ------- |
+| [0124-binary-tree-maximum-path-sum](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0124-binary-tree-maximum-path-sum) |
+## Tree
+|  |
+| ------- |
+| [0124-binary-tree-maximum-path-sum](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0124-binary-tree-maximum-path-sum) |
+## Depth-First Search
+|  |
+| ------- |
+| [0124-binary-tree-maximum-path-sum](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0124-binary-tree-maximum-path-sum) |
+## Binary Tree
+|  |
+| ------- |
+| [0124-binary-tree-maximum-path-sum](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0124-binary-tree-maximum-path-sum) |
 <!---LeetCode Topics End-->
