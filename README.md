@@ -16,6 +16,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0347-top-k-frequent-elements](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0347-top-k-frequent-elements) |
 | [0934-bitwise-ors-of-subarrays](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0934-bitwise-ors-of-subarrays) |
 | [2503-longest-subarray-with-maximum-bitwise-and](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2503-longest-subarray-with-maximum-bitwise-and) |
+| [3221-find-the-peaks](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3221-find-the-peaks) |
 ## Hash Table
 |  |
 | ------- |
@@ -127,4 +128,8 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [2503-longest-subarray-with-maximum-bitwise-and](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2503-longest-subarray-with-maximum-bitwise-and) |
+## Enumeration
+|  |
+| ------- |
+| [3221-find-the-peaks](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3221-find-the-peaks) |
 <!---LeetCode Topics End-->
