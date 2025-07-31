@@ -7,6 +7,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0001-two-sum](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0001-two-sum) |
+| [0014-longest-common-prefix](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0014-longest-common-prefix) |
 | [0036-valid-sudoku](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0036-valid-sudoku) |
 | [0042-trapping-rain-water](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0042-trapping-rain-water) |
 | [0049-group-anagrams](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0049-group-anagrams) |
@@ -43,6 +44,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0003-longest-substring-without-repeating-characters](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0003-longest-substring-without-repeating-characters) |
+| [0014-longest-common-prefix](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0014-longest-common-prefix) |
 | [0049-group-anagrams](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0049-group-anagrams) |
 | [0242-valid-anagram](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0242-valid-anagram) |
 ## Divide and Conquer
@@ -132,4 +134,8 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [3221-find-the-peaks](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3221-find-the-peaks) |
+## Trie
+|  |
+| ------- |
+| [0014-longest-common-prefix](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0014-longest-common-prefix) |
 <!---LeetCode Topics End-->
