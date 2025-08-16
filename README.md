@@ -86,6 +86,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0002-add-two-numbers](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0002-add-two-numbers) |
+| [1448-maximum-69-number](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1448-maximum-69-number) |
 ## Recursion
 |  |
 | ------- |
@@ -145,4 +146,8 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0387-first-unique-character-in-a-string](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0387-first-unique-character-in-a-string) |
+## Greedy
+|  |
+| ------- |
+| [1448-maximum-69-number](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1448-maximum-69-number) |
 <!---LeetCode Topics End-->
