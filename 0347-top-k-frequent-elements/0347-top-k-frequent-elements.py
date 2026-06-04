@@ -1,27 +1,19 @@
-from collections import OrderedDict
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        hashmap = {}
+        nums_s = set(nums)
 
-class Solution(object):
-    def topKFrequent(self, nums, k):
-        """
-        :type nums: List[int]
-        :type k: int
-        :rtype: List[int]
-        """
+        for val in nums_s:
+            hashmap[val] = nums.count(val)
 
-        count ={}
-        for num in nums:
-            count[num] = 1 + count.get(num, 0)
-        
-        freq = [[] for i in range(len(nums) + 1)]
-        for num , c in count.items():
-            freq[c].append(num)
+        sorted_items = sorted(hashmap.items(), key=lambda x: x[1], reverse=True)
+        res = []
 
-        res =[]
-        for i in range(len(freq)-1,0,-1):
-            for n in freq[i]:
-                res.append(n)
-                if len(res) == k:
-                    return res
-        
-      
-        
+        for num, freq in sorted_items:
+            if k > 0:
+                res.append(num)
+                k -= 1
+            else:
+                break
+
+        return res
