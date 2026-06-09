@@ -31,6 +31,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [2503-longest-subarray-with-maximum-bitwise-and](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2503-longest-subarray-with-maximum-bitwise-and) |
 | [2574-left-and-right-sum-differences](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2574-left-and-right-sum-differences) |
 | [3221-find-the-peaks](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3221-find-the-peaks) |
+| [3689-maximum-total-subarray-value-i](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3689-maximum-total-subarray-value-i) |
 ## Hash Table
 |  |
 | ------- |
@@ -195,6 +196,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0122-best-time-to-buy-and-sell-stock-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0122-best-time-to-buy-and-sell-stock-ii) |
 | [1448-maximum-69-number](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1448-maximum-69-number) |
 | [2450-minimum-replacements-to-sort-the-array](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2450-minimum-replacements-to-sort-the-array) |
+| [3689-maximum-total-subarray-value-i](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3689-maximum-total-subarray-value-i) |
 ## Binary Search
 |  |
 | ------- |
