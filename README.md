@@ -120,6 +120,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0237-delete-node-in-a-linked-list](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0237-delete-node-in-a-linked-list) |
 | [0705-design-hashset](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0705-design-hashset) |
 | [0706-design-hashmap](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0706-design-hashmap) |
+| [2095-delete-the-middle-node-of-a-linked-list](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2095-delete-the-middle-node-of-a-linked-list) |
 ## Math
 |  |
 | ------- |
@@ -178,6 +179,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0075-sort-colors](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0075-sort-colors) |
 | [0141-linked-list-cycle](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0141-linked-list-cycle) |
 | [0143-reorder-list](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0143-reorder-list) |
+| [2095-delete-the-middle-node-of-a-linked-list](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2095-delete-the-middle-node-of-a-linked-list) |
 ## Stack
 |  |
 | ------- |
