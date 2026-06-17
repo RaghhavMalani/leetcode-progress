@@ -39,6 +39,4 @@ class MyCircularQueue:
         return self.left.next == self.right
 
     def isFull(self) -> bool:
-        if self.space == 0:
-            return True
-        return False
+        return self.space == 0
