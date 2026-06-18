@@ -11,15 +11,8 @@ class Node {
         this.next = null;
         this.prev = null;
     }
-
-    public Node(int key, int val, Node next, Node prev)
-    {
-        this.val = val;
-        this.key = key;
-        this.next = next;
-        this.prev = prev;
-    }
 }
+
 class LRUCache {
     int cap;
     Node lru;
@@ -29,8 +22,9 @@ class LRUCache {
     public LRUCache(int capacity) {
         this.cap = capacity;
         lru = new Node(0,0);
-        mru = new Node(0,0,null, lru);
+        mru = new Node(0,0);
         lru.next = mru;
+        mru.prev = lru;
         cache = new HashMap<>();
     }
     private void insert(Node node){
