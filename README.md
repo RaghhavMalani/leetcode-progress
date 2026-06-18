@@ -135,6 +135,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | ------- |
 | [0002-add-two-numbers](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0002-add-two-numbers) |
 | [0867-new-21-game](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0867-new-21-game) |
+| [1344-angle-between-hands-of-a-clock](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1344-angle-between-hands-of-a-clock) |
 | [1448-maximum-69-number](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1448-maximum-69-number) |
 | [2450-minimum-replacements-to-sort-the-array](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2450-minimum-replacements-to-sort-the-array) |
 | [3558-number-of-ways-to-assign-edge-weights-i](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3558-number-of-ways-to-assign-edge-weights-i) |
