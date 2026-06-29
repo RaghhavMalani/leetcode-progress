@@ -21,6 +21,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0304-range-sum-query-2d-immutable](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0304-range-sum-query-2d-immutable) |
 | [0347-top-k-frequent-elements](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0347-top-k-frequent-elements) |
 | [0622-design-circular-queue](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0622-design-circular-queue) |
+| [0682-baseball-game](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0682-baseball-game) |
 | [0705-design-hashset](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0705-design-hashset) |
 | [0706-design-hashmap](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0706-design-hashmap) |
 | [0739-daily-temperatures](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0739-daily-temperatures) |
@@ -232,6 +233,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | ------- |
 | [0042-trapping-rain-water](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0042-trapping-rain-water) |
 | [0143-reorder-list](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0143-reorder-list) |
+| [0682-baseball-game](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0682-baseball-game) |
 | [0739-daily-temperatures](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0739-daily-temperatures) |
 ## Monotonic Stack
 |  |
@@ -331,6 +333,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 ## Simulation
 |  |
 | ------- |
+| [0682-baseball-game](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0682-baseball-game) |
 | [1929-concatenation-of-array](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1929-concatenation-of-array) |
 | [3614-process-string-with-special-operations-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3614-process-string-with-special-operations-ii) |
 ## Segment Tree
