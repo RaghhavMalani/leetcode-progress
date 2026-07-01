@@ -41,6 +41,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [2450-minimum-replacements-to-sort-the-array](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2450-minimum-replacements-to-sort-the-array) |
 | [2503-longest-subarray-with-maximum-bitwise-and](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2503-longest-subarray-with-maximum-bitwise-and) |
 | [2574-left-and-right-sum-differences](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2574-left-and-right-sum-differences) |
+| [2812-find-the-safest-path-in-a-grid](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2812-find-the-safest-path-in-a-grid) |
 | [3020-find-the-maximum-number-of-elements-in-subset](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3020-find-the-maximum-number-of-elements-in-subset) |
 | [3221-find-the-peaks](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3221-find-the-peaks) |
 | [3559-number-of-ways-to-assign-edge-weights-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3559-number-of-ways-to-assign-edge-weights-ii) |
@@ -78,6 +79,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0036-valid-sudoku](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0036-valid-sudoku) |
 | [0304-range-sum-query-2d-immutable](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0304-range-sum-query-2d-immutable) |
 | [0773-sliding-puzzle](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0773-sliding-puzzle) |
+| [2812-find-the-safest-path-in-a-grid](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2812-find-the-safest-path-in-a-grid) |
 ## Sorting
 |  |
 | ------- |
@@ -117,6 +119,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0023-merge-k-sorted-lists](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0023-merge-k-sorted-lists) |
 | [0347-top-k-frequent-elements](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0347-top-k-frequent-elements) |
 | [0912-sort-an-array](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0912-sort-an-array) |
+| [2812-find-the-safest-path-in-a-grid](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2812-find-the-safest-path-in-a-grid) |
 ## Bucket Sort
 |  |
 | ------- |
@@ -287,6 +290,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0081-search-in-rotated-sorted-array-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0081-search-in-rotated-sorted-array-ii) |
 | [0287-find-the-duplicate-number](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0287-find-the-duplicate-number) |
 | [0704-binary-search](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0704-binary-search) |
+| [2812-find-the-safest-path-in-a-grid](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2812-find-the-safest-path-in-a-grid) |
 ## Probability and Statistics
 |  |
 | ------- |
@@ -329,6 +333,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0773-sliding-puzzle](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0773-sliding-puzzle) |
+| [2812-find-the-safest-path-in-a-grid](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2812-find-the-safest-path-in-a-grid) |
 ## Memoization
 |  |
 | ------- |
@@ -349,4 +354,8 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | ------- |
 | [3737-count-subarrays-with-majority-element-i](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3737-count-subarrays-with-majority-element-i) |
 | [3739-count-subarrays-with-majority-element-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3739-count-subarrays-with-majority-element-ii) |
+## Union-Find
+|  |
+| ------- |
+| [2812-find-the-safest-path-in-a-grid](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2812-find-the-safest-path-in-a-grid) |
 <!---LeetCode Topics End-->
