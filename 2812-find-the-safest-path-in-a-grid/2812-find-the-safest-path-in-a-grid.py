@@ -2,7 +2,6 @@ class Solution:
     def maximumSafenessFactor(self, grid: List[List[int]]) -> int:
         n = len(grid)
 
-        # Step 1: Multi-source BFS from all thieves
         dist = [[-1] * n for _ in range(n)]
         q = deque()
 
