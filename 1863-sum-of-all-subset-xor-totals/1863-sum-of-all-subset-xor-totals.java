@@ -1,12 +1,11 @@
 class Solution {
-    private int dfs(int i, int total, int [] nums){
-        if (i == nums.length){
-            return total;
-        }
-        return dfs(i + 1, nums[i] ^ total, nums) + dfs(i + 1, total, nums);
-    }
-
     public int subsetXORSum(int[] nums) {
-        return dfs(0,0,nums);
+        int res = 0;
+
+        for (int n : nums) {
+            res = res | n;
+        }
+
+        return res * (1 << (nums.length - 1));
     }
 }
