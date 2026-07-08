@@ -29,6 +29,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0706-design-hashmap](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0706-design-hashmap) |
 | [0739-daily-temperatures](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0739-daily-temperatures) |
 | [0773-sliding-puzzle](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0773-sliding-puzzle) |
+| [0860-lemonade-change](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0860-lemonade-change) |
 | [0912-sort-an-array](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0912-sort-an-array) |
 | [0934-bitwise-ors-of-subarrays](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0934-bitwise-ors-of-subarrays) |
 | [1288-remove-covered-intervals](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1288-remove-covered-intervals) |
@@ -297,6 +298,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0122-best-time-to-buy-and-sell-stock-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0122-best-time-to-buy-and-sell-stock-ii) |
+| [0860-lemonade-change](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0860-lemonade-change) |
 | [1448-maximum-69-number](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1448-maximum-69-number) |
 | [1833-maximum-ice-cream-bars](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1833-maximum-ice-cream-bars) |
 | [1846-maximum-element-after-decreasing-and-rearranging](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1846-maximum-element-after-decreasing-and-rearranging) |
