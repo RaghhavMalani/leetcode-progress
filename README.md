@@ -193,6 +193,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0002-add-two-numbers](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0002-add-two-numbers) |
+| [0062-unique-paths](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0062-unique-paths) |
 | [0070-climbing-stairs](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0070-climbing-stairs) |
 | [0867-new-21-game](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0867-new-21-game) |
 | [1344-angle-between-hands-of-a-clock](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1344-angle-between-hands-of-a-clock) |
@@ -224,6 +225,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0042-trapping-rain-water](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0042-trapping-rain-water) |
+| [0062-unique-paths](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0062-unique-paths) |
 | [0070-climbing-stairs](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0070-climbing-stairs) |
 | [0122-best-time-to-buy-and-sell-stock-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0122-best-time-to-buy-and-sell-stock-ii) |
 | [0124-binary-tree-maximum-path-sum](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0124-binary-tree-maximum-path-sum) |
@@ -441,6 +443,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 ## Combinatorics
 |  |
 | ------- |
+| [0062-unique-paths](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0062-unique-paths) |
 | [1863-sum-of-all-subset-xor-totals](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1863-sum-of-all-subset-xor-totals) |
 ## Number Theory
 |  |
