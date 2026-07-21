@@ -125,6 +125,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [1358-number-of-substrings-containing-all-three-characters](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1358-number-of-substrings-containing-all-three-characters) |
 | [1967-number-of-strings-that-appear-as-substrings-in-word](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1967-number-of-strings-that-appear-as-substrings-in-word) |
 | [2133-number-of-pairs-of-strings-with-concatenation-equal-to-target](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2133-number-of-pairs-of-strings-with-concatenation-equal-to-target) |
+| [3499-maximize-active-section-with-trade-i](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3499-maximize-active-section-with-trade-i) |
 | [3614-process-string-with-special-operations-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3614-process-string-with-special-operations-ii) |
 ## Divide and Conquer
 |  |
@@ -318,6 +319,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [1863-sum-of-all-subset-xor-totals](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1863-sum-of-all-subset-xor-totals) |
 | [3020-find-the-maximum-number-of-elements-in-subset](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3020-find-the-maximum-number-of-elements-in-subset) |
 | [3221-find-the-peaks](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3221-find-the-peaks) |
+| [3499-maximize-active-section-with-trade-i](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3499-maximize-active-section-with-trade-i) |
 ## Trie
 |  |
 | ------- |
