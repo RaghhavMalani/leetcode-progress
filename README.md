@@ -9,6 +9,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0001-two-sum](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0001-two-sum) |
 | [0014-longest-common-prefix](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0014-longest-common-prefix) |
 | [0036-valid-sudoku](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0036-valid-sudoku) |
+| [0039-combination-sum](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0039-combination-sum) |
 | [0042-trapping-rain-water](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0042-trapping-rain-water) |
 | [0049-group-anagrams](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0049-group-anagrams) |
 | [0057-insert-interval](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0057-insert-interval) |
@@ -402,6 +403,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 ## Backtracking
 |  |
 | ------- |
+| [0039-combination-sum](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0039-combination-sum) |
 | [0078-subsets](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0078-subsets) |
 | [0291-word-pattern-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0291-word-pattern-ii) |
 | [0773-sliding-puzzle](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0773-sliding-puzzle) |
