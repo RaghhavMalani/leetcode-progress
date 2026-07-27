@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1967 - Number of Strings That Appear as Substrings</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def numOfStrings(self, patterns: List[str], word: str) -> int:", "        count = 0", "", "        for p in patterns:", "            if p in word:", "                count += 1", "", "        return count"];
+function build(){
+  var T=LV.trace(), pats=['a','abc','bc','d'], word='abc', count=0;
+  function V(i,hit){ var m={}; pats.forEach(function(_,k){ m[k]= k<i?'good':(k===i?(hit?'good':'hot'):'dim'); });
+    var wm={};
+    if(i!=null && hit){ var at=word.indexOf(pats[i]); for(var x=at;x<at+pats[i].length;x++) wm[x]='good'; }
+    return [ LV.arr('patterns', pats, m, {}), LV.arr('word', word.split(''), wm, {}) ]; }
+  T.step(3,'info','n is at most 100 and the strings are at most 100 characters, so a straight scan is fine. <code>p in word</code> hides an O(len(word) × len(p)) search — worth knowing, not worth avoiding here.',['count = <u>0</u>'],V(null));
+  pats.forEach(function(p,i){
+    var hit=word.indexOf(p)>=0;
+    T.step(6,'call','Is "'+p+'" a substring of "'+word+'"?',['pattern = <b>"'+p+'"</b>'],V(i,false));
+    if(hit){
+      count++;
+      T.step(7,'found','Yes — found at index '+word.indexOf(p)+'. count → <b>'+count+'</b>.',['count = <u>'+count+'</u>'],V(i,true));
+      T.save('"'+p+'" ✓');
+    } else {
+      T.step(6,'bad','No.',['count = <u>'+count+'</u>'],V(i,false));
+    }
+  });
+  T.step(9,'done','Answer: <b>'+count+'</b>.',['count = <u>'+count+'</u>'],V(null));
+  return T;
+}
+LV.render({
+  num:'1967', name:'Number of Strings That Appear as Substrings in Word', slug:'1967-number-of-strings-that-appear-as-substrings-in-word',
+  difficulty:'Easy', pattern:'String matching · know what your library does',
+  url:'https://leetcode.com/problems/number-of-strings-that-appear-as-substrings-in-word',
+  blurb:'Three lines. Worth a minute anyway, because it is a good moment to know what <code>in</code> actually costs and what you would reach for if the input were a million times bigger.',
+  input:'patterns = ["a","abc","bc","d"], word = "abc"', runName:'numOfStrings',
+  skipLabel:'Skip to next match', skipTypes:['found'], emptyResult:'count is 0',
+  src:SRC, build:build,
+  complexity:{time:'O(Σ|p| × |word|) worst case with naive matching; CPython uses a Crochemore–Perrin variant that is near-linear in practice', space:'O(1)'},
+  theory:{
+    idea:'Use the built-in when the constraints allow it, and be able to say what you would use if they did not. The escalation ladder for substring search is: <b>naive</b> O(nm) → <b>KMP / Z-algorithm</b> O(n+m) for one pattern → <b>Aho–Corasick</b> O(n + Σm + matches) for many patterns at once → <b>suffix automaton / suffix array</b> when the text is fixed and queried repeatedly.',
+    recognize:[
+      '"Does A appear inside B" with small inputs → just use <code>in</code>.',
+      'Many patterns against one text → Aho–Corasick builds a trie with failure links and scans the text once.',
+      'One fixed text, many queries → build a suffix structure over the text instead.'
+    ],
+    pitfalls:[
+      '<b>Writing your own matcher unprompted.</b> With n ≤ 100 it is noise. Use the library and mention the alternative.',
+      '<b>Confusing substring with subsequence.</b> Substring is contiguous; subsequence is not. <code>in</code> tests substrings only.',
+      '<b>Assuming <code>in</code> is O(n).</b> It is not guaranteed to be, and in a language like C++ <code>find</code> is genuinely O(nm) in the worst case.'
+    ],
+    template: "count = sum(1 for p in patterns if p in word)\n\n# escalation ladder when the constraints grow:\n#   one pattern, big text     -> KMP / Z-algorithm      O(n + m)\n#   MANY patterns, one text   -> Aho-Corasick           O(n + sum(m) + hits)\n#   one fixed text, many queries -> suffix automaton / suffix array\n",
+    variants:[
+      ['Count occurrences, not just presence','<code>word.count(p)</code> — but note it counts NON-overlapping occurrences.'],
+      ['Many patterns, huge text','Aho–Corasick. One pass over the text finds all patterns.'],
+      ['Subsequence instead of substring','LC 392 — a two-pointer greedy walk.'],
+      ['<b>Find the index</b> of the first occurrence (LC 28)','The classic KMP exercise.']
+    ],
+    thinking:'For every library call you make in an interview, be ready to answer <b>"what does that do under the hood, and what is its complexity?"</b> You will almost never need to implement it — but the follow-up "now the text is 10⁹ characters and you have 10⁵ patterns" is exactly where a candidate either names Aho–Corasick or goes quiet. Knowing the escalation ladder is cheap insurance.'
+  }
+});
+
+</script>
+</body>
+</html>

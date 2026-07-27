@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1464 - Maximum Product of Two Elements</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def maxProduct(self, nums: List[int]) -> int:", "        max1 = 0", "        max2 = 0", "", "        for num in nums:", "            if num > max1:", "                max2 = max1", "                max1 = num", "            elif num > max2:", "                max2 = num", "", "        return (max1 - 1) * (max2 - 1)"];
+function build(){
+  var T=LV.trace(), a=[3,4,5,2], m1=0, m2=0;
+  function V(i,which){ var m={}; for(var x=0;x<a.length;x++) m[x]= x<i?'good':(x===i?'hot':'dim');
+    return [ LV.arr('nums', a, m, {}),
+             LV.kv('the two running maxima', [['max1',m1],['max2',m2]], (function(){ var q={}; if(which) q[which]='hot'; return q; })(), {}) ]; }
+  function VA(i){ return ['num = <b>'+(i<a.length?a[i]:'—')+'</b>','max1 = <em>'+m1+'</em>','max2 = <em>'+m2+'</em>']; }
+  T.step(3,'info','Keep the top two values in a single pass. The <code>if / elif</code> chain is the whole trick: a new champion pushes the old champion down to second place, never overwrites it.',VA(0),V(null));
+  a.forEach(function(x,i){
+    T.step(6,'call','num = '+x+'.',VA(i),V(i));
+    if(x>m1){
+      m2=m1;
+      T.step(8,'push',x+' &gt; max1 ('+m1+'). Demote the old max1 to max2 first — this line MUST come before the next one.',VA(i),V(i,'max2'));
+      m1=x;
+      T.step(9,'ok','max1 = '+x+'.',VA(i),V(i,'max1'));
+    } else if(x>m2){
+      m2=x;
+      T.step(11,'ok',x+' is not a new champion but beats max2 ('+m2+' was smaller). max2 = '+x+'. The <code>elif</code> matters: if it were a second <code>if</code>, a new max1 would immediately also become max2.',VA(i),V(i,'max2'));
+    } else {
+      T.step(10,'bad',x+' beats neither. Ignore it.',VA(i),V(i));
+    }
+    T.save('after '+x+': ('+m1+', '+m2+')');
+  });
+  var ans=(m1-1)*(m2-1);
+  T.step(13,'done','Answer: (max1 − 1) × (max2 − 1) = ('+m1+' − 1) × ('+m2+' − 1) = <b>'+ans+'</b>. Since the constraints guarantee all values ≥ 1, no negative case analysis is needed — unlike LC 628 in your repo.',['answer = <u>'+ans+'</u>'],V(a.length));
+  return T;
+}
+LV.render({
+  num:'1464', name:'Maximum Product of Two Elements in an Array', slug:'1464-maximum-product-of-two-elements-in-an-array',
+  difficulty:'Easy', pattern:'Single pass · top-k tracking',
+  url:'https://leetcode.com/problems/maximum-product-of-two-elements-in-an-array',
+  blurb:'Track the top two in one pass, no sort. The detail that matters is the demotion order — <code>max2 = max1</code> must happen before <code>max1 = num</code>.',
+  input:'nums = [3,4,5,2]', runName:'maxProduct',
+  skipLabel:null, emptyResult:'no maxima yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n) — beats the O(n log n) sort', space:'O(1)'},
+  theory:{
+    idea:'For a small fixed k, tracking the top k in one pass is strictly better than sorting. The pattern is a cascade: a new value that beats first place shifts everyone down; one that beats only second place inserts there. It generalises to k slots, though beyond k ≈ 3 a size-k heap is cleaner.',
+    recognize:[
+      '"Largest two / smallest three / top k" where k is a tiny constant.',
+      'The instinct to sort — check whether you actually need the whole order or just the extremes.',
+      'For larger k over a stream, this becomes a bounded heap (LC 703, in your repo).'
+    ],
+    pitfalls:[
+      '<b>Assigning <code>max1</code> before demoting it.</b> Then max2 gets the new value too and you square one element.',
+      '<b>Using two <code>if</code>s instead of <code>if/elif</code>.</b> Same failure by a different route.',
+      '<b>Initialising both to 0.</b> Safe here because the constraints promise values ≥ 1; with negatives allowed you would need −∞.',
+      '<b>Forgetting the −1 in the formula.</b> The problem asks for (nums[i]−1)×(nums[j]−1), not the raw product.'
+    ],
+    template: "# track the top two in one pass - order of assignment matters\nmax1 = max2 = float('-inf')          # 0 only if values are guaranteed >= 0\nfor x in nums:\n    if x > max1:\n        max2 = max1                  # DEMOTE first...\n        max1 = x                     # ...then promote\n    elif x > max2:                   # elif, not a second if\n        max2 = x\n",
+    variants:[
+      ['Three numbers, negatives allowed','LC 628 — sorting plus case analysis. Also in your repo.'],
+      ['Top k over a stream','LC 703 — a size-k min-heap.'],
+      ['Second largest DISTINCT value','Add an equality guard so duplicates do not fill both slots.'],
+      ['Largest and smallest together','Four running variables, one pass.']
+    ],
+    thinking:'Before writing <code>sort()</code>, ask <b>"how much of the order do I actually need?"</b> If the answer is "the top two", a single pass gives it in O(n). This shows up constantly — max and min (LC 3689 in your repo), the two largest, the k most frequent (LC 347, where buckets beat both). Sorting is the default answer that is very often one complexity class too slow.'
+  }
+});
+
+</script>
+</body>
+</html>

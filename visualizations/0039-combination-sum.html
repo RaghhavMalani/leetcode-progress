@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>39 - Combination Sum</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def combinationSum(self, nums: List[int], target: int) -> List[List[int]]:", "        res = []", "", "        def dfs(i, curr, total):", "            if total == target:", "                res.append(curr.copy())", "                return", "            ", "            if total > target or i >= len(nums):", "                return", "            ", "            curr.append(nums[i])", "            dfs(i,curr,total + nums[i])", "", "            curr.pop()", "            dfs(i+1,curr,total)", "", "        dfs(0,[],0)", "", "        return res"];
+function build(){
+  var T=LV.trace(), nums=[2,3,6,7], target=7, curr=[];
+  var tb=LV.treeBuilder(46,32,54,52);
+  function C(){ return '['+curr.join(', ')+']'; }
+  function V(id){ return [ LV.arr('curr — the combination being built', curr.slice(), {}, {idx:false}),
+    LV.arr('nums', nums, {}, {}),
+    LV.frames('call stack', tb.chain(id).reverse().map(function(x){return tb.nodes[x].frame;})),
+    LV.tree(tb,id) ]; }
+  function VA(i,t){ return ['i = <b>'+i+'</b>','total = <em>'+t+'</em> / target 7','curr = <u>'+C()+'</u>']; }
+
+  var root=tb.add(null,'dfs','t=0','dfs(0, [], 0)');
+  T.step(19,'info','`dfs(0, [], 0)` — index 0, empty combination, running total 0.',VA(0,0),V(root));
+
+  function dfs(i,total,id){
+    T.step(5,'call','Enter dfs(i='+i+', curr='+C()+', total='+total+').',VA(i,total),V(id));
+    if(total===target){
+      T.save(C()); tb.win(id,T.events.length);
+      T.step(7,'found','total ('+total+') == target. Save a COPY of '+C()+' — a copy, not the list itself, because the very next pop() would mutate it.',VA(i,total),V(id));
+      T.step(8,'ok','return.',VA(i,total),V(id)); return;
+    }
+    if(total>target||i>=nums.length){
+      tb.kill(id,T.events.length);
+      var why = total>target ? 'total ('+total+') overshot the target' : 'i ('+i+') ran past the end of nums';
+      T.step(11,'prune','Dead end: '+why+'. Return with nothing saved. Every step spent reaching this node was wasted work.',VA(i,total),V(id));
+      return;
+    }
+    curr.push(nums[i]);
+    var a=tb.add(id,'+'+nums[i],'t='+(total+nums[i]),'dfs('+i+', '+C()+', '+(total+nums[i])+')');
+    T.step(13,'push','Take nums['+i+'] = '+nums[i]+'. curr → '+C()+', total → '+(total+nums[i])+'. Recurse with the SAME i, because a number may be reused.',VA(i,total+nums[i]),V(a));
+    dfs(i,total+nums[i],a);
+    curr.pop();
+    T.step(16,'pop','Back in dfs('+i+', …, '+total+'). curr.pop() removes that '+nums[i]+' → '+C()+'.',VA(i,total),V(id));
+    var b=tb.add(id,'skip','t='+total,'dfs('+(i+1)+', '+C()+', '+total+')');
+    T.step(17,'skip','Other choice: never use nums['+i+'] = '+nums[i]+' again. Recurse with i+1 = '+(i+1)+', same curr, same total.',VA(i+1,total),V(b));
+    dfs(i+1,total,b);
+  }
+  dfs(0,0,root);
+  T.step(21,'done','Done. res = '+T.out.join(', ')+'. Now count the red nodes — most of that tree was wasted effort, and that is the lesson of this problem.',VA(0,0),V(root));
+  return T;
+}
+LV.render({
+  num:'39', name:'Combination Sum', slug:'0039-combination-sum',
+  difficulty:'Medium', pattern:'Backtracking · take / skip',
+  url:'https://leetcode.com/problems/combination-sum',
+  blurb:'The mirror image of problem 22. Here the guard fires only <em>after</em> the total has already overshot, so the algorithm discovers its mistakes instead of preventing them. Look at how much red is in that tree.',
+  input:'nums = [2,3,6,7], target = 7', runName:'dfs(0, [], 0)',
+  skipLabel:'Skip to next answer', skipTypes:['found'], emptyResult:'res is still empty',
+  src:SRC, build:build,
+  complexity:{time:'O(2^(target/min(nums))) in the worst case — every node branches take/skip',
+              space:'O(target/min(nums)) recursion depth'},
+  theory:{
+    idea:'This is the <b>take / skip</b> shape of backtracking: at every index you make one binary decision — use this number, or move past it forever. The one character that makes this problem special is <code>dfs(i, …)</code> instead of <code>dfs(i+1, …)</code> on the take branch: staying on the same index is what allows a number to be reused unlimited times.',
+    recognize:[
+      '"Find all combinations that sum to X" and <b>order does not matter</b> — [2,2,3] and [3,2,2] are the same answer.',
+      'Elements may be <b>reused</b>. That is the tell for recursing on <code>i</code>; if each element were single-use you would recurse on <code>i+1</code> (that is LC 40).',
+      'Small constraints (<code>len(nums) &le; 30</code>, target &le; 40) — the interviewer is licensing exponential search.',
+      'You are asked for the <b>combinations themselves</b>. If asked only <em>how many ways</em>, this becomes unbounded-knapsack DP in O(n · target).'
+    ],
+    pitfalls:[
+      '<b>Recursing on <code>i+1</code> on the take branch.</b> Silently turns this into LC 40 and you lose every answer that reuses a value.',
+      '<b>Forgetting <code>.copy()</code>.</b> <code>res.append(curr)</code> stores a live reference; by the end every entry in res is the same empty list.',
+      '<b>Checking <code>total == target</code> after the overshoot check.</b> Order matters — if you test <code>total &gt; target</code> first and your target is hit exactly, you are fine, but flipping to <code>total &ge; target</code> loses the exact hits.',
+      '<b>Not sorting + not breaking early.</b> With <code>nums.sort()</code> you can <code>break</code> the moment <code>total + nums[i] &gt; target</code>, which prunes most of the red in that tree. Your version is correct but does strictly more work.'
+    ],
+    template: "# Backtracking skeleton. Every problem in this family is this shape.\ndef backtrack(state):\n    if is_complete(state):\n        res.append(path.copy())      # COPY - path keeps mutating\n        return\n    if is_impossible(state):         # prune BEFORE you descend\n        return\n    for choice in choices(state):\n        path.append(choice)          # 1. choose\n        backtrack(advance(state))    # 2. explore\n        path.pop()                   # 3. un-choose\n",
+    variants:[
+      ['Each number usable <b>once</b>, input has duplicates','LC 40 — recurse on <code>i+1</code> and sort so you can skip equal neighbours on the skip branch.'],
+      ['Only <b>count</b> the combinations','Unbounded knapsack DP: <code>dp[t] += dp[t - num]</code>, O(n·target). No recursion at all.'],
+      ['Order <b>does</b> matter ([2,3] ≠ [3,2])','LC 377 Combination Sum IV — the loop moves inside: <code>dp[t] = Σ dp[t-num]</code>. This is a genuinely different count.'],
+      ['Fixed length k, digits 1..9 only','LC 216 — same skeleton, extra guard <code>len(curr) == k</code>.']
+    ],
+    thinking:'Put 22 and 39 side by side. Both are the same skeleton; the only difference is <b>when you can tell a branch is doomed</b>. In 22 the counters tell you before you descend, so nothing is wasted. In 39 you only learn after the total overshoots. Whenever you write a backtracking solution, ask: <em>what is the cheapest test that proves this branch cannot possibly work?</em> Then move it as early as you can. Sorting the input is very often what makes such a test possible, because it lets you conclude "if this one is too big, all the rest are too".'
+  }
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2 - Add Two Numbers</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["# Definition for singly-linked list.", "# class ListNode(object):", "#     def __init__(self, val=0, next=None):", "#         self.val = val", "#         self.next = next", "class Solution(object):", "    def addTwoNumbers(self, l1, l2):", "        \"\"\"", "        :type l1: Optional[ListNode]", "        :type l2: Optional[ListNode]", "        :rtype: Optional[ListNode]", "        \"\"\"", "        dummy = ListNode()", "        carry = 0 ", "        cur = dummy", "", "        while l1 or l2 or carry:", "            v1 = l1.val if l1 else 0", "            v2 = l2.val if l2 else 0 ", "", "            val = v1 + v2 + carry", "", "            carry = val // 10", "            val = val % 10 ", "            cur.next = ListNode(val)", "", "            cur = cur.next ", "            l1 = l1.next if l1 else None", "            l2 = l2.next if l2 else None", "", "        return dummy.next"];
+function build(){
+  var T=LV.trace();
+  var A=[2,4,3], B=[5,6,4], out=[], carry=0, i=0;
+  function N(a,hot){ return a.map(function(v,k){ return {v:v,id:'x'+k,cls:(k===0&&hot)?'hot':''}; }); }
+  function V(note){ return [
+    LV.ll('l1  (342 stored least-significant-digit first)', N(A,true), {}, {}),
+    LV.ll('l2  (465)', N(B,true), {}, {}),
+    LV.ll('result', [{v:'dummy',id:'d',dummy:true}].concat(N(out,false)), {}, {note:note||''}) ]; }
+  function VA(){ return ['carry = <b>'+carry+'</b>','l1 = <i>'+(A.length?A[0]:'None')+'</i>','l2 = <i>'+(B.length?B[0]:'None')+'</i>']; }
+
+  T.step(13,'info','Digits are stored LEAST significant first, which is the gift of this problem: you add left to right, exactly the way you do long addition on paper, with no reversing at all.',VA(),V());
+  while(A.length||B.length||carry){
+    T.step(17,'call','Loop condition `l1 or l2 or carry` — three ways to still have work. The `carry` term is the one people forget, and it is what makes 5+5 = [0,1] instead of [0].',VA(),V());
+    var v1=A.length?A[0]:0, v2=B.length?B[0]:0;
+    T.step(18,'info','v1 = '+(A.length?A[0]+' (from l1)':'0 (l1 is exhausted — treat a missing digit as 0)')+'.',VA(),V());
+    T.step(19,'info','v2 = '+(B.length?B[0]+' (from l2)':'0 (l2 is exhausted)')+'.',VA(),V());
+    var s=v1+v2+carry;
+    T.step(21,'info','val = '+v1+' + '+v2+' + '+carry+' = <b>'+s+'</b>.',VA(),V());
+    carry=Math.floor(s/10);
+    T.step(23,'info','carry = '+s+' // 10 = <b>'+carry+'</b>.',VA(),V());
+    var d=s%10;
+    T.step(24,'info','digit = '+s+' % 10 = <b>'+d+'</b>.',VA(),V());
+    out.push(d);
+    T.step(25,'push','Append node '+d+' to the result.',VA(),V());
+    T.save('digit '+(i++)+': '+d);
+    if(A.length) A.shift(); if(B.length) B.shift();
+    T.step(29,'ok','Advance both inputs (staying at None if already exhausted).',VA(),V());
+  }
+  T.step(31,'done','Loop ends when both lists AND the carry are done. Return dummy.next: <b>'+out.join(' → ')+'</b>, which reads as '+out.slice().reverse().join('')+' — and 342 + 465 = 807. ✓',VA(),V('807, stored backwards'));
+  return T;
+}
+LV.render({
+  num:'2', name:'Add Two Numbers', slug:'0002-add-two-numbers',
+  difficulty:'Medium', pattern:'Linked list · digit-by-digit carry',
+  url:'https://leetcode.com/problems/add-two-numbers',
+  blurb:'Long addition on a list. The whole problem is the loop condition: <code>while l1 or l2 or carry</code> — three reasons to keep going, and forgetting the third is the classic failure.',
+  input:'l1 = [2,4,3], l2 = [5,6,4]   (342 + 465)', runName:'addTwoNumbers',
+  skipLabel:null, emptyResult:'no digits produced yet',
+  src:SRC, build:build,
+  complexity:{time:'O(max(m, n))', space:'O(max(m, n)) for the output'},
+  theory:{
+    idea:'Simulate the algorithm you learned at seven. Two things make it clean: <b>treat a missing digit as 0</b> so you need no separate "one list is longer" loop, and <b>include the carry in the loop condition</b> so a final overflow digit gets emitted without a special case after the loop.',
+    recognize:[
+      'Digits in a list or array, arithmetic that carries — addition, multiplication, incrementing.',
+      'Least-significant-first storage means no reversing. Most-significant-first (LC 445) means you must reverse or use a stack — check which you have been given, first thing.',
+      'Big-integer arithmetic in general: the carry loop is the same whether the base is 10, 2, or 2³².'
+    ],
+    pitfalls:[
+      '<b>Dropping <code>carry</code> from the loop condition.</b> 5 + 5 returns [0] instead of [0,1]. This is the bug the problem is built to catch.',
+      '<b>Writing separate loops for "both lists", "l1 only", "l2 only".</b> Correct but three times the code and three times the chance of a bug. The <code>if l1 else 0</code> collapses them.',
+      '<b>Converting to int, adding, converting back.</b> Works in Python, fails in every other language, and dodges the exercise. Say why you are not doing it.',
+      '<b>Advancing the input pointers before reading them.</b> Read, compute, then advance.'
+    ],
+    template: "# Digit-by-digit with carry - the loop condition does the work\ndummy = ListNode(); cur = dummy; carry = 0\nwhile l1 or l2 or carry:                  # THREE reasons to continue\n    v1 = l1.val if l1 else 0              # missing digit = 0\n    v2 = l2.val if l2 else 0\n    carry, digit = divmod(v1 + v2 + carry, 10)\n    cur.next = ListNode(digit); cur = cur.next\n    l1 = l1.next if l1 else None\n    l2 = l2.next if l2 else None\nreturn dummy.next\n",
+    variants:[
+      ['Most-significant digit first','LC 445 — reverse both lists, or push onto two stacks and pop.'],
+      ['<b>Plus One</b> (LC 66)','An array, and only a +1 carry. Same loop, walked backwards.'],
+      ['<b>Multiply Strings</b> (LC 43)','Grade-school multiplication into an m+n buffer, then one carry pass.'],
+      ['Add binary strings','LC 67 — identical, with base 2 instead of 10.']
+    ],
+    thinking:'Notice how much complexity the loop condition absorbed. When you write a simulation, <b>spend your effort on the loop condition and the "missing value" defaults</b>, not on adding branches after the loop. A good test: if your code has a chunk of clean-up logic after the main loop, ask whether the loop condition could have covered it. Usually it can, and the result is shorter and easier to argue is correct.'
+  }
+});
+
+</script>
+</body>
+</html>

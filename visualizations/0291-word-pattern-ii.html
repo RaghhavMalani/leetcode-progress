@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>291 - Word Pattern II</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def wordPatternMatch(self, pattern: str, s: str) -> bool:", "        mapping = {}", "        used = set()", "", "        def dfs(i, j):", "            if i == len(pattern) and j == len(s):", "                return True", "", "            if i == len(pattern) or j == len(s):", "                return False", "", "            ch = pattern[i]", "", "            if ch in mapping:", "                word = mapping[ch]", "", "                if not s.startswith(word, j):", "                    return False", "", "                return dfs(i + 1, j + len(word))", "", "            for end in range(j + 1, len(s) + 1):", "                candidate = s[j:end]", "", "                if candidate in used:", "                    continue", "", "                mapping[ch] = candidate", "                used.add(candidate)", "", "                if dfs(i + 1, end):", "                    return True", "", "                del mapping[ch]", "                used.remove(candidate)", "", "            return False", "", "        return dfs(0, 0)"];
+function build(){
+  var T=LV.trace();
+  var P='aba', S='aabba', mapping={}, used={};
+  var tb=LV.treeBuilder(72,26,84,52);
+  function mp(){ return Object.keys(mapping).map(function(k){ return [k, '"'+mapping[k]+'"']; }); }
+  function us(){ return Object.keys(used).map(function(k){ return '"'+k+'"'; }); }
+  function smarks(j,end){ var m={};
+    for(var x=0;x<S.length;x++){ if(x<j) m[x]='good'; else if(end!=null&&x>=j&&x<end) m[x]='hot'; else m[x]='dim'; }
+    return m; }
+  function pmarks(i){ var m={}; for(var x=0;x<P.length;x++) m[x]= x<i?'good':(x===i?'hot':'dim'); return m; }
+  function V(id,i,j,end){ return [
+    LV.arr('pattern', P.split(''), pmarks(i), {idx:false}),
+    LV.arr('s — green consumed, blue = candidate word', S.split(''), smarks(j,end), {}),
+    LV.kv('mapping  (char → word)', mp(), {}, {emptyText:'empty'}),
+    LV.kv('used  (words already claimed)', us(), {}, {emptyText:'empty'}),
+    LV.frames('call stack', tb.chain(id).reverse().map(function(x){return tb.nodes[x].frame;})),
+    LV.tree(tb,id) ]; }
+  function VA(i,j){ return ['i = <b>'+i+'</b> / '+P.length,'j = <em>'+j+'</em> / '+S.length]; }
+
+  var root=tb.add(null,'0,0',null,'dfs(0, 0)');
+  T.step(40,'info','`dfs(0, 0)` — no pattern characters consumed, no string consumed. mapping and used both start empty.',VA(0,0),V(root,0,0,null));
+
+  function dfs(i,j,id){
+    T.step(6,'call','Enter dfs(i='+i+', j='+j+').',VA(i,j),V(id,i,j,null));
+    if(i===P.length && j===S.length){
+      tb.win(id,T.events.length);
+      T.step(8,'found','Both cursors hit the end at the same time — the pattern consumed the whole string. Return True and it will ripple all the way up.',VA(i,j),V(id,i,j,null));
+      return true;
+    }
+    if(i===P.length || j===S.length){
+      tb.kill(id,T.events.length);
+      T.step(11,'prune','One cursor finished and the other did not: '+(i===P.length?'pattern exhausted but string left over':'string exhausted but pattern left over')+'. Return False.',VA(i,j),V(id,i,j,null));
+      return false;
+    }
+    var ch=P[i];
+    T.step(13,'info','The pattern character to satisfy is "'+ch+'".',VA(i,j),V(id,i,j,null));
+    if(mapping[ch]!==undefined){
+      var w=mapping[ch];
+      T.step(16,'info','"'+ch+'" is ALREADY bound to "'+w+'". No choice to make — the binding must hold everywhere.',VA(i,j),V(id,i,j,j+w.length));
+      if(S.substr(j,w.length)!==w){
+        tb.kill(id,T.events.length);
+        T.step(19,'prune','s does not start with "'+w+'" at position '+j+' (it has "'+S.substr(j,w.length)+'"). This branch is dead — return False.',VA(i,j),V(id,i,j,j+w.length));
+        return false;
+      }
+      var c2=tb.add(id,(i+1)+','+(j+w.length),null,'dfs('+(i+1)+', '+(j+w.length)+')');
+      T.step(21,'push','It matches. Consume "'+w+'" and recurse with i+1 = '+(i+1)+', j+'+w.length+' = '+(j+w.length)+'.',VA(i+1,j+w.length),V(c2,i+1,j+w.length,null));
+      return dfs(i+1,j+w.length,c2);
+    }
+    for(var end=j+1; end<=S.length; end++){
+      var cand=S.slice(j,end);
+      T.step(24,'info','"'+ch+'" is unbound, so we try every possible word it could mean. Candidate: s['+j+':'+end+'] = "'+cand+'".',VA(i,j),V(id,i,j,end));
+      if(used[cand]){
+        T.step(27,'dup','"'+cand+'" is already claimed by another pattern character. The mapping must be a BIJECTION — two letters cannot mean the same word — so skip this candidate.',VA(i,j),V(id,i,j,end));
+        continue;
+      }
+      mapping[ch]=cand; used[cand]=1;
+      var c3=tb.add(id,'"'+cand+'"',(i+1)+','+end,'dfs('+(i+1)+', '+end+')');
+      T.step(30,'push','Provisionally bind "'+ch+'" → "'+cand+'" and claim the word. This is the CHOOSE step. Recurse.',VA(i+1,end),V(c3,i+1,end,null));
+      if(dfs(i+1,end,c3)){
+        T.step(33,'ok','The recursive call said True, so this binding works. Return True immediately — no need to try longer candidates, and crucially we do NOT undo the mapping on the way out.',VA(i,j),V(id,i,j,end));
+        return true;
+      }
+      delete mapping[ch]; delete used[cand];
+      T.step(35,'pop','That subtree failed. UN-CHOOSE: delete the binding for "'+ch+'" and release "'+cand+'" from used, so the next candidate starts from a clean slate. Forget these two lines and every later attempt inherits a stale binding.',VA(i,j),V(id,i,j,null));
+    }
+    tb.kill(id,T.events.length);
+    T.step(38,'prune','Every candidate word for "'+ch+'" failed. Return False.',VA(i,j),V(id,i,j,null));
+    return false;
+  }
+  var ans=dfs(0,0,root);
+  T.save(ans?'True — mapping a→"a", b→"abb"':'False');
+  T.step(40,'done','Answer: <b>'+ans+'</b>. The winning assignment is a → "a", b → "abb", giving "a"+"abb"+"a" = "aabba".',['result = <u>'+ans+'</u>'],V(root,0,0,null));
+  return T;
+}
+LV.render({
+  num:'291', name:'Word Pattern II', slug:'0291-word-pattern-ii',
+  difficulty:'Medium', pattern:'Backtracking · bijection search',
+  url:'https://leetcode.com/problems/word-pattern-ii',
+  blurb:'Backtracking where the mutable state is a <em>dictionary</em>, not a list. Same three beats — bind, explore, unbind — but there are two structures to undo and both matter.',
+  input:'pattern = "aba", s = "aabba"', runName:'dfs(0, 0)',
+  skipLabel:null, emptyResult:'no verdict yet',
+  src:SRC, build:build,
+  complexity:{time:'O(C(n-1, m-1) · n) — the ways to cut s into m pieces, times the cost of comparisons',
+              space:'O(m + n) for mapping, used, and the recursion depth'},
+  theory:{
+    idea:'The state being mutated does not have to be a list. Here it is a <code>dict</code> plus a <code>set</code>, and the undo is <code>del mapping[ch]</code> plus <code>used.remove(candidate)</code>. Keeping <b>both</b> structures in sync is the whole difficulty: <code>mapping</code> enforces "one letter means one word", <code>used</code> enforces the other direction, "one word is meant by one letter".',
+    recognize:[
+      'You must find a <b>consistent assignment</b> and the assignment is not forced — you have to guess and revise.',
+      'The word "bijection" or a rule like "no two characters map to the same string".',
+      'A string that must be <b>cut into pieces</b> at unknown positions. The <code>for end in range(j+1, len(s)+1)</code> loop is the canonical "try every cut point" idiom.'
+    ],
+    pitfalls:[
+      '<b>Only tracking <code>mapping</code>.</b> Then "a"→"x" and "b"→"x" both pass and you accept patterns you should reject. The <code>used</code> set is not optional.',
+      '<b>Undoing only one of the two.</b> Delete from <code>mapping</code> but leave the word in <code>used</code> and it stays permanently claimed — later branches mysteriously fail.',
+      '<b>Undoing after a success.</b> Notice line 33 returns <em>before</em> the deletes. That is deliberate: on success you keep the binding, on failure you roll it back.',
+      '<b>Empty-word candidates.</b> The range starts at <code>j+1</code>, not <code>j</code>, so every candidate is at least one character. Allow the empty string and you get infinite recursion.'
+    ],
+    template: "# \"Try every cut point\" - the loop behind Word Break, Palindrome\n# Partitioning, Restore IP Addresses, and this problem.\n\ndef dfs(j):                       # j = how much of s is consumed\n    if j == len(s):\n        return True               # or: res.append(path.copy())\n    for end in range(j + 1, len(s) + 1):\n        piece = s[j:end]\n        if not ok(piece):         # the ONLY problem-specific line\n            continue\n        path.append(piece)        # choose\n        if dfs(end):              # explore\n            return True\n        path.pop()                # un-choose\n    return False\n",
+    variants:[
+      ['Words are pre-split by spaces','LC 290 Word Pattern — no search at all, one linear pass with two dicts. The cut points being unknown is the entire difficulty here.'],
+      ['<b>Word Break</b> (LC 139)','Same "try every cut point" loop, but with a fixed dictionary and memoisation instead of a bijection.'],
+      ['<b>Palindrome Partitioning</b> (LC 131)','Identical cut-point loop, guard is <code>is_palindrome(s[j:end])</code>.'],
+      ['<b>Restore IP Addresses</b> (LC 93)','The same loop, capped at 3 characters and 4 pieces.']
+    ],
+    thinking:'Two transferable ideas live in this problem. First: <b>"try every cut point" is a loop, not a mystery</b> — <code>for end in range(j+1, len(s)+1)</code>, recurse on <code>end</code>. Once you see it, Word Break, Palindrome Partitioning and Restore IP Addresses are the same code with a different guard. Second: <b>the undo must exactly mirror the choose, line for line</b>. Write the choose lines and the undo lines as a visual block, and count them — if you added two things and removed one, you have a bug you will spend an hour finding.'
+  }
+});
+
+</script>
+</body>
+</html>

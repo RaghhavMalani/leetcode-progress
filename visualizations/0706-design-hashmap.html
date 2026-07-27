@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>706 - Design HashMap</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class MyHashMap:", "", "    def __init__(self):", "        self.hashmap = {}", "", "    def put(self, key: int, value: int) -> None:", "        self.hashmap[key] = value", "", "    def get(self, key: int) -> int:", "        if key in self.hashmap:", "            return self.hashmap[key]", "        return -1", "", "    def remove(self, key: int) -> None:", "        if key in self.hashmap:", "            del self.hashmap[key]", "", "", "# Your MyHashMap object will be instantiated and called as such:", "# obj = MyHashMap()", "# obj.put(key,value)", "# param_2 = obj.get(key)", "# obj.remove(key)"];
+function build(){
+  var T=LV.trace(), H={}, ord=[];
+  function P(){ return ord.filter(function(k){ return H[k]!==undefined; }).map(function(k){ return [k,H[k]]; }); }
+  function V(hot,cls){ var m={}; if(hot!=null) m[hot]=cls||'hot'; return [ LV.kv('self.hashmap', P(), m, {emptyText:'empty'}) ]; }
+  var ops=[['put',1,1],['put',2,2],['get',1],['get',3],['put',2,1],['get',2],['remove',2],['get',2]];
+  T.step(4,'info','Same shape as LC 705, but each key now carries a value. The one design decision this solution makes is what an absent key returns.',['hashmap = <b>{}</b>'],V(null));
+  ops.forEach(function(o){
+    if(o[0]==='put'){
+      if(H[o[1]]===undefined) ord.push(o[1]);
+      var over = H[o[1]]!==undefined;
+      H[o[1]]=o[2];
+      T.step(7,'push','<b>put('+o[1]+', '+o[2]+')</b> — '+(over?'the key existed, so this OVERWRITES the old value. A map holds one value per key.':'a new key.'),['op = <b>put('+o[1]+', '+o[2]+')</b>'],V(o[1],'good'));
+      T.save('put('+o[1]+', '+o[2]+')');
+    } else if(o[0]==='remove'){
+      var had=H[o[1]]!==undefined;
+      delete H[o[1]];
+      T.step(16,'pop','<b>remove('+o[1]+')</b> — `del` genuinely removes the key'+(had?'':' (it was not there, and the `if` guard stops a KeyError)')+'. Note this is better than LC 705’s tombstone: the map actually shrinks.',['op = <b>remove('+o[1]+')</b>'],V(o[1],'bad'));
+      T.save('remove('+o[1]+')');
+    } else {
+      var v = H[o[1]]===undefined ? -1 : H[o[1]];
+      T.step(v===-1?12:11, v===-1?'bad':'found','<b>get('+o[1]+')</b> → '+(v===-1?'the key is absent, so return the sentinel <b>−1</b>':'returns <b>'+v+'</b>')+'.',['op = <b>get('+o[1]+')</b>','returns <u>'+v+'</u>'],V(o[1], v===-1?'bad':'good'));
+      T.save('get('+o[1]+') = '+v);
+    }
+  });
+  T.step(16,'done','Every operation is O(1) average. The design question hiding here is the −1 sentinel — see the notes below.',[],V(null));
+  return T;
+}
+LV.render({
+  num:'706', name:'Design HashMap', slug:'0706-design-hashmap',
+  difficulty:'Easy', pattern:'Design · hash table internals',
+  url:'https://leetcode.com/problems/design-hashmap',
+  blurb:'LC 705 with values attached. The detail worth arguing about is the <code>-1</code> sentinel for a missing key — a design smell that a real API would handle differently.',
+  input:'put(1,1), put(2,2), get(1), get(3), put(2,1), get(2), remove(2), get(2)', runName:'MyHashMap',
+  skipLabel:null, emptyResult:'no operations yet',
+  src:SRC, build:build,
+  complexity:{time:'O(1) average, O(n) worst case if every key collides', space:'O(n)'},
+  theory:{
+    idea:'Same buckets as a hash set, but each bucket stores <code>(key, value)</code> pairs. On <code>put</code> you scan the chain: found → overwrite, not found → append. That "overwrite or append" is the only structural difference from a set.',
+    recognize:[
+      'Any "implement a dictionary/cache/index without the built-in".',
+      'It is also the base layer of almost every design question — LRU, LFU, insert-delete-getRandom, time-based key-value store all begin "a hash map, plus…".'
+    ],
+    pitfalls:[
+      '<b>The <code>-1</code> sentinel.</b> Fine because the problem promises values are non-negative — but say that out loud. A real API returns <code>None</code>, raises, or takes a default, because otherwise you cannot store −1.',
+      '<b>Appending on <code>put</code> without checking for the key.</b> Duplicate entries in the chain, and <code>get</code> may return a stale value.',
+      '<b>Forgetting the <code>if key in</code> guard on remove.</b> <code>del</code> on a missing key raises KeyError.',
+      '<b>Never resizing.</b> Fixed bucket counts degrade to linear scans at scale.'
+    ],
+    template: "# Buckets of (key, value) pairs\nclass MyHashMap:\n    def __init__(self):\n        self.n = 1000\n        self.buckets = [[] for _ in range(self.n)]\n\n    def put(self, key, value):\n        b = self.buckets[hash(key) % self.n]\n        for i, (k, _) in enumerate(b):\n            if k == key:\n                b[i] = (key, value)       # OVERWRITE, do not append\n                return\n        b.append((key, value))\n\n    def get(self, key):\n        for k, v in self.buckets[hash(key) % self.n]:\n            if k == key:\n                return v\n        return -1                          # sentinel - a real API returns None\n",
+    variants:[
+      ['<b>LRU Cache</b> (LC 146)','Hash map + doubly linked list for O(1) eviction. In your repo.'],
+      ['<b>LFU Cache</b> (LC 460)','Hash map + a map from frequency to a list. Also in your repo, and considerably harder.'],
+      ['<b>Insert Delete GetRandom O(1)</b> (LC 380)','Hash map of value→index, plus an array. Delete by swapping with the last element.'],
+      ['<b>Time-Based Key-Value Store</b> (LC 981)','Map of key → sorted list of (timestamp, value), then binary search.']
+    ],
+    thinking:'Notice how many "hard" design problems are <b>a hash map composed with one other structure</b>. Map + doubly linked list = LRU. Map + array = O(1) random removal. Map + heap = a priority index. Map + sorted list = time queries. When a design question lands, start by writing "hash map for O(1) lookup by key" and then ask what the <em>other</em> required operation needs — that second structure is the actual answer.'
+  }
+});
+
+</script>
+</body>
+</html>

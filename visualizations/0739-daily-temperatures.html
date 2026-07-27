@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>739 - Daily Temperatures</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:", "        n = len(temperatures)", "        answer = [0] * n", "        stack = []", "", "        for current_day in range(n):", "            current_temp = temperatures[current_day]", "", "            while stack and current_temp > temperatures[stack[-1]]:", "                previous_day = stack.pop()", "                answer[previous_day] = current_day - previous_day", "", "            stack.append(current_day)", "", "        return answer"];
+function build(){
+  var T=LV.trace(), t=[73,74,75,71,69,72,76,73];
+  var ans=new Array(t.length).fill(0), st=[];
+  function marks(d){ var m={};
+    for(var x=0;x<t.length;x++){ if(st.indexOf(x)>=0) m[x]='warn'; else if(x<d) m[x]='good'; else if(x>d) m[x]='dim'; }
+    if(d!=null&&d<t.length) m[d]='hot';
+    return m; }
+  function V(d,n){ return [
+    LV.arr('temperatures — amber = waiting on the stack', t, marks(d), {note:n||''}),
+    LV.seq('stack (indices, temps below)', st.map(function(i){ return i+' → '+t[i]; }), {}, {top:true, emptyText:'empty', vert:false}),
+    LV.arr('answer', ans, (function(){ var m={}; ans.forEach(function(v,i){ if(v>0) m[i]='good'; }); return m; })(), {}) ]; }
+  function VA(d){ return ['current_day = <b>'+d+'</b>','current_temp = <em>'+t[d]+'</em>','stack depth = <u>'+st.length+'</u>']; }
+
+  T.step(5,'info','A <b>monotonic decreasing stack</b> of INDICES. Anything on the stack is a day still waiting for a warmer day. Because it is decreasing, the moment a warm day arrives it resolves everything below it in one sweep.',['stack = <b>[]</b>'],V(0,''));
+  for(var d=0;d<t.length;d++){
+    T.step(7,'call','Day '+d+', temperature '+t[d]+'.',VA(d),V(d));
+    while(st.length && t[d]>t[st[st.length-1]]){
+      var p=st.pop();
+      ans[p]=d-p;
+      T.save('day '+p+' waits '+(d-p)+' day'+((d-p)===1?'':'s'));
+      T.step(12,'found','Day '+d+' ('+t[d]+'°) is warmer than day '+p+' ('+t[p]+'°) on top of the stack. Pop it and record answer['+p+'] = '+d+' − '+p+' = <b>'+(d-p)+'</b>. Notice we only learn day '+p+'’s answer now, at the moment its warmer day appears.',VA(d),V(d));
+    }
+    if(st.length) T.step(10,'info','Day '+d+' ('+t[d]+'°) is NOT warmer than the top of the stack (day '+st[st.length-1]+', '+t[st[st.length-1]]+'°), so nothing more to resolve.',VA(d),V(d));
+    st.push(d);
+    T.step(14,'push','Push day '+d+' — it is now waiting for its own warmer day. The stack stays decreasing by construction: '+st.map(function(i){return t[i];}).join(' > ')+'.',VA(d),V(d));
+  }
+  T.step(16,'done','Anything still on the stack ('+st.map(function(i){return 'day '+i;}).join(', ')+') never got a warmer day, and those slots keep their initial 0. Answer: <b>['+ans.join(', ')+']</b>. Each index is pushed once and popped once, so O(n) despite the inner while.',['stack left = <b>'+st.length+'</b>'],V(t.length-1,'finished'));
+  return T;
+}
+LV.render({
+  num:'739', name:'Daily Temperatures', slug:'0739-daily-temperatures',
+  difficulty:'Medium', pattern:'Monotonic stack · next greater element',
+  url:'https://leetcode.com/problems/daily-temperatures',
+  blurb:'The canonical monotonic stack. Every index is pushed once and popped once, so the nested while loop is still O(n) — the same amortised argument as LC 128.',
+  input:'temperatures = [73,74,75,71,69,72,76,73]', runName:'dailyTemperatures',
+  skipLabel:'Skip to next resolution', skipTypes:['found'], emptyResult:'nothing resolved yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n) amortised — n pushes, at most n pops', space:'O(n)'},
+  theory:{
+    idea:'A <b>monotonic stack</b> holds items still waiting for an answer, kept in sorted order. When a new item arrives it resolves — and pops — everything it dominates. The stack is decreasing here because we are looking for the <em>next greater</em> element; flip the comparison for next-smaller.',
+    recognize:[
+      '"<b>Next greater / next smaller / previous greater / previous smaller</b>" element, or "how long until…". This exact phrasing is the pattern’s signature.',
+      'The brute force is an O(n²) double loop and the constraints forbid it.',
+      'Also: largest rectangle in a histogram, stock spans, trapping rain water, and remove-k-digits — all the same stack with different bookkeeping.'
+    ],
+    pitfalls:[
+      '<b>Storing values instead of indices.</b> You need the index to compute the distance. Store indices, look up values.',
+      '<b><code>&gt;=</code> instead of <code>&gt;</code>.</b> Decides how equal temperatures behave. Here the question says strictly warmer, so <code>&gt;</code>. Get this wrong and duplicates break silently.',
+      '<b>Believing the while loop makes it O(n²).</b> It does not — each index enters and leaves the stack exactly once. Be ready to say that; it is the question that follows.',
+      '<b>Forgetting the leftovers.</b> Indices still on the stack at the end have no answer; pre-filling with 0 handles it, but say so rather than leaving it to luck.'
+    ],
+    template: "# Monotonic stack - \"next greater element\", O(n) amortised\nstack = []                      # holds INDICES, kept decreasing by value\nans = [0] * n\nfor i, x in enumerate(a):\n    while stack and x > a[stack[-1]]:      # x resolves everything it dominates\n        j = stack.pop()\n        ans[j] = i - j                     # or a[i], or an area, ...\n    stack.append(i)\n# leftovers on the stack have no answer -> keep the default\n\n# next SMALLER element: flip to  while stack and x < a[stack[-1]]\n# previous greater:     read stack[-1] BEFORE you push\n",
+    variants:[
+      ['<b>Next Greater Element I / II</b> (LC 496 / 503)','Same stack; for the circular version, loop over the array twice.'],
+      ['<b>Largest Rectangle in Histogram</b> (LC 84)','Increasing stack; on pop you compute an area. The hardest member of the family.'],
+      ['<b>Trapping Rain Water</b> (LC 42)','Solvable with this stack layer by layer — your repo uses the two-pointer version, which is better.'],
+      ['<b>Remove K Digits</b> / smallest subsequence (LC 402 / 1081)','Increasing stack with a pop budget. Your repo has LC 1081.'],
+      ['Previous smaller element','Same loop, comparison flipped, and you read the stack top before pushing.']
+    ],
+    thinking:'The mental model that makes monotonic stacks click: <b>the stack is a queue of unanswered questions, kept sorted so that one new fact answers a whole prefix of them at once.</b> When you meet a problem where each element needs to look forward for "the first thing bigger/smaller than me", do not write the double loop — ask what order the pending elements would naturally be in, and you will find the stack is already monotone.'
+  }
+});
+
+</script>
+</body>
+</html>

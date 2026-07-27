@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>628 - Maximum Product of Three Numbers</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def maximumProduct(self, nums: List[int]) -> int:", "        nums.sort()", "", "        product1 = nums[-1] * nums[-2] * nums[-3]", "        product2 = nums[0] * nums[1] * nums[-1]", "", "        return max(product1, product2)"];
+function build(){
+  var T=LV.trace(), raw=[-100,-98,-1,2,3,4];
+  var a=raw.slice().sort(function(x,y){ return x-y; });
+  function V(hi,lo,note){ var m={};
+    (hi||[]).forEach(function(i){ m[i]='good'; });
+    (lo||[]).forEach(function(i){ m[i]='warn'; });
+    return [ LV.arr('nums (sorted)', a, m, {note:note||''}) ]; }
+
+  T.step(3,'info','Sort first. After sorting there are only <b>two</b> candidate triples, and everything else is provably worse.',['sorted'],V(null,null,'original: ['+raw.join(', ')+']'));
+  var p1=a[a.length-1]*a[a.length-2]*a[a.length-3];
+  T.step(5,'info','<b>Candidate 1</b> — the three largest: '+a[a.length-3]+' × '+a[a.length-2]+' × '+a[a.length-1]+' = <b>'+p1+'</b>. This is the answer whenever the array is all positive.',['product1 = <u>'+p1+'</u>'],V([a.length-3,a.length-2,a.length-1],null,'the three largest'));
+  T.save('three largest → '+p1);
+  var p2=a[0]*a[1]*a[a.length-1];
+  T.step(6,'info','<b>Candidate 2</b> — the two most negative times the largest: '+a[0]+' × '+a[1]+' × '+a[a.length-1]+' = <b>'+p2+'</b>. Two negatives multiply to a large positive, so a pair of big-magnitude negatives can beat two mid-sized positives.',['product2 = <u>'+p2+'</u>'],V([a.length-1],[0,1],'two most negative + the largest'));
+  T.save('two negatives + largest → '+p2);
+  var ans=Math.max(p1,p2);
+  T.step(8,'done','Answer: max('+p1+', '+p2+') = <b>'+ans+'</b>. Why only two candidates? The product of three numbers is maximised by maximising |product| with a positive sign, and after sorting the only ways to get three large-magnitude values are "the top three" or "the bottom two plus the top one".',['answer = <u>'+ans+'</u>'],V(p1>p2?[a.length-3,a.length-2,a.length-1]:[a.length-1], p1>p2?null:[0,1]));
+  return T;
+}
+LV.render({
+  num:'628', name:'Maximum Product of Three Numbers', slug:'0628-maximum-product-of-three-numbers',
+  difficulty:'Easy', pattern:'Sorting · exhaustive case analysis',
+  url:'https://leetcode.com/problems/maximum-product-of-three-numbers',
+  blurb:'Easy to code, easy to get wrong. The trap is forgetting that two large negatives multiply to a large positive — so the answer is not always "the three biggest".',
+  input:'nums = [-100,-98,-1,2,3,4]', runName:'maximumProduct',
+  skipLabel:null, emptyResult:'no candidates yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n log n) from the sort; O(n) is achievable — see below', space:'O(1)'},
+  theory:{
+    idea:'When the search space collapses to a <b>tiny number of candidates</b>, enumerate them and take the best. The skill is proving the list is exhaustive. Here: signs must multiply to positive, so the triple is either three positives (take the largest three) or one positive and two negatives (take the largest positive and the two most negative).',
+    recognize:[
+      '"Maximum/minimum product/sum of exactly k elements" with small k.',
+      'The presence of <b>negative numbers</b> in the constraints. If the problem says all values are positive, the case analysis vanishes and it is trivial.',
+      'Any time sorting reduces a search to checking a couple of positions, that is the pattern.'
+    ],
+    pitfalls:[
+      '<b>Only checking the three largest.</b> Fails on [-100,-98,-1,2,3,4]: the right answer is (−100)(−98)(4) = 39200, not 2·3·4 = 24.',
+      '<b>Checking <code>nums[0]*nums[1]*nums[2]</code>.</b> The three most negative multiply to a negative — never optimal for a maximum.',
+      '<b>Sorting when you do not need to.</b> A single pass tracking the three largest and two smallest is O(n). Worth offering as the improvement.',
+      '<b>Overflow.</b> Irrelevant in Python; in Java/C++ three values near 10³ are fine but say you checked.'
+    ],
+    template: "# Small candidate set + a proof that it is exhaustive\nnums.sort()\nreturn max(nums[-1] * nums[-2] * nums[-3],    # three largest\n           nums[0]  * nums[1]  * nums[-1])    # two most negative + largest\n\n# O(n) version: one pass tracking max1 >= max2 >= max3 and min1 <= min2\n# WHY only two cases: the product must be positive, so the sign pattern is\n# (+,+,+) or (+,-,-). Within each, take the largest magnitudes available.\n",
+    variants:[
+      ['Maximum product of <b>two</b> numbers','max(largest × second-largest, smallest × second-smallest).'],
+      ['Maximum product of k numbers','Sort, then compare taking pairs from the negative end against singles from the positive end. The case analysis grows.'],
+      ['<b>Maximum Product Subarray</b> (LC 152)','Contiguous — completely different. DP tracking both the running max AND min, because a negative flips them.'],
+      ['<b>Maximum Product of Two Elements</b> (LC 1464)','All values positive, so no case analysis. Also in your repo.']
+    ],
+    thinking:'Two habits. First: <b>when negatives are allowed, always ask what a negative does to your comparison.</b> Multiplication flips ordering; that single fact generates the second candidate here and the min-tracking in LC 152. Second: when the candidate set is small, say out loud <em>why</em> it is exhaustive. "The three biggest, or the two smallest and the biggest" is a claim, and an interviewer will ask you to justify it.'
+  }
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>22 - Generate Parentheses</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def generateParenthesis(self, n: int) -> List[str]:", "        stack = []", "        res = []", "", "        def backtrack(openN, closeN):", "            if openN == closeN == n:", "                res.append(\"\".join(stack))", "                return", "            ", "            if openN < n:", "                stack.append(\"(\")", "                backtrack(openN + 1, closeN)", "                stack.pop()", "", "            if closeN < openN:", "                stack.append(\")\")", "                backtrack(openN, closeN + 1)", "                stack.pop()", "", "        backtrack(0,0)", "        return res"];
+
+function build(){
+  var T = LV.trace(), N = 3, st = [];
+  var tb = LV.treeBuilder(74, 26, 88, 52);
+
+  function chars(){ return st.slice(); }
+  function marks(){ var m={}; st.forEach(function(c,i){ m[i] = (c==='(' ? 'win' : 'pink'); }); return m; }
+  function V(id){ return [ LV.arr('stack — the partial string', chars(), marks(), {idx:false}),
+                           LV.frames('call stack', tb.chain(id).reverse().map(function(x){ return tb.nodes[x].frame; })),
+                           LV.tree(tb, id) ]; }
+  function VA(o,c){ return ['openN = <b>'+o+'</b>', 'closeN = <i>'+c+'</i>', 'n = 3',
+                            'string = <u>' + (st.length? st.join('') : '""') + '</u>']; }
+  function q(){ return st.length ? '"'+st.join('')+'"' : 'the empty string'; }
+
+  var root = tb.add(null, 'ε', null, 'backtrack(0, 0)');
+  T.step(21, 'info', 'generateParenthesis kicks off with `backtrack(0, 0)`: nothing opened, nothing closed, the shared stack empty.', VA(0,0), V(root));
+
+  function bt(o, c, id){
+    T.step(6, 'call', 'Enter backtrack(openN=' + o + ', closeN=' + c + '). A new frame goes on the call stack. The string so far is ' + q() + '.', VA(o,c), V(id));
+
+    if (o === c && c === N){
+      T.save(st.join(''));
+      tb.win(id, T.events.length);
+      T.step(8, 'found', 'Base case: openN == closeN == n. "' + st.join('') + '" is complete and balanced, so res.append() stores a COPY of it — the join() makes a fresh string, which is why this one is safe.', VA(o,c), V(id));
+      T.step(9, 'ok', 'return — this frame dies and control goes back to its caller.', VA(o,c), V(id));
+      return;
+    }
+    if (o < N){
+      st.push('(');
+      var a = tb.add(id, st.join(''), null, 'backtrack(' + (o+1) + ', ' + c + ')');
+      T.step(12, 'push', 'openN(' + o + ') < n(3), so opening brackets remain. Push "(" → ' + q() + ' and recurse with openN = ' + (o+1) + '.', VA(o+1,c), V(a));
+      bt(o+1, c, a);
+      st.pop();
+      T.step(14, 'pop', 'That whole subtree is finished. We are back inside backtrack(' + o + ', ' + c + ') — but the shared stack still holds the "(" that THIS call pushed. stack.pop() rewinds it → ' + q() + '. This single line is the backtracking step.', VA(o,c), V(id));
+    }
+    if (c < o){
+      st.push(')');
+      var b = tb.add(id, st.join(''), null, 'backtrack(' + o + ', ' + (c+1) + ')');
+      T.step(17, 'push', 'closeN(' + c + ') < openN(' + o + '), so an unmatched "(" is still waiting to be closed. Push ")" → ' + q() + ' and recurse with closeN = ' + (c+1) + '.', VA(o,c+1), V(b));
+      bt(o, c+1, b);
+      st.pop();
+      T.step(19, 'pop', 'Back inside backtrack(' + o + ', ' + c + '). Rewind the ")" → ' + q() + '. Both branches are exhausted, so this frame returns too.', VA(o,c), V(id));
+    }
+  }
+  bt(0, 0, root);
+  T.step(22, 'done', 'Every branch explored, the stack is empty again, and res holds all 5 strings — the 3rd Catalan number. Notice there is not a single red node in that tree.', VA(0,0), V(root));
+  return T;
+}
+
+LV.render({
+  num:'22', name:'Generate Parentheses', slug:'0022-generate-parentheses',
+  difficulty:'Medium', pattern:'Backtracking · build-and-undo',
+  url:'https://leetcode.com/problems/generate-parentheses',
+  blurb:'The cleanest example of <em>perfect pruning</em> you will meet. The two guards make an invalid string impossible to construct, so every leaf of the recursion tree is an answer and no work is ever wasted.',
+  input:'n = 3', runName:'backtrack(0, 0)',
+  skipLabel:'Skip to next answer', skipTypes:['found'],
+  emptyResult:'res is still empty',
+  src: SRC, build: build,
+  complexity:{ time:'O(4ⁿ / √n) — the nth Catalan number, times O(n) to join each string',
+               space:'O(n) recursion depth + O(n) for the stack (output not counted)' },
+  theory:{
+    idea:'Backtracking is one mechanic wearing different costumes: <b>choose → explore → un-choose</b>. A single shared mutable list is threaded through the whole recursion. You push a choice, recurse, then pop it so the next branch starts from a clean state. Everything else — the guards, the loops, the base case — is problem-specific dressing on that skeleton.',
+    recognize:[
+      'The question asks for <b>all</b> of something (all strings, all combinations, all paths) rather than a count or a best value. If it asked only for the count, you would reach for DP instead.',
+      'The output size is exponential, and the constraints are tiny to match (<code>n &le; 8</code> here). Small constraints are the interviewer telling you exponential search is acceptable.',
+      'Each answer is built by a <b>sequence of decisions</b>, and a partial answer can be extended or abandoned.',
+      'A valid answer has a <b>local rule</b> you can check while building — here: never close more than you opened, never open more than n.'
+    ],
+    pitfalls:[
+      '<b>Appending the list itself instead of a copy.</b> <code>res.append(path)</code> stores a reference; the next <code>pop()</code> silently corrupts the answer you just saved. Here <code>"".join(stack)</code> happens to build a new string, so this bug hides — in 39, 77 and 78 you must write <code>.copy()</code> explicitly.',
+      '<b>Forgetting the pop.</b> The branch below inherits a polluted state and you get garbage that is hard to debug because the code still "looks right".',
+      '<b>Validating at the leaf instead of at the branch.</b> Generating all 2^(2n) strings and filtering the balanced ones is correct but astronomically slower. Push the check up into the guard.',
+      '<b>Writing <code>closeN &lt; n</code> instead of <code>closeN &lt; openN</code>.</b> That single change lets ")(" through. The guard is not about the budget, it is about what is currently unmatched.'
+    ],
+    template: "# The backtracking skeleton. Every problem in this family is this\n# shape with different guards.\n\ndef backtrack(state):\n    if is_complete(state):\n        res.append(path.copy())   # COPY. path keeps mutating.\n        return\n\n    if is_impossible(state):      # prune early, prune hard\n        return\n\n    for choice in choices(state):\n        path.append(choice)       # 1. choose\n        backtrack(advance(state)) # 2. explore\n        path.pop()                # 3. un-choose  <- the whole pattern\n",
+    variants:[
+      ['Return only the <b>count</b> of valid strings','Stop backtracking. This is the Catalan recurrence — do it with DP in O(n²), or the closed form C(2n,n)/(n+1).'],
+      ['Allow three bracket types <code>()[]{}</code>','The state is no longer two counters; you need an actual stack of which bracket is open, and the close guard becomes "the top of the stack matches".'],
+      ['<b>Remove Invalid Parentheses</b> (LC 301)','Same tree, but you also branch on <em>deleting</em> a character, and you BFS by deletion count so you find the minimum-removal answers first.'],
+      ['<b>Longest Valid Parentheses</b> (LC 32)','Not backtracking at all — the answer is a single number, so a stack scan or DP in O(n) wins. Recognising this switch is the real test.']
+    ],
+    thinking:'Before writing any backtracking code, answer three questions out loud: <b>(1) What is one choice?</b> Here: append "(" or append ")". <b>(2) When am I done?</b> Here: openN == closeN == n. <b>(3) What makes a choice illegal, and can I check it before I make it?</b> Here: yes, from the two counters alone. If the answer to (3) is "I can only tell at the end", your solution will still be correct but slow, and that is exactly the gap between this problem and problem 39. Fill it in by asking what invariant every prefix of a valid answer must satisfy.'
+  }
+});
+
+</script>
+</body>
+</html>

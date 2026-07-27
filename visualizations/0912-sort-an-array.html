@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>912 - Sort an Array</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def sortArray(self, nums: List[int]) -> List[int]:", "        def merge(left, right):", "            res = []", "            i = 0 ", "            j = 0 ", "", "            while i < len(left) and j < len(right):", "                if left[i] <= right[j]:", "                    res.append(left[i])", "                    i += 1", "                else:", "                    res.append(right[j])", "                    j += 1", "                ", "            while i < len(left):", "                res.append(left[i])", "                i += 1", "            ", "            while j < len(right):", "                res.append(right[j])", "                j += 1", "", "            return res", "", "        def mergesort(arr):", "            if len(arr) <= 1:", "                return arr", "", "            mid = len(arr) // 2", "", "            left_half = mergesort(arr[:mid])", "            right_half = mergesort(arr[mid:])", "", "            return merge(left_half, right_half)", "", "        return mergesort(nums)"];
+function build(){
+  var T=LV.trace();
+  var tb=LV.treeBuilder(88,26,100,52);
+  function A(x){ return '['+x.join(',')+']'; }
+  function V(id,l,r,out,note){ var vs=[];
+    if(l) vs.push(LV.arr('left', l, {}, {idx:false}));
+    if(r) vs.push(LV.arr('right', r, {}, {idx:false}));
+    if(out) vs.push(LV.arr('merged so far', out, {}, {idx:false, note:note||''}));
+    vs.push(LV.frames('call stack', tb.chain(id).reverse().map(function(x){return tb.nodes[x].frame;})));
+    vs.push(LV.tree(tb,id,{name:'the divide-and-conquer tree'}));
+    return vs; }
+
+  var root=tb.add(null,'[5,2,3,1]',null,'mergesort([5,2,3,1])');
+  T.step(37,'info','Merge sort: split in half, sort each half recursively, then merge two sorted lists. The recursion tree below has depth log₂ n and each level does O(n) merging work — that product is where O(n log n) comes from.',['n = <b>4</b>'],V(root,null,null,null));
+
+  function ms(arr,id){
+    T.step(27,'call','mergesort('+A(arr)+') — length '+arr.length+'.',['len = <b>'+arr.length+'</b>'],V(id,null,null,null));
+    if(arr.length<=1){
+      tb.win(id,T.events.length);
+      T.step(28,'found','Base case: a list of '+arr.length+' is already sorted. Return it.',[],V(id,null,null,null));
+      return arr.slice();
+    }
+    var mid=Math.floor(arr.length/2);
+    T.step(30,'info','mid = '+arr.length+' // 2 = '+mid+'. Split into '+A(arr.slice(0,mid))+' and '+A(arr.slice(mid))+'.',['mid = <b>'+mid+'</b>'],V(id,null,null,null));
+    var lid=tb.add(id,A(arr.slice(0,mid)),null,'mergesort('+A(arr.slice(0,mid))+')');
+    T.step(32,'push','Recurse on the LEFT half.',[],V(lid,null,null,null));
+    var L=ms(arr.slice(0,mid),lid);
+    var rid=tb.add(id,A(arr.slice(mid)),null,'mergesort('+A(arr.slice(mid))+')');
+    T.step(33,'push','Recurse on the RIGHT half.',[],V(rid,null,null,null));
+    var R=ms(arr.slice(mid),rid);
+    // merge
+    var res=[], i=0, j=0;
+    T.step(4,'info','Both halves are sorted: '+A(L)+' and '+A(R)+'. Merge them with two pointers.',[],V(id,L,R,res));
+    while(i<L.length && j<R.length){
+      if(L[i]<=R[j]){ res.push(L[i]); i++;
+        T.step(10,'push','left['+(i-1)+'] = '+L[i-1]+' ≤ right['+j+'] = '+R[j]+' → take from the LEFT. Using ≤ (not &lt;) is what makes merge sort STABLE.',[],V(id,L.slice(i),R.slice(j),res));
+      } else { res.push(R[j]); j++;
+        T.step(13,'push','right['+(j-1)+'] = '+R[j-1]+' is smaller → take from the RIGHT.',[],V(id,L.slice(i),R.slice(j),res));
+      }
+    }
+    while(i<L.length){ res.push(L[i]); i++;
+      T.step(17,'ok','right is exhausted — drain the rest of left: appended '+L[i-1]+'.',[],V(id,L.slice(i),R.slice(j),res)); }
+    while(j<R.length){ res.push(R[j]); j++;
+      T.step(21,'ok','left is exhausted — drain the rest of right: appended '+R[j-1]+'.',[],V(id,L.slice(i),R.slice(j),res)); }
+    tb.nodes[id].label=A(res);
+    T.save(A(res));
+    T.step(24,'found','Merged: <b>'+A(res)+'</b>. Return it to the caller.',[],V(id,null,null,res));
+    return res;
+  }
+  var out=ms([5,2,3,1],root);
+  T.step(37,'done','Sorted: <b>'+A(out)+'</b>. O(n log n) guaranteed — no worst case, unlike quicksort — and stable. The cost is O(n) extra space.',['answer'],V(root,null,null,out));
+  return T;
+}
+LV.render({
+  num:'912', name:'Sort an Array', slug:'0912-sort-an-array',
+  difficulty:'Medium', pattern:'Divide and conquer · merge sort',
+  url:'https://leetcode.com/problems/sort-an-array',
+  blurb:'Merge sort from scratch. Watch the recursion tree: depth log n, O(n) work per level. That picture <em>is</em> the complexity proof, and it transfers to every divide-and-conquer algorithm.',
+  input:'nums = [5,2,3,1]', runName:'mergesort',
+  skipLabel:'Skip to next merge', skipTypes:['found'], emptyResult:'nothing merged yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n log n) always — best, average and worst', space:'O(n) for the merge buffers, O(log n) for the stack'},
+  theory:{
+    idea:'<b>Divide and conquer:</b> split into halves, solve each recursively, combine. The recurrence T(n) = 2T(n/2) + O(n) resolves to O(n log n) — log n levels, O(n) merging per level. Merge sort’s distinguishing features are that it is <b>stable</b> and has <b>no bad case</b>, which is why it is what Python’s Timsort is built on.',
+    recognize:[
+      'The problem explicitly forbids built-in sort, or the follow-up asks for a guaranteed O(n log n).',
+      'The merge step is reusable on its own — it is exactly LC 21 and LC 23 in your repo.',
+      'Counting inversions, counting smaller elements to the right (LC 315), and count-of-range-sums (LC 327) are all merge sort with bookkeeping added to the merge.'
+    ],
+    pitfalls:[
+      '<b><code>left[i] &lt; right[j]</code> instead of <code>&lt;=</code>.</b> Breaks stability. Irrelevant for bare integers, fatal when elements carry payloads.',
+      '<b>Forgetting the drain loops.</b> When one half runs out the other still has elements — losing them silently truncates the output.',
+      '<b>Slicing at every level.</b> <code>arr[:mid]</code> allocates, giving O(n log n) total allocation. Passing indices into a shared buffer is the production version.',
+      '<b>Choosing quicksort for this problem.</b> LeetCode’s test data includes adversarial cases that make naive quicksort O(n²). Merge sort or heapsort is the safe answer.'
+    ],
+    template: "def mergesort(a):\n    if len(a) <= 1:\n        return a\n    mid = len(a) // 2\n    return merge(mergesort(a[:mid]), mergesort(a[mid:]))\n\ndef merge(L, R):\n    res, i, j = [], 0, 0\n    while i < len(L) and j < len(R):\n        if L[i] <= R[j]:          # <= keeps the sort STABLE\n            res.append(L[i]); i += 1\n        else:\n            res.append(R[j]); j += 1\n    res += L[i:]                  # drain BOTH remainders\n    res += R[j:]\n    return res\n\n# T(n) = 2T(n/2) + O(n)  ->  O(n log n).  log n levels, O(n) work per level.\n",
+    variants:[
+      ['<b>Sort List</b> (LC 148)','Merge sort on a linked list — split with fast/slow, and the merge is O(1) space.'],
+      ['<b>Count inversions</b> / <b>Count of Smaller Numbers After Self</b> (LC 315)','Count cross-pairs during the merge.'],
+      ['Quicksort','O(n log n) average, O(1) extra space, but O(n²) adversarial. Randomise the pivot.'],
+      ['Heapsort','O(n log n) worst case AND O(1) space, but not stable and cache-unfriendly.'],
+      ['Bounded integer keys','Counting or radix sort — O(n). See LC 347 and LC 1833 in your repo.']
+    ],
+    thinking:'Know your sorting algorithms by their <b>trade-off profile</b>, not their code: merge = stable + guaranteed + O(n) space; quick = in place + fast in practice + bad worst case; heap = guaranteed + in place + unstable; counting/radix = linear but only for bounded keys. Interviewers rarely want you to write one — they want you to pick the right one and say why. And internalise the recursion-tree picture: "log n levels × O(n) per level" is how you will reason about complexity for every divide-and-conquer algorithm you meet.'
+  }
+});
+
+</script>
+</body>
+</html>

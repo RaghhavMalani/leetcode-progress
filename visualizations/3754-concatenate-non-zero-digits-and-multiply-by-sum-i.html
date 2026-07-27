@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3754 - Concatenate Non-Zero Digits</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def sumAndMultiply(self, n: int) -> int:", "        s = str(n)", "", "        x_str = \"\"", "        digit_sum = 0", "", "        for ch in s:", "            if ch != '0':", "                x_str += ch", "                digit_sum += int(ch)", "", "        if x_str == \"\":", "            return 0", "", "        x = int(x_str)", "        return x * digit_sum"];
+function build(){
+  var T=LV.trace(), n=3049, s=String(n), x='', ds=0;
+  function V(i){ var m={}; s.split('').forEach(function(c,k){ m[k]= k<i?(c==='0'?'bad':'good'):(k===i?'hot':'dim'); });
+    return [ LV.arr('digits of n', s.split(''), m, {}),
+             LV.kv('accumulators', [['x_str','"'+x+'"'],['digit_sum',ds]], {'x_str':'hot'}, {}) ]; }
+  T.step(3,'info','Work on the string form so digits are addressable. The two accumulators are built in the SAME pass — one string, one integer.',['n = <b>'+n+'</b>'],V(null));
+  s.split('').forEach(function(c,i){
+    T.step(8,'call','digit "'+c+'".',['digit = <b>'+c+'</b>'],V(i));
+    if(c!=='0'){
+      x+=c; ds+=parseInt(c,10);
+      T.step(10,'push','Non-zero — append to x_str ("'+x+'") and add to digit_sum ('+ds+'). Note appending to the string preserves the ORIGINAL left-to-right order, which is what "concatenate" means here.',['x = <b>"'+x+'"</b>','sum = <em>'+ds+'</em>'],V(i));
+      T.save('kept '+c);
+    } else {
+      T.step(9,'bad','Zero — skipped entirely. It contributes nothing to either accumulator.',['x = <b>"'+x+'"</b>'],V(i));
+    }
+  });
+  T.step(13,'info','Guard: if every digit was 0 the string is empty and <code>int("")</code> would raise. Return 0 in that case.',['x = <b>"'+x+'"</b>'],V(s.length));
+  var ans=parseInt(x,10)*ds;
+  T.save(x+' × '+ds+' = '+ans);
+  T.step(17,'done','Answer: '+parseInt(x,10)+' × '+ds+' = <b>'+ans+'</b>.',['answer = <u>'+ans+'</u>'],V(s.length));
+  return T;
+}
+LV.render({
+  num:'3754', name:'Concatenate Non-Zero Digits and Multiply by Sum I', slug:'3754-concatenate-non-zero-digits-and-multiply-by-sum-i',
+  difficulty:'Easy', pattern:'Digit manipulation · single pass, two accumulators',
+  url:'https://leetcode.com/problems/concatenate-non-zero-digits-and-multiply-by-sum-i',
+  blurb:'Straight simulation. Two things worth noting: both accumulators are built in one pass, and the empty-string guard is a real edge case, not decoration.',
+  input:'n = 3049', runName:'sumAndMultiply',
+  skipLabel:null, emptyResult:'nothing kept yet',
+  src:SRC, build:build,
+  complexity:{time:'O(d) in the digit count', space:'O(d)'},
+  theory:{
+    idea:'Digit problems come in two flavours: <b>string-based</b> (easy to index, easy to concatenate, easy to reverse) and <b>arithmetic</b> (<code>% 10</code> and <code>// 10</code>, no allocation, works when the number is too big to stringify comfortably). Pick the one that matches the operation — here concatenation makes strings the obvious choice.',
+    recognize:[
+      'Anything that inspects, filters or reorders decimal digits.',
+      'If you need the digits <b>in order</b>, strings win; if you only need them one at a time, <code>divmod(n, 10)</code> avoids the allocation but yields them backwards.',
+      'Several independent accumulations over one input → one pass, several variables. Do not loop twice out of habit.'
+    ],
+    pitfalls:[
+      '<b>Forgetting the all-zeros case.</b> <code>int("")</code> raises ValueError. n = 0, or n = 1000 after filtering, both hit it.',
+      '<b>Building the string backwards</b> by using <code>divmod</code> and forgetting to reverse.',
+      '<b>Two separate loops</b> for the string and the sum. Correct, but the one-pass version is shorter and shows intent.',
+      '<b>Leading zeros.</b> Here they are stripped by construction; in general <code>int("007")</code> is 7, which may or may not be what you want.'
+    ],
+    template: "# one pass, two accumulators, and guard the empty case\ns = str(n)\nkept, digit_sum = \"\", 0\nfor ch in s:\n    if ch != '0':\n        kept += ch\n        digit_sum += int(ch)\n\nif not kept:            # every digit was zero -> int(\"\") would raise\n    return 0\nreturn int(kept) * digit_sum\n\n# arithmetic alternative (yields digits BACKWARDS):\n#   while n: n, d = divmod(n, 10); ...\n",
+    variants:[
+      ['Sum of digits only','<code>sum(int(c) for c in str(n))</code>, or the <code>divmod</code> loop.'],
+      ['Reverse an integer','LC 7 — <code>divmod</code> loop, plus an overflow check in fixed-width languages.'],
+      ['<b>Excel column title</b> (LC 168)','Base-26 digit construction. Also in your repo.'],
+      ['<b>Total Waviness</b> (LC 3751 / 3753)','Digit DP over the same string representation. Also in your repo, and far harder.']
+    ],
+    thinking:'When several quantities must be derived from one traversal, <b>compute them all in the same loop</b>. It is not just about speed — it keeps the invariants visibly in sync and stops you from accidentally filtering differently in the two passes. And whenever a problem builds a value from a filtered subset, ask immediately: <em>what if the subset is empty?</em> That question catches most edge-case failures in easy problems.'
+  }
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>705 - Design HashSet</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class MyHashSet:", "", "    def __init__(self):", "        self.hashset = {}       ", "", "    def add(self, key: int) -> None:", "        self.hashset[key] = 1        ", "", "    def remove(self, key: int) -> None:", "        self.hashset[key] = 0", "", "    def contains(self, key: int) -> bool:", "        return self.hashset.get(key, 0) != 0", "        ", "", "", "# Your MyHashSet object will be instantiated and called as such:", "# obj = MyHashSet()", "# obj.add(key)", "# obj.remove(key)", "# param_3 = obj.contains(key)"];
+function build(){
+  var T=LV.trace(), H={}, ord=[];
+  function P(){ return ord.map(function(k){ return [k,H[k]]; }); }
+  function V(hot,cls){ var m={}; if(hot!=null) m[hot]=cls||'hot';
+    return [ LV.kv('self.hashset  (key → 1 present / 0 absent)', P(), m, {emptyText:'empty'}),
+             LV.seq('what a caller sees as the set', ord.filter(function(k){ return H[k]===1; }), {}, {emptyText:'{ }'}) ]; }
+  var ops=[['add',1],['add',2],['contains',1],['contains',3],['add',2],['remove',2],['contains',2]];
+  T.step(4,'info','This is the pragmatic answer: build a hash set out of Python’s own dict. It passes, and it is worth knowing why the problem exists anyway — the intended exercise is to implement the buckets yourself.',['hashset = <b>{}</b>'],V(null));
+  ops.forEach(function(o){
+    var k=o[1];
+    if(o[0]==='add'){
+      var isnew=H[k]===undefined;
+      if(isnew) ord.push(k);
+      H[k]=1;
+      T.step(7,'push','<b>add('+k+')</b> → set hashset['+k+'] = 1. '+(isnew?'A new key.':'Already there — idempotent, which is exactly what a set should be.'),['op = <b>add('+k+')</b>'],V(k,'good'));
+      T.save('add('+k+')');
+    } else if(o[0]==='remove'){
+      H[k]=0;
+      T.step(10,'pop','<b>remove('+k+')</b> → set hashset['+k+'] = 0. Note it does NOT delete the key — it tombstones it. That works, but the dictionary keeps growing forever, which is the one real weakness of this implementation.',['op = <b>remove('+k+')</b>'],V(k,'bad'));
+      T.save('remove('+k+')');
+    } else {
+      var r=(H[k]||0)!==0;
+      T.step(13, r?'found':'bad','<b>contains('+k+')</b> → hashset.get('+k+', 0) = '+(H[k]===undefined?'0 (key absent, default used)':H[k])+' → returns <b>'+r+'</b>.',['op = <b>contains('+k+')</b>','returns <u>'+r+'</u>'],V(k, r?'good':'bad'));
+      T.save('contains('+k+') = '+r);
+    }
+  });
+  T.step(13,'done','All operations O(1) on average. The tombstoning in remove is the design decision worth discussing.',[],V(null));
+  return T;
+}
+LV.render({
+  num:'705', name:'Design HashSet', slug:'0705-design-hashset',
+  difficulty:'Easy', pattern:'Design · hash table internals',
+  url:'https://leetcode.com/problems/design-hashset',
+  blurb:'Your solution wraps a dict, which passes. The interesting version is the one the problem is actually asking for — buckets, a hash function, and a collision strategy — so that is what the theory below covers.',
+  input:'add(1), add(2), contains(1), contains(3), add(2), remove(2), contains(2)', runName:'MyHashSet',
+  skipLabel:null, emptyResult:'no operations yet',
+  src:SRC, build:build,
+  complexity:{time:'O(1) average per operation', space:'O(n) — but this version never shrinks, because remove tombstones'},
+  theory:{
+    idea:'A hash set is an <b>array of buckets</b> plus a hash function. <code>index = hash(key) % num_buckets</code> tells you which bucket; the bucket holds every key that landed there, and you scan it linearly. Everything else — load factor, resizing, open addressing — is engineering around keeping those buckets short.',
+    recognize:[
+      '"Design / implement X without using the built-in" — the point is the internals, not the API.',
+      'Real interviews ask the follow-ups: what happens on a collision, when do you resize, what is the amortised cost of a resize.'
+    ],
+    pitfalls:[
+      '<b>Tombstoning instead of deleting</b> (what this code does). Memory grows without bound under an add/remove-heavy workload. <code>del self.hashset[key]</code> is the fix, or <code>discard</code> semantics.',
+      '<b>Ignoring collisions</b> in a hand-rolled version. Two keys with the same bucket index must both survive — chaining (a list per bucket) is the easy answer.',
+      '<b>A fixed bucket count.</b> With 1000 buckets and 10⁶ keys every lookup becomes a 1000-element scan. Resize when load factor exceeds ~0.75.',
+      '<b>Negative keys with <code>%</code>.</b> In Python <code>-5 % 10 == 5</code>, so you are fine; in Java/C++ you are not.'
+    ],
+    template: "# What the problem is actually asking for: buckets + chaining\nclass MyHashSet:\n    def __init__(self):\n        self.n = 1000\n        self.buckets = [[] for _ in range(self.n)]\n\n    def _idx(self, key):\n        return hash(key) % self.n\n\n    def add(self, key):\n        b = self.buckets[self._idx(key)]\n        if key not in b:            # scan the chain\n            b.append(key)\n\n    def remove(self, key):\n        b = self.buckets[self._idx(key)]\n        if key in b:\n            b.remove(key)           # ACTUALLY remove - no tombstones\n\n    def contains(self, key):\n        return key in self.buckets[self._idx(key)]\n\n# production version also: resize when len/n > 0.75, rehashing everything.\n",
+    variants:[
+      ['<b>Design HashMap</b> (LC 706)','Store (key, value) pairs in the buckets instead of bare keys.'],
+      ['Open addressing instead of chaining','On collision, probe the next slot. Better cache behaviour, deletion needs real tombstones.'],
+      ['<b>LRU Cache</b> (LC 146)','Hash map + doubly linked list — the classic composition. Also in your repo.'],
+      ['Bloom filter','O(1) space per element, false positives allowed. The right answer for "is this URL probably in the set of a billion?".']
+    ],
+    thinking:'Design questions are graded on the <b>trade-offs you volunteer</b>, not on whether the code runs. For any structure you build, be ready to say: what is the average cost, what is the worst case, what triggers the worst case, and what does it cost in memory. For a hash table the answers are O(1) / O(n) / everything colliding / O(n) with a load factor you choose. Saying those four things unprompted is worth more than a perfect implementation.'
+  }
+});
+
+</script>
+</body>
+</html>

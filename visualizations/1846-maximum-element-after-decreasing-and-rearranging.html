@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1846 - Maximum Element After Decreasing and Rearranging</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def maximumElementAfterDecrementingAndRearranging(self, arr: List[int]) -> int:", "        arr.sort()", "        ans = 0", "", "        for x in arr:", "            if x > ans:", "                ans += 1", "", "        return ans"];
+function build(){
+  var T=LV.trace(), raw=[100,1,1000,1], a=raw.slice().sort(function(p,q){return p-q;}), ans=0, built=[];
+  function V(i,ok){ var m={}; a.forEach(function(_,k){ m[k]= k<i?'good':(k===i?(ok===false?'bad':'hot'):'dim'); });
+    return [ LV.arr('arr (sorted)', a, m, {note:'original: ['+raw.join(', ')+']'}),
+             LV.arr('what the array becomes', built.slice(), {}, {idx:false, emptyText:'empty'}) ]; }
+  function VA(){ return ['ans = <u>'+ans+'</u>  (the largest value achievable so far)']; }
+  T.step(3,'info','The rules: you may rearrange freely, you may DECREASE any value, arr[0] must become 1, and neighbours may differ by at most 1. So the best possible array is 1, 2, 3, … — and the question is how far up that staircase you can climb.',VA(),V(null));
+  T.step(3,'info','Sorting is what makes the greedy work: process values smallest first, and each one either lets you climb one more step or it does not.',VA(),V(null));
+  a.forEach(function(x,i){
+    T.step(6,'call','arr['+i+'] = '+x+'. Current height is '+ans+'.',VA(),V(i));
+    if(x>ans){
+      ans++; built.push(ans);
+      T.step(8,'found',x+' &gt; '+(ans-1)+', so it can be DECREASED down to '+ans+' and extend the staircase. ans → <b>'+ans+'</b>. (We never need to increase anything, which is why "is it bigger?" is the only test.)',VA(),V(i));
+      T.save('used '+x+' as '+ans);
+    } else {
+      T.step(7,'bad',x+' is not greater than '+ans+', so it cannot reach '+(ans+1)+' — and increasing is forbidden. It gets absorbed as a duplicate and the height does not move.',VA(),V(i,false));
+    }
+  });
+  T.step(10,'done','Answer: <b>'+ans+'</b>. Sorted ['+a.join(', ')+'] became ['+built.join(', ')+'] — each element climbed at most one step above its predecessor.',VA(),V(a.length));
+  return T;
+}
+LV.render({
+  num:'1846', name:'Maximum Element After Decreasing and Rearranging', slug:'1846-maximum-element-after-decreasing-and-rearranging',
+  difficulty:'Medium', pattern:'Greedy · sort then climb',
+  url:'https://leetcode.com/problems/maximum-element-after-decreasing-and-rearranging',
+  blurb:'Three lines that look too simple to be right. The argument: the optimal array is always 1, 2, 3, …, so sort and let each element climb one step if it can.',
+  input:'arr = [100,1,1000,1]', runName:'maximumElementAfterDecrementingAndRearranging',
+  skipLabel:'Skip to next climb', skipTypes:['found'], emptyResult:'height is 0',
+  src:SRC, build:build,
+  complexity:{time:'O(n log n) — the sort', space:'O(1)'},
+  theory:{
+    idea:'Two observations collapse the problem. <b>(1)</b> Since you may only decrease, the best array is the steepest legal staircase: 1, 2, 3, …. <b>(2)</b> After sorting, giving each element the largest value it can legally take is optimal — using a smaller value never helps a later element, since later elements are ≥ this one.',
+    recognize:[
+      'Operations that only go one direction (decrease-only, remove-only) plus free rearrangement. That combination almost always means "sort, then be greedy".',
+      '"Maximise the maximum" / "maximise the final value" phrasings.',
+      'If you could also <em>increase</em> values, the problem would be trivially <code>len(arr)</code>.'
+    ],
+    pitfalls:[
+      '<b>Forgetting to sort.</b> The greedy is only valid on sorted input; unsorted it gives nonsense.',
+      '<b><code>ans = arr[0]</code> or <code>ans = 1</code> initially.</b> Starting at 0 makes the first element climb to 1 automatically, which is exactly the required arr[0] == 1.',
+      '<b>Using <code>&gt;=</code>.</b> Equal values cannot climb — [1,1] must become [1,1], not [1,2].',
+      '<b>Over-thinking it into a DP.</b> Once you believe the staircase argument, there is nothing left to optimise.'
+    ],
+    template: "# decrease-only + rearrange -> the answer is a 1,2,3,... staircase\narr.sort()\nans = 0\nfor x in arr:\n    if x > ans:        # strictly greater: it can be decreased to ans+1\n        ans += 1\nreturn ans\n",
+    variants:[
+      ['<b>Minimum Replacements to Sort</b> (LC 2450)','Also decrease-only, but you split elements — greedy from the RIGHT. Also in your repo.'],
+      ['<b>Maximum Ice Cream Bars</b> (LC 1833)','Sort ascending and buy greedily. Also in your repo.'],
+      ['<b>Non-decreasing Array</b> (LC 665)','One change allowed — a case analysis, not a sweep.'],
+      ['Increases also allowed','Answer is <code>len(arr)</code>. Worth stating to show you understand which constraint is binding.']
+    ],
+    thinking:'When a problem allows an operation in <b>only one direction</b>, that asymmetry is usually the whole solution. Decrease-only → sort ascending, climb greedily. Remove-only → keep as much as possible. Increase-only → sort descending. Ask "what does this restriction forbid me from fixing later?" — the answer tells you which order to process in, and the order is usually the algorithm.'
+  }
+});
+
+</script>
+</body>
+</html>

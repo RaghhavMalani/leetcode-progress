@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1260 - Shift 2D Grid</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution {", "public:", "    vector<vector<int>> shiftGrid(vector<vector<int>>& grid, int k) {", "        int m = grid.size();", "        int n = grid[0].size();", "        int total = m * n;", "", "        k %= total;", "", "        vector<vector<int>> result(m, vector<int>(n));", "", "        for (int i = 0; i < m; i++) {", "            for (int j = 0; j < n; j++) {", "                int oldIndex = i * n + j;", "                int newIndex = (oldIndex + k) % total;", "", "                result[newIndex / n][newIndex % n] = grid[i][j];", "            }", "        }", "", "        return result;", "    }", "};"];
+function build(){
+  var T=LV.trace(), G=[[1,2,3],[4,5,6],[7,8,9]], m=3, n=3, total=9, k=1;
+  var R=[['·','·','·'],['·','·','·'],['·','·','·']];
+  function V(sr,sc,dr,dc){ var gm={}, rm={};
+    if(sr!=null) gm[sr+','+sc]='hot';
+    for(var r=0;r<m;r++) for(var c=0;c<n;c++){ if(R[r][c]!=='·') rm[r+','+c]='good'; }
+    if(dr!=null) rm[dr+','+dc]='hot';
+    return [ LV.grid('grid (input)', G, gm, {head:true}),
+             LV.grid('result', R, rm, {head:true, note:'flat index = i·n + j;  shifted = (flat + k) % total;  back to 2D via / n and % n'}) ]; }
+  T.step(8,'info','First <code>k %= total</code>. k can be up to 10⁹ while the grid has only '+total+' cells, so shifting by k is the same as shifting by k mod '+total+'. Without this the loop would be pointless work — or, in a naive one-shift-at-a-time solution, a timeout.',['k = <b>'+k+'</b> after mod'],V(null,null,null,null));
+  T.step(14,'info','The trick: <b>flatten</b> the grid to a 1D index, do the shift as ordinary modular arithmetic, then <b>unflatten</b> back to 2D. That removes all the row-wrapping case analysis.',[],V(null,null,null,null));
+  for(var i=0;i<m;i++){
+    for(var j=0;j<n;j++){
+      var oldI=i*n+j, newI=(oldI+k)%total;
+      var dr=Math.floor(newI/n), dc=newI%n;
+      R[dr][dc]=G[i][j];
+      T.step(17,'push','grid['+i+']['+j+'] = '+G[i][j]+' sits at flat index '+oldI+'. Shifted: ('+oldI+' + '+k+') % '+total+' = '+newI+'. Unflatten: row '+newI+' / '+n+' = '+dr+', col '+newI+' % '+n+' = '+dc+'.',
+        ['flat = <b>'+oldI+'</b> → <b>'+newI+'</b>'],V(i,j,dr,dc));
+      T.save('('+i+','+j+') → ('+dr+','+dc+')');
+    }
+  }
+  T.step(21,'done','Done. Every element moved exactly k places along the row-major reading order, wrapping from the last cell back to the first. O(m·n), and the modulo did all the wrapping logic for free.',[],V(null,null,null,null));
+  return T;
+}
+LV.render({
+  num:'1260', name:'Shift 2D Grid', slug:'1260-shift-2d-grid',
+  difficulty:'Easy', pattern:'Flatten · modular shift · unflatten',
+  url:'https://leetcode.com/problems/shift-2d-grid',
+  blurb:'Two ideas that pay off far beyond this problem: <code>k %= total</code> to collapse a huge shift, and flatten-shift-unflatten to delete every wrap-around special case.',
+  input:'grid = [[1,2,3],[4,5,6],[7,8,9]], k = 1', runName:'shiftGrid',
+  skipLabel:null, emptyResult:'nothing moved yet',
+  src:SRC, build:build,
+  complexity:{time:'O(m·n)', space:'O(m·n) for the output'},
+  theory:{
+    idea:'A 2D grid in row-major order <b>is</b> a 1D array. Once you accept that, "shift with wrap-around" is a single modular addition, and the three awkward cases (stay in row, move to next row, wrap to the top) disappear. The conversions are <code>flat = r·cols + c</code> and back <code>r = flat // cols</code>, <code>c = flat % cols</code>.',
+    recognize:[
+      'Any grid operation that is naturally linear: shifting, spiralling, snake traversal, diagonal indexing.',
+      'A shift/rotation amount much larger than the container — always reduce modulo the size first.',
+      'The same flattening makes a sorted 2D matrix binary-searchable as one array (LC 74).'
+    ],
+    pitfalls:[
+      '<b>Skipping <code>k %= total</code>.</b> With k = 10⁹ and a naive per-step shift you time out; even here it avoids meaningless work.',
+      '<b>Shifting in place.</b> You overwrite cells you have not read yet. Write into a fresh grid, or work backwards.',
+      '<b>Confusing rows and columns in the conversion.</b> It is <code>r * COLS + c</code>, never <code>r * ROWS + c</code>. On a square grid the bug is invisible; on a rectangular one it corrupts everything.',
+      '<b>Shifting one step k times.</b> O(k·m·n) instead of O(m·n).'
+    ],
+    template: "# flatten -> shift -> unflatten. no wrap-around case analysis at all.\ntotal = m * n\nk %= total                       # ALWAYS reduce first: k can be 1e9\n\nresult = [[0] * n for _ in range(m)]\nfor i in range(m):\n    for j in range(n):\n        flat = i * n + j                 # r * COLS + c  (never * ROWS)\n        dest = (flat + k) % total\n        result[dest // n][dest % n] = grid[i][j]\nreturn result\n",
+    variants:[
+      ['<b>Rotate Array</b> (LC 189)','1D version — three reversals, O(1) space.'],
+      ['<b>Search a 2D Matrix</b> (LC 74)','Binary search over the flattened index.'],
+      ['<b>Rotate Image</b> (LC 48)','Transpose then reverse rows — a different transform, still index arithmetic.'],
+      ['Spiral order (LC 54)','Boundary shrinking; flattening does not help here.']
+    ],
+    thinking:'Add one question to your grid checklist: <b>"can I treat this as a 1D array?"</b> If the operation respects row-major order, flattening removes an entire dimension of edge cases. And more generally — whenever an operation repeats with a period, reduce the count modulo that period <em>first</em>. Rotations, shifts, cyclic permutations, and repeated string operations all collapse this way, and forgetting to do it is the most common cause of timeouts on otherwise-correct code.'
+  }
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1448 - Maximum 69 Number</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution(object):", "    def maximum69Number (self, num):", "        \"\"\"", "        :type num: int", "        :rtype: int", "        \"\"\"", "        ", "        num = str(num)", "", "        new = num.replace('6','9',1)", "", "        return int(new)"];
+function build(){
+  var T=LV.trace(), n=9669, s=String(n);
+  function V(hit){ var m={}; s.split('').forEach(function(c,i){ m[i]= (hit===i)?'good':(c==='6'?'warn':'dim'); });
+    return [ LV.arr('digits, most significant first', s.split(''), m, {note:'amber = a 6 that COULD be changed; green = the one we do change'}),
+             LV.kv('place values', s.split('').map(function(c,i){ return ['10^'+(s.length-1-i), c]; }), {}, {}) ]; }
+  T.step(8,'info','Convert to a string so the digits are addressable. n = '+n+'.',['n = <b>'+n+'</b>'],V(null));
+  T.step(10,'info','Exactly one change is allowed, and turning a 6 into a 9 always <b>increases</b> the number — so we definitely want to make a change if any 6 exists. The only question is WHICH 6.',['n = <b>'+n+'</b>'],V(null));
+  T.step(10,'found','Changing the digit at place 10^k gains exactly 3 × 10^k. That is maximised by the LARGEST k, i.e. the <b>leftmost</b> 6. <code>replace("6","9",1)</code> replaces the first occurrence, which is precisely the leftmost — the count argument of 1 is doing the real work.',['gain = <b>3 × 10^'+(s.length-1-s.indexOf('6'))+'</b>'],V(s.indexOf('6')));
+  var out=s.replace('6','9');
+  T.save(n+' → '+out);
+  T.step(12,'done','Answer: <b>'+out+'</b>. Changing the second 6 instead would give 9696 — 273 less. And if the number had no 6 at all, <code>replace</code> is a harmless no-op, so no special case is needed.',['answer = <u>'+out+'</u>'],V(s.indexOf('6')));
+  return T;
+}
+LV.render({
+  num:'1448', name:'Maximum 69 Number', slug:'1448-maximum-69-number',
+  difficulty:'Easy', pattern:'Greedy · positional value',
+  url:'https://leetcode.com/problems/maximum-69-number',
+  blurb:'Three lines, and the argument behind them is worth more than the code: a digit change at place 10^k is worth 3·10^k, so always change the leftmost 6.',
+  input:'num = 9669', runName:'maximum69Number',
+  skipLabel:null, emptyResult:'unchanged',
+  src:SRC, build:build,
+  complexity:{time:'O(d) in the number of digits', space:'O(d)'},
+  theory:{
+    idea:'In a positional number system, a change to a more significant digit dominates <b>any</b> combination of changes to less significant ones. That is why greedy-from-the-left is correct for essentially every "maximise/minimise the number by editing digits" problem.',
+    recognize:[
+      '"Change at most k digits to maximise/minimise the number."',
+      'Maximising → change the leftmost improvable digit. Minimising → same idea, opposite direction, with the extra rule that a leading digit usually cannot become 0.',
+      '<code>str.replace(old, new, 1)</code> — that third argument is the whole solution and most people do not know it exists.'
+    ],
+    pitfalls:[
+      '<b>Replacing all 6s.</b> The problem allows exactly one change. Forgetting the count argument is the bug.',
+      '<b>Changing the last 6.</b> Correct code, wrong digit, much smaller answer.',
+      '<b>Special-casing "no 6 present".</b> Unnecessary — <code>replace</code> returns the string unchanged.',
+      '<b>Forgetting the <code>int()</code> conversion back.</b> The function must return a number.'
+    ],
+    template: "# positional dominance: a change at 10^k beats everything to its right\nreturn int(str(num).replace('6', '9', 1))    # the 1 = \"first occurrence only\"\n\n# at most k changes:      str(num).replace('6', '9', k)\n# minimising instead:     change the leftmost 9 -> 6 (mind leading zeros)\n",
+    variants:[
+      ['Change at most k digits','Replace the k leftmost 6s: <code>s.replace("6","9",k)</code>.'],
+      ['<b>Minimise</b> the number','Change the leftmost 9 to 6 — but if it is the leading digit and the target is 0, skip it.'],
+      ['<b>Remove K Digits</b> (LC 402)','Now greedy needs a monotonic stack, because removals interact.'],
+      ['<b>Maximum Swap</b> (LC 670)','Swap two digits — greedy needs the last occurrence of each larger digit.']
+    ],
+    thinking:'For any digit-editing problem, ask <b>"what is the marginal value of a change at position k?"</b> In base 10 it is proportional to 10^k, which decays fast enough that the leftmost improvable position always wins. Once a problem lets changes <em>interact</em> — removals shifting digits, swaps — that simple dominance breaks and you need a stack or a full case analysis. Knowing which regime you are in is the whole skill.'
+  }
+});
+
+</script>
+</body>
+</html>

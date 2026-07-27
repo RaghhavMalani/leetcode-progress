@@ -1,0 +1,1092 @@
+[
+ {
+  "slug": "0001-two-sum",
+  "file": "0001-two-sum.html",
+  "num": "1",
+  "name": "Two Sum",
+  "difficulty": "Easy",
+  "pattern": "Hash map · complement lookup",
+  "blurb": "The foundational hash-map trade: spend O(n) memory to turn an O(n) search into an O(1) lookup. Note the ordering — check the hash before inserting, which is what prevents an element pairing with itself.",
+  "url": "https://leetcode.com/problems/two-sum"
+ },
+ {
+  "slug": "0002-add-two-numbers",
+  "file": "0002-add-two-numbers.html",
+  "num": "2",
+  "name": "Add Two Numbers",
+  "difficulty": "Medium",
+  "pattern": "Linked list · digit-by-digit carry",
+  "blurb": "Long addition on a list. The whole problem is the loop condition: while l1 or l2 or carry — three reasons to keep going, and forgetting the third is the classic failure.",
+  "url": "https://leetcode.com/problems/add-two-numbers"
+ },
+ {
+  "slug": "0003-longest-substring-without-repeating-characters",
+  "file": "0003-longest-substring-without-repeating-characters.html",
+  "num": "3",
+  "name": "Longest Substring Without Repeating Characters",
+  "difficulty": "Medium",
+  "pattern": "Sliding window · variable size",
+  "blurb": "The reference implementation for variable-size sliding windows. Grow on the right, shrink on the left until the window is legal again, record. Neither pointer ever goes backwards.",
+  "url": "https://leetcode.com/problems/longest-substring-without-repeating-characters"
+ },
+ {
+  "slug": "0014-longest-common-prefix",
+  "file": "0014-longest-common-prefix.html",
+  "num": "14",
+  "name": "Longest Common Prefix",
+  "difficulty": "Easy",
+  "pattern": "Vertical scanning",
+  "blurb": "Vertical scanning: compare position 0 across all words, then position 1, and stop at the first disagreement. Better than the horizontal version because it exits early on the most common inputs.",
+  "url": "https://leetcode.com/problems/longest-common-prefix"
+ },
+ {
+  "slug": "0019-remove-nth-node-from-end-of-list",
+  "file": "0019-remove-nth-node-from-end-of-list.html",
+  "num": "19",
+  "name": "Remove Nth Node From End of List",
+  "difficulty": "Medium",
+  "pattern": "Linked list · two pointers with a gap",
+  "blurb": "\"From the end\" in a singly linked list, in one pass. The trick is a fixed gap: give one pointer an n-step head start and they stay n apart forever.",
+  "url": "https://leetcode.com/problems/remove-nth-node-from-end-of-list"
+ },
+ {
+  "slug": "0021-merge-two-sorted-lists",
+  "file": "0021-merge-two-sorted-lists.html",
+  "num": "21",
+  "name": "Merge Two Sorted Lists",
+  "difficulty": "Easy",
+  "pattern": "Linked list · dummy head + merge",
+  "blurb": "Two ideas worth stealing: the dummy head that deletes every empty-list special case, and the final one-line attach of the leftover tail.",
+  "url": "https://leetcode.com/problems/merge-two-sorted-lists"
+ },
+ {
+  "slug": "0022-generate-parentheses",
+  "file": "0022-generate-parentheses.html",
+  "num": "22",
+  "name": "Generate Parentheses",
+  "difficulty": "Medium",
+  "pattern": "Backtracking · build-and-undo",
+  "blurb": "The cleanest example of perfect pruning you will meet. The two guards make an invalid string impossible to construct, so every leaf of the recursion tree is an answer and no work is ever wasted.",
+  "url": "https://leetcode.com/problems/generate-parentheses"
+ },
+ {
+  "slug": "0023-merge-k-sorted-lists",
+  "file": "0023-merge-k-sorted-lists.html",
+  "num": "23",
+  "name": "Merge k Sorted Lists",
+  "difficulty": "Hard",
+  "pattern": "Divide and conquer · pairwise merge",
+  "blurb": "Merging pairwise in rounds instead of one-at-a-time into an accumulator. Same total merges, but each element is copied log k times instead of k times — O(N log k) rather than O(N k).",
+  "url": "https://leetcode.com/problems/merge-k-sorted-lists"
+ },
+ {
+  "slug": "0036-valid-sudoku",
+  "file": "0036-valid-sudoku.html",
+  "num": "36",
+  "name": "Valid Sudoku",
+  "difficulty": "Medium",
+  "pattern": "Hash sets · index-to-bucket mapping",
+  "blurb": "The whole problem is one expression: (row//3, col//3). That maps a cell to its 3×3 box, which turns three different geometric constraints into three identical set lookups.",
+  "url": "https://leetcode.com/problems/valid-sudoku"
+ },
+ {
+  "slug": "0039-combination-sum",
+  "file": "0039-combination-sum.html",
+  "num": "39",
+  "name": "Combination Sum",
+  "difficulty": "Medium",
+  "pattern": "Backtracking · take / skip",
+  "blurb": "The mirror image of problem 22. Here the guard fires only after the total has already overshot, so the algorithm discovers its mistakes instead of preventing them. Look at how much red is in that tree.",
+  "url": "https://leetcode.com/problems/combination-sum"
+ },
+ {
+  "slug": "0040-combination-sum-ii",
+  "file": "0040-combination-sum-ii.html",
+  "num": "40",
+  "name": "Combination Sum II",
+  "difficulty": "Medium",
+  "pattern": "Backtracking · duplicate suppression",
+  "blurb": "One while loop is the entire problem. Watch the step where i jumps from 0 to 1 — that is the line separating a correct answer from one with duplicate rows.",
+  "url": "https://leetcode.com/problems/combination-sum-ii"
+ },
+ {
+  "slug": "0042-trapping-rain-water",
+  "file": "0042-trapping-rain-water.html",
+  "num": "42",
+  "name": "Trapping Rain Water",
+  "difficulty": "Hard",
+  "pattern": "Two pointers · converging",
+  "blurb": "The classic argument for why two pointers work: you do not need both maxima, only to know which one is smaller — and comparing the two heights tells you that for free.",
+  "url": "https://leetcode.com/problems/trapping-rain-water"
+ },
+ {
+  "slug": "0046-permutations",
+  "file": "0046-permutations.html",
+  "num": "46",
+  "name": "Permutations",
+  "difficulty": "Medium",
+  "pattern": "Recursion · bottom-up construction (NOT backtracking)",
+  "blurb": "Your solution here is correct but it is not backtracking — there is no shared mutable state and no undo step. Worth understanding as a contrast, and worth re-solving with the standard skeleton so the pattern transfers to",
+  "url": "https://leetcode.com/problems/permutations"
+ },
+ {
+  "slug": "0047-permutations-ii",
+  "file": "0047-permutations-ii.html",
+  "num": "47",
+  "name": "Permutations II",
+  "difficulty": "Medium",
+  "pattern": "Backtracking · counter as state",
+  "blurb": "A different weapon for the same job as problem 40. Instead of skipping duplicate positions, this counts distinct values — so identical numbers are never separate objects to begin with.",
+  "url": "https://leetcode.com/problems/permutations-ii"
+ },
+ {
+  "slug": "0049-group-anagrams",
+  "file": "0049-group-anagrams.html",
+  "num": "49",
+  "name": "Group Anagrams",
+  "difficulty": "Medium",
+  "pattern": "Hash map · canonical key",
+  "blurb": "Grouping by a canonical form. The counting signature is O(n·k) where sorting each word would be O(n·k log k) — a small but real win, and the version worth knowing.",
+  "url": "https://leetcode.com/problems/group-anagrams"
+ },
+ {
+  "slug": "0057-insert-interval",
+  "file": "0057-insert-interval.html",
+  "num": "57",
+  "name": "Insert Interval",
+  "difficulty": "Medium",
+  "pattern": "Intervals · three-case scan",
+  "blurb": "Three mutually exclusive cases — after, before, overlapping — and the elegant bit is case 3: the new interval keeps absorbing neighbours rather than being appended immediately.",
+  "url": "https://leetcode.com/problems/insert-interval"
+ },
+ {
+  "slug": "0062-unique-paths",
+  "file": "0062-unique-paths.html",
+  "num": "62",
+  "name": "Unique Paths",
+  "difficulty": "Medium",
+  "pattern": "Grid DP · rolling row",
+  "blurb": "Grid DP solved bottom-up, keeping only one row. Same recurrence as the m×n table version, one dimension of memory less — and there is also a pure combinatorics answer with no DP at all.",
+  "url": "https://leetcode.com/problems/unique-paths"
+ },
+ {
+  "slug": "0070-climbing-stairs",
+  "file": "0070-climbing-stairs.html",
+  "num": "70",
+  "name": "Climbing Stairs",
+  "difficulty": "Easy",
+  "pattern": "DP · Fibonacci with rolling variables",
+  "blurb": "Every dynamic programming problem starts here. Two things to take away: how to find the recurrence, and how to notice that a dp array of size n can collapse to two integers.",
+  "url": "https://leetcode.com/problems/climbing-stairs"
+ },
+ {
+  "slug": "0075-sort-colors",
+  "file": "0075-sort-colors.html",
+  "num": "75",
+  "name": "Sort Colors",
+  "difficulty": "Medium",
+  "pattern": "Three pointers · Dutch national flag",
+  "blurb": "Dijkstra’s Dutch national flag partition. The only subtle line is the last one: after swapping with high you must NOT advance mid, because the incoming value is unexamined.",
+  "url": "https://leetcode.com/problems/sort-colors"
+ },
+ {
+  "slug": "0077-combinations",
+  "file": "0077-combinations.html",
+  "num": "77",
+  "name": "Combinations",
+  "difficulty": "Medium",
+  "pattern": "Backtracking · loop form",
+  "blurb": "The same pattern in its other dialect: one for loop with one recursive call, instead of two explicit branches. Passing i+1 as the next start is what forces combinations to increase.",
+  "url": "https://leetcode.com/problems/combinations"
+ },
+ {
+  "slug": "0078-subsets",
+  "file": "0078-subsets.html",
+  "num": "78",
+  "name": "Subsets",
+  "difficulty": "Medium",
+  "pattern": "Backtracking · take / skip",
+  "blurb": "The cleanest specimen in the whole family. Take or skip, once per element, three levels deep, 2³ leaves and every one is an answer. If the choose/explore/un-choose rhythm ever stops making sense, come back to this page.",
+  "url": "https://leetcode.com/problems/subsets"
+ },
+ {
+  "slug": "0081-search-in-rotated-sorted-array-ii",
+  "file": "0081-search-in-rotated-sorted-array-ii.html",
+  "num": "81",
+  "name": "Search in Rotated Sorted Array II",
+  "difficulty": "Medium",
+  "pattern": "Binary search · rotated + duplicates",
+  "blurb": "Binary search when the array is rotated AND has duplicates. The duplicate case is the interesting one: when nums[left] == nums[mid] you genuinely cannot tell which half is sorted, and the algorithm degrades to O(n).",
+  "url": "https://leetcode.com/problems/search-in-rotated-sorted-array-ii"
+ },
+ {
+  "slug": "0090-subsets-ii",
+  "file": "0090-subsets-ii.html",
+  "num": "90",
+  "name": "Subsets II",
+  "difficulty": "Medium",
+  "pattern": "Backtracking · duplicate suppression",
+  "blurb": "Problem 78 plus one while loop. Compare the tree here with the one on the Subsets page: two branches that would have been identical have been merged away.",
+  "url": "https://leetcode.com/problems/subsets-ii"
+ },
+ {
+  "slug": "0092-reverse-linked-list-ii",
+  "file": "0092-reverse-linked-list-ii.html",
+  "num": "92",
+  "name": "Reverse Linked List II",
+  "difficulty": "Medium",
+  "pattern": "Linked list · partial reversal + seams",
+  "blurb": "LC 206 applied to a slice. The reversal is the easy part; the two seams — anchor to new head, old head to remainder — are the whole difficulty, and the order of those two lines matters.",
+  "url": "https://leetcode.com/problems/reverse-linked-list-ii"
+ },
+ {
+  "slug": "0094-binary-tree-inorder-traversal",
+  "file": "0094-binary-tree-inorder-traversal.html",
+  "num": "94",
+  "name": "Binary Tree Inorder Traversal",
+  "difficulty": "Easy",
+  "pattern": "Tree traversal · explicit stack",
+  "blurb": "The iterative inorder. The recursive version is four lines; this one exists so you understand what the call stack was doing — and because problems like BST Iterator demand a traversal you can pause.",
+  "url": "https://leetcode.com/problems/binary-tree-inorder-traversal"
+ },
+ {
+  "slug": "0122-best-time-to-buy-and-sell-stock-ii",
+  "file": "0122-best-time-to-buy-and-sell-stock-ii.html",
+  "num": "122",
+  "name": "Best Time to Buy and Sell Stock II",
+  "difficulty": "Medium",
+  "pattern": "Greedy · decompose into local gains",
+  "blurb": "Four lines, and the whole difficulty is proving they are right. The argument: a hold from day a to day b earns exactly the sum of the daily changes between them, so taking every positive change is optimal and no worse.",
+  "url": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii"
+ },
+ {
+  "slug": "0124-binary-tree-maximum-path-sum",
+  "file": "0124-binary-tree-maximum-path-sum.html",
+  "num": "124",
+  "name": "recursion tree",
+  "difficulty": "Hard",
+  "pattern": "Tree DFS · return one thing, track another",
+  "blurb": "The problem that teaches the most important tree idea: what a node returns to its parent is not the same as the answer it contributes. Two quantities, computed at every node, and mixing them up is the entire failure mode",
+  "url": "https://leetcode.com/problems/binary-tree-maximum-path-sum"
+ },
+ {
+  "slug": "0128-longest-consecutive-sequence",
+  "file": "0128-longest-consecutive-sequence.html",
+  "num": "128",
+  "name": "Longest Consecutive Sequence",
+  "difficulty": "Medium",
+  "pattern": "Hash set · amortised scan",
+  "blurb": "A nested loop that is nevertheless O(n). The guard if (num-1) not in s is what makes it so: each run is walked from its start exactly once, so the inner loop does n total work across the whole run of the outer loop.",
+  "url": "https://leetcode.com/problems/longest-consecutive-sequence"
+ },
+ {
+  "slug": "0136-single-number",
+  "file": "0136-single-number.html",
+  "num": "136",
+  "name": "Single Number",
+  "difficulty": "Easy",
+  "pattern": "Bit manipulation · XOR cancellation",
+  "blurb": "The cleanest use of XOR there is. Because x ^ x = 0 and order does not matter, folding XOR across the array annihilates every pair and leaves the singleton.",
+  "url": "https://leetcode.com/problems/single-number"
+ },
+ {
+  "slug": "0138-copy-list-with-random-pointer",
+  "file": "0138-copy-list-with-random-pointer.html",
+  "num": "138",
+  "name": "Copy List With Random Pointer",
+  "difficulty": "Medium",
+  "pattern": "Hash map old→new · two-pass clone",
+  "blurb": "The general recipe for deep-copying any linked structure: pass one creates the nodes, pass two wires them through an old→new map. And map[null] = null deletes every null check.",
+  "url": "https://leetcode.com/problems/copy-list-with-random-pointer"
+ },
+ {
+  "slug": "0141-linked-list-cycle",
+  "file": "0141-linked-list-cycle.html",
+  "num": "141",
+  "name": "Linked List Cycle",
+  "difficulty": "Easy",
+  "pattern": "Fast & slow pointers · Floyd",
+  "blurb": "The tortoise and the hare. Why it must work: inside a loop the gap between fast and slow shrinks by exactly one every iteration, so it reaches zero — they cannot step over each other.",
+  "url": "https://leetcode.com/problems/linked-list-cycle"
+ },
+ {
+  "slug": "0143-reorder-list",
+  "file": "0143-reorder-list.html",
+  "num": "143",
+  "name": "Reorder List",
+  "difficulty": "Medium",
+  "pattern": "Linked list · compose three primitives",
+  "blurb": "Not one algorithm but three you already know, in sequence: find the middle, reverse the back half, interleave. The single most important line is slow.next = None.",
+  "url": "https://leetcode.com/problems/reorder-list"
+ },
+ {
+  "slug": "0146-lru-cache",
+  "file": "0146-lru-cache.html",
+  "num": "146",
+  "name": "LRU Cache",
+  "difficulty": "Medium",
+  "pattern": "Design · hash map + doubly linked list",
+  "blurb": "The archetypal composition question. A hash map alone cannot track recency; a linked list alone cannot look up in O(1). Together they do both — and the two sentinel nodes remove every edge case.",
+  "url": "https://leetcode.com/problems/lru-cache"
+ },
+ {
+  "slug": "0168-excel-sheet-column-title",
+  "file": "0168-excel-sheet-column-title.html",
+  "num": "168",
+  "name": "Excel Sheet Column Title",
+  "difficulty": "Easy",
+  "pattern": "Math · bijective base conversion",
+  "blurb": "Base-26 with no zero digit. Every -1 in these five lines is doing the same job: shifting a 1-based alphabet into the 0-based arithmetic that % and // expect.",
+  "url": "https://leetcode.com/problems/excel-sheet-column-title"
+ },
+ {
+  "slug": "0206-reverse-linked-list",
+  "file": "0206-reverse-linked-list.html",
+  "num": "206",
+  "name": "Reverse Linked List",
+  "difficulty": "Easy",
+  "pattern": "Linked list · pointer rewiring",
+  "blurb": "The single most reused linked-list primitive. Four lines in a fixed order — save, flip, advance, advance — and getting the order wrong loses the rest of the list forever.",
+  "url": "https://leetcode.com/problems/reverse-linked-list"
+ },
+ {
+  "slug": "0217-contains-duplicate",
+  "file": "0217-contains-duplicate.html",
+  "num": "217",
+  "name": "Contains Duplicate",
+  "difficulty": "Easy",
+  "pattern": "Hash set · membership",
+  "blurb": "Two lines, and worth a minute of thought: the set does the comparing, and the size difference does the reporting. Also worth knowing when this is not the best answer.",
+  "url": "https://leetcode.com/problems/contains-duplicate"
+ },
+ {
+  "slug": "0219-contains-duplicate-ii",
+  "file": "0219-contains-duplicate-ii.html",
+  "num": "219",
+  "name": "Contains Duplicate II",
+  "difficulty": "Easy",
+  "pattern": "Sliding window · fixed size",
+  "blurb": "A fixed-size window instead of a variable one — no while loop, just \"add one, drop one\". The trick is realising that \"indices at most k apart\" IS a window of size k+1.",
+  "url": "https://leetcode.com/problems/contains-duplicate-ii"
+ },
+ {
+  "slug": "0237-delete-node-in-a-linked-list",
+  "file": "0237-delete-node-in-a-linked-list.html",
+  "num": "237",
+  "name": "Delete Node in a Linked List",
+  "difficulty": "Medium",
+  "pattern": "Linked list · impersonation trick",
+  "blurb": "A lateral-thinking problem. You cannot delete the node you were given, so you make it pretend to be the next one and delete that instead. Note the restriction this creates: it cannot work on the tail.",
+  "url": "https://leetcode.com/problems/delete-node-in-a-linked-list"
+ },
+ {
+  "slug": "0238-product-of-array-except-self",
+  "file": "0238-product-of-array-except-self.html",
+  "num": "238",
+  "name": "Product of Array Except Self",
+  "difficulty": "Medium",
+  "pattern": "Prefix / suffix accumulation",
+  "blurb": "Prefix × suffix, with the output array doing double duty as scratch space. The load-bearing detail is writing to res[i] before folding nums[i] into the accumulator.",
+  "url": "https://leetcode.com/problems/product-of-array-except-self"
+ },
+ {
+  "slug": "0242-valid-anagram",
+  "file": "0242-valid-anagram.html",
+  "num": "242",
+  "name": "Valid Anagram",
+  "difficulty": "Easy",
+  "pattern": "Hash map · frequency count",
+  "blurb": "Frequency counting in its simplest form. Two things worth stealing: the O(1) length rejection first, and dict.get(k, 0) as the idiom for \"increment a possibly-missing key\".",
+  "url": "https://leetcode.com/problems/valid-anagram"
+ },
+ {
+  "slug": "0287-find-the-duplicate-number",
+  "file": "0287-find-the-duplicate-number.html",
+  "num": "287",
+  "name": "Find the Duplicate Number",
+  "difficulty": "Medium",
+  "pattern": "Floyd cycle detection · fast & slow",
+  "blurb": "The famous disguise: an array of integers is secretly a linked list, and finding a duplicate value is secretly finding where a cycle begins. Two phases — detect, then locate.",
+  "url": "https://leetcode.com/problems/find-the-duplicate-number"
+ },
+ {
+  "slug": "0288-unique-word-abbreviation",
+  "file": "0288-unique-word-abbreviation.html",
+  "num": "288",
+  "name": "Unique Word Abbreviation",
+  "difficulty": "Medium",
+  "pattern": "Design · precompute a canonical key",
+  "blurb": "A canonical-key problem (like LC 49) turned into a data structure. The neat move is the \"\" sentinel: instead of storing a set of words per abbreviation, one poisoned entry says \"contested\".",
+  "url": "https://leetcode.com/problems/unique-word-abbreviation"
+ },
+ {
+  "slug": "0291-word-pattern-ii",
+  "file": "0291-word-pattern-ii.html",
+  "num": "291",
+  "name": "Word Pattern II",
+  "difficulty": "Medium",
+  "pattern": "Backtracking · bijection search",
+  "blurb": "Backtracking where the mutable state is a dictionary, not a list. Same three beats — bind, explore, unbind — but there are two structures to undo and both matter.",
+  "url": "https://leetcode.com/problems/word-pattern-ii"
+ },
+ {
+  "slug": "0304-range-sum-query-2d-immutable",
+  "file": "0304-range-sum-query-2d-immutable.html",
+  "num": "304",
+  "name": "Range Sum Query 2D — Immutable",
+  "difficulty": "Medium",
+  "pattern": "2D prefix sum · inclusion–exclusion",
+  "blurb": "Prefix sums in two dimensions. Both the build and the query are inclusion–exclusion — add two overlapping regions, subtract the double-counted overlap — and the padded border makes every index safe.",
+  "url": "https://leetcode.com/problems/range-sum-query-2d-immutable"
+ },
+ {
+  "slug": "0344-reverse-string",
+  "file": "0344-reverse-string.html",
+  "num": "344",
+  "name": "Reverse String",
+  "difficulty": "Easy",
+  "pattern": "Two pointers · converging",
+  "blurb": "The smallest possible converging-two-pointer problem. Worth five minutes because the shape — start at both ends, swap, step inward — reappears in palindromes, rotations and in-place partitions.",
+  "url": "https://leetcode.com/problems/reverse-string"
+ },
+ {
+  "slug": "0347-top-k-frequent-elements",
+  "file": "0347-top-k-frequent-elements.html",
+  "num": "347",
+  "name": "Top K Frequent Elements",
+  "difficulty": "Medium",
+  "pattern": "Bucket sort · frequency",
+  "blurb": "The O(n) answer that beats both sorting and the heap. It works because a frequency is bounded by n, which means you can use it directly as an array index.",
+  "url": "https://leetcode.com/problems/top-k-frequent-elements"
+ },
+ {
+  "slug": "0387-first-unique-character-in-a-string",
+  "file": "0387-first-unique-character-in-a-string.html",
+  "num": "387",
+  "name": "First Unique Character in a String",
+  "difficulty": "Easy",
+  "pattern": "Hash map · two-pass frequency",
+  "blurb": "The \"two passes are fine\" lesson. You cannot answer this in one pass because uniqueness is only known after seeing the whole string — and iterating the string in pass two, not the dictionary, is what makes \"first\" correc",
+  "url": "https://leetcode.com/problems/first-unique-character-in-a-string"
+ },
+ {
+  "slug": "0460-lfu-cache",
+  "file": "0460-lfu-cache.html",
+  "num": "460",
+  "name": "LFU Cache",
+  "difficulty": "Hard",
+  "pattern": "Design · three maps + per-frequency LRU lists",
+  "blurb": "LRU with one more dimension. Evict by lowest frequency, and break ties by recency — which means each frequency needs its own LRU list, plus a running minimum so eviction stays O(1).",
+  "url": "https://leetcode.com/problems/lfu-cache"
+ },
+ {
+  "slug": "0463-island-perimeter",
+  "file": "0463-island-perimeter.html",
+  "num": "463",
+  "name": "Island Perimeter",
+  "difficulty": "Easy",
+  "pattern": "Grid DFS · flood fill",
+  "blurb": "A flood fill where the return value counts the walls you bump into rather than the cells you visit. Watch the base cases: return 1 means \"I hit an edge\", return 0 means \"already counted\".",
+  "url": "https://leetcode.com/problems/island-perimeter"
+ },
+ {
+  "slug": "0622-design-circular-queue",
+  "file": "0622-design-circular-queue.html",
+  "num": "622",
+  "name": "Design Circular Queue",
+  "difficulty": "Medium",
+  "pattern": "Design · doubly linked list with sentinels",
+  "blurb": "Your solution uses a doubly linked list with two sentinels and a free-space counter. The classic alternative — a fixed array with modular indices — is where the name \"circular\" actually comes from.",
+  "url": "https://leetcode.com/problems/design-circular-queue"
+ },
+ {
+  "slug": "0628-maximum-product-of-three-numbers",
+  "file": "0628-maximum-product-of-three-numbers.html",
+  "num": "628",
+  "name": "Maximum Product of Three Numbers",
+  "difficulty": "Easy",
+  "pattern": "Sorting · exhaustive case analysis",
+  "blurb": "Easy to code, easy to get wrong. The trap is forgetting that two large negatives multiply to a large positive — so the answer is not always \"the three biggest\".",
+  "url": "https://leetcode.com/problems/maximum-product-of-three-numbers"
+ },
+ {
+  "slug": "0682-baseball-game",
+  "file": "0682-baseball-game.html",
+  "num": "682",
+  "name": "Baseball Game",
+  "difficulty": "Easy",
+  "pattern": "Stack · simulation with undo",
+  "blurb": "A stack chosen for one specific reason: the \"C\" operation needs an undo, and a running total cannot undo. Recognising which operation forces the data structure is the whole lesson.",
+  "url": "https://leetcode.com/problems/baseball-game"
+ },
+ {
+  "slug": "0703-kth-largest-element-in-a-stream",
+  "file": "0703-kth-largest-element-in-a-stream.html",
+  "num": "703",
+  "name": "Kth Largest Element in a Stream",
+  "difficulty": "Easy",
+  "pattern": "Heap · bounded size-k min-heap",
+  "blurb": "The inversion worth memorising: k largest → min-heap of size k. The root is the weakest survivor, which is exactly the kth largest, and it makes eviction O(1) to find.",
+  "url": "https://leetcode.com/problems/kth-largest-element-in-a-stream"
+ },
+ {
+  "slug": "0704-binary-search",
+  "file": "0704-binary-search.html",
+  "num": "704",
+  "name": "Binary Search",
+  "difficulty": "Easy",
+  "pattern": "Binary search · exact match",
+  "blurb": "The template every other binary search is a mutation of. Three details carry all the weight: &lt;= in the loop, mid ± 1 in the updates, and the overflow-safe midpoint.",
+  "url": "https://leetcode.com/problems/binary-search"
+ },
+ {
+  "slug": "0705-design-hashset",
+  "file": "0705-design-hashset.html",
+  "num": "705",
+  "name": "Design HashSet",
+  "difficulty": "Easy",
+  "pattern": "Design · hash table internals",
+  "blurb": "Your solution wraps a dict, which passes. The interesting version is the one the problem is actually asking for — buckets, a hash function, and a collision strategy — so that is what the theory below covers.",
+  "url": "https://leetcode.com/problems/design-hashset"
+ },
+ {
+  "slug": "0706-design-hashmap",
+  "file": "0706-design-hashmap.html",
+  "num": "706",
+  "name": "Design HashMap",
+  "difficulty": "Easy",
+  "pattern": "Design · hash table internals",
+  "blurb": "LC 705 with values attached. The detail worth arguing about is the -1 sentinel for a missing key — a design smell that a real API would handle differently.",
+  "url": "https://leetcode.com/problems/design-hashmap"
+ },
+ {
+  "slug": "0739-daily-temperatures",
+  "file": "0739-daily-temperatures.html",
+  "num": "739",
+  "name": "Daily Temperatures",
+  "difficulty": "Medium",
+  "pattern": "Monotonic stack · next greater element",
+  "blurb": "The canonical monotonic stack. Every index is pushed once and popped once, so the nested while loop is still O(n) — the same amortised argument as LC 128.",
+  "url": "https://leetcode.com/problems/daily-temperatures"
+ },
+ {
+  "slug": "0773-sliding-puzzle",
+  "file": "0773-sliding-puzzle.html",
+  "num": "773",
+  "name": "Sliding Puzzle",
+  "difficulty": "Hard",
+  "pattern": "BFS on a state graph",
+  "blurb": "Rated Hard because of the modelling, not the algorithm. Once you see that a board is a node and a move is an edge, it is textbook BFS on a graph with 720 vertices.",
+  "url": "https://leetcode.com/problems/sliding-puzzle"
+ },
+ {
+  "slug": "0860-lemonade-change",
+  "file": "0860-lemonade-change.html",
+  "num": "860",
+  "name": "Lemonade Change",
+  "difficulty": "Easy",
+  "pattern": "Greedy · spend the least flexible resource first",
+  "blurb": "Only one line in this problem is a real decision: paying $15 with a $10 + $5 rather than three $5s. The reason is that $5 notes are more flexible, so you hoard them.",
+  "url": "https://leetcode.com/problems/lemonade-change"
+ },
+ {
+  "slug": "0867-new-21-game",
+  "file": "0867-new-21-game.html",
+  "num": "867",
+  "name": "New 21 Game",
+  "difficulty": "Medium",
+  "pattern": "Probability DP · sliding window sum",
+  "blurb": "A DP whose recurrence sums a fixed-width window of earlier states. Recomputing that sum is O(n·maxPts); maintaining it incrementally is O(n) — and that pattern generalises far beyond this problem.",
+  "url": "https://leetcode.com/problems/new-21-game"
+ },
+ {
+  "slug": "0912-sort-an-array",
+  "file": "0912-sort-an-array.html",
+  "num": "912",
+  "name": "the divide-and-conquer tree",
+  "difficulty": "Medium",
+  "pattern": "Divide and conquer · merge sort",
+  "blurb": "Merge sort from scratch. Watch the recursion tree: depth log n, O(n) work per level. That picture is the complexity proof, and it transfers to every divide-and-conquer algorithm.",
+  "url": "https://leetcode.com/problems/sort-an-array"
+ },
+ {
+  "slug": "0934-bitwise-ors-of-subarrays",
+  "file": "0934-bitwise-ors-of-subarrays.html",
+  "num": "934",
+  "name": "Bitwise ORs of Subarrays",
+  "difficulty": "Medium",
+  "pattern": "Monotone bit operation · bounded frontier",
+  "blurb": "The complement of LC 2503 in your repo. There, AND only clears bits so runs matter. Here, OR only sets bits — which bounds the set of distinct values ending at each index to about 30.",
+  "url": "https://leetcode.com/problems/bitwise-ors-of-subarrays"
+ },
+ {
+  "slug": "1071-greatest-common-divisor-of-strings",
+  "file": "1071-greatest-common-divisor-of-strings.html",
+  "num": "1071",
+  "name": "Greatest Common Divisor of Strings",
+  "difficulty": "Easy",
+  "pattern": "Number theory analogy · gcd on lengths",
+  "blurb": "Your solution scans candidate lengths downwards. There is a two-line version built on a lovely fact: a common divisor string exists iff s1 + s2 == s2 + s1, and its length is exactly gcd(len(s1), len(s2)).",
+  "url": "https://leetcode.com/problems/greatest-common-divisor-of-strings"
+ },
+ {
+  "slug": "1081-smallest-subsequence-of-distinct-characters",
+  "file": "1081-smallest-subsequence-of-distinct-characters.html",
+  "num": "1081",
+  "name": "Smallest Subsequence of Distinct Characters",
+  "difficulty": "Medium",
+  "pattern": "Monotonic stack · greedy with a safety check",
+  "blurb": "A monotonic stack with one extra condition. Popping a bigger character is only safe if it reappears later — the last array is what makes the greedy legal.",
+  "url": "https://leetcode.com/problems/smallest-subsequence-of-distinct-characters"
+ },
+ {
+  "slug": "1260-shift-2d-grid",
+  "file": "1260-shift-2d-grid.html",
+  "num": "1260",
+  "name": "Shift 2D Grid",
+  "difficulty": "Easy",
+  "pattern": "Flatten · modular shift · unflatten",
+  "blurb": "Two ideas that pay off far beyond this problem: k %= total to collapse a huge shift, and flatten-shift-unflatten to delete every wrap-around special case.",
+  "url": "https://leetcode.com/problems/shift-2d-grid"
+ },
+ {
+  "slug": "1288-remove-covered-intervals",
+  "file": "1288-remove-covered-intervals.html",
+  "num": "1288",
+  "name": "Remove Covered Intervals",
+  "difficulty": "Medium",
+  "pattern": "Intervals · sort key does the work",
+  "blurb": "A five-line loop that is only correct because of one sort key. (x[0], -x[1]) — start ascending, end descending — is the entire algorithm; everything after it is a running maximum.",
+  "url": "https://leetcode.com/problems/remove-covered-intervals"
+ },
+ {
+  "slug": "1291-sequential-digits",
+  "file": "1291-sequential-digits.html",
+  "num": "1291",
+  "name": "Sequential Digits",
+  "difficulty": "Medium",
+  "pattern": "Generate the small candidate set, then filter",
+  "blurb": "The whole problem is realising there are only 36 sequential-digit numbers in existence. Generate all of them from the string \"123456789\" and filter — the range never enters the loop.",
+  "url": "https://leetcode.com/problems/sequential-digits"
+ },
+ {
+  "slug": "1344-angle-between-hands-of-a-clock",
+  "file": "1344-angle-between-hands-of-a-clock.html",
+  "num": "1344",
+  "name": "Angle Between Hands of a Clock",
+  "difficulty": "Medium",
+  "pattern": "Math · modular geometry",
+  "blurb": "No algorithm at all — just three facts. 30° per hour, 0.5° per minute of hour-hand drift, 6° per minute. The drift term is what people forget.",
+  "url": "https://leetcode.com/problems/angle-between-hands-of-a-clock"
+ },
+ {
+  "slug": "1358-number-of-substrings-containing-all-three-characters",
+  "file": "1358-number-of-substrings-containing-all-three-characters.html",
+  "num": "1358",
+  "name": "Number of Substrings Containing All Three Characters",
+  "difficulty": "Medium",
+  "pattern": "Sliding window · counting",
+  "blurb": "The counting variant of the sliding window. The whole problem is one line: ans += n - right. Understanding why that counts each substring exactly once is the skill being tested.",
+  "url": "https://leetcode.com/problems/number-of-substrings-containing-all-three-characters"
+ },
+ {
+  "slug": "1448-maximum-69-number",
+  "file": "1448-maximum-69-number.html",
+  "num": "1448",
+  "name": "Maximum 69 Number",
+  "difficulty": "Easy",
+  "pattern": "Greedy · positional value",
+  "blurb": "Three lines, and the argument behind them is worth more than the code: a digit change at place 10^k is worth 3·10^k, so always change the leftmost 6.",
+  "url": "https://leetcode.com/problems/maximum-69-number"
+ },
+ {
+  "slug": "1464-maximum-product-of-two-elements-in-an-array",
+  "file": "1464-maximum-product-of-two-elements-in-an-array.html",
+  "num": "1464",
+  "name": "Maximum Product of Two Elements in an Array",
+  "difficulty": "Easy",
+  "pattern": "Single pass · top-k tracking",
+  "blurb": "Track the top two in one pass, no sort. The detail that matters is the demotion order — max2 = max1 must happen before max1 = num.",
+  "url": "https://leetcode.com/problems/maximum-product-of-two-elements-in-an-array"
+ },
+ {
+  "slug": "1631-path-with-minimum-effort",
+  "file": "1631-path-with-minimum-effort.html",
+  "num": "1631",
+  "name": "Path With Minimum Effort",
+  "difficulty": "Medium",
+  "pattern": "Dijkstra · minimax path",
+  "blurb": "Dijkstra where the path cost is the maximum edge rather than the sum. One character changes — max instead of + — and everything else about Dijkstra survives intact.",
+  "url": "https://leetcode.com/problems/path-with-minimum-effort"
+ },
+ {
+  "slug": "1732-find-the-highest-altitude",
+  "file": "1732-find-the-highest-altitude.html",
+  "num": "1732",
+  "name": "Find the Highest Altitude",
+  "difficulty": "Easy",
+  "pattern": "Prefix sum · running maximum",
+  "blurb": "A prefix sum with a running max, in four lines. The one thing to notice is that max_altitude must start at 0 — the starting point counts as a candidate.",
+  "url": "https://leetcode.com/problems/find-the-highest-altitude"
+ },
+ {
+  "slug": "1833-maximum-ice-cream-bars",
+  "file": "1833-maximum-ice-cream-bars.html",
+  "num": "1833",
+  "name": "Maximum Ice Cream Bars",
+  "difficulty": "Medium",
+  "pattern": "Greedy · counting sort",
+  "blurb": "Buy cheapest first — but the interesting choice here is counting sort instead of sort(), which turns O(n log n) into O(n + maxPrice).",
+  "url": "https://leetcode.com/problems/maximum-ice-cream-bars"
+ },
+ {
+  "slug": "1840-maximum-building-height",
+  "file": "1840-maximum-building-height.html",
+  "num": "1840",
+  "name": "Maximum Building Height",
+  "difficulty": "Hard",
+  "pattern": "Constraint propagation · two sweeps + geometry",
+  "blurb": "Three ideas stacked: sentinel restrictions to kill edge cases, two sweeps to propagate a neighbour constraint in both directions, and a closed-form tent peak between each adjacent pair.",
+  "url": "https://leetcode.com/problems/maximum-building-height"
+ },
+ {
+  "slug": "1846-maximum-element-after-decreasing-and-rearranging",
+  "file": "1846-maximum-element-after-decreasing-and-rearranging.html",
+  "num": "1846",
+  "name": "Maximum Element After Decreasing and Rearranging",
+  "difficulty": "Medium",
+  "pattern": "Greedy · sort then climb",
+  "blurb": "Three lines that look too simple to be right. The argument: the optimal array is always 1, 2, 3, …, so sort and let each element climb one step if it can.",
+  "url": "https://leetcode.com/problems/maximum-element-after-decreasing-and-rearranging"
+ },
+ {
+  "slug": "1863-sum-of-all-subset-xor-totals",
+  "file": "1863-sum-of-all-subset-xor-totals.html",
+  "num": "1863",
+  "name": "Sum of All Subset XOR Totals",
+  "difficulty": "Easy",
+  "pattern": "Bit counting · contribution technique",
+  "blurb": "Marked Easy because backtracking passes. The real solution is one line, and it comes from asking a different question: not \"what is each subset worth?\" but \"how often does each bit appear?\"",
+  "url": "https://leetcode.com/problems/sum-of-all-subset-xor-totals"
+ },
+ {
+  "slug": "1929-concatenation-of-array",
+  "file": "1929-concatenation-of-array.html",
+  "num": "1929",
+  "name": "Concatenation of Array",
+  "difficulty": "Easy",
+  "pattern": "Index arithmetic · pre-sized output",
+  "blurb": "Trivial, but it demonstrates a habit worth having: pre-size the output and write with an index offset rather than appending twice.",
+  "url": "https://leetcode.com/problems/concatenation-of-array"
+ },
+ {
+  "slug": "1967-number-of-strings-that-appear-as-substrings-in-word",
+  "file": "1967-number-of-strings-that-appear-as-substrings-in-word.html",
+  "num": "1967",
+  "name": "Number of Strings That Appear as Substrings in Word",
+  "difficulty": "Easy",
+  "pattern": "String matching · know what your library does",
+  "blurb": "Three lines. Worth a minute anyway, because it is a good moment to know what in actually costs and what you would reach for if the input were a million times bigger.",
+  "url": "https://leetcode.com/problems/number-of-strings-that-appear-as-substrings-in-word"
+ },
+ {
+  "slug": "1979-find-greatest-common-divisor-of-array",
+  "file": "1979-find-greatest-common-divisor-of-array.html",
+  "num": "1979",
+  "name": "Find Greatest Common Divisor of Array",
+  "difficulty": "Easy",
+  "pattern": "Number theory · Euclidean algorithm",
+  "blurb": "One line if you know your library. Worth the visit for the Euclidean algorithm itself, which is the engine behind gcd, lcm, modular inverses and Diophantine equations.",
+  "url": "https://leetcode.com/problems/find-greatest-common-divisor-of-array"
+ },
+ {
+  "slug": "2095-delete-the-middle-node-of-a-linked-list",
+  "file": "2095-delete-the-middle-node-of-a-linked-list.html",
+  "num": "2095",
+  "name": "Delete the Middle Node of a Linked List",
+  "difficulty": "Medium",
+  "pattern": "Fast & slow pointers · find the middle",
+  "blurb": "Fast/slow doing its second job: finding the midpoint. The extra wrinkle is prev — to delete a node you need its predecessor, and a singly linked list will not give you one.",
+  "url": "https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list"
+ },
+ {
+  "slug": "2133-number-of-pairs-of-strings-with-concatenation-equal-to-target",
+  "file": "2133-number-of-pairs-of-strings-with-concatenation-equal-to-target.html",
+  "num": "2133",
+  "name": "Number of Pairs of Strings With Concatenation Equal to Target",
+  "difficulty": "Medium",
+  "pattern": "Brute force · index vs value identity",
+  "blurb": "A double loop, deliberately. The subtlety is the i == j guard: two equal strings at different indices are a legal pair, but an element may not pair with itself.",
+  "url": "https://leetcode.com/problems/number-of-pairs-of-strings-with-concatenation-equal-to-target"
+ },
+ {
+  "slug": "2144-minimum-cost-of-buying-candies-with-discount",
+  "file": "2144-minimum-cost-of-buying-candies-with-discount.html",
+  "num": "2144",
+  "name": "Minimum Cost of Buying Candies With Discount",
+  "difficulty": "Easy",
+  "pattern": "Greedy · sort descending, take every third",
+  "blurb": "Two lines once you see it: sort descending and skip index 2, 5, 8, …. The direction of the sort is the whole decision, and it follows from wanting the free items to be expensive.",
+  "url": "https://leetcode.com/problems/minimum-cost-of-buying-candies-with-discount"
+ },
+ {
+  "slug": "2161-partition-array-according-to-given-pivot",
+  "file": "2161-partition-array-according-to-given-pivot.html",
+  "num": "2161",
+  "name": "Partition Array According to Given Pivot",
+  "difficulty": "Medium",
+  "pattern": "Stable three-way partition",
+  "blurb": "Compare this directly with Sort Colors (LC 75) in your repo. Same three-way split — but here stability is required, and that one word forbids the in-place swapping trick entirely.",
+  "url": "https://leetcode.com/problems/partition-array-according-to-given-pivot"
+ },
+ {
+  "slug": "2196-create-binary-tree-from-descriptions",
+  "file": "2196-create-binary-tree-from-descriptions.html",
+  "num": "2196",
+  "name": "Create Binary Tree From Descriptions",
+  "difficulty": "Medium",
+  "pattern": "Hash map · build a structure from edges",
+  "blurb": "Building a tree from an unordered edge list. Two ideas: a value→node map so nodes are created once and shared, and finding the root by elimination — the only value that is never a child.",
+  "url": "https://leetcode.com/problems/create-binary-tree-from-descriptions"
+ },
+ {
+  "slug": "2450-minimum-replacements-to-sort-the-array",
+  "file": "2450-minimum-replacements-to-sort-the-array.html",
+  "num": "2450",
+  "name": "Minimum Replacements to Sort the Array",
+  "difficulty": "Hard",
+  "pattern": "Greedy from the right · equal splitting",
+  "blurb": "Two decisions carry the whole problem: process right to left, and when splitting, make the pieces as equal as possible so the leftmost one stays as large as it can.",
+  "url": "https://leetcode.com/problems/minimum-replacements-to-sort-the-array"
+ },
+ {
+  "slug": "2503-longest-subarray-with-maximum-bitwise-and",
+  "file": "2503-longest-subarray-with-maximum-bitwise-and.html",
+  "num": "2503",
+  "name": "Longest Subarray With Maximum Bitwise AND",
+  "difficulty": "Medium",
+  "pattern": "Observation-driven · monotone operation",
+  "blurb": "A problem where the code is trivial once you notice one fact: AND never increases. That reduces the whole thing to \"find the longest run of the maximum value\".",
+  "url": "https://leetcode.com/problems/longest-subarray-with-maximum-bitwise-and"
+ },
+ {
+  "slug": "2574-left-and-right-sum-differences",
+  "file": "2574-left-and-right-sum-differences.html",
+  "num": "2574",
+  "name": "Left and Right Sum Differences",
+  "difficulty": "Easy",
+  "pattern": "Prefix sum · total minus prefix",
+  "blurb": "The suffix sum for free: right = total - left - nums[i]. No second array, no backward pass — worth internalising because it applies whenever the operation has an inverse.",
+  "url": "https://leetcode.com/problems/left-and-right-sum-differences"
+ },
+ {
+  "slug": "2685-count-the-number-of-complete-components",
+  "file": "2685-count-the-number-of-complete-components.html",
+  "num": "2685",
+  "name": "Count the Number of Complete Components",
+  "difficulty": "Medium",
+  "pattern": "Connected components + a counting criterion",
+  "blurb": "Two standard pieces: DFS to find components, and the handshake lemma to test completeness by counting edges instead of checking every pair.",
+  "url": "https://leetcode.com/problems/count-the-number-of-complete-components"
+ },
+ {
+  "slug": "2807-insert-greatest-common-divisors-in-linked-list",
+  "file": "2807-insert-greatest-common-divisors-in-linked-list.html",
+  "num": "2807",
+  "name": "Insert Greatest Common Divisors in Linked List",
+  "difficulty": "Medium",
+  "pattern": "Linked list · insert between pairs",
+  "blurb": "The only real trap is the advance step: after inserting, you must move forward two nodes, not one — otherwise you keep inserting between your own insertions.",
+  "url": "https://leetcode.com/problems/insert-greatest-common-divisors-in-linked-list"
+ },
+ {
+  "slug": "2812-find-the-safest-path-in-a-grid",
+  "file": "2812-find-the-safest-path-in-a-grid.html",
+  "num": "2812",
+  "name": "Find the Safest Path in a Grid",
+  "difficulty": "Medium",
+  "pattern": "Multi-source BFS + maximin Dijkstra",
+  "blurb": "Two classic techniques stacked. Multi-source BFS builds a distance field from all thieves at once; then a max-heap search finds the path whose weakest cell is as strong as possible.",
+  "url": "https://leetcode.com/problems/find-the-safest-path-in-a-grid"
+ },
+ {
+  "slug": "3020-find-the-maximum-number-of-elements-in-subset",
+  "file": "3020-find-the-maximum-number-of-elements-in-subset.html",
+  "num": "3020",
+  "name": "Find the Maximum Number of Elements in a Subset",
+  "difficulty": "Medium",
+  "pattern": "Frequency map · chain following",
+  "blurb": "The pattern x, x², x⁴, … and back down. Two things make it tractable: repeated squaring blows past 10⁹ in about five steps, and 1 needs its own case because 1² = 1.",
+  "url": "https://leetcode.com/problems/find-the-maximum-number-of-elements-in-a-subset"
+ },
+ {
+  "slug": "3221-find-the-peaks",
+  "file": "3221-find-the-peaks.html",
+  "num": "3221",
+  "name": "Find the Peaks",
+  "difficulty": "Easy",
+  "pattern": "Array scan · local property",
+  "blurb": "A local-property scan. The interesting design choice is that the loop bounds encode the \"endpoints cannot be peaks\" rule, so no guard is needed inside the body.",
+  "url": "https://leetcode.com/problems/find-the-peaks"
+ },
+ {
+  "slug": "3336-find-the-number-of-subsequences-with-equal-gcd",
+  "file": "3336-find-the-number-of-subsequences-with-equal-gcd.html",
+  "num": "3336",
+  "name": "Find the Number of Subsequences With Equal GCD",
+  "difficulty": "Hard",
+  "pattern": "DP over a bounded state (gcd × gcd)",
+  "blurb": "The state is a pair of gcds, not a pair of subsets. Because every gcd of the input divides some value ≤ 200, the state space is only 201×201 — that bound is what makes an exponential problem polynomial.",
+  "url": "https://leetcode.com/problems/find-the-number-of-subsequences-with-equal-gcd"
+ },
+ {
+  "slug": "3499-maximize-active-section-with-trade-i",
+  "file": "3499-maximize-active-section-with-trade-i.html",
+  "num": "3499",
+  "name": "Maximize Active Section With Trade I",
+  "difficulty": "Medium",
+  "pattern": "Run-length scan · pair of adjacent runs",
+  "blurb": "Once you decode what the trade actually does — merge two zero-runs separated by one block of ones — the code is a single pass keeping the previous and current run lengths.",
+  "url": "https://leetcode.com/problems/maximize-active-sections-with-trade-i"
+ },
+ {
+  "slug": "3513-number-of-unique-xor-triplets-i",
+  "file": "3513-number-of-unique-xor-triplets-i.html",
+  "num": "3513",
+  "name": "Number of Unique XOR Triplets I",
+  "difficulty": "Medium",
+  "pattern": "Bit reasoning · closed form",
+  "blurb": "One line, O(1). The whole problem is the promise hidden in the statement: nums is a permutation of 1..n, which means the answer depends only on n.",
+  "url": "https://leetcode.com/problems/number-of-unique-xor-triplets-i"
+ },
+ {
+  "slug": "3532-path-existence-queries-in-a-graph-i",
+  "file": "3532-path-existence-queries-in-a-graph-i.html",
+  "num": "3532",
+  "name": "Path Existence Queries in a Graph I",
+  "difficulty": "Medium",
+  "pattern": "Sorted structure collapses a graph",
+  "blurb": "Looks like a graph problem, is not one. Because nums is sorted, the graph is a chain that breaks at every gap larger than maxDiff — so components are just contiguous runs.",
+  "url": "https://leetcode.com/problems/path-existence-queries-in-a-graph-i"
+ },
+ {
+  "slug": "3534-path-existence-queries-in-a-graph-ii",
+  "file": "3534-path-existence-queries-in-a-graph-ii.html",
+  "num": "3534",
+  "name": "Path Existence Queries in a Graph II",
+  "difficulty": "Hard",
+  "pattern": "Sort + greedy farthest + binary lifting",
+  "blurb": "Part I asked \"are they connected?\" and a component label answered it. Part II asks \"how far apart?\", and that needs a jump table — the same doubling trick used for lowest common ancestor.",
+  "url": "https://leetcode.com/problems/path-existence-queries-in-a-graph-ii"
+ },
+ {
+  "slug": "3558-number-of-ways-to-assign-edge-weights-i",
+  "file": "3558-number-of-ways-to-assign-edge-weights-i.html",
+  "num": "3558",
+  "name": "Number of Ways to Assign Edge Weights I",
+  "difficulty": "Medium",
+  "pattern": "BFS height + parity counting",
+  "blurb": "BFS to measure the tree height, then a counting argument: exactly half of all 2^d weight assignments satisfy any fixed parity condition, so the answer is 2^(d−1).",
+  "url": "https://leetcode.com/problems/number-of-ways-to-assign-edge-weights-i"
+ },
+ {
+  "slug": "3559-number-of-ways-to-assign-edge-weights-ii",
+  "file": "3559-number-of-ways-to-assign-edge-weights-ii.html",
+  "num": "3559",
+  "name": "Number of Ways to Assign Edge Weights II",
+  "difficulty": "Hard",
+  "pattern": "Binary lifting LCA + parity counting",
+  "blurb": "Part I needed one tree height; Part II needs the distance between arbitrary pairs. That single change forces the whole LCA machinery — and the counting argument stays identical.",
+  "url": "https://leetcode.com/problems/number-of-ways-to-assign-edge-weights-ii"
+ },
+ {
+  "slug": "3614-process-string-with-special-operations-ii",
+  "file": "3614-process-string-with-special-operations-ii.html",
+  "num": "3614",
+  "name": "Process String With Special Operations II",
+  "difficulty": "Hard",
+  "pattern": "Forward lengths + backward index mapping",
+  "blurb": "The result can be exponentially long, so you never build it. Instead: track only the LENGTH forwards, then map the query index BACKWARDS through each operation until it lands on a literal character.",
+  "url": "https://leetcode.com/problems/process-string-with-special-operations-ii"
+ },
+ {
+  "slug": "3620-network-recovery-pathways",
+  "file": "3620-network-recovery-pathways.html",
+  "num": "3620",
+  "name": "Network Recovery Pathways",
+  "difficulty": "Hard",
+  "pattern": "Binary search on the answer + DAG shortest path",
+  "blurb": "The most transferable technique in competitive programming: when the answer is hard to compute but easy to verify, binary search it. Here each verification is a linear sweep over a topological order.",
+  "url": "https://leetcode.com/problems/network-recovery-pathways"
+ },
+ {
+  "slug": "3689-maximum-total-subarray-value-i",
+  "file": "3689-maximum-total-subarray-value-i.html",
+  "num": "3689",
+  "name": "Maximum Total Subarray Value I",
+  "difficulty": "Medium",
+  "pattern": "Observation · the constraint that is not there",
+  "blurb": "A one-line solution whose entire content is a reading-comprehension point: the k subarrays need not be distinct. Once you notice that, there is nothing left to compute.",
+  "url": "https://leetcode.com/problems/maximum-total-subarray-value-i"
+ },
+ {
+  "slug": "3699-number-of-zigzag-arrays-i",
+  "file": "3699-number-of-zigzag-arrays-i.html",
+  "num": "3699",
+  "name": "Number of Zigzag Arrays I",
+  "difficulty": "Hard",
+  "pattern": "DP with direction state + prefix-sum transitions",
+  "blurb": "Two lessons: the state you need is \"last value + last direction\", and a transition that sums over a range collapses from O(m) to O(1) with a running prefix sum.",
+  "url": "https://leetcode.com/problems/number-of-zigzag-arrays-i"
+ },
+ {
+  "slug": "3700-number-of-zigzag-arrays-ii",
+  "file": "3700-number-of-zigzag-arrays-ii.html",
+  "num": "3700",
+  "name": "Number of Zigzag Arrays II",
+  "difficulty": "Hard",
+  "pattern": "Matrix exponentiation of a linear recurrence",
+  "blurb": "Part I with n up to 10¹⁸. The DP transition is linear, so encode it as a matrix and apply it n times with binary exponentiation — O(log n) instead of O(n).",
+  "url": "https://leetcode.com/problems/number-of-zigzag-arrays-ii"
+ },
+ {
+  "slug": "3737-count-subarrays-with-majority-element-i",
+  "file": "3737-count-subarrays-with-majority-element-i.html",
+  "num": "3737",
+  "name": "Count Subarrays With Majority Element I",
+  "difficulty": "Medium",
+  "pattern": "Brute force with incremental state",
+  "blurb": "The intended O(n²) solution — but note the one detail that makes it O(n²) and not O(n³): the count is carried forward as j advances instead of being recomputed.",
+  "url": "https://leetcode.com/problems/count-subarrays-with-majority-element-i"
+ },
+ {
+  "slug": "3739-count-subarrays-with-majority-element-ii",
+  "file": "3739-count-subarrays-with-majority-element-ii.html",
+  "num": "3739",
+  "name": "Count Subarrays With Majority Element II",
+  "difficulty": "Hard",
+  "pattern": "+1/−1 transform · prefix sums · Fenwick tree",
+  "blurb": "Three techniques composed. Map target to +1 and everything else to −1; \"majority\" becomes \"positive sum\"; counting those becomes an inversion count, which a Fenwick tree does in O(n log n).",
+  "url": "https://leetcode.com/problems/count-subarrays-with-majority-element-ii"
+ },
+ {
+  "slug": "3753-total-waviness-of-numbers-in-range-ii",
+  "file": "3753-total-waviness-of-numbers-in-range-ii.html",
+  "num": "3753",
+  "name": "Total Waviness of Numbers in Range II",
+  "difficulty": "Hard",
+  "pattern": "Digit DP · tight / started / carried context",
+  "blurb": "The canonical digit DP, with one extra twist: the recursion returns a pair — how many numbers, and how much waviness — because a peak at this position adds 1 to every number below it.",
+  "url": "https://leetcode.com/problems/total-waviness-of-numbers-in-range-ii"
+ },
+ {
+  "slug": "3754-concatenate-non-zero-digits-and-multiply-by-sum-i",
+  "file": "3754-concatenate-non-zero-digits-and-multiply-by-sum-i.html",
+  "num": "3754",
+  "name": "Concatenate Non-Zero Digits and Multiply by Sum I",
+  "difficulty": "Easy",
+  "pattern": "Digit manipulation · single pass, two accumulators",
+  "blurb": "Straight simulation. Two things worth noting: both accumulators are built in one pass, and the empty-string guard is a real edge case, not decoration.",
+  "url": "https://leetcode.com/problems/concatenate-non-zero-digits-and-multiply-by-sum-i"
+ }
+]

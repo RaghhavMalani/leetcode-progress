@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>47 - Permutations II</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def permuteUnique(self, nums: List[int]) -> List[List[int]]:", "        res = []", "        perm = []", "        count = {n:0 for n in nums}", "        for num in nums:", "            count[num] += 1", "        ", "        def dfs():", "            if len(perm) == len(nums):", "                res.append(perm.copy())", "                return", "", "            for num in count:", "                if count[num] > 0:", "                    perm.append(num)", "                    count[num] -= 1", "", "                    dfs()", "", "                    count[num] += 1", "                    perm.pop()", "        ", "        dfs()", "        return res"];
+function build(){
+  var T=LV.trace(), nums=[1,1,2], perm=[], count={1:2,2:1}, keys=[1,2];
+  var tb=LV.treeBuilder(46,26,56,52);
+  function C(){ return '['+perm.join(', ')+']'; }
+  function pairs(){ return keys.map(function(k){ return [k, count[k]]; }); }
+  function V(id,hot){ var m={}; if(hot!=null) m[hot]= count[hot]>0 ? 'hot':'bad';
+    return [ LV.arr('perm', perm.slice(), {}, {idx:false}),
+      LV.kv('count — the remaining budget', pairs(), m, {}),
+      LV.frames('call stack', tb.chain(id).reverse().map(function(x){return tb.nodes[x].frame;})),
+      LV.tree(tb,id) ]; }
+  function VA(){ return ['count = <b>{1: '+count[1]+', 2: '+count[2]+'}</b>','len(perm) = <em>'+perm.length+'</em> / 3','perm = <u>'+C()+'</u>']; }
+
+  var root=tb.add(null,'dfs',null,'dfs()  perm=[]');
+  T.step(5,'info','nums = [1, 1, 2] becomes count = {1: 2, 2: 1}. From here on the recursion never touches nums again — it spends from this budget instead.',VA(),V(root,null));
+  T.step(24,'info','`dfs()` — first call, empty permutation.',VA(),V(root,null));
+
+  function dfs(id){
+    T.step(9,'call','Enter dfs(). perm = '+C()+', budget {1: '+count[1]+', 2: '+count[2]+'}.',VA(),V(id,null));
+    if(perm.length===nums.length){
+      T.save(C()); tb.win(id,T.events.length);
+      T.step(11,'found','perm is full. Save a copy of '+C()+'.',VA(),V(id,null));
+      T.step(12,'ok','return.',VA(),V(id,null)); return;
+    }
+    keys.forEach(function(num){
+      if(count[num]>0){
+        perm.push(num); count[num]-=1;
+        var ch=tb.add(id,String(num),null,'dfs()  perm='+C());
+        T.step(16,'push','count['+num+'] was '+(count[num]+1)+', so a '+num+' is still available. Append it and spend one: count['+num+'] → '+count[num]+'.',VA(),V(ch,num));
+        dfs(ch);
+        count[num]+=1; perm.pop();
+        T.step(21,'pop','Undo BOTH halves of the choice: refund count['+num+'] → '+count[num]+' AND perm.pop() → '+C()+'. Forgetting either one is the classic bug in this problem.',VA(),V(id,num));
+      } else {
+        T.step(15,'dup','count['+num+'] is 0 — every copy of '+num+' is already sitting in perm. Skip it. This one check is the whole duplicate guard: the loop walks distinct VALUES, so two identical numbers can never swap places to produce the same permutation twice.',VA(),V(id,num));
+      }
+    });
+  }
+  dfs(root);
+  T.step(25,'done','Done. res = '+T.out.join(', ')+'. Three permutations, not six — the two 1s were never treated as distinguishable objects.',VA(),V(root,null));
+  return T;
+}
+LV.render({
+  num:'47', name:'Permutations II', slug:'0047-permutations-ii',
+  difficulty:'Medium', pattern:'Backtracking · counter as state',
+  url:'https://leetcode.com/problems/permutations-ii',
+  blurb:'A different weapon for the same job as problem 40. Instead of skipping duplicate <em>positions</em>, this counts distinct <em>values</em> — so identical numbers are never separate objects to begin with.',
+  input:'nums = [1,1,2]', runName:'dfs()',
+  skipLabel:'Skip to next permutation', skipTypes:['found'], emptyResult:'res is still empty',
+  src:SRC, build:build,
+  complexity:{time:'O(n! / Πcount[v]! · n) — exactly the number of distinct permutations, times n to copy',space:'O(n) depth + O(distinct) for the counter'},
+  theory:{
+    idea:'Replacing "which index have I used" with "how many of this value do I have left" is a powerful move. It collapses identical elements into one branch automatically, and it turns the used-set bookkeeping into simple arithmetic. The price is that every choice now has <b>two</b> things to undo — the append and the decrement.',
+    recognize:[
+      'Permutations (order matters, all n elements used) with <b>repeated values</b> in the input.',
+      'You need <em>distinct</em> output rows, and n is small (&le; 8) so factorial work is fine.',
+      'More generally: any time elements are interchangeable, a counter is a better state than a visited-index array.'
+    ],
+    pitfalls:[
+      '<b>Refunding the count but not popping perm</b>, or vice versa. The undo must exactly mirror the choose. Write the two lines as a pair, always.',
+      '<b>Looping over <code>nums</code> instead of <code>count</code>.</b> That reintroduces the duplicates you just eliminated — you would visit the 1 at index 0 and the 1 at index 1 as separate branches.',
+      '<b>Mutating <code>count</code> while iterating it</b> — safe in Python because you only change values, never insert or delete keys. Deleting a key mid-loop would raise.',
+      '<b>Deduping the final list with a set of tuples.</b> Correct, but you did all n! work to throw most of it away.'
+    ],
+    template: "# Killing duplicate ANSWERS - two interchangeable idioms.\n\n# (a) sort + skip equal neighbours on the SKIP branch   (LC 40, 90)\narr.sort()\npath.append(arr[i]); backtrack(i+1); path.pop()\nwhile i+1 < len(arr) and arr[i] == arr[i+1]:\n    i += 1\nbacktrack(i+1)              # skip branch lands on a genuinely NEW value\n\n# (b) loop over distinct VALUES with a count budget     (LC 47)\nfor val in count:           # keys of the counter, not positions\n    if count[val] > 0:\n        path.append(val); count[val] -= 1\n        backtrack()\n        count[val] += 1; path.pop()     # undo BOTH halves\n",
+    variants:[
+      ['Input guaranteed distinct','LC 46 — the counter is unnecessary; a visited array or index-swapping is simpler.'],
+      ['Combinations with duplicates instead of permutations','LC 40 / 90 — sort and skip equal neighbours. Same goal, different idiom.'],
+      ['Next permutation in lexicographic order','LC 31 — an O(n) in-place trick, no recursion. Completely different tool.'],
+      ['The k-th permutation directly','LC 60 — factorial number system, O(n²). Do not enumerate.']
+    ],
+    thinking:'Notice what changed between 40 and 47: nothing about the <em>skeleton</em>, only the <b>representation of state</b>. That is where most of the leverage in backtracking lives. Before you optimise the search, ask whether a better state description makes the problem symmetric-free by construction. "Counts of remaining values" is one of the three or four state representations worth having memorised — the others being "index + accumulator", "bitmask of used items", and "current position in a grid + visited set".'
+  }
+});
+
+</script>
+</body>
+</html>

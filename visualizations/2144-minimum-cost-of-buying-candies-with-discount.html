@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2144 - Minimum Cost of Buying Candies With Discount</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution {", "public:", "    int minimumCost(vector<int>& cost) {", "        sort(cost.rbegin(), cost.rend());", "", "        int total = 0;", "", "        for (int i = 0; i < cost.size(); i++) {", "            if (i % 3 != 2) {", "                total += cost[i];", "            }", "        }", "", "        return total;", "    }", "};"];
+function build(){
+  var T=LV.trace(), raw=[6,5,7,9,2,2];
+  var c=raw.slice().sort(function(a,b){ return b-a; });
+  var total=0;
+  function V(i,free){ var m={}; c.forEach(function(_,k){
+      if(k<i) m[k]= (k%3===2)?'good':'win';
+      else if(k===i) m[k]= free?'good':'hot';
+      else m[k]='dim'; });
+    return [ LV.arr('cost, sorted DESCENDING', c, m, {note:'blue = paid for, green = free (every third one)'}) ]; }
+  function VA(i){ return ['i = <b>'+(i==null?'—':i)+'</b>','total = <u>'+total+'</u>']; }
+  T.step(4,'info','Sort <b>descending</b>. The offer is "buy two, get a third free, and the free one must be no more expensive than either of the two you bought". To maximise what you save, you want the free candies to be as expensive as possible — which means grouping the sorted list in threes and taking the third of each group.',['sorted: ['+c.join(', ')+']'],V(null,false));
+  T.step(8,'info','After sorting, position i % 3 == 2 is the third candy of its group — the free one.',VA(null),V(null,false));
+  c.forEach(function(x,i){
+    if(i%3!==2){
+      total+=x;
+      T.step(10,'push','i = '+i+' (group position '+(i%3)+') — you PAY '+x+'. total → <b>'+total+'</b>.',VA(i),V(i,false));
+      T.save('paid '+x);
+    } else {
+      T.step(9,'found','i = '+i+' (group position 2) — this candy is <b>FREE</b>. Cost '+x+' saved.',VA(i),V(i,true));
+      T.save('free: '+x);
+    }
+  });
+  T.step(14,'done','Answer: <b>'+total+'</b>. The greedy pairs the most expensive free candy with the two most expensive paid ones, which is optimal by an exchange argument — see below.',['total = <u>'+total+'</u>'],V(null,false));
+  return T;
+}
+LV.render({
+  num:'2144', name:'Minimum Cost of Buying Candies With Discount', slug:'2144-minimum-cost-of-buying-candies-with-discount',
+  difficulty:'Easy', pattern:'Greedy · sort descending, take every third',
+  url:'https://leetcode.com/problems/minimum-cost-of-buying-candies-with-discount',
+  blurb:'Two lines once you see it: sort descending and skip index 2, 5, 8, …. The direction of the sort is the whole decision, and it follows from wanting the <em>free</em> items to be expensive.',
+  input:'cost = [6,5,7,9,2,2]', runName:'minimumCost',
+  skipLabel:'Skip to next free candy', skipTypes:['found'], emptyResult:'nothing bought yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n log n) — the sort', space:'O(1)'},
+  theory:{
+    idea:'Minimising what you pay is the same as <b>maximising what you get free</b>. The offer constrains the free candy to be no more expensive than the two purchased, so in sorted-descending order the best free candy in each group of three is the third. Grouping the largest values together and freeing the third of each group is optimal by an exchange argument: swapping any free candy for a more expensive one that is still legal never increases the cost.',
+    recognize:[
+      '"Buy k, get one free" offers, bulk discounts, or any rule that lets you skip elements subject to a size condition.',
+      'The direction of the sort is decided by <b>which side of the trade you want to be large</b>. Free items → sort descending. Paid items minimised → same thing, but it is clearer to reason about the free ones.',
+      'Compare with LC 1833 in your repo: there you maximise the COUNT under a budget, so you sort ascending. Same family, opposite direction, for a nameable reason.'
+    ],
+    pitfalls:[
+      '<b>Sorting ascending.</b> Then the free candies are the cheap ones and you pay far more. This is the entire trap.',
+      '<b>Using <code>i % 3 == 0</code>.</b> Off by two — with 0-based indexing the third element of a group is at 0, 1, <b>2</b>.',
+      '<b>Handling a leftover group specially.</b> Groups of one or two at the end have no free candy, and <code>i % 3 != 2</code> handles that automatically.',
+      '<b>Not justifying the greedy.</b> One sentence: the free item must be the cheapest of its trio, so make the trios out of consecutive descending values.'
+    ],
+    template: "# minimise what you PAY == maximise what you get FREE\ncost.sort(reverse=True)                 # descending: free items should be pricey\nreturn sum(c for i, c in enumerate(cost) if i % 3 != 2)\n\n# buy k get one free ->  i % (k + 1) != k\n# contrast LC 1833: maximise COUNT under a budget -> sort ASCENDING\n",
+    variants:[
+      ['Buy k, get one free','<code>i % (k+1) != k</code>.'],
+      ['<b>Maximum Ice Cream Bars</b> (LC 1833)','Maximise count under a budget → sort ASCENDING. Also in your repo.'],
+      ['Free item may be any cheaper item, not just within the trio','Same answer — the grouping already respects that constraint.'],
+      ['Percentage discount on the cheapest','A different objective; re-derive which items you want cheap.']
+    ],
+    thinking:'For any discount or skip-based greedy, write down the objective as "<b>maximise the total value of the things I do not pay for</b>" and then ask what the rules allow you to skip. That reframing decides the sort direction immediately, and it is the same reasoning that tells you to sort ascending in LC 1833 and descending here. Two nearly identical problems, opposite sorts, one question that distinguishes them.'
+  }
+});
+
+</script>
+</body>
+</html>

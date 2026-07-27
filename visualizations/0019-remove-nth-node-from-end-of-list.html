@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>19 - Remove Nth Node From End</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["# Definition for singly-linked list.", "# class ListNode:", "#     def __init__(self, val=0, next=None):", "#         self.val = val", "#         self.next = next", "class Solution:", "    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:", "        dummy = ListNode(0)", "        dummy.next = head", "", "        left = dummy", "        right = dummy", "", "        for _ in range(n):", "            right = right.next", "", "        while right.next:", "            right = right.next", "            left = left.next", "", "        left.next = left.next.next", "", "        return dummy.next"];
+function build(){
+  var T=LV.trace();
+  var ids=['d','a','b','c','e','f'], vals=['dummy',1,2,3,4,5], removed={};
+  var Li=0, Ri=0;
+  function N(){ return ids.map(function(id,i){ return {v:vals[i], id:id, dummy:(i===0), cls: removed[id]?'dim':(i===Li||i===Ri?'hot':'')}; }); }
+  function lab(){ var m={};
+    m[ids[Li]] = 'left'; m[ids[Ri]] = (Li===Ri?'left right':'right');
+    if(Li!==Ri) m[ids[Ri]]='right';
+    return m; }
+  function V(note){ return [ LV.ll('list (with dummy in front)', N(), lab(), {note:note||'gap between left and right stays fixed at n = 2 once right has its head start'}) ]; }
+  function VA(){ return ['left at <b>'+vals[Li]+'</b>','right at <i>'+vals[Ri]+'</i>','gap = <em>'+(Ri-Li)+'</em>','n = 2']; }
+
+  T.step(8,'info','A dummy in front again — because n might equal the list length, in which case we delete the real head, and the dummy makes that case identical to every other.',VA(),V());
+  T.step(14,'info','Give `right` a head start of exactly n = 2 nodes. After that the two pointers move in lockstep, so the gap between them never changes.',VA(),V());
+  for(var s=0;s<2;s++){
+    Ri++;
+    T.step(15,'push','Head-start step '+(s+1)+' of 2: right moves to node '+vals[Ri]+'.',VA(),V());
+  }
+  T.step(17,'info','Now walk both until `right` is the LAST node (right.next is None). Because the gap is n, `left` will be sitting exactly one node before the one to delete.',VA(),V());
+  while(Ri<ids.length-1){
+    Ri++; Li++;
+    T.step(18,'ok','Both advance: right at '+vals[Ri]+', left at '+vals[Li]+'.',VA(),V());
+  }
+  T.step(17,'info','right.next is None, so right is the last node. left is at '+vals[Li]+' — and the node to delete is the next one, '+vals[Li+1]+'.',VA(),V());
+  removed[ids[Li+1]]=1;
+  T.save('deleted '+vals[Li+1]+' → [1, 2, 3, 5]');
+  T.step(21,'found','`left.next = left.next.next` skips over node '+vals[Li+1]+'. It is now unreachable, which is how deletion works in a singly linked list — you never touch the node itself, you re-route its predecessor.',VA(),V('node 4 is now unreachable'));
+  T.step(23,'done','Return `dummy.next`. Result: <b>[1, 2, 3, 5]</b>. ONE pass — no counting the length first.',VA(),V());
+  return T;
+}
+LV.render({
+  num:'19', name:'Remove Nth Node From End of List', slug:'0019-remove-nth-node-from-end-of-list',
+  difficulty:'Medium', pattern:'Linked list · two pointers with a gap',
+  url:'https://leetcode.com/problems/remove-nth-node-from-end-of-list',
+  blurb:'"From the end" in a singly linked list, in one pass. The trick is a fixed gap: give one pointer an n-step head start and they stay n apart forever.',
+  input:'head = [1,2,3,4,5], n = 2', runName:'removeNthFromEnd',
+  skipLabel:null, emptyResult:'nothing deleted yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n) — one pass', space:'O(1)'},
+  theory:{
+    idea:'You cannot walk backwards in a singly linked list, so "the nth from the end" seems to need the length. The <b>fixed-gap two pointers</b> trick converts a measurement from the end into a measurement from the start: separate two pointers by n, then move them together until the leading one hits the end.',
+    recognize:[
+      '"nth from the end", "middle of the list", "last k nodes" — anything measured from a place you cannot reach directly.',
+      'An explicit "can you do it in one pass?" follow-up. The two-pass answer (count, then walk length−n) is perfectly correct and worth stating first.',
+      'The cousin trick is fast/slow with a <em>speed</em> difference rather than a <em>position</em> difference — that finds the middle and detects cycles.'
+    ],
+    pitfalls:[
+      '<b>No dummy node.</b> Removing the head (n == length) then needs a whole separate branch. The dummy erases it.',
+      '<b>Off-by-one in the head start.</b> <code>range(n)</code> vs <code>range(n+1)</code> decides whether <code>left</code> lands on the victim or on its predecessor. You need the predecessor, so with a dummy start it is exactly <code>range(n)</code> plus a <code>while right.next</code> loop.',
+      '<b><code>while right</code> instead of <code>while right.next</code>.</b> Overshoots by one and you delete the wrong node.',
+      '<b>Not validating n.</b> LeetCode guarantees it is in range; an interviewer may not.'
+    ],
+    template: "# Fixed-gap two pointers - reach an offset from the END in one pass\ndummy = ListNode(0, head)\nleft = right = dummy\n\nfor _ in range(n):          # open a gap of exactly n\n    right = right.next\n\nwhile right.next:           # walk together until right is the LAST node\n    right = right.next\n    left  = left.next\n\nleft.next = left.next.next  # left is the victim's predecessor\nreturn dummy.next\n",
+    variants:[
+      ['<b>Middle of the list</b> (LC 876 / 2095)','Speed gap, not position gap: slow one step, fast two.'],
+      ['<b>Cycle detection</b> (LC 141 / 142)','Same fast/slow, but the question is whether they ever meet.'],
+      ['Nth from the end without deleting','Identical setup, just return <code>left.next</code>.'],
+      ['Doubly linked list','Walk backwards from the tail. The whole trick becomes unnecessary.']
+    ],
+    thinking:'Two pointer separations, two different jobs. <b>Fixed position gap</b> (this problem): they move at the same speed, so the distance is constant — use it to reach a fixed offset from the end. <b>Fixed speed ratio</b> (fast/slow): the distance grows, which is what finds the midpoint and closes cycles. Ask "do I need a constant offset or a constant ratio?" and the right tool is obvious.'
+  }
+});
+
+</script>
+</body>
+</html>

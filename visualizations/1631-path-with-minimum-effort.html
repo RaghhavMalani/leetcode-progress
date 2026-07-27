@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1631 - Path With Minimum Effort</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def minimumEffortPath(self, heights: List[List[int]]) -> int:", "        ROWS = len(heights)", "        COLS = len(heights[0])", "", "        minHeap = [[0,0,0]] #[diff,r,c]", "        visit = set()", "        directions = [[1,0],[0,1],[0,-1],[-1,0]]", "", "        while minHeap:", "            diff, r, c = heapq.heappop(minHeap)", "", "            if (r,c) in visit:", "                continue", "            visit.add((r,c))", "            if (r,c) == (ROWS - 1, COLS -1):", "                return diff", "", "            for dr, dc in directions:", "                newR, newC = r + dr, c + dc", "                if (newR < 0 or newC < 0 or newR == ROWS or newC == COLS or (newR, newC) in visit):", "                    continue", "                newDiff = max(diff, abs(heights[r][c] - heights[newR][newC]))", "                heapq.heappush(minHeap,[newDiff, newR, newC])"];
+function build(){
+  var T=LV.trace();
+  var H=[[1,2,2],[3,8,2],[5,3,5]], R=3, C=3;
+  var heap=[[0,0,0]], visit={};
+  function key(r,c){ return r+','+c; }
+  function GV(cur,note){ var m={};
+    Object.keys(visit).forEach(function(k){ m[k]='good'; });
+    heap.forEach(function(h){ if(!visit[key(h[1],h[2])]) m[h[1]+','+h[2]]='warn'; });
+    if(cur) m[cur[0]+','+cur[1]]='hot';
+    return LV.grid('heights — green settled, amber in the heap', H, m, {head:true, note:note||''}); }
+  function HV(){ var s=heap.slice().sort(function(a,b){ return a[0]-b[0] || a[1]-b[1] || a[2]-b[2]; });
+    return LV.seq('minHeap  [effort, r, c]  — smallest effort first', s.map(function(h){ return 'e'+h[0]+' @('+h[1]+','+h[2]+')'; }), {0:'hot'}, {emptyText:'empty'}); }
+  function pop(){ heap.sort(function(a,b){ return a[0]-b[0] || a[1]-b[1] || a[2]-b[2]; }); return heap.shift(); }
+
+  T.step(6,'info','This is <b>Dijkstra with a twist</b>. Normally the cost of a path is the SUM of its edges; here it is the MAXIMUM single step. Dijkstra still works, because max is monotone — extending a path can never lower its cost.',['start effort = <b>0</b>'],[GV([0,0]),HV()]);
+  var dirs=[[1,0],[0,1],[0,-1],[-1,0]], guard=0;
+  while(heap.length && guard++<40){
+    var top=pop(), d=top[0], r=top[1], c=top[2];
+    T.step(11,'call','Pop the smallest-effort entry: effort '+d+' at ('+r+', '+c+'). A min-heap pop is what guarantees we always settle the cheapest frontier cell first.',['effort = <b>'+d+'</b>','cell = <em>('+r+', '+c+')</em>'],[GV([r,c]),HV()]);
+    if(visit[key(r,c)]){
+      T.step(14,'bad','Already settled — this is a STALE heap entry. Because we never decrease-key, the same cell can be pushed several times; the first (cheapest) pop wins and the rest are skipped here.',[],[GV([r,c]),HV()]);
+      continue;
+    }
+    visit[key(r,c)]=1;
+    T.step(15,'ok','Settle ('+r+', '+c+') with effort '+d+'. Once settled, this value is final — that is Dijkstra’s guarantee.',[],[GV([r,c]),HV()]);
+    if(r===R-1&&c===C-1){
+      T.save('minimum effort = '+d);
+      T.step(17,'found','That is the destination. Return <b>'+d+'</b> — the first time we settle the bottom-right cell, we have the optimal answer.',['answer = <u>'+d+'</u>'],[GV([r,c],'destination settled'),HV()]);
+      break;
+    }
+    for(var k=0;k<4;k++){
+      var nr=r+dirs[k][0], nc=c+dirs[k][1];
+      if(nr<0||nc<0||nr>=R||nc>=C||visit[key(nr,nc)]) continue;
+      var nd=Math.max(d, Math.abs(H[r][c]-H[nr][nc]));
+      heap.push([nd,nr,nc]);
+      T.step(23,'push','Neighbour ('+nr+', '+nc+'): step cost |'+H[r][c]+' − '+H[nr][nc]+'| = '+Math.abs(H[r][c]-H[nr][nc])+'. New path effort = max('+d+', '+Math.abs(H[r][c]-H[nr][nc])+') = <b>'+nd+'</b>. Push it. Note <b>max</b>, not <b>+</b> — that single character is the whole difference from standard Dijkstra.',['effort = <em>'+nd+'</em>'],[GV([nr,nc]),HV()]);
+    }
+  }
+  T.step(24,'done','Answer: <b>2</b>. The path 1→2→2→2→3→5 down the right side never requires a step bigger than 2, while the direct route through the 8 would cost 6.',['answer = <u>2</u>'],[GV(null,'settled')]);
+  return T;
+}
+LV.render({
+  num:'1631', name:'Path With Minimum Effort', slug:'1631-path-with-minimum-effort',
+  difficulty:'Medium', pattern:'Dijkstra · minimax path',
+  url:'https://leetcode.com/problems/path-with-minimum-effort',
+  blurb:'Dijkstra where the path cost is the <b>maximum</b> edge rather than the sum. One character changes — <code>max</code> instead of <code>+</code> — and everything else about Dijkstra survives intact.',
+  input:'heights = [[1,2,2],[3,8,2],[5,3,5]]', runName:'minimumEffortPath',
+  skipLabel:null, emptyResult:'destination not reached',
+  src:SRC, build:build,
+  complexity:{time:'O(mn log(mn))', space:'O(mn)'},
+  theory:{
+    idea:'Dijkstra needs only that the cost function be <b>monotone non-decreasing along a path</b> — extending a path must never make it cheaper. Sum satisfies that for non-negative weights; so does max. So the "minimax path" (also called the bottleneck shortest path) is solvable by Dijkstra with the relaxation changed from <code>d + w</code> to <code>max(d, w)</code>.',
+    recognize:[
+      '"Minimise the maximum" or "maximise the minimum" along a path — effort, bottleneck capacity, safest route.',
+      'Weighted grid or graph plus a shortest-path flavour. Unweighted → BFS; non-negative sums → Dijkstra; may-be-negative → Bellman–Ford.',
+      'Alternative framings: <b>binary search the answer</b> plus a BFS/DFS feasibility check, or a <b>union-find</b> that adds edges in increasing weight until the endpoints connect.'
+    ],
+    pitfalls:[
+      '<b>Forgetting the stale-entry check.</b> Without <code>if (r,c) in visit: continue</code>, a cell gets processed multiple times and the complexity degrades. Since Python’s heapq has no decrease-key, this lazy-deletion guard is mandatory.',
+      '<b>Marking visited on push instead of on pop.</b> That would freeze a cell at the first (possibly non-optimal) effort that reached it.',
+      '<b>Using <code>+</code> out of habit.</b> Gives the wrong problem entirely.',
+      '<b>Using BFS.</b> Edges are weighted, so BFS gives no optimality guarantee.'
+    ],
+    template: "# Dijkstra with a MINIMAX cost - max(...) replaces (+)\nheap = [(0, 0, 0)]                       # (cost so far, r, c)\nvisit = set()\nwhile heap:\n    d, r, c = heapq.heappop(heap)\n    if (r, c) in visit:                  # STALE entry - lazy deletion.\n        continue                         # mandatory: heapq has no decrease-key\n    visit.add((r, c))                    # settle on POP, never on push\n    if (r, c) == destination:\n        return d\n    for nr, nc in neighbours(r, c):\n        if (nr, nc) in visit: continue\n        nd = max(d, abs(h[r][c] - h[nr][nc]))     # <- SUM would be Dijkstra\n        heapq.heappush(heap, (nd, nr, nc))\n\n# also solvable by: binary search the answer + BFS check, or union-find\n# adding edges in increasing weight until start and end connect.\n",
+    variants:[
+      ['<b>Swim in Rising Water</b> (LC 778)','Literally the same minimax Dijkstra with a different cost expression.'],
+      ['<b>Find the Safest Path in a Grid</b> (LC 2812)','MAXIMISE the minimum — a max-heap instead. Also in your repo.'],
+      ['<b>Network Delay Time</b> (LC 743)','Classic sum-based Dijkstra.'],
+      ['Binary search the answer','Guess a threshold k, then BFS using only steps ≤ k. O(mn log(maxHeight)) and often easier to explain.'],
+      ['Union-find','Sort edges by weight, union them in order, stop when start and end connect. Elegant and fast.']
+    ],
+    thinking:'Do not memorise Dijkstra as "shortest sum of weights" — memorise it as "<b>settle the frontier in cost order, and the first time you settle a node its cost is final</b>". That framing makes it obvious the algorithm still works when the cost is a max, a product of probabilities, or anything else monotone. Then keep the three alternative attacks in mind — heap, binary-search-the-answer, union-find — because for bottleneck problems all three work and one of them is usually much easier to write correctly under pressure.'
+  }
+});
+
+</script>
+</body>
+</html>

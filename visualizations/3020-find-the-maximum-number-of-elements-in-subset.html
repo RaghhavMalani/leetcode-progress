@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3020 - Find the Maximum Number of Elements in a Subset</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def maximumLength(self, nums: List[int]) -> int:", "        freq = Counter(nums)", "        ans = 1", "", "        if 1 in freq:", "            ones = freq[1]", "            if ones % 2 == 1:", "                ans = max(ans, ones)", "            else:", "                ans = max(ans, ones - 1)", "", "        for x in freq:", "            if x == 1:", "                continue", "", "            length = 1", "            cur = x", "            while freq[cur] >= 2 and cur * cur in freq:", "                length += 2", "                cur = cur * cur", "", "            ans = max(ans, length)", "", "        return ans"];
+function build(){
+  var T=LV.trace(), nums=[5,4,1,2,2];
+  var freq={5:1,4:1,1:1,2:2}, keys=[1,2,4,5], ans=1;
+  function V(hot,chain,note){ var m={}; if(hot!=null) m[hot]='hot';
+    (chain||[]).forEach(function(c){ if(m[c]!=='hot') m[c]='good'; });
+    return [ LV.kv('freq', keys.map(function(k){ return [k, freq[k]]; }), m, {}),
+      LV.arr('the pattern being tested', (chain||[]).map(String), {}, {idx:false, emptyText:'—', note:note||''}) ]; }
+  T.step(3,'info','The required shape is <b>[x, x², x⁴, …, x^m, …, x⁴, x², x]</b> — a palindrome of repeated squarings. Every element except the peak appears TWICE, so the answer is always odd.',['ans = <u>1</u>'],V(null,null));
+  T.step(6,'info','1 is a special case, because 1² = 1. A run of 1s is a valid pattern of any ODD length, so take all of them if the count is odd, or one fewer if even.',['freq[1] = <b>1</b>'],V(1,[1]));
+  T.step(9,'ok','freq[1] = 1, which is odd, so ans = max(1, 1) = <b>1</b>.',['ans = <u>1</u>'],V(1,[1]));
+  keys.forEach(function(x){
+    if(x===1){ T.step(14,'info','Skip x = 1 — already handled above, and 1×1 = 1 would loop forever in the while below.',['ans = <u>'+ans+'</u>'],V(1,null)); return; }
+    T.step(17,'call','Try x = '+x+' as the base of a chain. Start with length 1 (just the peak).',['x = <b>'+x+'</b>','length = <em>1</em>'],V(x,[x]));
+    var len=1, cur=x, asc=[], chain=[x];
+    function mk(peak){ return asc.concat([peak]).concat(asc.slice().reverse()); }
+    while(freq[cur]>=2 && freq[cur*cur]!==undefined){
+      len+=2; asc.push(cur); chain=mk(cur*cur); 
+      T.step(20,'push','freq['+cur+'] = '+freq[cur]+' ≥ 2 (we need two copies, one for each side) AND '+cur+'² = '+(cur*cur)+' is present. Extend: length → <b>'+len+'</b>.',['x = <b>'+x+'</b>','length = <em>'+len+'</em>'],V(cur,chain));
+      cur=cur*cur;
+      T.step(21,'ok','Move up: cur = '+cur+'.',['cur = <b>'+cur+'</b>'],V(cur,chain));
+    }
+    T.step(19,'info','Chain stops: '+(freq[cur]<2 ? 'freq['+cur+'] = '+(freq[cur]||0)+' &lt; 2, so it cannot appear on both sides' : cur*cur+' is not in the set')+'.',['length = <em>'+len+'</em>'],V(cur,chain));
+    var old=ans; ans=Math.max(ans,len);
+    T.step(23, ans>old?'found':'info','ans = max('+old+', '+len+') = <b>'+ans+'</b>.',['ans = <u>'+ans+'</u>'],V(x,chain));
+    if(ans>old) T.save('pattern ['+chain.join(',')+'] → length '+len);
+  });
+  T.step(25,'done','Answer: <b>'+ans+'</b> — the subset {2, 4, 2} forms 2, 4, 2. Every candidate chain was walked at most log log(maxValue) times, because repeated squaring reaches 10⁹ in about five steps.',['ans = <u>'+ans+'</u>'],V(null,[2,4,2]));
+  return T;
+}
+LV.render({
+  num:'3020', name:'Find the Maximum Number of Elements in a Subset', slug:'3020-find-the-maximum-number-of-elements-in-subset',
+  difficulty:'Medium', pattern:'Frequency map · chain following',
+  url:'https://leetcode.com/problems/find-the-maximum-number-of-elements-in-a-subset',
+  blurb:'The pattern x, x², x⁴, … and back down. Two things make it tractable: repeated squaring blows past 10⁹ in about five steps, and 1 needs its own case because 1² = 1.',
+  input:'nums = [5,4,1,2,2]', runName:'maximumLength',
+  skipLabel:'Skip to next record', skipTypes:['found'], emptyResult:'no chain yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n log log maxValue) — the chain from any x has at most ~5 links', space:'O(n)'},
+  theory:{
+    idea:'A <b>chain-following</b> problem. Build a frequency map, then from each starting value walk a deterministic successor function (here x → x²) while the required multiplicities exist. The chains are short because squaring grows doubly exponentially, which is what keeps a nested loop nearly linear.',
+    recognize:[
+      'A required arrangement defined by a recurrence on values — doubling, squaring, +1, ×k.',
+      'Multiset conditions ("must appear twice") → you need counts, not just membership.',
+      'The related family: LC 128 longest consecutive sequence (successor x+1), LC 954 array of doubled pairs (successor 2x). Same skeleton.'
+    ],
+    pitfalls:[
+      '<b>Not special-casing 1.</b> The while loop never terminates, since 1² = 1 and freq[1] stays ≥ 2. This is the bug that hangs your submission.',
+      '<b>Getting the parity of the 1s wrong.</b> The pattern length must be odd, so an even count of 1s contributes count − 1.',
+      '<b>Requiring <code>freq[cur] &gt;= 2</code> for the peak.</b> The peak appears once; only the non-peak elements need two copies. The loop structure handles this because the peak is counted by the initial <code>length = 1</code>.',
+      '<b>Overflow in fixed-width languages.</b> <code>cur * cur</code> with cur near 10⁹ overflows 32 bits — guard it or use 64-bit.'
+    ],
+    template: "# frequency map + follow a deterministic successor chain\nfreq = Counter(nums)\nans = 1\n\nif 1 in freq:                          # FIXED POINT: 1*1 == 1, handle separately\n    ones = freq[1]\n    ans = max(ans, ones if ones % 2 else ones - 1)   # length must be ODD\n\nfor x in freq:\n    if x == 1: continue                # or the while below never terminates\n    length, cur = 1, x\n    while freq[cur] >= 2 and cur * cur in freq:      # need TWO copies (both sides)\n        length += 2\n        cur *= cur                     # doubly exponential -> ~5 iterations max\n    ans = max(ans, length)\nreturn ans\n",
+    variants:[
+      ['<b>Longest Consecutive Sequence</b> (LC 128)','Successor is x+1, and you only start where x−1 is absent. Also in your repo.'],
+      ['<b>Array of Doubled Pairs</b> (LC 954)','Successor is 2x, matched greedily from the smallest absolute value.'],
+      ['Longest chain with x → x·k','Same skeleton, but chains are longer so watch the complexity.'],
+      ['Longest arithmetic subsequence','A different beast entirely — DP over (index, difference).']
+    ],
+    thinking:'Two questions for any chain-following problem. <b>(1) How long can a chain be?</b> That bounds the inner loop and tells you whether the nested structure is affordable. <b>(2) Are there fixed points?</b> Values where successor(x) = x — 1 for squaring, 0 for doubling — cause infinite loops and always need a special case. Asking those two questions up front catches both the complexity concern and the crash.'
+  }
+});
+
+</script>
+</body>
+</html>

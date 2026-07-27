@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1288 - Remove Covered Intervals</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def removeCoveredIntervals(self, intervals: List[List[int]]) -> int:", "        intervals.sort(key=lambda x: (x[0], -x[1]))", "", "        count = 0", "        max_end = 0", "", "        for start, end in intervals:", "            if end > max_end:", "                count += 1", "                max_end = end", "", "        return count"];
+function build(){
+  var T=LV.trace();
+  var raw=[[1,4],[3,6],[2,8]];
+  var iv=raw.slice().sort(function(a,b){ return a[0]-b[0] || b[1]-a[1]; });
+  var count=0, maxEnd=0;
+  function fmt(x){ return '['+x[0]+','+x[1]+']'; }
+  function V(i,cls,note){ var m={}; iv.forEach(function(_,k){ m[k]= k<i?'good':(k===i?(cls||'hot'):'dim'); });
+    return [ LV.arr('intervals sorted by (start ascending, end DESCENDING)', iv.map(fmt), m, {note:note||''}),
+             LV.kv('state', [['count',count],['max_end',maxEnd]], {'max_end':'hot'}, {}) ]; }
+  function VA(i){ return ['count = <b>'+count+'</b>','max_end = <em>'+maxEnd+'</em>']; }
+
+  T.step(3,'info','Everything hinges on the sort key <code>(x[0], -x[1])</code>: start ascending, and <b>end descending</b> for ties. Original order '+raw.map(fmt).join(', ')+' becomes <b>'+iv.map(fmt).join(', ')+'</b>.',['sorting'],V(null,null,'start asc, end desc'));
+  T.step(6,'info','Why the descending end matters: after this sort, every interval that comes later has a start ≥ ours. So interval B is covered by something earlier <b>iff its end is ≤ the largest end we have already seen</b>. One scalar is enough — no pairwise comparison.',VA(null),V(null));
+  iv.forEach(function(x,i){
+    T.step(8,'call','Interval '+fmt(x)+'. Is its end ('+x[1]+') greater than max_end ('+maxEnd+')?',VA(i),V(i));
+    if(x[1]>maxEnd){
+      count++; maxEnd=x[1];
+      T.step(10,'found','Yes — it reaches further right than anything before it, so nothing already seen can contain it. Keep it: count → <b>'+count+'</b>, max_end → '+maxEnd+'.',VA(i),V(i,'good'));
+      T.save('kept '+fmt(x));
+    } else {
+      T.step(9,'bad','No — some earlier interval starts at or before '+x[0]+' AND ends at or after '+x[1]+', so '+fmt(x)+' is completely covered. Discard it (do not touch max_end).',VA(i),V(i,'bad'));
+      T.save('removed '+fmt(x)+' (covered)');
+    }
+  });
+  T.step(13,'done','Answer: <b>'+count+'</b> intervals survive. The tie-break in the sort is doing all the work — with (start asc, end ASC) the equal-start case would report a covering interval as covered.',VA(iv.length),V(iv.length));
+  return T;
+}
+LV.render({
+  num:'1288', name:'Remove Covered Intervals', slug:'1288-remove-covered-intervals',
+  difficulty:'Medium', pattern:'Intervals · sort key does the work',
+  url:'https://leetcode.com/problems/remove-covered-intervals',
+  blurb:'A five-line loop that is only correct because of one sort key. <code>(x[0], -x[1])</code> — start ascending, <b>end descending</b> — is the entire algorithm; everything after it is a running maximum.',
+  input:'intervals = [[1,4],[3,6],[2,8]]', runName:'removeCoveredIntervals',
+  skipLabel:'Skip to next survivor', skipTypes:['found'], emptyResult:'nothing kept yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n log n) — dominated by the sort', space:'O(1) beyond the sort'},
+  theory:{
+    idea:'Choosing a sort order that makes one dimension monotone lets you replace pairwise comparison with a <b>running maximum</b> over the other dimension. Here start becomes non-decreasing, so "am I covered?" reduces entirely to "is my end ≤ the biggest end so far?".',
+    recognize:[
+      'Containment / dominance between 2D items — intervals, (width, height) pairs, (score, rank).',
+      'The naive answer is an O(n²) all-pairs check; a sort collapses one dimension and a sweep handles the other.',
+      'Same idea powers Russian doll envelopes (LC 354), where after sorting by width the problem becomes a longest increasing subsequence on height.'
+    ],
+    pitfalls:[
+      '<b>Sorting by (start asc, end asc).</b> The killer bug. With [1,4] and [1,6] in that order, [1,6] is compared against max_end = 4, looks longer, gets kept — but [1,4] was already wrongly counted as a survivor. Descending end puts the container first.',
+      '<b>Using <code>&gt;=</code> instead of <code>&gt;</code>.</b> An interval with exactly the same end as a previous one IS covered.',
+      '<b>Initialising <code>max_end</code> badly.</b> 0 works because the constraints say values are positive; use −∞ if they might not be.',
+      '<b>Trying to do it without sorting.</b> There is no O(n) solution; the sort is the algorithm.'
+    ],
+    template: "# The sort key IS the algorithm\nintervals.sort(key=lambda x: (x[0], -x[1]))   # start ASC, end DESC\n\ncount, max_end = 0, 0\nfor start, end in intervals:\n    if end > max_end:          # reaches further right than anything before\n        count += 1             # -> cannot be covered\n        max_end = end\nreturn count\n\n# with (start, +end) the equal-start case breaks: the CONTAINED interval\n# would come first and be counted as a survivor.\n",
+    variants:[
+      ['<b>Merge Intervals</b> (LC 56)','Sort by start, merge overlapping neighbours.'],
+      ['<b>Non-overlapping Intervals</b> (LC 435)','Sort by END, greedily keep the earliest finisher.'],
+      ['<b>Russian Doll Envelopes</b> (LC 354)','Sort by (width asc, height desc) — exactly this tie-break — then LIS on heights.'],
+      ['Count how many intervals cover each point','A sweep line with +1/−1 events.']
+    ],
+    thinking:'When a problem involves two dimensions and a "dominates / contains / fits inside" relation, the reflex should be: <b>sort by one dimension to make it monotone, then the other dimension becomes a running max/min or an LIS.</b> And pay very close attention to the tie-break — in this family the tie-break is not a detail, it is the correctness argument. If you cannot say in one sentence why your tie-break direction is right, you have a bug waiting.'
+  }
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2503 - Longest Subarray With Maximum Bitwise AND</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution(object):", "    def longestSubarray(self, nums):", "        \"\"\"", "        :type nums: List[int]", "        :rtype: int", "        \"\"\"", "        ", "        size = 0", "        res = 0", "        curmax = 0", "        for n in nums:", "            if n > curmax:", "                curmax = n", "                size = 1", "                res = 0", "            elif n == curmax:", "                size += 1", "            else:", "                size = 0", "            ", "            res = max(size, res)", "        ", "        return res"];
+function build(){
+  var T=LV.trace(), a=[1,2,3,3,2,2], size=0, res=0, curmax=0;
+  function V(i,kind){ var m={};
+    for(var x=0;x<a.length;x++){ if(x>i) m[x]='dim'; else if(a[x]===curmax && x>i-size) m[x]='good'; else m[x]=''; }
+    if(i!=null) m[i]= kind==='new'?'hot':(kind==='same'?'good':'bad');
+    return [ LV.arr('nums — green = the current run of the maximum', a, m, {}) ]; }
+  function VA(i){ return ['n = <b>'+(i<a.length?a[i]:'—')+'</b>','curmax = <em>'+curmax+'</em>','size = <em>'+size+'</em>','res = <u>'+res+'</u>']; }
+  T.step(8,'info','The key insight, and it is the entire problem: <b>x &amp; y ≤ min(x, y)</b>, so ANDing anything into a subarray can only lower the result. The maximum possible AND is therefore the maximum single element — and it is only achieved by a run of copies of that maximum.',VA(0),V(null));
+  T.step(11,'info','So the question reduces to: <b>what is the longest run of the maximum value?</b> One pass does it, without ever computing an AND.',VA(0),V(null));
+  a.forEach(function(x,i){
+    T.step(12,'call','n = '+x+', curmax = '+curmax+'.',VA(i),V(i));
+    if(x>curmax){
+      curmax=x; size=1; res=0;
+      T.step(13,'found',x+' beats the previous maximum. A NEW maximum invalidates every earlier run — reset curmax = '+x+', size = 1, and crucially <b>res = 0</b>, because runs of the old smaller maximum no longer count.',VA(i),V(i,'new'));
+      T.save('new max '+x+', run reset');
+    } else if(x===curmax){
+      size++;
+      T.step(17,'ok',x+' continues the run. size → '+size+'.',VA(i),V(i,'same'));
+    } else {
+      size=0;
+      T.step(19,'bad',x+' is smaller than the maximum, so it breaks the run. size = 0.',VA(i),V(i,'less'));
+    }
+    var old=res; res=Math.max(size,res);
+    T.step(21, res>old?'found':'info','res = max(size, res) = <b>'+res+'</b>.',VA(i),V(i));
+    if(res>old) T.save('best run: '+res);
+  });
+  T.step(23,'done','Answer: <b>'+res+'</b>. O(n), O(1) space, and not a single bitwise AND was ever evaluated — the whole solve was the observation on line 8.',VA(a.length),V(a.length));
+  return T;
+}
+LV.render({
+  num:'2503', name:'Longest Subarray With Maximum Bitwise AND', slug:'2503-longest-subarray-with-maximum-bitwise-and',
+  difficulty:'Medium', pattern:'Observation-driven · monotone operation',
+  url:'https://leetcode.com/problems/longest-subarray-with-maximum-bitwise-and',
+  blurb:'A problem where the code is trivial once you notice one fact: AND never increases. That reduces the whole thing to "find the longest run of the maximum value".',
+  input:'nums = [1,2,3,3,2,2]', runName:'longestSubarray',
+  skipLabel:'Skip to next record', skipTypes:['found'], emptyResult:'no run yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n)', space:'O(1)'},
+  theory:{
+    idea:'<b>AND is monotone decreasing</b>: adding an element to a subarray can only clear bits, never set them. So the largest achievable AND equals <code>max(nums)</code>, and it is achieved only by subarrays consisting entirely of that maximum. Everything else in the problem statement is scenery.',
+    recognize:[
+      'Bitwise AND/OR over subarrays. AND only shrinks; OR only grows. That monotonicity is almost always the intended insight.',
+      'When a problem asks for "the maximum of some aggregate", ask first <b>what the maximum possible value even is</b> — often the answer bounds the search dramatically.',
+      'Contrast: OR over subarrays (LC 898, in your repo) grows, so runs do not help and you need the set-of-distinct-ORs trick.'
+    ],
+    pitfalls:[
+      '<b>Actually computing ANDs over all subarrays.</b> O(n²) and completely unnecessary.',
+      '<b>Forgetting <code>res = 0</code> when a new maximum appears.</b> The subtlest line here. A long run of 2s must be discarded the moment a 3 shows up.',
+      '<b>Handling the run-break as <code>size = 1</code>.</b> It is 0 — the current element is not part of any max run.',
+      '<b>Two passes (find max, then find the longest run) is also fine</b> and arguably clearer. Say so; the single pass is a small optimisation, not a requirement.'
+    ],
+    template: "# AND never increases -> the best possible AND is max(nums),\n# achieved only by a run of copies of that maximum.\nsize = res = curmax = 0\nfor n in nums:\n    if n > curmax:\n        curmax, size, res = n, 1, 0    # NEW max invalidates old runs: res = 0\n    elif n == curmax:\n        size += 1\n    else:\n        size = 0                        # run broken\n    res = max(res, size)\nreturn res\n\n# two-pass version is just as good:  m = max(nums), then longest run of m\n",
+    variants:[
+      ['<b>Bitwise ORs of Subarrays</b> (LC 898)','OR grows, so you keep the set of distinct ORs ending at each index — at most 32 of them. Also in your repo.'],
+      ['Longest subarray with AND ≥ k','Now you do need a sliding window or a bit-count trick — monotonicity helps but does not collapse it.'],
+      ['<b>Longest Subarray with Maximum GCD</b>','Same shape: GCD is also non-increasing under extension.'],
+      ['Maximum AND of any two elements','LC 2429-style — build the answer bit by bit from the top.']
+    ],
+    thinking:'Before writing any loop, ask <b>"what is the best value that is even possible, and what does achieving it require?"</b> Here that question collapses a subarray problem into a run-length problem. It is the same move as asking "what is the maximum achievable profit per day?" in stock problems, or "what is the smallest capacity that could work?" in binary-search-on-answer problems. Bounding the answer first often makes the search trivial.'
+  }
+});
+
+</script>
+</body>
+</html>

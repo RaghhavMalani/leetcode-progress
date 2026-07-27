@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1979 - Find Greatest Common Divisor of Array</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution {", "public:", "    int findGCD(vector<int>& nums) {", "        int minimum = *min_element(nums.begin(), nums.end());", "        int maximum = *max_element(nums.begin(), nums.end());", "", "        return gcd(minimum, maximum);", "    }", "};"];
+function build(){
+  var T=LV.trace(), a=[2,5,6,9,10];
+  var mn=2, mx=10;
+  function V(hi,note){ var m={}; a.forEach(function(v,k){ if(hi&&hi.indexOf(k)>=0) m[k]='good'; else m[k]='dim'; });
+    return [ LV.arr('nums', a, m, {note:note||''}) ]; }
+  T.step(4,'info','Find the minimum: <b>'+mn+'</b>.',['min = <b>2</b>'],V([0]));
+  T.step(5,'info','Find the maximum: <b>'+mx+'</b>.',['min = <b>2</b>','max = <b>10</b>'],V([0,4]));
+  T.step(7,'call','gcd(2, 10) — the Euclidean algorithm: repeatedly replace (a, b) with (b, a mod b) until b is 0.',['gcd(2, 10)'],V([0,4]));
+  var A=2,B=10;
+  var guard=0;
+  while(B!==0 && guard++<10){
+    var r=A%B;
+    T.step(7,'push','gcd('+A+', '+B+') → gcd('+B+', '+A+' mod '+B+') = gcd('+B+', '+r+').',['a = <b>'+B+'</b>','b = <em>'+r+'</em>'],V([0,4]));
+    A=B; B=r;
+  }
+  T.save('gcd(2, 10) = '+A);
+  T.step(7,'found','b reached 0, so the answer is a = <b>'+A+'</b>.',['gcd = <u>'+A+'</u>'],V([0,4]));
+  T.step(7,'done','Answer: <b>'+A+'</b>. Note the problem only asks for gcd(min, max) — NOT the gcd of the whole array, which here would also be 1. Read the question.',['answer = <u>'+A+'</u>'],V([0,4],'gcd of the smallest and largest only'));
+  return T;
+}
+LV.render({
+  num:'1979', name:'Find Greatest Common Divisor of Array', slug:'1979-find-greatest-common-divisor-of-array',
+  difficulty:'Easy', pattern:'Number theory · Euclidean algorithm',
+  url:'https://leetcode.com/problems/find-greatest-common-divisor-of-array',
+  blurb:'One line if you know your library. Worth the visit for the Euclidean algorithm itself, which is the engine behind gcd, lcm, modular inverses and Diophantine equations.',
+  input:'nums = [2,5,6,9,10]', runName:'findGCD',
+  skipLabel:null, emptyResult:'no gcd yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n) to scan + O(log min) for the gcd', space:'O(1)'},
+  theory:{
+    idea:'<b>Euclid:</b> gcd(a, b) = gcd(b, a mod b), with gcd(a, 0) = a. It terminates in O(log min(a,b)) steps because the remainder at least halves every two iterations. This is the oldest non-trivial algorithm still in daily use, and it is worth being able to write from memory.',
+    recognize:[
+      'Divisibility, common factors, reducing fractions, tiling a length with equal pieces.',
+      '<b>lcm(a, b) = a // gcd(a, b) * b</b> — divide first to avoid overflow.',
+      'The extended version solves <code>ax + by = gcd(a,b)</code>, which gives modular inverses — needed whenever you divide under a prime modulus.'
+    ],
+    pitfalls:[
+      '<b>Computing the gcd of the whole array.</b> The question asks specifically for gcd(smallest, largest). It is a reading test.',
+      '<b>Recursion depth.</b> The iterative form is trivially safe; the recursive one is fine too since depth is O(log n).',
+      '<b>gcd(0, x).</b> It is x, and the loop handles it naturally — but be aware if your inputs can be 0.',
+      '<b>lcm overflow.</b> <code>a * b // gcd</code> can overflow in fixed-width languages; <code>a // gcd * b</code> cannot.'
+    ],
+    template: "# Euclid - iterative, O(log min(a,b))\ndef gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a\n\nlcm = a // gcd(a, b) * b        # divide FIRST - avoids overflow\n\n# extended Euclid gives x, y with ax + by = gcd(a,b) -> modular inverse.\n# modulus is prime? inverse of a is pow(a, p - 2, p).\n",
+    variants:[
+      ['gcd of the entire array','Fold: <code>reduce(gcd, nums)</code>. Fast, because the running gcd collapses to 1 quickly.'],
+      ['<b>GCD of Strings</b> (LC 1071)','The same algebra on strings. Also in your repo.'],
+      ['<b>Insert GCDs in a Linked List</b> (LC 2807)','Euclid applied at every adjacent pair. Also in your repo.'],
+      ['Modular inverse','Extended Euclid, or Fermat’s little theorem when the modulus is prime: <code>pow(a, p-2, p)</code>.'],
+      ['<b>Subsequences with equal GCD</b> (LC 3336)','DP over gcd values. Also in your repo, and much harder.']
+    ],
+    thinking:'Keep a small number-theory toolkit ready: <b>Euclid</b> for gcd, <b>lcm via gcd</b>, <b>sieve</b> for primes up to n, <b>fast modular exponentiation</b> for powers under a modulus, and <b>Fermat</b> for inverses mod a prime. Five short functions. They turn up constantly in contest-style problems, and the difference between recalling them instantly and re-deriving them is often the difference between finishing and not.'
+  }
+});
+
+</script>
+</body>
+</html>

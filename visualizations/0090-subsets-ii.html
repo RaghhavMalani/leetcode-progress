@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>90 - Subsets II</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:", "        res = []", "        nums.sort()", "", "        def backtrack(i, subset):", "            if i == len(nums):", "                res.append(subset.copy())", "                return", "", "            subset.append(nums[i])", "            backtrack(i+1, subset)", "            subset.pop()", "", "            while i+1 < len(nums) and nums[i] == nums[i+1]:", "                i += 1", "", "            backtrack(i+1,subset)", "", "        backtrack(0, [])", "        return res"];
+function build(){
+  var T=LV.trace(), nums=[1,2,2], sub=[];
+  var tb=LV.treeBuilder(66,26,78,52);
+  function C(){ return '['+sub.join(', ')+']'; }
+  function V(id,i,dup){ var m={}; if(i!=null&&i<nums.length) m[i]= dup?'warn':'hot';
+    if(dup&&i+1<nums.length) m[i+1]='warn';
+    return [ LV.arr('subset', sub.slice(), {}, {idx:false}),
+      LV.arr('nums (sorted) — equal values are now neighbours', nums, m, {}),
+      LV.frames('call stack', tb.chain(id).reverse().map(function(x){return tb.nodes[x].frame;})),
+      LV.tree(tb,id) ]; }
+  function VA(i){ return ['i = <b>'+i+'</b> / len = 3','subset = <u>'+C()+'</u>']; }
+
+  var root=tb.add(null,'bt','i=0','backtrack(0, [])');
+  T.step(4,'info','`nums.sort()` puts the two 2s side by side. Everything below depends on that.',VA(0),V(root,0));
+  T.step(20,'info','`backtrack(0, [])` — decide the fate of nums[0].',VA(0),V(root,0));
+  function bt(i,id){
+    T.step(6,'call','Enter backtrack('+i+', '+C()+').',VA(i),V(id,i));
+    if(i===nums.length){
+      T.save(C()); tb.win(id,T.events.length);
+      T.step(8,'found','Every element decided. Save '+C()+'.',VA(i),V(id,null));
+      T.step(9,'ok','return.',VA(i),V(id,null)); return;
+    }
+    sub.push(nums[i]);
+    var a=tb.add(id,'take '+nums[i],'i='+(i+1),'backtrack('+(i+1)+')');
+    T.step(12,'push','Take nums['+i+'] = '+nums[i]+'. subset → '+C()+'.',VA(i+1),V(a,i+1));
+    bt(i+1,a);
+    sub.pop();
+    T.step(13,'pop','Back in backtrack('+i+'). subset.pop() → '+C()+'.',VA(i),V(id,i));
+    var j=i,sk=0;
+    while(j+1<nums.length && nums[j]===nums[j+1]){ j++; sk++; }
+    if(sk) T.step(16,'dup','nums['+i+'] == nums['+(i+1)+'] == '+nums[i]+', so the while loop slides i from '+i+' to '+j+'. This is the whole fix: without it, "skip the first 2, take the second 2" would rebuild a subset that "take the first 2" already produced.',VA(j),V(id,i,true));
+    var b=tb.add(id,'skip→'+(j+1),'i='+(j+1),'backtrack('+(j+1)+')');
+    T.step(18,'skip','Skip branch: exclude '+nums[i]+' entirely and resume at index '+(j+1)+'.',VA(j+1),V(b,j+1));
+    bt(j+1,b);
+  }
+  bt(0,root);
+  T.step(21,'done','Done. 6 subsets, not 8 — [2] and [1,2] each appear exactly once.',VA(0),V(root,0));
+  return T;
+}
+LV.render({
+  num:'90', name:'Subsets II', slug:'0090-subsets-ii',
+  difficulty:'Medium', pattern:'Backtracking · duplicate suppression',
+  url:'https://leetcode.com/problems/subsets-ii',
+  blurb:'Problem 78 plus one while loop. Compare the tree here with the one on the Subsets page: two branches that would have been identical have been merged away.',
+  input:'nums = [1,2,2]', runName:'backtrack(0, [])',
+  skipLabel:'Skip to next subset', skipTypes:['found'], emptyResult:'res is still empty',
+  src:SRC, build:build,
+  complexity:{time:'O(2ⁿ · n) worst case (all distinct)', space:'O(n) depth'},
+  theory:{
+    idea:'Identical to problem 40 minus the sum target. That is worth internalising: <b>40 : 39 :: 90 : 78</b>. The duplicate-suppression machinery is completely orthogonal to what the problem is actually counting, which is why the same four lines transplant cleanly.',
+    recognize:[
+      'Power set / combinations, input <b>may contain duplicates</b>, output rows must be unique.',
+      'The moment you see "may contain duplicates" in a subset or combination problem, write <code>sort()</code> before you write anything else.'
+    ],
+    pitfalls:[
+      '<b>No sort.</b> The while loop compares neighbours and does nothing if equal values are scattered.',
+      '<b>Skipping on the take branch.</b> [2,2] is a legitimate subset; you must be able to take both.',
+      '<b>Trying to dedupe with a set of tuples.</b> It passes, but it does the full 2ⁿ work first.',
+      '<b>Writing <code>i += 1</code> inside a loop over a parameter and expecting the caller to see it</b> — it is a local rebinding, which is exactly what you want here, but people sometimes assume the opposite.'
+    ],
+    template: "# sort + skip equal neighbours on the SKIP branch\nnums.sort()\npath.append(nums[i]); backtrack(i+1); path.pop()   # take branch\nwhile i+1 < len(nums) and nums[i] == nums[i+1]:\n    i += 1\nbacktrack(i+1)          # skip branch now lands on a NEW value\n",
+    variants:[
+      ['No duplicates in input','LC 78 — drop the while loop.'],
+      ['With a sum target','LC 40 — add the total and the two guards.'],
+      ['Permutations with duplicates','LC 47 — counter idiom instead.'],
+      ['Count distinct subsets only','Multiply (count[v]+1) over distinct values. No search at all.']
+    ],
+    thinking:'Build yourself a two-axis grid: rows = {subsets, combinations with a target, permutations}, columns = {distinct input, duplicate input}. Six cells, and you have solved five of them (78, 39, 46, 90, 40, 47). Being able to say which cell a new problem sits in — before writing code — is most of what interviewers are testing when they hand you one of these.'
+  }
+});
+
+</script>
+</body>
+</html>

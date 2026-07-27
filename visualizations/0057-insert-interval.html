@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>57 - Insert Interval</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:", "        res = []", "", "        for i in range(len(intervals)):", "            if newInterval[1] < intervals[i][0]:", "                res.append(newInterval)", "                return res + intervals[i:]", "", "            elif newInterval[0] > intervals[i][1]:", "                res.append(intervals[i])", "", "            else:", "                newInterval = [min(newInterval[0], intervals[i][0]), max(newInterval[1], intervals[i][1])]", "        ", "        res.append(newInterval)", "", "        return res"];
+function build(){
+  var T=LV.trace();
+  var iv=[[1,3],[6,9]], ni=[2,5], res=[];
+  function fmt(x){ return '['+x[0]+','+x[1]+']'; }
+  function V(i,cls){ var m={}; iv.forEach(function(_,k){ m[k]= k<i?'good':(k===i?(cls||'hot'):'dim'); });
+    return [ LV.arr('intervals (already sorted, non-overlapping)', iv.map(fmt), m, {}),
+      LV.kv('newInterval', [[fmt(ni),null]], {}, {}),
+      LV.seq('res', res.map(fmt), {}, {emptyText:'empty'}) ]; }
+  function VA(i){ return ['i = <b>'+i+'</b>','newInterval = <em>'+fmt(ni)+'</em>']; }
+
+  T.step(3,'info','The input is already sorted and non-overlapping — that is a gift, and it means one pass with three cases is enough. For each existing interval, it is entirely AFTER the new one, entirely BEFORE it, or it OVERLAPS.',['newInterval = <b>'+fmt(ni)+'</b>'],V(null));
+  for(var i=0;i<iv.length;i++){
+    T.step(5,'call','Compare with intervals['+i+'] = '+fmt(iv[i])+'.',VA(i),V(i));
+    if(ni[1]<iv[i][0]){
+      res.push(ni.slice());
+      T.step(7,'found','<b>Case 1</b>: newInterval ends ('+ni[1]+') before this one starts ('+iv[i][0]+'). Nothing further can overlap, because the list is sorted. Append newInterval…',VA(i),V(i,'win'));
+      T.step(8,'done','…and return res + intervals['+i+':] — every remaining interval is appended untouched in one slice. Answer: <b>['+res.concat(iv.slice(i)).map(fmt).join(', ')+']</b>.',VA(i),V(i,'win'));
+      T.save(res.concat(iv.slice(i)).map(fmt).join(', '));
+      return T;
+    } else if(ni[0]>iv[i][1]){
+      res.push(iv[i]);
+      T.step(11,'push','<b>Case 2</b>: this interval ends ('+iv[i][1]+') before newInterval starts ('+ni[0]+'). It is entirely to the left — copy it across unchanged.',VA(i),V(i));
+      T.save('kept '+fmt(iv[i]));
+    } else {
+      var old=fmt(ni);
+      ni=[Math.min(ni[0],iv[i][0]), Math.max(ni[1],iv[i][1])];
+      T.step(14,'ok','<b>Case 3</b>: they overlap. ABSORB this interval into newInterval: '+old+' ∪ '+fmt(iv[i])+' = <b>'+fmt(ni)+'</b>. Note newInterval keeps growing and is not appended yet — it might swallow several more.',VA(i),V(i,'warn'));
+      T.save('merged → '+fmt(ni));
+    }
+  }
+  res.push(ni.slice());
+  T.step(16,'found','Loop finished without hitting case 1, so newInterval belongs at the end. Append it.',[],V(iv.length));
+  T.step(18,'done','Answer: <b>['+res.map(fmt).join(', ')+']</b>. One pass, O(n), and no sorting was needed because the input was already ordered.',[],V(iv.length));
+  return T;
+}
+LV.render({
+  num:'57', name:'Insert Interval', slug:'0057-insert-interval',
+  difficulty:'Medium', pattern:'Intervals · three-case scan',
+  url:'https://leetcode.com/problems/insert-interval',
+  blurb:'Three mutually exclusive cases — after, before, overlapping — and the elegant bit is case 3: the new interval keeps <em>absorbing</em> neighbours rather than being appended immediately.',
+  input:'intervals = [[1,3],[6,9]], newInterval = [2,5]', runName:'insert',
+  skipLabel:null, emptyResult:'res is empty',
+  src:SRC, build:build,
+  complexity:{time:'O(n) — no sort needed', space:'O(n) for the output'},
+  theory:{
+    idea:'Two intervals [a,b] and [c,d] <b>overlap iff a ≤ d and c ≤ b</b>. Everything else is the negation of that, which is where the two clean early cases come from. When they do overlap, the union is <code>[min(a,c), max(b,d)]</code> — and you keep merging into the same accumulator because one new interval can swallow an arbitrarily long run.',
+    recognize:[
+      'Interval / range / meeting-room problems. Almost all of them start with "sort by start", and this one is handed that for free.',
+      'The three-way split (disjoint left, disjoint right, overlapping) is the standard case analysis; write those three branches before you write any code.',
+      'If the input were NOT sorted, you would sort first and the problem becomes LC 56.'
+    ],
+    pitfalls:[
+      '<b>Appending newInterval as soon as you see an overlap.</b> It may absorb several more; only append once the overlap run is over.',
+      '<b>Strict vs non-strict comparisons.</b> Do [1,3] and [3,5] touch? This code uses <code>&lt;</code> so they merge. LeetCode wants them merged; a real scheduling problem often does not. Check the definition.',
+      '<b>Forgetting the append after the loop.</b> If newInterval extends past the last interval, case 1 never fires and it would be silently dropped.',
+      '<b>Sorting unnecessarily.</b> The input is already sorted; adding a sort is O(n log n) for nothing and signals you did not read the constraints.'
+    ],
+    template: "# Intervals: three cases, one pass (input already sorted)\nres = []\nfor i, (s, e) in enumerate(intervals):\n    if new[1] < s:                      # entirely AFTER new -> done\n        return res + [new] + intervals[i:]\n    elif new[0] > e:                    # entirely BEFORE new -> copy across\n        res.append([s, e])\n    else:                               # OVERLAP -> absorb, do not append yet\n        new = [min(new[0], s), max(new[1], e)]\nres.append(new)                         # never got placed -> it goes last\nreturn res\n\n# overlap test:  a <= d and c <= b        union: [min(a,c), max(b,d)]\n",
+    variants:[
+      ['<b>Merge Intervals</b> (LC 56)','Sort by start, then sweep merging into the last result element.'],
+      ['<b>Non-overlapping Intervals</b> (LC 435)','Sort by END and greedily keep the earliest finisher — a different sort key entirely.'],
+      ['<b>Meeting Rooms II</b> (LC 253)','A min-heap of end times, or a +1/−1 sweep line over the boundaries.'],
+      ['<b>Remove Covered Intervals</b> (LC 1288)','Sort by (start asc, end desc). Also in your repo — see how the sort key does all the work there.']
+    ],
+    thinking:'Interval problems are decided almost entirely by <b>the sort key</b>. Sort by start → merging and insertion. Sort by end → greedy "keep as many as possible" (activity selection). Sort by (start, −end) → covering relationships. Before writing anything, ask "what order makes the greedy choice locally obvious?" Getting that right turns most interval problems into a five-line sweep; getting it wrong makes them impossible.'
+  }
+});
+
+</script>
+</body>
+</html>

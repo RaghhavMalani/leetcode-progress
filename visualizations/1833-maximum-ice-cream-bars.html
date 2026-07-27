@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1833 - Maximum Ice Cream Bars</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def maxIceCream(self, costs: List[int], coins: int) -> int:", "        freq = [0] * 100001", "", "        for c in costs:", "            freq[c] += 1", "", "        ans = 0", "", "        for price in range(1, 100001):", "            if freq[price] > 0:", "                buy = min(freq[price], coins // price)", "                ans += buy", "                coins -= buy * price", "", "        return ans"];
+function build(){
+  var T=LV.trace(), costs=[1,3,2,4,1], coins=7, ans=0;
+  var freq={1:2,2:1,3:1,4:1}, prices=[1,2,3,4];
+  function FV(hot){ var m={}; if(hot!=null) m[hot]='hot';
+    return LV.kv('freq — how many bars at each price', prices.map(function(p){ return [p, freq[p]||0]; }), m, {}); }
+  function V(hot){ return [ LV.arr('costs', costs, {}, {}), FV(hot),
+    LV.kv('state', [['coins',coins],['ans',ans]], {'coins':'hot'}, {}) ]; }
+  T.step(3,'info','This is <b>counting sort</b> instead of an O(n log n) sort. Prices are bounded by 10⁵, so you can bucket by price and then walk the buckets in order — O(n + maxPrice) rather than O(n log n).',['coins = <b>7</b>','ans = <u>0</u>'],V(null));
+  T.step(6,'info','Tally: two bars cost 1, one costs 2, one costs 3, one costs 4.',['coins = <b>7</b>'],V(null));
+  T.step(10,'info','The greedy: always buy the CHEAPEST available bar. Swapping any bought bar for a cheaper unbought one never reduces the count and never costs more — that exchange argument is the proof.',['coins = <b>7</b>'],V(null));
+  prices.forEach(function(p){
+    if(!freq[p]) return;
+    T.step(11,'call','Price '+p+': there are '+freq[p]+' bar'+(freq[p]===1?'':'s')+' at this price, and '+coins+' coins left.',['price = <b>'+p+'</b>','coins = <em>'+coins+'</em>'],V(p));
+    var buy=Math.min(freq[p], Math.floor(coins/p));
+    T.step(12,'info','buy = min(available '+freq[p]+', affordable '+Math.floor(coins/p)+') = <b>'+buy+'</b>. Buying a whole price tier at once, rather than one bar at a time, is what keeps this linear.',['buy = <b>'+buy+'</b>'],V(p));
+    if(buy>0){
+      ans+=buy; coins-=buy*p;
+      T.step(14,'found','Bought '+buy+'. ans → <b>'+ans+'</b>, coins → '+coins+'.',['ans = <u>'+ans+'</u>','coins = <em>'+coins+'</em>'],V(p));
+      T.save('bought '+buy+' at price '+p);
+    } else {
+      T.step(12,'bad','Cannot afford even one at price '+p+' — and since prices only increase from here, nothing more is affordable either.',['coins = <em>'+coins+'</em>'],V(p));
+    }
+  });
+  T.step(16,'done','Answer: <b>'+ans+'</b> bars for 7 coins (1 + 1 + 2 + 3 = 7).',['ans = <u>'+ans+'</u>'],V(null));
+  return T;
+}
+LV.render({
+  num:'1833', name:'Maximum Ice Cream Bars', slug:'1833-maximum-ice-cream-bars',
+  difficulty:'Medium', pattern:'Greedy · counting sort',
+  url:'https://leetcode.com/problems/maximum-ice-cream-bars',
+  blurb:'Buy cheapest first — but the interesting choice here is counting sort instead of <code>sort()</code>, which turns O(n log n) into O(n + maxPrice).',
+  input:'costs = [1,3,2,4,1], coins = 7', runName:'maxIceCream',
+  skipLabel:'Skip to next purchase', skipTypes:['found'], emptyResult:'nothing bought yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n + maxPrice) — linear when prices are bounded', space:'O(maxPrice)'},
+  theory:{
+    idea:'Two separate ideas. <b>The greedy:</b> to maximise the <em>count</em> of items under a budget, always take the cheapest — proved by an exchange argument. <b>The sort:</b> when the sort key is a bounded integer, counting sort beats comparison sort, exactly as in LC 347 in your repo.',
+    recognize:[
+      '"Maximum number of items within a budget", all items otherwise identical. If items had different <em>values</em>, this would be knapsack and greedy would fail.',
+      'Bounded integer keys (prices ≤ 10⁵) → counting sort is available.',
+      'The greedy dies the moment items have differing value-per-cost — that is the line between this and 0/1 knapsack.'
+    ],
+    pitfalls:[
+      '<b>Buying one bar at a time in a loop.</b> Correct but O(coins) in the worst case; <code>coins // price</code> buys the whole tier at once.',
+      '<b>Allocating 100001 slots regardless of input size.</b> Fine here, but if maxPrice were 10⁹ the counting sort would be worse than sorting. Check the bound before choosing.',
+      '<b>Assuming greedy always works for budget problems.</b> It works only because all bars are worth exactly 1. Say that.',
+      '<b>Not stopping early.</b> Once coins run out you can break — a small win, and it shows you noticed prices are ascending.'
+    ],
+    template: "# greedy (cheapest first) + counting sort instead of sort()\nfreq = [0] * (MAX_PRICE + 1)\nfor c in costs:\n    freq[c] += 1\n\nans = 0\nfor price in range(1, MAX_PRICE + 1):\n    if not freq[price]:\n        continue\n    buy = min(freq[price], coins // price)   # whole tier at once, not one by one\n    ans   += buy\n    coins -= buy * price\n    if coins < price:\n        break                                # prices only rise from here\nreturn ans\n",
+    variants:[
+      ['Items have different values','0/1 knapsack DP. Greedy is wrong.'],
+      ['Fractional purchases allowed','Fractional knapsack — greedy by value/weight ratio is optimal.'],
+      ['<b>Minimum Cost of Buying Candies</b> (LC 2144)','Sort DESCENDING and skip every third. Also in your repo.'],
+      ['Unbounded quantities per price','Buy as many of the cheapest as the budget allows; one line.']
+    ],
+    thinking:'Two questions to keep separate. <b>(1) Is the greedy correct?</b> Answer it with an exchange argument, not intuition. <b>(2) What is the cheapest way to get the order I need?</b> Sorting is the default, but bounded integer keys open the door to counting sort. Most people conflate these and either use a greedy they cannot justify or reach for <code>sort()</code> reflexively.'
+  }
+});
+
+</script>
+</body>
+</html>

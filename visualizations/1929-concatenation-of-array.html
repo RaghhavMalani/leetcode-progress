@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1929 - Concatenation of Array</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution {", "public:", "    vector<int> getConcatenation(vector<int>& nums) {", "        int n = nums.size();", "        vector <int> result(2*n);", "", "        for (int i = 0; i < n;i++){", "            result[i] = nums[i];", "            result[i+n] = nums[i];", "        }", "", "        return result;", "    }", "};"];
+function build(){
+  var T=LV.trace(), a=[1,3,2,1], n=4;
+  var res=new Array(2*n).fill('·');
+  function V(i){ var m={}; a.forEach(function(_,k){ m[k]= k<i?'good':(k===i?'hot':'dim'); });
+    var rm={}; res.forEach(function(v,k){ if(v!=='·') rm[k]='good'; });
+    if(i!=null&&i<n){ rm[i]='hot'; rm[i+n]='hot'; }
+    return [ LV.arr('nums', a, m, {}), LV.arr('result (length 2n)', res.slice(), rm, {}) ]; }
+  T.step(5,'info','Allocate the full 2n array UP FRONT. Pre-sizing lets you write directly to both destinations in one pass — no appending, no reallocation.',['n = <b>4</b>'],V(null));
+  for(var i=0;i<n;i++){
+    res[i]=a[i]; res[i+n]=a[i];
+    T.step(8,'push','One iteration fills TWO slots: result['+i+'] and result['+(i+n)+'] both become '+a[i]+'. The offset n is what places the second copy.',['i = <b>'+i+'</b>'],V(i));
+    T.save('result['+i+'] = result['+(i+n)+'] = '+a[i]);
+  }
+  T.step(12,'done','Answer: <b>['+res.join(', ')+']</b>. One pass, O(n), and the output array was never resized.',[],V(null));
+  return T;
+}
+LV.render({
+  num:'1929', name:'Concatenation of Array', slug:'1929-concatenation-of-array',
+  difficulty:'Easy', pattern:'Index arithmetic · pre-sized output',
+  url:'https://leetcode.com/problems/concatenation-of-array',
+  blurb:'Trivial, but it demonstrates a habit worth having: pre-size the output and write with an index offset rather than appending twice.',
+  input:'nums = [1,3,2,1]', runName:'getConcatenation',
+  skipLabel:null, emptyResult:'result is empty',
+  src:SRC, build:build,
+  complexity:{time:'O(n)', space:'O(n) for the output'},
+  theory:{
+    idea:'<b>Pre-size, then index.</b> When you know the output length in advance, allocate once and write by index. Appending repeatedly is amortised O(1) in most languages but involves reallocation and copying, and in C++ <code>reserve</code>/sizing is measurably faster.',
+    recognize:[
+      'The output size is a known function of the input size.',
+      'You want to fill several positions per iteration — an offset makes that one loop instead of two.',
+      'The same index arithmetic — <code>i + n</code>, <code>i % n</code>, <code>i * cols + j</code> — is the backbone of circular buffers and flattened matrices.'
+    ],
+    pitfalls:[
+      '<b>Two separate loops (or <code>nums + nums</code>).</b> Perfectly correct and shorter in Python. The single loop is a C++ habit worth understanding rather than a requirement.',
+      '<b>Appending to an already-sized vector.</b> <code>vector&lt;int&gt; result(2*n)</code> then <code>push_back</code> gives you 3n elements — the classic C++ slip.',
+      '<b>Off-by-one in the offset.</b> The second copy starts at index n, not n−1 or n+1.'
+    ],
+    template: "# pre-size the output, then write by index offset\nresult = [0] * (2 * n)\nfor i in range(n):\n    result[i]     = nums[i]\n    result[i + n] = nums[i]      # one loop fills BOTH copies\n\n# the three index conversions worth owning:\n#   flatten   idx = r * cols + c\n#   unflatten r = idx // cols,  c = idx % cols\n#   wrap      idx = (idx + k) % total\n",
+    variants:[
+      ['<b>Shift 2D Grid</b> (LC 1260)','Flatten with <code>i*n + j</code>, shift with <code>% total</code>, unflatten with <code>/n</code> and <code>%n</code>. Also in your repo.'],
+      ['Rotate an array by k','Reverse three times, or write to <code>(i + k) % n</code>.'],
+      ['Circular buffer','<code>(head + size) % capacity</code>. See LC 622 in your repo.'],
+      ['Concatenate k copies','Same loop with <code>i + c*n</code> for each copy c.']
+    ],
+    thinking:'Easy problems are where index arithmetic becomes automatic. Get comfortable with the three conversions — <b>flatten</b> (<code>r*cols + c</code>), <b>unflatten</b> (<code>idx/cols</code>, <code>idx%cols</code>), and <b>wrap</b> (<code>% n</code>) — because they show up in grid problems, circular queues, matrix rotation and hashing, and fumbling them in a hard problem costs you far more than the two minutes it takes to drill them here.'
+  }
+});
+
+</script>
+</body>
+</html>

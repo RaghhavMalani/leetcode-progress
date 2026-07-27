@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>92 - Reverse Linked List II</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["# Definition for singly-linked list.", "# class ListNode:", "#     def __init__(self, val=0, next=None):", "#         self.val = val", "#         self.next = next", "class Solution:", "    def reverseBetween(self, head: Optional[ListNode], left: int, right: int) -> Optional[ListNode]:", "        dummy = ListNode(0)", "        dummy.next = head", "", "        lp,l = dummy, head", "", "        for _ in range(left - 1):", "            lp = lp.next", "            l = l.next", "", "        prev = None", "", "        for _ in range(right - left + 1):", "            temp = l.next", "            l.next = prev", "            prev = l", "            l = temp", "", "        lp.next.next = l", "        lp.next = prev", "        return dummy.next"];
+function build(){
+  var T=LV.trace();
+  var left=2, right=4;
+  var chain=[{v:'dummy',d:1},{v:1},{v:2},{v:3},{v:4},{v:5}];
+  var lpIdx=0, lIdx=1, prevList=[], curIdx=1, tail=null;
+  function N(){ return chain.map(function(n,i){ return {v:n.v,id:'q'+i,dummy:!!n.d,
+      cls: (i===lpIdx?'good': (i===curIdx?'hot':'')) }; }); }
+  function labs(){ var m={}; m['q'+lpIdx]='lp'; if(curIdx<chain.length) m['q'+curIdx]='l'; return m; }
+  function V(note){ return [
+    LV.ll('list', N(), labs(), {note:note||'lp = the node just before the reversed section; l = the cursor'}),
+    LV.ll('reversed so far  (prev →)', prevList.map(function(x){ return {v:x,id:'r'+x}; }), {}, {}) ]; }
+  function VA(){ return ['left = <b>2</b>','right = <b>4</b>','lp at <em>'+chain[lpIdx].v+'</em>','l at <i>'+(curIdx<chain.length?chain[curIdx].v:'None')+'</i>']; }
+
+  T.step(8,'info','Dummy again — because `left` might be 1, in which case the head itself is reversed and the dummy saves us a special case.',VA(),V());
+  T.step(13,'info','Walk `lp` forward left−1 = 1 time, so it lands on the node immediately BEFORE the section to reverse. `l` walks alongside it and lands on the first node to reverse.',VA(),V());
+  for(var s=0;s<left-1;s++){
+    lpIdx++; curIdx++;
+    T.step(14,'push','lp → '+chain[lpIdx].v+', l → '+chain[curIdx].v+'.',VA(),V());
+  }
+  T.step(17,'ok','lp = '+chain[lpIdx].v+' (the anchor), l = '+chain[curIdx].v+' (first node of the section). prev = None.',VA(),V());
+  T.step(19,'info','Run the standard reversal loop exactly right − left + 1 = '+(right-left+1)+' times. Nothing new here — it is LC 206 with a counter instead of a null check.',VA(),V());
+  for(var k=0;k<right-left+1;k++){
+    T.step(20,'info','Save l.next before flipping.',VA(),V());
+    prevList.unshift(chain[curIdx].v);
+    curIdx++;
+    T.step(21,'push','Flip. Reversed section so far: '+prevList.join('→')+'. l moves to '+(curIdx<chain.length?chain[curIdx].v:'None')+'.',VA(),V());
+  }
+  tail=curIdx;
+  T.step(25,'found','Now stitch the two seams — this is where the problem is actually won or lost. `lp.next` still points at node '+left+', which after reversal is the TAIL of the section. So `lp.next.next = l` connects that tail to node '+(curIdx<chain.length?chain[curIdx].v:'None')+', the rest of the list.',VA(),V('seam 1: tail of the reversed part → the remainder'));
+  T.step(26,'found','`lp.next = prev` connects the anchor to node '+prevList[0]+', the new HEAD of the reversed section. Order matters: do this line first and you lose the pointer you needed for line 25.',VA(),V('seam 2: anchor → new head'));
+  T.save('[1, 4, 3, 2, 5]');
+  T.step(27,'done','Return dummy.next: <b>[1, 4, 3, 2, 5]</b>. One pass, O(1) space.',VA(),V('done'));
+  return T;
+}
+LV.render({
+  num:'92', name:'Reverse Linked List II', slug:'0092-reverse-linked-list-ii',
+  difficulty:'Medium', pattern:'Linked list · partial reversal + seams',
+  url:'https://leetcode.com/problems/reverse-linked-list-ii',
+  blurb:'LC 206 applied to a slice. The reversal is the easy part; the two <em>seams</em> — anchor to new head, old head to remainder — are the whole difficulty, and the order of those two lines matters.',
+  input:'head = [1,2,3,4,5], left = 2, right = 4', runName:'reverseBetween',
+  skipLabel:null, emptyResult:'not reversed yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n) — one pass', space:'O(1)'},
+  theory:{
+    idea:'Reversing a middle section leaves two broken edges. Before you write a line, name the four nodes involved: the <b>anchor</b> (before the section), the <b>old head</b> (which becomes the tail), the <b>old tail</b> (which becomes the head), and the <b>remainder</b>. Then the reconnection is two assignments and you cannot get lost.',
+    recognize:[
+      'Reverse / rotate / modify a <b>sub-range</b> of a linked list.',
+      'Any "reverse in groups of k" question (LC 25) is this, repeated.',
+      'The presence of 1-based indices <code>left</code> and <code>right</code> in a list problem is a strong hint you will need a dummy for the <code>left == 1</code> case.'
+    ],
+    pitfalls:[
+      '<b>Reconnecting in the wrong order.</b> <code>lp.next = prev</code> before <code>lp.next.next = l</code> destroys the reference to the old head. Line 25 must come first.',
+      '<b>No dummy when <code>left == 1</code>.</b> There is no anchor node, so you need a separate branch. The dummy provides one for free.',
+      '<b>Off-by-one in the loop counts.</b> <code>left - 1</code> steps to reach the anchor; <code>right - left + 1</code> iterations to reverse. Both are inclusive-range arithmetic and both are easy to get wrong — check on paper with left = right.',
+      '<b>Trying to do it without a trailing pointer.</b> You need the anchor; there is no way back.'
+    ],
+    template: "# Reverse the slice [left, right] - name your four nodes first\ndummy = ListNode(0, head)\nlp = dummy\nfor _ in range(left - 1):        # lp = the ANCHOR, just before the slice\n    lp = lp.next\n\nprev, cur = None, lp.next        # cur = OLD HEAD (becomes the tail)\nfor _ in range(right - left + 1):\n    cur.next, prev, cur = prev, cur, cur.next\n# now: prev = OLD TAIL (new head),  cur = REMAINDER\n\nlp.next.next = cur               # seam 1: old head -> remainder   (FIRST)\nlp.next      = prev              # seam 2: anchor  -> new head\nreturn dummy.next\n",
+    variants:[
+      ['Reverse the whole list','LC 206 — left = 1, right = n, no seams needed.'],
+      ['<b>Reverse Nodes in k-Group</b> (LC 25)','This, in a loop, with the anchor moving forward each time. Genuinely hard, and this problem is the prerequisite.'],
+      ['<b>Rotate List</b> (LC 61)','Find the new tail, cut, and reattach — different mechanics, same "name your four nodes" discipline.'],
+      ['Swap nodes in pairs','LC 24 — k-group with k = 2.']
+    ],
+    thinking:'The transferable habit: <b>before mutating a linked structure, write down every pointer that will be broken and where each broken end must end up.</b> Four names on paper turn this from a puzzle into bookkeeping. It is the same discipline that makes tree rotations and doubly-linked-list splices routine, and it is the reason experienced people write these correctly on the first attempt while everyone else debugs for twenty minutes.'
+  }
+});
+
+</script>
+</body>
+</html>

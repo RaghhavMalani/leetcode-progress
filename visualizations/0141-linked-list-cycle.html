@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>141 - Linked List Cycle</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["# Definition for singly-linked list.", "# class ListNode(object):", "#     def __init__(self, x):", "#         self.val = x", "#         self.next = None", "", "class Solution(object):", "    def hasCycle(self, head):", "        \"\"\"", "        :type head: ListNode", "        :rtype: bool", "        \"\"\"", "        slow = head", "        fast = head ", "        while fast is not None and fast.next is not None:", "            fast = fast.next.next", "            slow = slow.next", "", "            if slow ==  fast:", "                return True", "            ", "        return False"];
+function build(){
+  var T=LV.trace();
+  var v=[3,2,0,-4], ENTRY=1;   // tail links back to index 1
+  var slow=0, fast=0, step=0;
+  function marks(){ var m={}; m[slow]='hot'; if(fast!==slow) m[fast]='warn'; return m; }
+  function ptr(){ var t={}; t[slow]='slow'; t[fast]=(fast===slow?'slow fast':'fast'); return t; }
+  function V(){ return [ LV.arr('the list, drawn flat — node 3 links back to node 1, so the last two nodes form a loop', v, marks(), {ptrs:ptr(), note:'next(i) = i+1, except next(3) = 1'}) ]; }
+  function nxt(i){ return i===3 ? ENTRY : i+1; }
+  function VA(){ return ['slow at node <b>'+slow+'</b> (val '+v[slow]+')','fast at node <i>'+fast+'</i> (val '+v[fast]+')','iteration <em>'+step+'</em>']; }
+
+  T.step(13,'info','Both pointers start at the head. `fast` will move twice as quickly as `slow`. If the list ends, fast falls off and we return False. If it loops, fast eventually laps slow.',VA(),V());
+  while(true){
+    step++;
+    T.step(15,'call','Loop guard: fast and fast.next both exist, so fast can safely take two steps. This double check is what makes the algorithm safe on even- and odd-length acyclic lists.',VA(),V());
+    fast=nxt(nxt(fast));
+    T.step(16,'push','fast takes two steps → node '+fast+' (val '+v[fast]+').',VA(),V());
+    slow=nxt(slow);
+    T.step(17,'push','slow takes one step → node '+slow+' (val '+v[slow]+').',VA(),V());
+    if(slow===fast){
+      T.save('met at node '+slow+' (val '+v[slow]+')');
+      T.step(20,'found','<b>slow == fast.</b> A faster runner can only catch a slower one on a circular track. Return True.',VA(),V());
+      break;
+    }
+    T.step(19,'info','Not equal — go round again.',VA(),V());
+    if(step>10) break;
+  }
+  T.step(20,'done','Answer: <b>True</b>. O(n) time, O(1) space — the set-of-visited-nodes solution is also O(n) time but O(n) space, and this problem exists to rule it out.',VA(),V());
+  return T;
+}
+LV.render({
+  num:'141', name:'Linked List Cycle', slug:'0141-linked-list-cycle',
+  difficulty:'Easy', pattern:'Fast & slow pointers · Floyd',
+  url:'https://leetcode.com/problems/linked-list-cycle',
+  blurb:'The tortoise and the hare. Why it must work: inside a loop the gap between fast and slow shrinks by exactly one every iteration, so it reaches zero — they cannot step over each other.',
+  input:'head = [3,2,0,-4], tail connects to index 1', runName:'hasCycle',
+  skipLabel:null, emptyResult:'no meeting yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n)', space:'O(1) — the whole point'},
+  theory:{
+    idea:'Two pointers at different <b>speeds</b>. On a finite path the fast one runs out. On a cycle it laps the slow one. The proof is one sentence: once both are inside the loop, fast gains exactly one position per iteration, so the gap decreases by one each time and must hit zero — it can never jump over.',
+    recognize:[
+      '"Does this list have a cycle", "does this sequence repeat", "will this process terminate".',
+      'Explicit O(1) space. With space allowed, a visited set is trivially correct and much easier to explain.',
+      'Applies to any <b>deterministic successor function</b>, not just lists — see LC 287 in your repo, and LC 202 Happy Number.'
+    ],
+    pitfalls:[
+      '<b>Checking only <code>fast</code>, not <code>fast.next</code>.</b> <code>fast.next.next</code> then throws on an even-length acyclic list. Both checks are mandatory.',
+      '<b>Comparing values instead of nodes.</b> <code>slow.val == fast.val</code> gives false positives on duplicate values. Compare identity.',
+      '<b>Starting <code>fast</code> at <code>head.next</code>.</b> A workable variant, but then the initial <code>slow == fast</code> test must be handled differently. Pick one convention.',
+      '<b>Believing the meeting point is the cycle start.</b> It is not — that needs the second phase (LC 142, and LC 287 in your repo).'
+    ],
+    template: "# Fast & slow - three jobs, one shape\n\n# 1. detect a cycle\nslow = fast = head\nwhile fast and fast.next:\n    slow, fast = slow.next, fast.next.next\n    if slow is fast:\n        return True\nreturn False\n\n# 2. find the middle: run the same loop, then `slow` is the middle\n# 3. find the cycle entrance: after they meet, reset one to head and\n#    advance BOTH one step at a time (LC 142 / LC 287)\n",
+    variants:[
+      ['Find the cycle <b>entrance</b>','LC 142 — reset one pointer to the head, advance both one step at a time.'],
+      ['<b>Find the Duplicate Number</b> (LC 287)','The same algorithm on an array read as a functional graph. Also in your repo.'],
+      ['Cycle <b>length</b>','After meeting, keep one still and walk the other until it returns.'],
+      ['<b>Happy Number</b> (LC 202)','Digit-square-sum as the successor function — cycle detection on integers.'],
+      ['Middle of the list','Same pointers, but you stop when fast runs off rather than when they meet.']
+    ],
+    thinking:'Fast/slow is a <b>whole toolkit, not one trick</b>. Learn the three jobs it does: detect a cycle (do they meet?), find the middle (where is slow when fast ends?), and locate a cycle entrance (phase two). Then learn the generalisation — it works on <em>any</em> function you can iterate, which is why array problems like LC 287 and number problems like LC 202 fall to it. When a problem says "O(1) space" and involves following pointers or repeatedly applying a function, this should be your first thought.'
+  }
+});
+
+</script>
+</body>
+</html>

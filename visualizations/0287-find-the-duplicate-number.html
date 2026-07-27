@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>287 - Find the Duplicate Number</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def findDuplicate(self, nums: List[int]) -> int:", "        slow , fast = 0 , 0 ", "", "        while True:", "            slow = nums[slow]", "            fast = nums[nums[fast]]", "", "            if slow == fast:", "                break", "", "        slow2 = 0", "", "        while True:", "            slow = nums[slow]", "            slow2 = nums[slow2]", "", "            if slow == slow2:", "                return slow"];
+function build(){
+  var T=LV.trace(), a=[1,3,4,2,2];
+  function marks(s,f,s2){ var m={}; if(s!=null) m[s]='hot'; if(f!=null) m[f]=(f===s?'hot':'warn'); if(s2!=null) m[s2]='vio'; return m; }
+  function ptr(s,f,s2){ var t={};
+    function add(i,l){ if(i==null) return; t[i]=(t[i]?t[i]+' ':'')+l; }
+    add(s,'slow'); add(f,'fast'); add(s2,'slow2');
+    return t; }
+  function V(s,f,s2,note){ return [
+    LV.arr('nums — index i points to index nums[i], so the array IS a linked list', a, marks(s,f,s2), {ptrs:ptr(s,f,s2), note:note||'follow i → nums[i]; with n+1 slots and values in 1..n, two indices must land on the same value, which makes a cycle'}) ]; }
+  var slow=0,fast=0;
+  T.step(3,'info','Reframe the array as a linked list: node i has an edge to node nums[i]. Values are in 1..n and there are n+1 slots, so by pigeonhole two indices point to the same node — a cycle exists, and its entrance is the duplicate.',['slow = <b>0</b>','fast = <i>0</i>'],V(0,0,null));
+  var guard=0;
+  while(true){
+    slow=a[slow];
+    T.step(6,'push','slow takes ONE step: slow = nums[slow] = '+slow+'.',['slow = <b>'+slow+'</b>','fast = <i>'+fast+'</i>'],V(slow,fast,null));
+    fast=a[a[fast]];
+    T.step(7,'push','fast takes TWO steps: fast = nums[nums[fast]] = '+fast+'.',['slow = <b>'+slow+'</b>','fast = <i>'+fast+'</i>'],V(slow,fast,null));
+    if(slow===fast){
+      T.step(9,'found','slow == fast == '+slow+'. They have met INSIDE the cycle. Important: this meeting point is generally NOT the duplicate — it is just proof a cycle exists.',['slow = <b>'+slow+'</b>','fast = <i>'+fast+'</i>'],V(slow,fast,null));
+      T.step(10,'ok','break out of phase one.',['meeting at <u>'+slow+'</u>'],V(slow,fast,null));
+      break;
+    }
+    T.step(9,'info','slow ('+slow+') != fast ('+fast+') — keep going.',['slow = <b>'+slow+'</b>','fast = <i>'+fast+'</i>'],V(slow,fast,null));
+    if(++guard>20) break;
+  }
+  var slow2=0;
+  T.step(12,'info','Phase two. Reset a second pointer to the START (index 0) and now move BOTH one step at a time. Floyd’s theorem says they meet exactly at the cycle entrance.',['slow = <b>'+slow+'</b>','slow2 = <em>0</em>'],V(slow,null,0));
+  while(true){
+    slow=a[slow]; slow2=a[slow2];
+    T.step(16,'push','Both step once: slow = '+slow+', slow2 = '+slow2+'.',['slow = <b>'+slow+'</b>','slow2 = <em>'+slow2+'</em>'],V(slow,null,slow2));
+    if(slow===slow2){
+      T.save('duplicate = '+slow);
+      T.step(19,'found','They met at <b>'+slow+'</b>. That index is the cycle entrance, which means '+slow+' is the value that appears more than once. Return it.',['answer = <u>'+slow+'</u>'],V(slow,null,slow2));
+      break;
+    }
+    T.step(18,'info','Not equal yet.',['slow = <b>'+slow+'</b>','slow2 = <em>'+slow2+'</em>'],V(slow,null,slow2));
+  }
+  T.step(19,'done','Answer: <b>'+slow+'</b>. O(n) time, O(1) space, and the input array was never modified — which is exactly what the problem demands.',['answer = <u>'+slow+'</u>'],V(slow,null,slow2));
+  return T;
+}
+LV.render({
+  num:'287', name:'Find the Duplicate Number', slug:'0287-find-the-duplicate-number',
+  difficulty:'Medium', pattern:'Floyd cycle detection · fast & slow',
+  url:'https://leetcode.com/problems/find-the-duplicate-number',
+  blurb:'The famous disguise: an array of integers is secretly a linked list, and finding a duplicate value is secretly finding where a cycle begins. Two phases — detect, then locate.',
+  input:'nums = [1,3,4,2,2]', runName:'findDuplicate',
+  skipLabel:null, emptyResult:'no duplicate found yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n)', space:'O(1) — the constraint that rules out a set, and the reason this problem is famous'},
+  theory:{
+    idea:'Two ideas stacked. <b>(1) Reframing:</b> reading <code>i → nums[i]</code> turns the array into a functional graph; n+1 nodes with values in 1..n forces a cycle whose entrance is the repeated value. <b>(2) Floyd:</b> a fast pointer and a slow pointer must meet inside a cycle; then resetting one to the head and advancing both at the same speed makes them meet exactly at the entrance.',
+    recognize:[
+      'The pair of constraints "<b>do not modify the array</b>" and "<b>O(1) extra space</b>". Together they eliminate sorting, a set, and marking-by-negation — which is the interviewer pointing at Floyd.',
+      'n+1 numbers in the range 1..n — a pigeonhole setup, and it also guarantees index 0 is never a cycle member, so starting there is safe.',
+      'Any "find the start of the cycle" phrasing, in a list or in a functional graph.'
+    ],
+    pitfalls:[
+      '<b>Returning the meeting point from phase one.</b> The most common error. That index is somewhere in the cycle, not necessarily its entrance.',
+      '<b>Starting <code>fast</code> at <code>nums[0]</code> instead of 0</b>, or otherwise mismatching the two phases’ starting offsets. Both pointers must start at the same node.',
+      '<b>Using a <code>while slow != fast</code> loop that never runs</b> because both start at 0. That is why the code is <code>while True</code> with the check at the bottom.',
+      '<b>Forgetting why a cycle is guaranteed</b> — if asked and you cannot say "pigeonhole", the elegance reads as memorisation.'
+    ],
+    template: "# Floyd's cycle detection - two phases, never one\n# phase 1: find A meeting point (proves a cycle exists)\nslow = fast = start\nwhile True:\n    slow = nxt(slow)\n    fast = nxt(nxt(fast))\n    if slow == fast:\n        break\n\n# phase 2: reset one pointer to the start, step BOTH one at a time.\n# they meet exactly at the cycle entrance.\nslow2 = start\nwhile slow != slow2:\n    slow  = nxt(slow)\n    slow2 = nxt(slow2)\nreturn slow\n",
+    variants:[
+      ['<b>Linked List Cycle</b> (LC 141)','Phase one only — you just need a yes/no.'],
+      ['<b>Linked List Cycle II</b> (LC 142)','Literally this algorithm on an actual list. Same two phases.'],
+      ['Modification allowed','Mark visited by negating <code>nums[abs(x)]</code> — O(n) time, O(1) space, far easier to derive.'],
+      ['Extra space allowed','A set, or counting sort. Say this first; it shows you know the constraint is what makes it hard.'],
+      ['Find <b>all</b> duplicates','LC 442 — the index-negation trick, since Floyd only finds one.']
+    ],
+    thinking:'The transferable skill is <b>reframing</b>. Before reaching for an algorithm, ask what structure the data secretly has. "Array of indices" → functional graph. "Pairs that must match" → graph edges. "Prefix sums" → a line you can binary search. Most Hard problems are a Medium problem wearing a disguise, and the interview is testing whether you can undress it. Practise by asking, of every array problem: <em>if I read this as a graph, what are the nodes and edges?</em>'
+  }
+});
+
+</script>
+</body>
+</html>

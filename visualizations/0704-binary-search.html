@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>704 - Binary Search</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def search(self, nums: List[int], target: int) -> int:", "        left  = 0", "        right = len(nums) - 1", "", "        while left <= right:", "            mid = left + (right - left)//2", "            if target == nums[mid]:", "                return mid", "            elif target < nums[mid]:", "                right = mid - 1", "", "            else:", "                left = mid + 1", "", "        return -1"];
+function build(){
+  var T=LV.trace(), a=[-1,0,3,5,9,12], target=9;
+  var lo=0, hi=a.length-1, mid=null;
+  function marks(){ var m={};
+    for(var x=0;x<a.length;x++) m[x] = (x<lo||x>hi) ? 'bad' : 'win';
+    if(mid!=null && mid>=lo && mid<=hi) m[mid]='hot';
+    return m; }
+  function ptr(){ var t={}; function A(i,l){ if(i==null||i<0||i>=a.length) return; t[i]=(t[i]?t[i]+' ':'')+l; }
+    A(lo,'lo'); A(hi,'hi'); A(mid,'mid'); return t; }
+  function V(n){ return [ LV.arr('nums — blue = still possible, red = eliminated', a, marks(), {ptrs:ptr(), note:n||'the invariant: if the target exists at all, it is inside the blue range'}) ]; }
+  function VA(){ return ['left = <b>'+lo+'</b>','right = <i>'+hi+'</i>', mid!=null?'mid = <em>'+mid+'</em> (value '+a[mid]+')':'', 'target = 9','range size = <u>'+(hi-lo+1)+'</u>']; }
+
+  T.step(3,'info','Search the whole array. The invariant to hold on to: <b>if the target is anywhere, it is in nums[left..right]</b>. Every step must preserve that.',VA(),V());
+  while(lo<=hi){
+    T.step(6,'call','left ('+lo+') &le; right ('+hi+') — the range is non-empty, so keep going. Using `&le;` (not `&lt;`) is what makes a one-element range get examined.',VA(),V());
+    mid=lo+Math.floor((hi-lo)/2);
+    T.step(7,'info','mid = left + (right − left)//2 = <b>'+mid+'</b>, value '+a[mid]+'. Written this way rather than (left+right)//2 to avoid integer overflow — irrelevant in Python, a real bug in Java and C++, and interviewers notice.',VA(),V());
+    if(a[mid]===target){
+      T.save('found at index '+mid);
+      T.step(9,'found','nums['+mid+'] == '+target+'. Return <b>'+mid+'</b>.',VA(),V('found'));
+      T.step(9,'done','Answer: <b>'+mid+'</b>. Six elements needed 2 comparisons; a million would need 20.',VA(),V());
+      return T;
+    }
+    if(target<a[mid]){
+      T.step(11,'bad','target ('+target+') &lt; nums[mid] ('+a[mid]+'), so everything from mid rightwards is too big. Discard it: right = mid − 1 = '+(mid-1)+'.',VA(),V());
+      hi=mid-1;
+    } else {
+      T.step(14,'bad','target ('+target+') &gt; nums[mid] ('+a[mid]+'), so mid and everything left of it is too small. Discard: left = mid + 1 = '+(mid+1)+'.',VA(),V());
+      lo=mid+1;
+    }
+    T.step(6,'ok','Half the search space is gone. '+(hi-lo+1)+' candidate'+((hi-lo+1)===1?'':'s')+' remain.',VA(),V());
+  }
+  T.step(16,'done','left passed right — the range is empty, so the target is not present. Return −1.',VA(),V());
+  return T;
+}
+LV.render({
+  num:'704', name:'Binary Search', slug:'0704-binary-search',
+  difficulty:'Easy', pattern:'Binary search · exact match',
+  url:'https://leetcode.com/problems/binary-search',
+  blurb:'The template every other binary search is a mutation of. Three details carry all the weight: <code>&lt;=</code> in the loop, <code>mid ± 1</code> in the updates, and the overflow-safe midpoint.',
+  input:'nums = [-1,0,3,5,9,12], target = 9', runName:'search',
+  skipLabel:null, emptyResult:'not found yet',
+  src:SRC, build:build,
+  complexity:{time:'O(log n)', space:'O(1)'},
+  theory:{
+    idea:'Binary search is not "look in the middle". It is <b>maintaining an invariant while halving a range</b>. State the invariant explicitly — "if the answer exists, it is in [left, right]" — and every design decision (<code>&lt;=</code> vs <code>&lt;</code>, <code>mid</code> vs <code>mid ± 1</code>) follows from keeping it true.',
+    recognize:[
+      'Sorted input plus a required O(log n).',
+      'Much more broadly: <b>a monotone predicate</b>. If "is X good?" is false, false, false, true, true, true as X increases, you can binary search on X even when there is no array at all — that is binary-search-on-the-answer, and it is how LC 3620 in your repo works.',
+      '"Minimum k such that…", "maximum capacity such that…", "smallest speed such that…" are all this pattern in disguise.'
+    ],
+    pitfalls:[
+      '<b><code>while left &lt; right</code> with inclusive bounds.</b> Misses a single-element range. Inclusive bounds need <code>&lt;=</code>.',
+      '<b><code>right = mid</code> instead of <code>mid - 1</code>.</b> With <code>&lt;=</code> this is an infinite loop. Match your bound convention to your update.',
+      '<b><code>(left + right) // 2</code>.</b> Overflows in Java/C++ for large indices. The famous bug that sat in the JDK for nine years.',
+      '<b>Trying to remember four variants.</b> Learn exactly two — this exact-match form, and the boundary form in the template — and derive everything else from them.'
+    ],
+    template: "# Binary search - the invariant is \"target, if present, is in [lo, hi]\"\nlo, hi = 0, len(a) - 1\nwhile lo <= hi:                       # <= : the range [lo,hi] is INCLUSIVE\n    mid = lo + (hi - lo) // 2         # never (lo+hi)//2 in a fixed-width language\n    if a[mid] == target: return mid\n    elif a[mid] < target: lo = mid + 1    # always +1 / -1, never mid\n    else:                 hi = mid - 1\nreturn -1\n\n# Boundary search (\"first index where pred is true\") - a different, safer shape:\n#   lo, hi = 0, n\n#   while lo < hi:\n#       mid = (lo + hi) // 2\n#       if pred(mid): hi = mid\n#       else:         lo = mid + 1\n#   return lo\n",
+    variants:[
+      ['First / last occurrence of a value','Boundary form — do not stop on a match, keep shrinking towards the edge.'],
+      ['Insert position','LC 35 — return <code>left</code> after the loop ends.'],
+      ['<b>Rotated sorted array</b>','LC 33 / 81 — decide which half is sorted first, then test the target against it. Your repo has 81.'],
+      ['Binary search on the ANSWER','LC 875, 1011, 410, and LC 3620 in your repo. The array is the range of possible answers, and <code>check(mid)</code> is the predicate.'],
+      ['2D sorted matrix','LC 74 — treat it as one flat sorted array of length m·n.']
+    ],
+    thinking:'The upgrade that pays off most: stop thinking "binary search needs a sorted array" and start thinking <b>"binary search needs a monotone yes/no question"</b>. Once that clicks, a whole class of optimisation problems opens up — "what is the smallest capacity that works?" becomes "binary search the capacity, and write a linear <code>can(capacity)</code> checker". The hard part of those problems is never the search; it is writing <code>can()</code> and convincing yourself it is monotone.'
+  }
+});
+
+</script>
+</body>
+</html>

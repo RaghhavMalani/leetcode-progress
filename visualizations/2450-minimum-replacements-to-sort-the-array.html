@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2450 - Minimum Replacements to Sort the Array</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["long long solve(int index, long long right_bound, int* nums) {", "    if (index < 0) {", "        return 0;", "    }", "", "    long long current_element = nums[index];", "", "    if (current_element > right_bound) {", "        long long k = (current_element + right_bound - 1) / right_bound;", "        long long new_bound = current_element / k;", "        return (k - 1) + solve(index - 1, new_bound, nums);", "    } ", "    ", "    return solve(index - 1, current_element, nums);", "}", "", "long long minimumReplacement(int* nums, int numsSize) {", "    if (numsSize <= 1) {", "        return 0;", "    }", "    ", "    return solve(numsSize - 2, nums[numsSize - 1], nums);", "}"];
+function build(){
+  var T=LV.trace(), a=[3,9,3], ops=0;
+  function V(i,bound,note){ var m={};
+    a.forEach(function(_,k){ m[k]= k>i?'good':(k===i?'hot':'dim'); });
+    return [ LV.arr('nums — processed from the RIGHT', a, m, {note:note||'everything right of the cursor is already finalised'}),
+      LV.kv('state', [['index',i],['right_bound',bound],['operations so far',ops]], {'right_bound':'hot'}, {}) ]; }
+  T.step(22,'info','Start from the SECOND-TO-LAST element, with right_bound = the last element. Direction matters enormously: the last element can never be improved by splitting (splitting only makes values smaller), so it is fixed, and every earlier element must fit under whatever comes after it.',['right_bound = <b>'+a[a.length-1]+'</b>'],V(a.length-1,a[a.length-1]));
+  var bound=a[a.length-1];
+  for(var i=a.length-2;i>=0;i--){
+    var x=a[i];
+    T.step(6,'call','index '+i+', value '+x+', right_bound '+bound+'.',['x = <b>'+x+'</b>','bound = <em>'+bound+'</em>'],V(i,bound));
+    if(x>bound){
+      var k=Math.ceil(x/bound);
+      T.step(9,'info',x+' &gt; '+bound+', so it must be split. Into how many pieces? The fewest k with ⌈'+x+'/k⌉ ≤ '+bound+', which is k = ⌈'+x+'/'+bound+'⌉ = <b>'+k+'</b>. (The C code writes that as <code>(x + bound - 1) / bound</code> — integer ceiling division.)',['k = <b>'+k+'</b>'],V(i,bound));
+      var nb=Math.floor(x/k);
+      T.step(10,'info','Now make the pieces as EQUAL as possible: the smallest piece is ⌊'+x+'/'+k+'⌋ = <b>'+nb+'</b>. That smallest piece is the leftmost one, so it becomes the new bound. Splitting unevenly would leave a smaller leftmost piece and force more splits earlier — that is the greedy argument.',['new bound = <b>'+nb+'</b>'],V(i,nb));
+      ops+=k-1; bound=nb;
+      T.step(11,'found','Splitting into '+k+' pieces costs '+k+' − 1 = <b>'+(k-1)+'</b> operations. Total → '+ops+'. Recurse leftwards with bound '+nb+'.',['operations = <u>'+ops+'</u>'],V(i,nb,'split '+x+' into '+k+' pieces of about '+nb));
+      T.save('split '+x+' into '+k+' → +'+(k-1)+' ops, bound '+nb);
+    } else {
+      bound=x;
+      T.step(14,'ok',x+' ≤ '+bound+' already, so no split is needed. The new bound is simply '+x+'.',['bound = <em>'+bound+'</em>'],V(i,bound));
+      T.save('kept '+x);
+    }
+  }
+  T.step(22,'done','Answer: <b>'+ops+'</b> operations. Right-to-left greedy, O(n).',['answer = <u>'+ops+'</u>'],V(0,bound));
+  return T;
+}
+LV.render({
+  num:'2450', name:'Minimum Replacements to Sort the Array', slug:'2450-minimum-replacements-to-sort-the-array',
+  difficulty:'Hard', pattern:'Greedy from the right · equal splitting',
+  url:'https://leetcode.com/problems/minimum-replacements-to-sort-the-array',
+  blurb:'Two decisions carry the whole problem: process <b>right to left</b>, and when splitting, make the pieces as <b>equal</b> as possible so the leftmost one stays as large as it can.',
+  input:'nums = [3,9,3]', runName:'minimumReplacement',
+  skipLabel:'Skip to next split', skipTypes:['found'], emptyResult:'no operations yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n)', space:'O(n) recursion depth here; trivially O(1) as a loop'},
+  theory:{
+    idea:'Two greedy choices, each with a one-line justification. <b>Direction:</b> the last element is unconstrained and can never benefit from splitting, so fix it and work leftwards — each element only has to fit under its right neighbour’s smallest piece. <b>Equal splitting:</b> given that you must break x into k parts, the leftmost part is what constrains everything further left, so maximise it — which means making the parts as equal as possible, giving ⌊x/k⌋.',
+    recognize:[
+      'An operation that only <b>decreases</b> values, plus a sortedness requirement. Decrease-only almost always means "process from the unconstrained end".',
+      '"Minimum number of operations" where each operation splits or reduces one element independently.',
+      'Compare with LC 1846 in your repo: also decrease-only, but there you sort and climb from the left. The direction is decided by which end is free.'
+    ],
+    pitfalls:[
+      '<b>Going left to right.</b> You have no idea what the right side needs yet, and no greedy choice is safe.',
+      '<b>Splitting into pieces of size <code>bound</code> plus a remainder.</b> The remainder is small and drags the bound down; equal splitting is strictly better. This is the subtle error that makes an otherwise-correct solution wrong.',
+      '<b>Ceiling division.</b> <code>(x + bound - 1) / bound</code> in C, or <code>-(-x // bound)</code> / <code>math.ceil</code> in Python. Getting it wrong by one changes k and the whole answer.',
+      '<b>Recursion depth.</b> The C version recurses once per element; with n = 10⁵ that is fine in C but would need a loop in Python.'
+    ],
+    template: "# process RIGHT to LEFT; the last element is unconstrained\nbound = nums[-1]\nops = 0\nfor i in range(len(nums) - 2, -1, -1):\n    x = nums[i]\n    if x > bound:\n        k = -(-x // bound)      # ceil(x / bound) = fewest pieces that fit\n        ops += k - 1            # k pieces cost k-1 splits\n        bound = x // k          # EQUAL split -> largest possible leftmost piece\n    else:\n        bound = x\nreturn ops\n",
+    variants:[
+      ['Non-increasing instead of non-decreasing','Mirror the direction — process left to right.'],
+      ['<b>Maximum Element After Decreasing and Rearranging</b> (LC 1846)','Decrease-only too, but rearrangement is allowed, so you sort and sweep left. Also in your repo.'],
+      ['Minimise the maximum piece instead of the operation count','Binary search on the answer.'],
+      ['Splitting has a per-piece cost','The greedy changes; you may need DP.']
+    ],
+    thinking:'For "minimum operations to satisfy an ordering", ask two questions in order. <b>(1) Which end is unconstrained?</b> Start there — that element needs no work and anchors everything. <b>(2) Given a forced choice, which quantity constrains the rest, and how do I maximise it?</b> Here that quantity is the leftmost piece, and the answer is equal splitting. Those two questions produce the algorithm and its proof at the same time, which is exactly what you want to be able to say out loud.'
+  }
+});
+
+</script>
+</body>
+</html>

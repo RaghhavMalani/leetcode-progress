@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1 - Two Sum</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution(object):", "    def twoSum(self, nums, target):", "        \"\"\"", "        :type nums: List[int]", "        :type target: int", "        :rtype: List[int]", "        \"\"\"", "", "        hash = {}", "", "        for i in range(len(nums)):", "            rem = target - nums[i]", "", "            if rem in hash:", "                return [i,hash[rem]]", "            ", "            hash[nums[i]] = i", "", "        return []"];
+function build(){
+  var T=LV.trace(), a=[2,7,11,15], target=9, H={}, order=[];
+  function pairs(){ return order.map(function(k){ return [k, H[k]]; }); }
+  function V(i,rem,hit){ var m={}; for(var x=0;x<a.length;x++) m[x]= x<i?'good':(x===i?'hot':'dim');
+    var km={}; if(hit!=null) km[hit]='good';
+    return [ LV.arr('nums', a, m, {}),
+      LV.kv('hash — value → index of everything already seen', pairs(), km, {emptyText:'empty'}) ]; }
+  function VA(i,rem){ return ['i = <b>'+i+'</b>','nums[i] = <em>'+a[i]+'</em>', rem!=null?'rem = target − nums[i] = <i>'+rem+'</i>':'target = 9']; }
+
+  T.step(9,'info','One pass, one dictionary. The idea: instead of searching for a partner, remember every number you have already walked past so the partner can find YOU.',['target = 9','hash = <b>{}</b>'],[LV.arr('nums',a,{},{}),LV.kv('hash',[],{},{emptyText:'empty'})]);
+  for(var i=0;i<a.length;i++){
+    T.step(11,'call','i = '+i+', nums[i] = '+a[i]+'.',VA(i,null),V(i,null,null));
+    var rem=target-a[i];
+    T.step(12,'info','What would complete the pair? rem = '+target+' − '+a[i]+' = <b>'+rem+'</b>.',VA(i,rem),V(i,rem,null));
+    if(H[rem]!==undefined){
+      T.save('['+i+', '+H[rem]+']');
+      T.step(15,'found','<b>'+rem+' is in the hash</b>, at index '+H[rem]+'. So nums['+H[rem]+'] + nums['+i+'] = '+rem+' + '+a[i]+' = '+target+'. Return ['+i+', '+H[rem]+'].',VA(i,rem),V(i,rem,rem));
+      T.step(15,'done','Answer: <b>['+i+', '+H[rem]+']</b>. One pass, O(n). The brute-force double loop would have taken 6 comparisons here and 5·10⁷ on the real constraints.',VA(i,rem),V(i,rem,rem));
+      return T;
+    }
+    T.step(14,'info',rem+' has not been seen yet.',VA(i,rem),V(i,rem,null));
+    H[a[i]]=i; order.push(a[i]);
+    T.step(17,'push','Record nums['+i+'] = '+a[i+0]+' → index '+i+'. Crucially this happens AFTER the lookup, which is what stops an element pairing with itself.',VA(i,rem),V(i,rem,null));
+  }
+  T.step(19,'done','Loop finished with no pair — return [].',[],V(a.length-1,null,null));
+  return T;
+}
+LV.render({
+  num:'1', name:'Two Sum', slug:'0001-two-sum',
+  difficulty:'Easy', pattern:'Hash map · complement lookup',
+  url:'https://leetcode.com/problems/two-sum',
+  blurb:'The foundational hash-map trade: spend O(n) memory to turn an O(n) search into an O(1) lookup. Note the ordering — check the hash <em>before</em> inserting, which is what prevents an element pairing with itself.',
+  input:'nums = [2,7,11,15], target = 9', runName:'twoSum',
+  skipLabel:null, emptyResult:'no pair found yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n)', space:'O(n)'},
+  theory:{
+    idea:'The complement trick. For each element ask "<b>what would I need to have already seen?</b>" and look it up in O(1). This inverts the brute-force question from "search forward for a partner" to "check whether my partner already searched for me", and it is the single most reused idea in array interviews.',
+    recognize:[
+      '"Find two things that combine to X." Sum, difference, product, XOR — the shape is identical, only the arithmetic changes.',
+      'The array is <b>unsorted</b> and you may not sort (indices must be preserved). Sorted input would allow the O(1)-space two-pointer version instead.',
+      'You need indices, not values — sorting destroys them, so the hash is the answer.'
+    ],
+    pitfalls:[
+      '<b>Inserting before looking up.</b> With <code>nums = [3,3]</code>, target 6 you would match index 0 with itself. Look up first, always.',
+      '<b>Keying by index instead of value.</b> The dictionary must map <em>value → index</em>; the other way round gives you nothing to search by.',
+      '<b>Assuming exactly one answer when the problem does not say so.</b> LeetCode guarantees it here; interviewers often remove that guarantee to see whether you noticed.',
+      '<b>Sorting first.</b> Tempting, and it works for the two-pointer variant — but sorting scrambles the indices you are asked to return.'
+    ],
+    template: "# Complement lookup - look up BEFORE you insert\nseen = {}                       # value -> index\nfor i, x in enumerate(nums):\n    if target - x in seen:\n        return [seen[target - x], i]\n    seen[x] = i\n\n# Same idea on prefix sums (LC 560: count subarrays summing to k)\n#   count = {0: 1}; run = 0\n#   for x in nums:\n#       run += x\n#       ans += count.get(run - k, 0)\n#       count[run] = count.get(run, 0) + 1\n",
+    variants:[
+      ['Input is sorted','LC 167 — converging two pointers, O(1) space, no hash needed.'],
+      ['<b>Three Sum</b> (LC 15)','Sort, fix one element, two-pointer the rest. O(n²). The sort is affordable because you return values, not indices.'],
+      ['Four Sum / k-Sum','Recursive reduction down to two-sum. O(n^(k-1)).'],
+      ['Count pairs rather than find one','Same loop, <code>ans += hash.get(rem, 0)</code> — count before inserting.'],
+      ['<b>Subarray Sum Equals K</b> (LC 560)','The same complement trick on <em>prefix sums</em>. Recognising that is worth more than either problem alone.']
+    ],
+    thinking:'Whenever you catch yourself writing a nested loop that searches for a partner, stop and ask: <b>can I precompute what I am searching for into a hash?</b> That single question converts a large family of O(n²) solutions into O(n). The deeper version — and the one that unlocks LC 560, LC 974 and the whole prefix-sum family — is to ask it about <em>derived</em> quantities too: not just "have I seen this value", but "have I seen this running sum, this remainder, this sorted signature".'
+  }
+});
+
+</script>
+</body>
+</html>

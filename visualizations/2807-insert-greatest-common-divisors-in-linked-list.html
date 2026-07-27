@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2807 - Insert Greatest Common Divisors in Linked List</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["/**", " * Definition for singly-linked list.", " * struct ListNode {", " *     int val;", " *     ListNode *next;", " *     ListNode() : val(0), next(nullptr) {}", " *     ListNode(int x) : val(x), next(nullptr) {}", " *     ListNode(int x, ListNode *next) : val(x), next(next) {}", " * };", " */", "class Solution {", "private:", "    int dfs(int a, int b){", "        while (b > 0){", "            int tmp = b;", "            b = a % b;", "            a = tmp;", "        }", "        return a;", "    }", "public:", "    ListNode* insertGreatestCommonDivisors(ListNode* head) {", "        ListNode* curr = head;", "        while (curr->next != nullptr){", "            int v1 = curr->val;", "            int v2 = curr->next->val;", "            curr->next = new ListNode(dfs(v1,v2),curr->next);", "            curr = curr->next->next;", "        }", "        return head;", "    }", "};"];
+function build(){
+  var T=LV.trace();
+  var vals=[18,6,10,3], nodes=vals.map(function(v,i){ return {v:v,id:'n'+i,orig:true}; });
+  var cur=0;
+  function V(hot,note){ var m={}; 
+    return [ LV.ll('list', nodes.map(function(n,i){ return {v:n.v,id:n.id,cls: (i===hot||i===hot+1)?'hot':(n.orig?'':'good')}; }),
+      (function(){ var q={}; if(nodes[cur]) q[nodes[cur].id]='curr'; return q; })(), {note:note||'green nodes are newly inserted gcd nodes'}) ]; }
+  function g(a,b){ while(b>0){ var t=b; b=a%b; a=t; } return a; }
+  T.step(23,'info','Walk with a single pointer. At each step, look at <code>curr</code> and <code>curr->next</code>, compute their gcd, and splice a new node between them.',['curr = <b>'+nodes[0].v+'</b>'],V(0));
+  var guard=0;
+  while(cur+1<nodes.length && guard++<10){
+    var a=nodes[cur].v, b=nodes[cur+1].v;
+    T.step(24,'call','curr->next exists. v1 = '+a+', v2 = '+b+'.',['v1 = <b>'+a+'</b>','v2 = <b>'+b+'</b>'],V(cur));
+    var gv=g(a,b);
+    T.step(13,'info','Euclidean gcd('+a+', '+b+') = <b>'+gv+'</b> — the loop on lines 14–18 repeatedly replaces (a, b) with (b, a mod b).',['gcd = <em>'+gv+'</em>'],V(cur));
+    nodes.splice(cur+1,0,{v:gv,id:'g'+cur+'_'+guard,orig:false});
+    T.step(27,'push','Splice a new node holding '+gv+' between them. Note the constructor <code>new ListNode(gcd, curr->next)</code> sets the new node’s next in one go — no temporary needed.',[],V(cur));
+    T.save('inserted gcd('+a+','+b+') = '+gv);
+    cur+=2;
+    T.step(28,'ok','<b>curr = curr->next->next</b> — skip TWO nodes, hopping over the node we just inserted. Advancing by one would compare the original value against the gcd we just created and loop forever inserting more.',['curr = <b>'+(nodes[cur]?nodes[cur].v:'null')+'</b>'],V(cur));
+  }
+  T.step(30,'done','Done: <b>['+nodes.map(function(n){return n.v;}).join(', ')+']</b>. Return the original head — the head never changes, so no dummy node is needed here.',[],V(null,'finished'));
+  return T;
+}
+LV.render({
+  num:'2807', name:'Insert Greatest Common Divisors in Linked List', slug:'2807-insert-greatest-common-divisors-in-linked-list',
+  difficulty:'Medium', pattern:'Linked list · insert between pairs',
+  url:'https://leetcode.com/problems/insert-greatest-common-divisors-in-linked-list',
+  blurb:'The only real trap is the advance step: after inserting, you must move forward <b>two</b> nodes, not one — otherwise you keep inserting between your own insertions.',
+  input:'head = [18,6,10,3]', runName:'insertGreatestCommonDivisors',
+  skipLabel:'Skip to next insertion', skipTypes:['push'], emptyResult:'nothing inserted yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n log maxValue) — one gcd per adjacent pair', space:'O(1) extra'},
+  theory:{
+    idea:'When you <b>modify a structure while traversing it</b>, the advance step has to account for what you just added. Insert one node between curr and curr->next, and the correct next position is <code>curr->next->next</code>. Getting this wrong produces either an infinite loop or a silently wrong list.',
+    recognize:[
+      'Any "insert between every adjacent pair" or "duplicate every element" operation on a list or array.',
+      'The head never changes here, so no dummy node is needed — worth noticing, since most list problems do need one.',
+      'The same care applies when deleting during traversal: you must capture the successor before unlinking.'
+    ],
+    pitfalls:[
+      '<b><code>curr = curr->next</code> after inserting.</b> You land on the gcd node you just made and start inserting between it and the original — infinite loop, or at best a corrupted list.',
+      '<b>Not capturing <code>curr->next</code> before rewiring.</b> The constructor here does it in one expression, which is why no temporary appears.',
+      '<b>Assuming a dummy is always needed.</b> It is not — only when the head can change.',
+      '<b>Recursive gcd.</b> Fine, but the iterative version is shorter and has no depth concern.'
+    ],
+    template: "# insert between every adjacent pair - then advance TWO\ncurr = head\nwhile curr.next:\n    g = gcd(curr.val, curr.next.val)\n    curr.next = ListNode(g, curr.next)    # splice in one expression\n    curr = curr.next.next                 # HOP OVER the node just inserted\nreturn head                                # head never changes -> no dummy\n\ndef gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a\n",
+    variants:[
+      ['Insert the SUM / difference between pairs','Identical loop, different expression.'],
+      ['<b>Odd Even Linked List</b> (LC 328)','Rearrange rather than insert — two chains, then splice.'],
+      ['Delete every second node','The mirror operation; capture the successor first.'],
+      ['<b>Find GCD of Array</b> (LC 1979)','Euclid on a whole array. Also in your repo.']
+    ],
+    thinking:'Whenever you mutate a container while iterating it, <b>write down where the cursor should be after the mutation</b> before you write the loop. For "insert one, skip it" the answer is two hops; for "delete one" it is zero hops (the cursor already points past it). Making that explicit prevents both of the classic failures — infinite loops and skipped elements — and it is exactly the discipline that makes linked-list code correct on the first try.'
+  }
+});
+
+</script>
+</body>
+</html>

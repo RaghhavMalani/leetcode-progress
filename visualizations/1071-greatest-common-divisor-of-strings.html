@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1071 - Greatest Common Divisor of Strings</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def gcdOfStrings(self, str1: str, str2: str) -> str:", "        l1 = len(str1)", "        l2 = len(str2)", "", "        def isDivisor(l):", "            if l1 % l or l2 % l: ", "                return False", "            f1 = l1 // l", "            f2 = l2 // l", "            return str1[:l]*f1 == str1 and str1[:l]*f2 == str2", "", "        for l in range(min(l1,l2),0,-1):", "            if isDivisor(l):", "                return str1[:l]", "", "        return \"\""];
+function build(){
+  var T=LV.trace(), s1='ABCABC', s2='ABC';
+  var l1=s1.length, l2=s2.length;
+  function V(L,ok,note){ var m1={}, m2={};
+    if(L!=null){ for(var i=0;i<s1.length;i++) m1[i]= (Math.floor(i/L)%2===0)?'win':'good';
+                 for(var j=0;j<s2.length;j++) m2[j]= (Math.floor(j/L)%2===0)?'win':'good';
+                 for(var i2=0;i2<L&&i2<s1.length;i2++) m1[i2]= ok===false?'bad':'hot'; }
+    return [ LV.arr('str1', s1.split(''), m1, {note:note||''}),
+             LV.arr('str2', s2.split(''), m2, {}) ]; }
+  T.step(3,'info','"X divides Y" means Y is X repeated a whole number of times. We want the LONGEST such X that divides both — so try candidate lengths from the largest possible downwards and return the first that works.',['len(str1) = <b>6</b>','len(str2) = <b>3</b>'],V(null));
+  for(var L=Math.min(l1,l2);L>=1;L--){
+    T.step(13,'call','Candidate length L = '+L+' → prefix "'+s1.slice(0,L)+'".',['L = <b>'+L+'</b>'],V(L));
+    if(l1%L||l2%L){
+      T.step(7,'bad','L = '+L+' does not divide '+l1+' and '+l2+' evenly ('+l1+' % '+L+' = '+(l1%L)+', '+l2+' % '+L+' = '+(l2%L)+'). A cheap arithmetic rejection before any string work.',[],V(L,false));
+      continue;
+    }
+    var f1=l1/L, f2=l2/L, p=s1.slice(0,L);
+    var ok = p.repeat(f1)===s1 && p.repeat(f2)===s2;
+    T.step(11, ok?'found':'bad','Lengths divide. Now check the content: "'+p+'" × '+f1+' '+(p.repeat(f1)===s1?'==':'≠')+' str1, and "'+p+'" × '+f2+' '+(p.repeat(f2)===s2?'==':'≠')+' str2.',[],V(L,ok));
+    if(ok){
+      T.save('"'+p+'"');
+      T.step(15,'found','Both hold — "'+p+'" is the greatest common divisor string. Return it.',['answer = <u>"'+p+'"</u>'],V(L,true,'the answer'));
+      T.step(15,'done','Answer: <b>"'+p+'"</b>. Because we scanned downwards, the first success is automatically the longest.',['answer = <u>"'+p+'"</u>'],V(L,true));
+      return T;
+    }
+  }
+  T.step(17,'done','No candidate worked — return "".',[],V(null));
+  return T;
+}
+LV.render({
+  num:'1071', name:'Greatest Common Divisor of Strings', slug:'1071-greatest-common-divisor-of-strings',
+  difficulty:'Easy', pattern:'Number theory analogy · gcd on lengths',
+  url:'https://leetcode.com/problems/greatest-common-divisor-of-strings',
+  blurb:'Your solution scans candidate lengths downwards. There is a two-line version built on a lovely fact: a common divisor string exists <em>iff</em> <code>s1 + s2 == s2 + s1</code>, and its length is exactly <code>gcd(len(s1), len(s2))</code>.',
+  input:'str1 = "ABCABC", str2 = "ABC"', runName:'gcdOfStrings',
+  skipLabel:null, emptyResult:'no divisor found yet',
+  src:SRC, build:build,
+  complexity:{time:'O(min(l1,l2) × (l1+l2)) as written; O(l1+l2) with the gcd trick', space:'O(l1+l2)'},
+  theory:{
+    idea:'Strings under concatenation behave like integers under addition, and "divides" transfers exactly. Two consequences: <b>(1)</b> if any common divisor string exists, its length must divide both lengths, so the longest has length <code>gcd(l1, l2)</code>; <b>(2)</b> a common divisor exists at all iff <code>s1 + s2 == s2 + s1</code> — that is, the two strings commute.',
+    recognize:[
+      '"Repeated pattern", "X divides Y", "smallest repeating unit". All of these are gcd/period questions in disguise.',
+      'The related classic: the smallest period of a string is <code>n - failure[n-1]</code> from the KMP failure function.',
+      'Whenever lengths must divide each other, gcd is lurking.'
+    ],
+    pitfalls:[
+      '<b>Forgetting the divisibility pre-check.</b> Line 7 rejects most candidates in O(1) before doing any O(n) string comparison — without it this is much slower.',
+      '<b>Not checking the commuting condition</b> in the fast version. <code>s1 + s2 != s2 + s1</code> means no divisor exists at all, and you must return "" rather than a gcd-length prefix.',
+      '<b>Assuming the answer is always a prefix of the shorter string.</b> It is, but only because a divisor of both must be a prefix of both — say why.',
+      '<b>Scanning upwards.</b> Then you must not return on the first success, and you would do more work.'
+    ],
+    template: "# the two-line version\nfrom math import gcd\n\ndef gcdOfStrings(s1, s2):\n    if s1 + s2 != s2 + s1:          # they must COMMUTE, or no divisor exists\n        return \"\"\n    return s1[:gcd(len(s1), len(s2))]\n\n# why: strings under concatenation behave like integers under addition.\n# any common divisor's length divides both lengths -> the longest is gcd.\n",
+    variants:[
+      ['<b>Repeated Substring Pattern</b> (LC 459)','Is s made of a repeated unit? <code>s in (s+s)[1:-1]</code>, or use the KMP failure function.'],
+      ['Smallest repeating unit','<code>n - failure[n-1]</code> if it divides n, else n.'],
+      ['gcd of an array of strings','Fold the pairwise gcd across the list.'],
+      ['<b>Find GCD of Array</b> (LC 1979)','The integer version — gcd(min, max). Also in your repo.']
+    ],
+    thinking:'When a problem uses arithmetic vocabulary — divides, multiple, common, greatest — for a non-numeric object, <b>check whether the analogy is exact</b>. Here it is: concatenation is associative with an identity (the empty string), so divisibility, gcd and lcm all carry over. Recognising an algebraic structure you already know is one of the highest-leverage moves available, because you get its entire toolkit for free.'
+  }
+});
+
+</script>
+</body>
+</html>

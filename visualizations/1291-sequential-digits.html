@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1291 - Sequential Digits</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution {", "public:", "    vector<int> sequentialDigits(int low, int high) {", "        string digits = \"123456789\";", "        vector<int> ans;", "", "        for (int len = 2; len <= 9; len++) {", "            for (int start = 0; start + len <= 9; start++) {", "                int num = stoi(digits.substr(start, len));", "", "                if (num >= low && num <= high) {", "                    ans.push_back(num);", "                }", "            }", "        }", "", "        sort(ans.begin(), ans.end());", "        return ans;", "    }", "};"];
+function build(){
+  var T=LV.trace(), D='123456789', low=100, high=300, ans=[];
+  function V(len,start,num,hit){ var m={};
+    D.split('').forEach(function(_,k){ m[k]= (start!=null && k>=start && k<start+len)?(hit===false?'bad':(hit?'good':'hot')):'dim'; });
+    return [ LV.arr('"123456789" — every sequential number is a SUBSTRING of this', D.split(''), m, {}),
+             LV.seq('ans', ans.map(String), {}, {emptyText:'empty'}) ]; }
+  T.step(4,'info','The key observation: a "sequential digits" number is exactly a <b>contiguous substring of "123456789"</b>. There are only 36 of them in total — 8 of length 2, 7 of length 3, …, 1 of length 9. So you generate all 36 and filter, instead of searching the range.',['low = 100','high = 300'],V(null,null,null,null));
+  for(var len=2;len<=9;len++){
+    for(var start=0;start+len<=9;start++){
+      var num=parseInt(D.substr(start,len),10);
+      var hit=num>=low&&num<=high;
+      if(len>4 && !hit){ continue; }
+      T.step(9,'call','len = '+len+', start = '+start+' → substring "'+D.substr(start,len)+'" = <b>'+num+'</b>.',['len = <b>'+len+'</b>','start = <em>'+start+'</em>'],V(len,start,num,null));
+      if(hit){ ans.push(num); T.save(String(num));
+        T.step(12,'found',num+' is within ['+low+', '+high+'] — keep it.',['ans size = <u>'+ans.length+'</u>'],V(len,start,num,true));
+      } else {
+        T.step(11,'bad',num+' is outside ['+low+', '+high+'] — discard.',[],V(len,start,num,false));
+      }
+    }
+  }
+  T.step(17,'info','Sort the results. The generation order is by LENGTH first, so within a length they are already ascending — but 12 (len 2) and 123 (len 3) arrive out of order overall. Sorting fixes that in one line.',[],V(null,null,null,null));
+  ans.sort(function(a,b){return a-b;});
+  T.step(18,'done','Answer: <b>['+ans.join(', ')+']</b>. Constant work — there are only ever 36 candidates, regardless of how big low and high are.',['answer'],V(null,null,null,null));
+  return T;
+}
+LV.render({
+  num:'1291', name:'Sequential Digits', slug:'1291-sequential-digits',
+  difficulty:'Medium', pattern:'Generate the small candidate set, then filter',
+  url:'https://leetcode.com/problems/sequential-digits',
+  blurb:'The whole problem is realising there are only 36 sequential-digit numbers in existence. Generate all of them from the string "123456789" and filter — the range never enters the loop.',
+  input:'low = 100, high = 300', runName:'sequentialDigits',
+  skipLabel:'Skip to next hit', skipTypes:['found'], emptyResult:'ans is empty',
+  src:SRC, build:build,
+  complexity:{time:'O(36 log 36) = O(1)', space:'O(1)'},
+  theory:{
+    idea:'<b>Generate, do not search.</b> When the set of objects with a property is tiny and easy to enumerate, build it directly rather than scanning the input range and testing each candidate. Here the range can span 10⁹ values but only 36 of them can possibly qualify.',
+    recognize:[
+      'A very restrictive structural property (sequential digits, palindromes of fixed length, powers of 2, perfect squares).',
+      'A huge search range with a tiny answer set — the ratio is the signal.',
+      'Ask: <b>how many objects with this property exist at all?</b> If the answer is small, enumerate them.'
+    ],
+    pitfalls:[
+      '<b>Looping from low to high.</b> Up to 10⁹ iterations. This is the trap the problem is set to catch.',
+      '<b>Forgetting to sort.</b> Generating by length gives 12, 23, …, 89, 123, … which is sorted <em>within</em> each length but not overall. Actually here it is globally sorted since longer means bigger — but relying on that without saying so is luck, and the sort costs nothing.',
+      '<b>Off-by-one in <code>start + len <= 9</code>.</b> The substring must fit inside the 9 digits.',
+      '<b>Starting at len = 1.</b> The problem requires at least two digits.'
+    ],
+    template: "# generate the whole candidate set (only 36 of them), then filter\nDIGITS = \"123456789\"\nans = []\nfor length in range(2, 10):\n    for start in range(0, 10 - length):      # start + length <= 9\n        num = int(DIGITS[start:start + length])\n        if low <= num <= high:\n            ans.append(num)\nreturn sorted(ans)\n\n# the move: when the PROPERTY is restrictive and the RANGE is huge,\n# enumerate the property, not the range.\n",
+    variants:[
+      ['Palindromes in a range','Generate by building half the number and mirroring it — the same "generate, do not search" move.'],
+      ['Numbers that are powers of 2 in a range','About 30 of them below 10⁹.'],
+      ['<b>Sequential digits descending too</b>','Also enumerate substrings of "9876543210".'],
+      ['Very large ranges with a dense property','Now you genuinely need digit DP — see LC 3753 in your repo.']
+    ],
+    thinking:'When a problem gives a wide range and a narrow property, always ask <b>"how many objects satisfy this property in total?"</b> If the count is small, enumerate them and forget the range. If it is large, you need digit DP or a mathematical characterisation. That single question separates the two solution families cleanly, and choosing wrongly costs you the whole problem.'
+  }
+});
+
+</script>
+</body>
+</html>

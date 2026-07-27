@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>78 - Subsets</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def subsets(self, nums: List[int]) -> List[List[int]]:", "        res = []", "", "        subset = []", "        ", "        def dfs(i):", "            if i >= len(nums):", "                res.append(subset.copy())", "                return ", "            ", "            subset.append(nums[i])", "            dfs(i+1)", "", "            subset.pop()", "            dfs(i+1)", "", "        dfs(0)", "        return res"];
+function build(){
+  var T=LV.trace(), nums=[1,2,3], subset=[];
+  var tb=LV.treeBuilder(66,26,78,52);
+  function C(){ return '['+subset.join(', ')+']'; }
+  function V(id,i){ var m={}; if(i!=null&&i<nums.length) m[i]='hot';
+    return [ LV.arr('subset', subset.slice(), {}, {idx:false}),
+      LV.arr('nums — the element being decided is highlighted', nums, m, {}),
+      LV.frames('call stack', tb.chain(id).reverse().map(function(x){return tb.nodes[x].frame;})),
+      LV.tree(tb,id) ]; }
+  function VA(i){ return ['i = <b>'+i+'</b> / len(nums) = 3','subset = <u>'+C()+'</u>']; }
+
+  var root=tb.add(null,'dfs','i=0','dfs(0)');
+  T.step(18,'info','`dfs(0)` — decide the fate of nums[0] first.',VA(0),V(root,0));
+  function dfs(i,id){
+    T.step(7,'call','Enter dfs('+i+'). subset = '+C()+'.',VA(i),V(id,i));
+    if(i>=nums.length){
+      T.save(C()); tb.win(id,T.events.length);
+      T.step(9,'found','i has run off the end, which means every element has been decided. Whatever survived in subset is a valid answer: '+C()+'.',VA(i),V(id,null));
+      T.step(10,'ok','return.',VA(i),V(id,null)); return;
+    }
+    subset.push(nums[i]);
+    var a=tb.add(id,'take '+nums[i],'i='+(i+1),'dfs('+(i+1)+')');
+    T.step(12,'push','Decision 1 for nums['+i+'] = '+nums[i]+': include it. subset → '+C()+'. Recurse to the next index.',VA(i+1),V(a,i+1));
+    dfs(i+1,a);
+    subset.pop();
+    T.step(15,'pop','Back in dfs('+i+'). subset.pop() removes '+nums[i]+' → '+C()+'. Without this line the second branch would inherit a polluted subset.',VA(i),V(id,i));
+    var b=tb.add(id,'skip '+nums[i],'i='+(i+1),'dfs('+(i+1)+')');
+    T.step(16,'skip','Decision 2 for nums['+i+'] = '+nums[i]+': leave it out. Same recursion, smaller subset.',VA(i+1),V(b,i+1));
+    dfs(i+1,b);
+  }
+  dfs(0,root);
+  T.step(19,'done','Done. 8 subsets = 2³, and every single leaf of the tree is an answer — zero dead ends, zero wasted work.',VA(0),V(root,0));
+  return T;
+}
+LV.render({
+  num:'78', name:'Subsets', slug:'0078-subsets',
+  difficulty:'Medium', pattern:'Backtracking · take / skip',
+  url:'https://leetcode.com/problems/subsets',
+  blurb:'The cleanest specimen in the whole family. Take or skip, once per element, three levels deep, 2³ leaves and every one is an answer. If the choose/explore/un-choose rhythm ever stops making sense, come back to this page.',
+  input:'nums = [1,2,3]', runName:'dfs(0)',
+  skipLabel:'Skip to next subset', skipTypes:['found'], emptyResult:'res is still empty',
+  src:SRC, build:build,
+  complexity:{time:'O(2ⁿ · n) — 2ⁿ subsets, n to copy each', space:'O(n) depth'},
+  theory:{
+    idea:'Every subset is a length-n string of yes/no decisions. That is literally what the recursion tree draws: level i decides element i, so a root-to-leaf path <em>is</em> a binary string, and there are 2ⁿ of them. Understanding this one bijection makes the bitmask solution obvious too.',
+    recognize:[
+      '"All subsets", "the power set", "every possible selection" with n &le; 20 or so.',
+      'No constraint linking the elements — each decision is independent. That independence is why there are no dead ends here and plenty in problem 39.',
+      'A count-only version would be trivially 2ⁿ, so if the problem asks for a count it is almost certainly asking something harder than it looks.'
+    ],
+    pitfalls:[
+      '<b>Saving only at the leaves vs at every node.</b> Both work for subsets, but they save <em>different things</em>: this version saves at leaves after all n decisions; the loop-form version saves at every node. Mixing the two idioms half-way produces duplicates.',
+      '<b>Forgetting <code>.copy()</code></b> — here it genuinely bites, unlike in problem 22.',
+      '<b>Believing you need to sort.</b> You do not, unless there are duplicates (that is LC 90).'
+    ],
+    template: "def backtrack(state):\n    if is_complete(state):\n        res.append(path.copy())\n        return\n    if is_impossible(state):\n        return\n    for choice in choices(state):\n        path.append(choice)          # choose\n        backtrack(advance(state))    # explore\n        path.pop()                   # un-choose\n",
+    variants:[
+      ['Input has duplicates','LC 90 — sort, then skip equal neighbours on the skip branch.'],
+      ['Subsets of exactly size k','LC 77 — add a length guard, or use the loop form.'],
+      ['Bitmask instead of recursion','<code>for mask in range(1&lt;&lt;n)</code>, include j when <code>mask &amp; (1&lt;&lt;j)</code>. Same 2ⁿ work, no call stack, and often the cleanest answer to state in an interview.'],
+      ['Sum over all subsets','LC 1863 — usually a bit trick, not enumeration. Each bit is set in exactly half the subsets.']
+    ],
+    thinking:'Use this problem as your reference implementation. When a harder backtracking problem confuses you, ask <b>"what is different from subsets?"</b> — usually the answer is one of exactly three things: (1) an extra guard that prunes branches, (2) a rule that suppresses duplicate answers, or (3) a different rule for when you save. Naming which of the three you are dealing with usually writes the code for you.'
+  }
+});
+
+</script>
+</body>
+</html>

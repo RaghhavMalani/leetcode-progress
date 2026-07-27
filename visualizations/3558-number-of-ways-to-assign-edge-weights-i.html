@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3558 - Number of Ways to Assign Edge Weights I</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution(object):", "    def assignEdgeWeights(self, edges):", "        \"\"\"", "        :type edges: List[List[int]]", "        :rtype: int", "        \"\"\"", "        MOD = 10**9 + 7", "        n = len(edges) + 1", "        ", "        adj = [[] for _ in range(n + 1)]", "        for u, v in edges:", "            adj[u].append(v)", "            adj[v].append(u)", "        ", "        depth = 0", "        visited = [False] * (n + 1)", "        visited[1] = True", "        queue = deque([1])", "        ", "        while queue:", "            depth += 1", "            for _ in range(len(queue)):", "                node = queue.popleft()", "                for nxt in adj[node]:", "                    if not visited[nxt]:", "                        visited[nxt] = True", "                        queue.append(nxt)", "", "        d = depth - 1  ", "        return pow(2, d - 1, MOD)"];
+function build(){
+  var T=LV.trace();
+  var edges=[[1,2],[1,3],[3,4],[3,5]];
+  var n=edges.length+1;
+  var adj={}; for(var i=1;i<=n;i++) adj[i]=[];
+  edges.forEach(function(e){ adj[e[0]].push(e[1]); adj[e[1]].push(e[0]); });
+  var vis={1:1}, q=[1], depth=0, levels=[[1]];
+  function tv(cur){
+    var nodes=[{id:'1',val:1,l:'2',r:'3'},{id:'2',val:2},{id:'3',val:3,l:'4',r:'5'},{id:'4',val:4},{id:'5',val:5}];
+    var m={}; Object.keys(vis).forEach(function(k){ m[k]='good'; });
+    (cur||[]).forEach(function(x){ m[String(x)]='hot'; });
+    return LV.btree('the tree, rooted at node 1', nodes, '1', m, {}, {}); }
+  function V(cur,note){ return [ tv(cur),
+    LV.seq('BFS queue', q.map(String), {}, {emptyText:'empty'}),
+    LV.kv('state', [['depth (levels processed)',depth]], {'depth (levels processed)':'hot'}, {note:note||''}) ]; }
+  T.step(10,'info','Build the adjacency list from the edge list. The tree is rooted at node 1.',['n = <b>'+n+'</b> nodes'],V([1]));
+  T.step(20,'info','<b>Level-order BFS</b> to measure the height. The inner <code>for _ in range(len(queue))</code> drains exactly one level at a time — that is the standard idiom for "process the tree level by level".',['depth = <b>0</b>'],V([1]));
+  var guard=0;
+  while(q.length && guard++<10){
+    depth++;
+    var size=q.length, cur=q.slice();
+    T.step(21,'call','Level '+depth+' contains '+size+' node'+(size===1?'':'s')+': ['+cur.join(', ')+'].',['depth = <b>'+depth+'</b>'],V(cur));
+    var nxt=[];
+    for(var t=0;t<size;t++){
+      var node=q.shift();
+      adj[node].forEach(function(w){ if(!vis[w]){ vis[w]=1; nxt.push(w); } });
+    }
+    q=nxt;
+    T.step(27,'push','Enqueued the next level: ['+(q.join(', ')||'—')+'].',['depth = <b>'+depth+'</b>'],V(q));
+  }
+  var d=depth-1;
+  T.step(29,'info','The loop ran '+depth+' times, so the tree has '+depth+' levels. The longest root-to-leaf path therefore has <b>d = '+depth+' − 1 = '+d+'</b> edges.',['d = <b>'+d+'</b>'],V(null));
+  var ans=Math.pow(2,d-1);
+  T.save('2^'+(d-1)+' = '+ans);
+  T.step(30,'found','The answer is <b>2^(d−1) = 2^'+(d-1)+' = '+ans+'</b>. Why: each of the d edges on the path independently gets weight 1 or 2, giving 2^d assignments; the condition is a parity constraint on the total, and exactly half of all assignments satisfy any fixed parity — so 2^d / 2 = 2^(d−1).',['answer = <u>'+ans+'</u>'],V(null));
+  T.step(30,'done','Answer: <b>'+ans+'</b>. BFS to get the height, then a one-line counting argument. <code>pow(2, d-1, MOD)</code> does the modular exponentiation in O(log d).',['answer = <u>'+ans+'</u>'],V(null));
+  return T;
+}
+LV.render({
+  num:'3558', name:'Number of Ways to Assign Edge Weights I', slug:'3558-number-of-ways-to-assign-edge-weights-i',
+  difficulty:'Medium', pattern:'BFS height + parity counting',
+  url:'https://leetcode.com/problems/number-of-ways-to-assign-edge-weights-i',
+  blurb:'BFS to measure the tree height, then a counting argument: exactly half of all 2^d weight assignments satisfy any fixed parity condition, so the answer is 2^(d−1).',
+  input:'edges = [[1,2],[1,3],[3,4],[3,5]]', runName:'assignEdgeWeights',
+  skipLabel:null, emptyResult:'no answer yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n) for the BFS + O(log d) for the power', space:'O(n)'},
+  theory:{
+    idea:'Two independent pieces. <b>Level-order BFS</b> with the <code>for _ in range(len(queue))</code> idiom measures the height cleanly. <b>Parity counting:</b> when each of d independent binary choices flips a parity bit, exactly half of the 2^d outcomes land on each parity — so any single parity constraint halves the count, giving 2^(d−1).',
+    recognize:[
+      'Level-by-level tree processing: height, level sums, zigzag order, right-side view. The drain-one-level loop is the universal shape.',
+      '"Count assignments satisfying a parity / mod-2 condition" — the answer is almost always half of the total, which is why these problems have one-line answers.',
+      'Large exponents with a modulus → <code>pow(base, exp, MOD)</code>, never a loop.'
+    ],
+    pitfalls:[
+      '<b>Off-by-one between levels and edges.</b> A tree with L levels has a longest path of L−1 edges. Hence <code>d = depth - 1</code>, and then the exponent is d−1 again. Check on a two-node tree.',
+      '<b>Forgetting <code>visited</code> in an undirected tree.</b> The adjacency list contains both directions, so without it BFS walks back to the parent forever.',
+      '<b>Not draining exactly one level per iteration.</b> Capture <code>len(queue)</code> BEFORE the inner loop — the queue grows while you drain it.',
+      '<b>Computing 2^d then dividing.</b> Under a modulus you cannot divide directly; compute 2^(d−1) instead, or multiply by the modular inverse.',
+      '<b>d = 0 (a single node).</b> Then 2^(−1) is meaningless — worth guarding if the constraints allow it.'
+    ],
+    template: "# level-order BFS: capture the level size BEFORE draining\nq, seen, depth = deque([root]), {root}, 0\nwhile q:\n    depth += 1\n    for _ in range(len(q)):        # len() captured now; the queue grows below\n        node = q.popleft()\n        for nxt in adj[node]:\n            if nxt not in seen:\n                seen.add(nxt); q.append(nxt)\n\nd = depth - 1                       # LEVELS - 1 = edges on the longest path\nreturn pow(2, d - 1, MOD)           # half of 2^d satisfy any fixed parity\n",
+    variants:[
+      ['<b>Part II</b> (LC 3559)','Queries between arbitrary node pairs, so you need LCA (binary lifting) to get each path length. Also in your repo.'],
+      ['<b>Binary Tree Level Order Traversal</b> (LC 102)','The same drain-one-level loop, collecting values.'],
+      ['Count assignments with a SUM condition','Parity no longer suffices — generating functions or DP.'],
+      ['Weighted edges from a larger set','The count per edge changes from 2 to k; the parity argument may not survive.']
+    ],
+    thinking:'When a counting problem involves independent binary choices and a mod-2 condition, reach for the <b>halving argument</b> before writing any DP: flipping any single choice flips the parity, which pairs the outcomes up perfectly, so exactly half satisfy the condition. That one observation collapses a whole family of problems to a single power. And keep the level-order BFS idiom in your fingers — capture the level size first, then drain it — because it is the backbone of a dozen tree problems.'
+  }
+});
+
+</script>
+</body>
+</html>

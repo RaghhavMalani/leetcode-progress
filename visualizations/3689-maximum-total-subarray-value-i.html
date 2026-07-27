@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3689 - Maximum Total Subarray Value I</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def maxTotalValue(self, nums: List[int], k: int) -> int:", "        return k * (max(nums) - min(nums))"];
+function build(){
+  var T=LV.trace(), a=[1,3,2], k=3;
+  var mx=Math.max.apply(null,a), mn=Math.min.apply(null,a);
+  function V(show){ var m={};
+    a.forEach(function(v,i){ if(show){ if(v===mx) m[i]='good'; if(v===mn) m[i]='bad'; } else m[i]='dim'; });
+    return [ LV.arr('nums', a, m, {note:show?'green = global max, red = global min':''}) ]; }
+  T.step(2,'info','You get to choose k subarrays and sum their (max − min). The instinct is DP over choices. The reality: <b>the same subarray may be chosen every time</b>, so there is no interaction between the k choices at all.',['k = <b>3</b>'],V(false));
+  T.step(3,'info','So each of the k picks independently wants the single best subarray. The best possible (max − min) over ANY subarray is achieved by the whole array — extending a subarray can only widen its range, never narrow it.',['k = <b>3</b>'],V(false));
+  T.step(3,'found','max(nums) = <b>'+mx+'</b>, min(nums) = <b>'+mn+'</b>, so the best single value is '+mx+' − '+mn+' = <b>'+(mx-mn)+'</b>.',['range = <u>'+(mx-mn)+'</u>'],V(true));
+  var ans=k*(mx-mn);
+  T.save(k+' × '+(mx-mn)+' = '+ans);
+  T.step(3,'done','Answer: k × (max − min) = '+k+' × '+(mx-mn)+' = <b>'+ans+'</b>. One line, O(n) — and the entire difficulty was noticing that repeats are allowed.',['answer = <u>'+ans+'</u>'],V(true));
+  return T;
+}
+LV.render({
+  num:'3689', name:'Maximum Total Subarray Value I', slug:'3689-maximum-total-subarray-value-i',
+  difficulty:'Medium', pattern:'Observation · the constraint that is not there',
+  url:'https://leetcode.com/problems/maximum-total-subarray-value-i',
+  blurb:'A one-line solution whose entire content is a reading-comprehension point: the k subarrays need not be <em>distinct</em>. Once you notice that, there is nothing left to compute.',
+  input:'nums = [1,3,2], k = 3', runName:'maxTotalValue',
+  skipLabel:null, emptyResult:'no value yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n)', space:'O(1)'},
+  theory:{
+    idea:'Two observations. <b>(1) Monotone range:</b> extending a subarray can only increase max and decrease min, so (max − min) is maximised by the whole array. <b>(2) No distinctness constraint:</b> the k choices are independent, so all k should be that same best subarray. Multiply.',
+    recognize:[
+      'A problem that looks like it needs DP over k choices — check first whether the choices actually interact.',
+      'The words "distinct", "different", "non-overlapping" are <b>load-bearing</b>. Their absence is as informative as their presence.',
+      'When the answer to "what is the single best option?" is easy and the options do not interact, the answer is k times that.'
+    ],
+    pitfalls:[
+      '<b>Assuming the subarrays must be distinct.</b> Then it becomes a genuinely hard problem (that is part II). Reading it in is the trap.',
+      '<b>Writing DP over (index, subarrays used).</b> Correct-ish, far slower, and it signals you missed the observation.',
+      '<b>Overflow in a fixed-width language.</b> k and the range can both be large; use 64-bit.'
+    ],
+    template: "return k * (max(nums) - min(nums))\n\n# WHY: (max - min) over a subarray is maximised by the WHOLE array\n# (extending never narrows the range), and the k picks are independent\n# because nothing says they must be distinct. So: k copies of the best one.\n",
+    variants:[
+      ['Subarrays must be <b>distinct</b>','Genuinely hard — you need the k largest distinct ranges, which is a different problem entirely.'],
+      ['Subarrays must be non-overlapping','Now they interact → DP or greedy with a sweep.'],
+      ['Maximise Σ max instead of Σ (max − min)','Same argument: k × max(nums).'],
+      ['<b>Sum of subarray ranges</b> (LC 2104)','Sum over ALL subarrays — contribution technique with a monotonic stack.']
+    ],
+    thinking:'Read the constraints as carefully as the question. Specifically hunt for <b>constraints that are absent</b>: may I reuse? may they overlap? must they be distinct? must the answer be an actual index? Each absent restriction can collapse a problem by an entire complexity class. When a problem looks disproportionately hard for its rating, the usual explanation is that you imported a constraint that was never stated.'
+  }
+});
+
+</script>
+</body>
+</html>

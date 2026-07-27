@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>136 - Single Number</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def singleNumber(self, nums: List[int]) -> int:", "        res = 0", "        for n in nums:", "            res = n ^ res", "        return res"];
+function build(){
+  var T=LV.trace(), a=[4,1,2,1,2], res=0;
+  function bits(x){ var s=(x>>>0).toString(2); while(s.length<4) s='0'+s; return s.split(''); }
+  function V(i){ var m={}; for(var x=0;x<a.length;x++) m[x]= x<i?'good':(x===i?'hot':'dim');
+    return [ LV.arr('nums', a, m, {}),
+      LV.arr('res in binary', bits(res), {}, {idx:false, note:'XOR is bitwise addition without carry — pairs of equal bits cancel to 0'}),
+      i<a.length? LV.arr('nums[i] in binary', bits(a[i]), {}, {idx:false}) : LV.html('','') ]; }
+  function VA(i){ return ['i = <b>'+i+'</b>', i<a.length?'nums[i] = <em>'+a[i]+'</em>':'','res = <u>'+res+'</u>']; }
+
+  T.step(3,'info','Three facts about XOR do all the work: <b>x ^ x = 0</b>, <b>x ^ 0 = x</b>, and it is commutative and associative — so the order of the array is irrelevant. Every duplicated value therefore cancels itself out no matter where its twin sits.',['res = <u>0</u>'],[LV.arr('nums',a,{},{})]);
+  a.forEach(function(x,i){
+    var before=res;
+    res=x^res;
+    T.step(5,'push','res = '+x+' ^ '+before+' = <b>'+res+'</b>'+(res===0?'  — the two '+x+'s just cancelled':'')+'.',VA(i),V(i));
+    T.save('after '+x+': res = '+res);
+  });
+  T.step(6,'done','Answer: <b>'+res+'</b>. Everything that appeared twice cancelled; only the lone element survives. O(n) time, O(1) space — the hash-set solution is O(n) space and this problem exists to rule it out.',['answer = <u>'+res+'</u>'],V(a.length));
+  return T;
+}
+LV.render({
+  num:'136', name:'Single Number', slug:'0136-single-number',
+  difficulty:'Easy', pattern:'Bit manipulation · XOR cancellation',
+  url:'https://leetcode.com/problems/single-number',
+  blurb:'The cleanest use of XOR there is. Because <code>x ^ x = 0</code> and order does not matter, folding XOR across the array annihilates every pair and leaves the singleton.',
+  input:'nums = [4,1,2,1,2]', runName:'singleNumber',
+  skipLabel:null, emptyResult:'res is 0',
+  src:SRC, build:build,
+  complexity:{time:'O(n)', space:'O(1)'},
+  theory:{
+    idea:'XOR is addition modulo 2, bit by bit, with no carry. Its three properties — self-inverse, identity 0, commutative/associative — mean that XOR-ing a whole collection is a <b>parity check on every bit position at once</b>. Anything that appears an even number of times vanishes.',
+    recognize:[
+      '"Every element appears twice except one" — or any even/odd count phrasing.',
+      'O(1) space demanded, ruling out a set or a counter.',
+      'Also: find a missing number (XOR the values with the indices), detect a swapped pair, toggle a flag, check parity.'
+    ],
+    pitfalls:[
+      '<b>Assuming it generalises to triples.</b> With every element appearing three times (LC 137), XOR does not cancel. You need per-bit counting mod 3, or the two-mask trick.',
+      '<b>Two singletons.</b> LC 260 — the total XOR gives <code>a ^ b</code>; isolate any set bit with <code>x &amp; -x</code> and partition on it.',
+      '<b>Using a set or a Counter.</b> Correct, and fine to say first, but O(n) space.',
+      '<b>Forgetting XOR’s identity.</b> Starting <code>res</code> at anything other than 0 corrupts the answer.'
+    ],
+    template: "# XOR fold - everything paired cancels\nres = 0\nfor n in nums:\n    res ^= n\nreturn res\n\n# the identities worth memorising\n#   x ^ x == 0          x ^ 0 == x         XOR is commutative + associative\n#   x & (x - 1)         clears the lowest set bit\n#   x & -x              isolates the lowest set bit\n#   x >> k & 1          read bit k          x | (1 << k)   set bit k\n",
+    variants:[
+      ['Every element appears three times (LC 137)','Count each bit mod 3, or the <code>ones/twos</code> two-mask trick.'],
+      ['<b>Two</b> single numbers (LC 260)','XOR everything, isolate the lowest set bit, split into two groups.'],
+      ['<b>Missing Number</b> (LC 268)','XOR all values with all indices — the pairs cancel and the missing index survives.'],
+      ['<b>Find the Duplicate</b> (LC 287)','XOR does not help; use Floyd. Also in your repo.'],
+      ['<b>Sum of subset XOR totals</b> (LC 1863)','Each bit is set in exactly half the subsets → <code>OR(nums) * 2^(n-1)</code>. Also in your repo.']
+    ],
+    thinking:'Keep a short list of bit identities in working memory: <code>x ^ x = 0</code>, <code>x ^ 0 = x</code>, <code>x &amp; (x-1)</code> clears the lowest set bit, <code>x &amp; -x</code> isolates it, <code>x | (1&lt;&lt;k)</code> sets a bit, <code>x &gt;&gt; k &amp; 1</code> reads one. Almost every bit problem is one of these applied once. And the meta-signal: <b>when a problem demands O(1) space on integer data, bits are usually the intended route.</b>'
+  }
+});
+
+</script>
+</body>
+</html>

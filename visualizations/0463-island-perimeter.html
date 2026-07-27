@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>463 - Island Perimeter</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def islandPerimeter(self, grid: List[List[int]]) -> int:", "        visit = set()", "", "        def dfs(i,j):", "            if i >= len(grid) or j >= len(grid[0]) or i < 0 or j < 0 or grid[i][j] == 0:", "                return 1", "            ", "            elif (i,j) in visit:", "                return 0", "", "            visit.add((i,j))", "", "            perim = dfs(i+1,j)", "            perim += dfs(i,j+1)", "            perim += dfs(i,j-1)", "            perim += dfs(i-1,j)", "            return perim", "", "        for i in range(len(grid)):", "            for j in range(len(grid[0])):", "                if grid[i][j]:", "                    return dfs(i,j)"];
+function build(){
+  var T=LV.trace();
+  var g=[[1,1],[1,0]], R=2, Cc=2, visit={};
+  var tb=LV.treeBuilder(58,26,68,50);
+  function marks(cur){ var m={};
+    for(var r=0;r<R;r++) for(var c=0;c<Cc;c++){
+      var k=r+','+c;
+      if(g[r][c]===0) m[k]='dim'; else if(visit[k]) m[k]='good';
+    }
+    if(cur && cur[0]>=0&&cur[0]<R&&cur[1]>=0&&cur[1]<Cc) m[cur[0]+','+cur[1]]='hot';
+    return m; }
+  function V(id,cur,note){ return [
+    LV.grid('grid — 1 = land, shaded green = already visited', g, marks(cur), {head:true, note:note||''}),
+    LV.frames('call stack', tb.chain(id).reverse().map(function(x){return tb.nodes[x].frame;})),
+    LV.tree(tb,id) ]; }
+  function VA(i,j,p){ return ['dfs(<b>'+i+'</b>, <b>'+j+'</b>)','visited = <em>'+Object.keys(visit).length+'</em> cells', p!=null?'perim so far = <u>'+p+'</u>':'']; }
+
+  var root=tb.add(null,'0,0',null,'dfs(0, 0)');
+  T.step(22,'info','The double loop finds the first land cell — (0,0) — and immediately returns dfs(0,0). The problem guarantees exactly one island, so one DFS covers everything.',VA(0,0,null),V(root,[0,0]));
+
+  function dfs(i,j,id){
+    T.step(6,'call','Enter dfs('+i+', '+j+'). First the combined guard on line 6: off the grid, or standing on water?',VA(i,j,null),V(id,[i,j]));
+    if(i>=R||j>=Cc||i<0||j<0||g[i][j]===0){
+      tb.win(id,T.events.length);
+      var why = (i<0||j<0||i>=R||j>=Cc) ? 'we stepped off the grid' : 'this cell is water (0)';
+      T.step(7,'found','Return <b>1</b> — '+why+', so the edge we just crossed is a piece of the perimeter. This is the neat trick of the solution: the perimeter is counted by the FAILED moves, not by the successful ones.',VA(i,j,null),V(id,[i,j]));
+      return 1;
+    }
+    if(visit[i+','+j]){
+      tb.kill(id,T.events.length);
+      T.step(10,'prune','Return <b>0</b> — ('+i+', '+j+') is already visited. Land-to-land is not a perimeter edge, and returning 0 also stops the recursion looping forever.',VA(i,j,null),V(id,[i,j]));
+      return 0;
+    }
+    visit[i+','+j]=1;
+    T.step(12,'info','Mark ('+i+', '+j+') visited, then probe all four neighbours. Every probe returns 1 (a wall) or 0 (already-counted land) or a whole sub-total.',VA(i,j,0),V(id,[i,j]));
+    var p=0, dirs=[[1,0],[0,1],[0,-1],[-1,0]], lines=[14,15,16,17];
+    for(var d=0;d<4;d++){
+      var ni=i+dirs[d][0], nj=j+dirs[d][1];
+      var ch=tb.add(id, ni+','+nj, null, 'dfs('+ni+', '+nj+')');
+      T.step(lines[d],'push','Probe neighbour ('+ni+', '+nj+').',VA(i,j,p),V(ch,[ni,nj]));
+      var got=dfs(ni,nj,ch);
+      p+=got;
+      T.step(lines[d],'pop','That probe returned '+got+'. perim for ('+i+', '+j+') is now '+p+'.',VA(i,j,p),V(id,[i,j]));
+    }
+    T.step(18,'ok','dfs('+i+', '+j+') returns '+p+'.',VA(i,j,p),V(id,[i,j]));
+    return p;
+  }
+  var ans=dfs(0,0,root);
+  T.save('perimeter = '+ans);
+  T.step(23,'done','Answer: <b>'+ans+'</b>. Three land cells would have 12 edges if isolated; the two shared land-land borders each removed 2, giving 8.',['answer = <u>'+ans+'</u>'],V(root,null));
+  return T;
+}
+LV.render({
+  num:'463', name:'Island Perimeter', slug:'0463-island-perimeter',
+  difficulty:'Easy', pattern:'Grid DFS · flood fill',
+  url:'https://leetcode.com/problems/island-perimeter',
+  blurb:'A flood fill where the return value counts the walls you bump into rather than the cells you visit. Watch the base cases: <code>return 1</code> means "I hit an edge", <code>return 0</code> means "already counted".',
+  input:'grid = [[1,1],[1,0]]', runName:'dfs(0, 0)',
+  skipLabel:null, emptyResult:'no answer yet', showResults:true,
+  src:SRC, build:build,
+  complexity:{time:'O(rows · cols) — each land cell is entered once', space:'O(rows · cols) for the visit set and the recursion stack'},
+  theory:{
+    idea:'Grid DFS is backtracking’s cousin: same recursion, but the "undo" is replaced by a <b>visited set that is never un-marked</b>. That single difference is what separates flood fill (visit each cell once, O(cells)) from path search (must un-mark so other paths can reuse the cell, exponential).',
+    recognize:[
+      'A 2D grid, a notion of connected cells, and a question about a connected region: size, count, perimeter, shape.',
+      'The four-way <code>directions</code> list and the "in bounds AND not visited AND is land" guard are the fingerprint.',
+      'If the question is about <b>shortest</b> path or minimum steps, switch from DFS to BFS — DFS finds <em>a</em> path, BFS finds the shortest one.'
+    ],
+    pitfalls:[
+      '<b>Marking visited after recursing instead of before.</b> Two adjacent land cells will call each other forever and blow the stack.',
+      '<b>Bounds check after the array read.</b> <code>grid[i][j] == 0 or i &lt; 0</code> crashes — Python’s negative indexing means <code>grid[-1]</code> silently wraps to the last row, which is worse than crashing because it gives a wrong answer quietly.',
+      '<b>Recursion depth.</b> A 200 x 200 all-land grid is 40,000 deep and Python’s default limit is 1000. In an interview, say this out loud and offer the iterative stack version.',
+      '<b>Assuming one island.</b> This problem guarantees it, hence the early <code>return</code> inside the double loop. LC 200 does not, and the same code would return after the first island only.'
+    ],
+    template: "# Grid DFS / flood fill - the shape to memorise\nDIRS = ((1,0), (-1,0), (0,1), (0,-1))\n\ndef dfs(r, c):\n    if r < 0 or c < 0 or r >= ROWS or c >= COLS:   # bounds FIRST\n        return 0\n    if grid[r][c] != LAND or (r, c) in seen:       # then content\n        return 0\n    seen.add((r, c))                               # mark BEFORE recursing\n    return 1 + sum(dfs(r+dr, c+dc) for dr, dc in DIRS)\n\n# Counting PATHS instead of cells? Then you must un-mark:\n#     seen.add((r,c)); total = ...recurse...; seen.remove((r,c))\n",
+    variants:[
+      ['<b>Number of Islands</b> (LC 200)','Do not return early — loop over every cell, and count how many times you start a fresh DFS.'],
+      ['<b>Max Area of Island</b> (LC 695)','Return <code>1 + sum(children)</code> instead of counting walls.'],
+      ['Shortest path across the grid','BFS with a queue, not DFS. Depth-first gives no shortness guarantee.'],
+      ['Perimeter without any search','Count land cells × 4, then subtract 2 for every adjacent land pair. O(cells), no recursion, and a strong answer to give first.']
+    ],
+    thinking:'When you meet a grid problem, answer three questions before coding. <b>(1) DFS or BFS?</b> Shortest/level-by-level → BFS. Connectivity/whole-region → either, DFS is shorter. <b>(2) Do I un-mark?</b> Reachability → never un-mark. Counting distinct <em>paths</em> → you must un-mark on the way out. <b>(3) What does one call return?</b> Being able to finish the sentence "dfs(i,j) returns …" precisely is usually the entire difficulty; here it is "the number of perimeter edges reachable through this cell", which is why the water case returns 1.'
+  }
+});
+
+</script>
+</body>
+</html>

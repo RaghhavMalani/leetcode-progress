@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2161 - Partition Array According to Given Pivot</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def pivotArray(self, nums: List[int], pivot: int) -> List[int]:", "        less = []", "        equal = []", "        greater = []", "", "        for num in nums:", "            if num < pivot:", "                less.append(num)", "            elif num == pivot:", "                equal.append(num)", "            else:", "                greater.append(num)", "", "        return less + equal + greater"];
+function build(){
+  var T=LV.trace(), a=[9,12,5,10,14,3,10], piv=10, less=[], eq=[], gt=[];
+  function V(i,which){ var m={}; for(var x=0;x<a.length;x++) m[x]= x<i?'good':(x===i?'hot':'dim');
+    return [ LV.arr('nums', a, m, {note:'pivot = 10'}),
+      LV.seq('less', less.slice(), {}, {emptyText:'empty'}),
+      LV.seq('equal', eq.slice(), {}, {emptyText:'empty'}),
+      LV.seq('greater', gt.slice(), {}, {emptyText:'empty'}) ]; }
+  function VA(i){ return ['num = <b>'+(i<a.length?a[i]:'—')+'</b>','pivot = 10']; }
+  T.step(5,'info','Three buckets. The constraint that decides the whole design is that <b>relative order must be preserved</b> within each group — which is exactly what an in-place swap-based partition (LC 75) destroys.',VA(0),V(null));
+  a.forEach(function(x,i){
+    T.step(7,'call','num = '+x+'.',VA(i),V(i));
+    if(x<piv){ less.push(x); T.step(9,'push',x+' &lt; 10 → append to `less`. Appending preserves the order they appeared in.',VA(i),V(i)); }
+    else if(x===piv){ eq.push(x); T.step(11,'push',x+' == 10 → append to `equal`.',VA(i),V(i)); }
+    else { gt.push(x); T.step(13,'push',x+' &gt; 10 → append to `greater`.',VA(i),V(i)); }
+    T.save(x+' → '+(x<piv?'less':(x===piv?'equal':'greater')));
+  });
+  var out=less.concat(eq,gt);
+  T.step(15,'done','Concatenate: <b>['+out.join(', ')+']</b>. One pass, O(n) time, O(n) space — and the O(1)-space swap version would be WRONG here because it scrambles the order.',[],V(a.length));
+  return T;
+}
+LV.render({
+  num:'2161', name:'Partition Array According to Given Pivot', slug:'2161-partition-array-according-to-given-pivot',
+  difficulty:'Medium', pattern:'Stable three-way partition',
+  url:'https://leetcode.com/problems/partition-array-according-to-given-pivot',
+  blurb:'Compare this directly with Sort Colors (LC 75) in your repo. Same three-way split — but here <b>stability is required</b>, and that one word forbids the in-place swapping trick entirely.',
+  input:'nums = [9,12,5,10,14,3,10], pivot = 10', runName:'pivotArray',
+  skipLabel:null, emptyResult:'all buckets empty',
+  src:SRC, build:build,
+  complexity:{time:'O(n)', space:'O(n) — required, because stability rules out in-place swaps'},
+  theory:{
+    idea:'<b>Stability</b> — preserving the original relative order of equal-category elements — is a real constraint with a real cost. The Dutch-flag partition in LC 75 is O(1) space precisely because it is free to fling elements across the array; the moment order matters, you must build the output in reading order, which needs O(n).',
+    recognize:[
+      '"Preserve the relative order" / "the same order as in nums" in the statement. Read for this phrase specifically — it changes the answer.',
+      'Any grouping where the within-group order carries meaning (records, timestamps, tie-breaks).',
+      'If the statement says nothing about order, prefer the O(1) in-place version and say why you can.'
+    ],
+    pitfalls:[
+      '<b>Porting the LC 75 solution.</b> It passes the "are they grouped?" check and fails the order check. The two problems look identical and are not.',
+      '<b>Sorting.</b> O(n log n), and Python’s sort is stable so it would work — but it does far more than asked.',
+      '<b>Two lists instead of three.</b> You need the equal bucket separately; merging it into either side breaks the ordering guarantee.',
+      '<b>Claiming O(1) space.</b> The output is O(n) and so is the intermediate; be honest about it.'
+    ],
+    template: "# STABLE three-way partition: build in reading order, O(n) space\nless, equal, greater = [], [], []\nfor x in nums:\n    (less if x < pivot else equal if x == pivot else greater).append(x)\nreturn less + equal + greater\n\n# order does NOT matter? then Dutch flag in place, O(1) space (LC 75):\n#   low = mid = 0; high = n-1\n#   while mid <= high: ...swap...      <- destroys relative order\n",
+    variants:[
+      ['<b>Sort Colors</b> (LC 75)','No stability requirement → Dutch flag, O(1) space. Also in your repo.'],
+      ['<b>Move Zeroes</b> (LC 283)','Stable two-way partition, and it CAN be done in place with a single write pointer.'],
+      ['<b>Odd Even Linked List</b> (LC 328)','Stable partition on a list — two chains, then splice.'],
+      ['Quicksort partition','Unstable by design; that is what makes it in place.']
+    ],
+    thinking:'Build the habit of reading constraints for words that <b>change the algorithm class</b>: "in place", "preserve order", "without extra space", "one pass", "do not modify the input". Each of those rules out a family of solutions. Here, "preserve order" alone turns an O(1)-space problem into an O(n)-space one — and noticing it before you code saves you from confidently submitting the wrong classic.'
+  }
+});
+
+</script>
+</body>
+</html>

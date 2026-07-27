@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>206 - Reverse Linked List</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["# Definition for singly-linked list.", "# class ListNode:", "#     def __init__(self, val=0, next=None):", "#         self.val = val", "#         self.next = next", "", "class Solution:", "    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:", "        prev = None", "        curr = head", "", "        while curr:", "            temp = curr.next", "            curr.next = prev", "", "            prev = curr", "            curr = temp", "        return prev"];
+function build(){
+  var T=LV.trace();
+  var vals=[1,2,3], prev=[], curr=vals.slice(), saved=null;
+  function nodes(arr,cls){ return arr.map(function(v,i){ return {v:v,id:'x'+v,cls:(i===0?cls:'')}; }); }
+  function V(pl,cl,note){ return [
+    LV.ll('reversed so far  (prev → …)', nodes(prev,'good'), pl||{}, {note:note||''}),
+    LV.ll('still to process  (curr → …)', nodes(curr,'hot'), cl||{}, {}) ]; }
+  function VA(){ return ['prev = <b>'+(prev.length?prev[0]:'None')+'</b>','curr = <i>'+(curr.length?curr[0]:'None')+'</i>',
+                         saved!=null?'temp = <em>'+saved+'</em>':'']; }
+
+  T.step(9,'info','Two pointers and nothing else. `prev` accumulates the reversed part; `curr` walks the original list. No new nodes are created — only the arrows change.',VA(),V({},{'x1':'curr'},'empty — prev starts as None'));
+  while(curr.length){
+    T.step(12,'call','curr is node '+curr[0]+', so there is still work to do.',VA(),V({},{}));
+    saved = curr.length>1 ? curr[1] : null;
+    T.step(13,'push','`temp = curr.next` saves node '+(saved==null?'None':saved)+'. This line is the whole reason the algorithm works: the next line is about to destroy curr.next, so you must save it FIRST.',VA(),V({},{}));
+    var moved=curr.shift(); prev.unshift(moved);
+    T.step(14,'ok','`curr.next = prev` flips node '+moved+'’s arrow to point backwards at '+(prev.length>1?'node '+prev[1]:'None')+'. Node '+moved+' is now the head of the reversed part.',VA(),V({},{}));
+    T.step(16,'info','`prev = curr` — prev is now node '+moved+'.',VA(),V({},{}));
+    T.step(17,'info','`curr = temp` — curr jumps to '+(curr.length?'node '+curr[0]:'None')+', which we saved before the damage.',VA(),V({},{}));
+    saved=null;
+  }
+  T.save(prev.join(' → '));
+  T.step(18,'done','curr is None, so the list is exhausted. `prev` is the new head: <b>'+prev.join(' → ')+'</b>. O(n) time, O(1) space, no allocations.',VA(),V({},{},'the new list'));
+  return T;
+}
+LV.render({
+  num:'206', name:'Reverse Linked List', slug:'0206-reverse-linked-list',
+  difficulty:'Easy', pattern:'Linked list · pointer rewiring',
+  url:'https://leetcode.com/problems/reverse-linked-list',
+  blurb:'The single most reused linked-list primitive. Four lines in a fixed order — save, flip, advance, advance — and getting the order wrong loses the rest of the list forever.',
+  input:'head = [1,2,3]', runName:'reverseList',
+  skipLabel:null, emptyResult:'nothing reversed yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n)', space:'O(1) — the recursive version is O(n) stack, which matters'},
+  theory:{
+    idea:'Linked list problems are almost never about algorithms; they are about <b>not losing your grip on a node</b>. You have no random access, so the moment you overwrite a <code>next</code> pointer, everything downstream is unreachable unless you saved it. Every list problem is this discipline plus a little bookkeeping.',
+    recognize:[
+      'Any problem that needs the list in the opposite direction, or needs to compare a list with its reverse (palindrome).',
+      'It appears as a <b>subroutine</b> far more often than as a problem: LC 143 reorder, LC 92 reverse-a-sublist, LC 25 reverse-in-k-groups, LC 234 palindrome list.',
+      'Whenever you catch yourself wanting <code>node.prev</code> in a singly linked list, reversal is usually the answer.'
+    ],
+    pitfalls:[
+      '<b>Flipping before saving.</b> <code>curr.next = prev</code> then <code>curr = curr.next</code> walks you backwards into the part you already reversed — an infinite loop.',
+      '<b>Returning <code>curr</code> instead of <code>prev</code>.</b> When the loop ends <code>curr</code> is None. The new head is always <code>prev</code>.',
+      '<b>Forgetting that the old head becomes the tail</b> and must end up pointing at None. It does automatically here, because <code>prev</code> starts as None — that initial value is doing real work.',
+      '<b>The recursive version.</b> Elegant, but O(n) stack and it will overflow on a 5000-node list. Say that when you offer it.'
+    ],
+    template: "# Reverse a singly linked list - the four-line dance\nprev, curr = None, head\nwhile curr:\n    nxt = curr.next        # 1. SAVE the rest of the list\n    curr.next = prev       # 2. flip this node's arrow backwards\n    prev = curr            # 3. prev catches up\n    curr = nxt             # 4. curr moves on\nreturn prev                # prev is the new head; curr is None\n",
+    variants:[
+      ['Reverse only nodes m..n','LC 92 — same loop, run it exactly n−m+1 times, then reattach both seams. Your repo has this.'],
+      ['Reverse in groups of k','LC 25 — the same loop k times, repeatedly. The hardest of the family.'],
+      ['<b>Palindrome linked list</b> (LC 234)','Find the middle with fast/slow, reverse the second half, compare.'],
+      ['<b>Reorder list</b> (LC 143)','Split, reverse the second half, interleave. Also in your repo.'],
+      ['Doubly linked list','Swap <code>prev</code> and <code>next</code> on every node; no saving needed since you can always go back.']
+    ],
+    thinking:'Drill this until it is muscle memory, because it shows up as a <em>step</em> inside harder problems. The general habit for list problems: <b>draw three or four nodes and physically point at them as you execute each line.</b> Nearly every bug in this category is visible in ten seconds on paper and invisible for twenty minutes in your head. Also learn the two universal helpers — a <b>dummy head</b> (removes all the "what if it is the first node" special cases) and <b>fast/slow pointers</b> (finds the middle, detects cycles, finds the nth from the end).'
+  }
+});
+
+</script>
+</body>
+</html>

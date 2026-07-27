@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>81 - Search in Rotated Sorted Array II</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution(object):", "    def search(self, nums, target):", "        \"\"\"", "        :type nums: List[int]", "        :type target: int", "        :rtype: bool", "        \"\"\"", "        ", "        left, right = 0, len(nums) - 1", "", "        while left <= right:", "            mid = left + (right - left) // 2", "", "            if nums[mid] == target:", "                return True", "", "            if nums[left] == nums[mid]:", "                left += 1", "                continue", "", "            if nums[left] < nums[mid]:", "                if nums[left] <= target < nums[mid]:", "                    right = mid - 1", "                else:", "                    left = mid + 1", "            else:", "                if nums[mid] < target <= nums[right]:", "                    left = mid + 1", "                else:", "                    right = mid - 1", "                ", "        return False"];
+function build(){
+  var T=LV.trace(), a=[2,5,6,0,0,1,2], target=0;
+  var lo=0,hi=a.length-1,mid=null;
+  function marks(){ var m={};
+    for(var x=0;x<a.length;x++) m[x]=(x<lo||x>hi)?'bad':'win';
+    if(mid!=null&&mid>=lo&&mid<=hi) m[mid]='hot';
+    return m; }
+  function ptr(){ var t={}; function A(i,l){ if(i==null||i<0||i>=a.length) return; t[i]=(t[i]?t[i]+' ':'')+l; }
+    A(lo,'lo'); A(hi,'hi'); A(mid,'mid'); return t; }
+  function V(n){ return [ LV.arr('nums — rotated and containing duplicates', a, marks(), {ptrs:ptr(), note:n||''}) ]; }
+  function VA(){ return ['left = <b>'+lo+'</b>','right = <i>'+hi+'</i>', mid!=null?'mid = <em>'+mid+'</em> (val '+a[mid]+')':'','target = 0']; }
+
+  T.step(9,'info','A rotated sorted array is TWO sorted runs stuck together. The key observation: for any mid, <b>at least one of the halves [left..mid] and [mid..right] is properly sorted</b> — and in a sorted half you can decide membership in O(1).',VA(),V());
+  while(lo<=hi){
+    mid=lo+Math.floor((hi-lo)/2);
+    T.step(12,'call','mid = '+mid+', nums[mid] = '+a[mid]+'.',VA(),V());
+    if(a[mid]===target){
+      T.save('found '+target+' at index '+mid);
+      T.step(15,'found','Direct hit — return True.',VA(),V('found'));
+      T.step(15,'done','Answer: <b>True</b>.',VA(),V());
+      return T;
+    }
+    if(a[lo]===a[mid]){
+      T.step(18,'bad','<b>nums[left] == nums[mid] == '+a[mid]+'.</b> This is the duplicate trap: with equal values at both ends we cannot tell which half is sorted — [2,5,6,0,0,1,2] and [2,2,2,0,2,2,2] look identical from here. The only safe move is to shrink by one and try again. This is why the worst case degrades to O(n).',VA(),V('ambiguous — cannot decide'));
+      lo++;
+      T.step(19,'ok','left → '+lo+' and `continue`.',VA(),V());
+      continue;
+    }
+    if(a[lo]<a[mid]){
+      T.step(21,'info','nums[left] ('+a[lo]+') &lt; nums[mid] ('+a[mid]+'), so the LEFT half [left..mid] is properly sorted.',VA(),V('left half is sorted'));
+      if(a[lo]<=target && target<a[mid]){
+        T.step(23,'ok','target ('+target+') lies inside that sorted range ['+a[lo]+', '+a[mid]+'), so search left: right = '+(mid-1)+'.',VA(),V());
+        hi=mid-1;
+      } else {
+        T.step(25,'ok','target ('+target+') is NOT in ['+a[lo]+', '+a[mid]+'), so it must be in the other half: left = '+(mid+1)+'.',VA(),V());
+        lo=mid+1;
+      }
+    } else {
+      T.step(26,'info','nums[left] ('+a[lo]+') &gt; nums[mid] ('+a[mid]+'), so the rotation point is on the left — which means the RIGHT half [mid..right] is properly sorted.',VA(),V('right half is sorted'));
+      if(a[mid]<target && target<=a[hi]){
+        T.step(28,'ok','target ('+target+') lies inside ('+a[mid]+', '+a[hi]+'], so search right: left = '+(mid+1)+'.',VA(),V());
+        lo=mid+1;
+      } else {
+        T.step(30,'ok','target ('+target+') is not in that range, so search left: right = '+(mid-1)+'.',VA(),V());
+        hi=mid-1;
+      }
+    }
+  }
+  T.step(32,'done','Range exhausted — return False.',VA(),V());
+  return T;
+}
+LV.render({
+  num:'81', name:'Search in Rotated Sorted Array II', slug:'0081-search-in-rotated-sorted-array-ii',
+  difficulty:'Medium', pattern:'Binary search · rotated + duplicates',
+  url:'https://leetcode.com/problems/search-in-rotated-sorted-array-ii',
+  blurb:'Binary search when the array is rotated AND has duplicates. The duplicate case is the interesting one: when <code>nums[left] == nums[mid]</code> you genuinely cannot tell which half is sorted, and the algorithm degrades to O(n).',
+  input:'nums = [2,5,6,0,0,1,2], target = 0', runName:'search',
+  skipLabel:null, emptyResult:'not found yet',
+  src:SRC, build:build,
+  complexity:{time:'O(log n) average, <b>O(n) worst case</b> — e.g. [1,1,1,1,1,0,1]', space:'O(1)'},
+  theory:{
+    idea:'You can still halve the search space without knowing where the rotation is, because <b>at least one half of any split is sorted</b>. Identify which one, test the target against its known range, and discard accordingly. Duplicates break the identification, and the honest response is to give up one element and retry.',
+    recognize:[
+      '"Rotated sorted array" — with or without duplicates. Check which, because it changes the achievable complexity.',
+      'More generally: a structure that is <em>locally</em> sorted in pieces. Find the piece you can reason about, use it, discard the rest.',
+      'If duplicates are allowed and someone claims O(log n), they are wrong — and being able to give the counterexample [1,1,1,0,1] is worth real credit.'
+    ],
+    pitfalls:[
+      '<b>Forgetting the duplicate branch entirely.</b> Your LC 33 solution ported straight over will infinite-loop or give wrong answers on [1,0,1,1,1].',
+      '<b>Comparing against <code>nums[mid]</code> and <code>nums[right]</code> inconsistently.</b> Pick one anchor — <code>nums[left]</code> here — and use it in every branch.',
+      '<b>Inclusive vs exclusive range boundaries in the target test.</b> <code>nums[left] &lt;= target &lt; nums[mid]</code>: left inclusive because it could BE the answer, mid exclusive because we already tested it. Get these backwards and you drop valid answers.',
+      '<b>Claiming O(log n).</b> Say the worst case out loud; that is the point of this problem existing separately from LC 33.'
+    ],
+    template: "# Rotated sorted array - identify the sorted half, then decide\nwhile lo <= hi:\n    mid = (lo + hi) // 2\n    if a[mid] == target: return True\n\n    if a[lo] == a[mid]:          # DUPLICATES: cannot tell. give up one element.\n        lo += 1; continue        # (omit this branch for LC 33 - no duplicates)\n\n    if a[lo] < a[mid]:           # left half [lo..mid] is sorted\n        if a[lo] <= target < a[mid]: hi = mid - 1\n        else:                        lo = mid + 1\n    else:                        # right half [mid..hi] is sorted\n        if a[mid] < target <= a[hi]: lo = mid + 1\n        else:                        hi = mid - 1\n",
+    variants:[
+      ['No duplicates','LC 33 — drop the <code>nums[left] == nums[mid]</code> branch, and it is genuinely O(log n).'],
+      ['<b>Find the minimum</b> in a rotated array','LC 153 / 154 — compare against <code>nums[right]</code>, no target involved.'],
+      ['Find the rotation index','Same as finding the minimum.'],
+      ['Rotated but you may sort first','O(n log n) and you have thrown the problem away — but state it as the baseline.']
+    ],
+    thinking:'The reusable idea: <b>when a structure is not globally ordered, look for a piece that is.</b> Rotated array → one sorted half. Mountain array → one monotone side. 2D sorted matrix → start at a corner where the comparison is unambiguous. In every case the question is "where do I stand so that a single comparison eliminates a large chunk?" Answer that and the code follows.'
+  }
+});
+
+</script>
+</body>
+</html>

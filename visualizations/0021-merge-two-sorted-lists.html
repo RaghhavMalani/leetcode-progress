@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>21 - Merge Two Sorted Lists</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["# Definition for singly-linked list.", "# class ListNode(object):", "#     def __init__(self, val=0, next=None):", "#         self.val = val", "#         self.next = next", "class Solution(object):", "    def mergeTwoLists(self, list1, list2):", "        \"\"\"", "        :type list1: Optional[ListNode]", "        :type list2: Optional[ListNode]", "        :rtype: Optional[ListNode]", "        \"\"\"", "", "        result = ListNode()", "        fres = result", "        while list1 != None and list2 != None:", "            if (list1.val >= list2.val):", "                fres.next = list2", "                list2 = list2.next", "", "            else:", "                fres.next = list1", "                list1 = list1.next", "", "            fres = fres.next", "            ", "        if list1 != None:", "            fres.next = list1", "", "        if list2 != None:", "            fres.next = list2", "", "", "        return result.next"];
+function build(){
+  var T=LV.trace();
+  var L1=[1,2,4], L2=[1,3,4], out=[];
+  function N(arr,hot){ return arr.map(function(v,i){ return {v:v,id:String(v)+i,cls:(i===0&&hot)?'hot':''}; }); }
+  function V(note){ return [
+    LV.ll('list1', N(L1,true), L1.length?{}:{}, {}),
+    LV.ll('list2', N(L2,true), {}, {}),
+    LV.ll('result  (fres is the tail we keep appending to)', [{v:'dummy',id:'d',dummy:true}].concat(N(out,false)), {}, {note:note||'the dummy node means we never special-case "is this the first element?"'}) ]; }
+  function VA(){ return ['list1 = <b>'+(L1.length?L1[0]:'None')+'</b>','list2 = <i>'+(L2.length?L2[0]:'None')+'</i>','result = <u>'+(out.join('→')||'∅')+'</u>']; }
+
+  T.step(14,'info','`result = ListNode()` is a DUMMY node. It holds no data; it exists so that "append to the result" is one uniform operation with no "is the list empty yet?" branch. At the end we return `result.next` and the dummy is discarded.',VA(),V());
+  while(L1.length && L2.length){
+    T.step(16,'call','Both lists still have nodes: list1 head = '+L1[0]+', list2 head = '+L2[0]+'.',VA(),V());
+    if(L1[0]>=L2[0]){
+      T.step(17,'info','list1.val ('+L1[0]+') &ge; list2.val ('+L2[0]+'), so list2’s head is the smaller (or equal) one.',VA(),V());
+      var v=L2.shift(); out.push(v);
+      T.step(19,'push','Splice node '+v+' from list2 onto the result and advance list2. Note nothing is copied — the existing node is relinked.',VA(),V());
+    } else {
+      T.step(21,'info','list1.val ('+L1[0]+') &lt; list2.val ('+L2[0]+'), so take from list1.',VA(),V());
+      var v2=L1.shift(); out.push(v2);
+      T.step(23,'push','Splice node '+v2+' from list1 onto the result and advance list1.',VA(),V());
+    }
+    T.step(25,'ok','Move `fres` to the node just appended, so it is always the tail of the result.',VA(),V());
+  }
+  T.step(16,'info','One of the lists is exhausted, so the loop stops. Whatever is left in the other list is already sorted AND already greater than everything in the result.',VA(),V());
+  if(L1.length){
+    T.step(28,'found','list1 still has '+L1.join('→')+'. Attach the whole remainder in ONE pointer assignment — no loop needed. This is the payoff of working with links instead of arrays.',VA(),V());
+    while(L1.length) out.push(L1.shift());
+  } else if(L2.length){
+    T.step(31,'found','list2 still has '+L2.join('→')+'. Attach the whole remainder in one assignment.',VA(),V());
+    while(L2.length) out.push(L2.shift());
+  }
+  T.save(out.join(' → '));
+  T.step(34,'done','Return `result.next`, skipping the dummy: <b>'+out.join(' → ')+'</b>. O(m+n), and O(1) extra space because no new nodes were allocated.',VA(),V('finished'));
+  return T;
+}
+LV.render({
+  num:'21', name:'Merge Two Sorted Lists', slug:'0021-merge-two-sorted-lists',
+  difficulty:'Easy', pattern:'Linked list · dummy head + merge',
+  url:'https://leetcode.com/problems/merge-two-sorted-lists',
+  blurb:'Two ideas worth stealing: the <b>dummy head</b> that deletes every empty-list special case, and the final one-line attach of the leftover tail.',
+  input:'list1 = [1,2,4], list2 = [1,3,4]', runName:'mergeTwoLists',
+  skipLabel:null, emptyResult:'result is empty',
+  src:SRC, build:build,
+  complexity:{time:'O(m + n)', space:'O(1) — nodes are relinked, not copied'},
+  theory:{
+    idea:'The <b>dummy (sentinel) head</b> is the single highest-value trick in linked lists. Without it, every "append" has to ask "is the result empty?" and every "delete" has to ask "is this the head?". With it, every node has a predecessor and all those branches vanish.',
+    recognize:[
+      'Two (or k) sorted sequences to combine while preserving order.',
+      'Any list operation that might modify the head — delete, insert at front, merge. Reach for a dummy reflexively.',
+      'This is also merge sort’s merge step, which is why LC 148 and LC 23 both call it.'
+    ],
+    pitfalls:[
+      '<b>Returning <code>result</code> instead of <code>result.next</code>.</b> You return the dummy and every answer starts with a spurious 0.',
+      '<b>Looping to attach the remainder.</b> Correct but pointless — one pointer assignment attaches an arbitrarily long tail.',
+      '<b>Losing stability.</b> Using <code>&gt;</code> vs <code>&gt;=</code> decides which list wins a tie. It does not matter for values, but it does the moment nodes carry payloads, and interviewers ask.',
+      '<b>Allocating new nodes.</b> Works, but throws away the O(1) space that makes the linked-list version interesting.'
+    ],
+    template: "# Dummy head + merge - the shape behind LC 21, 23, 88, 148\ndummy = ListNode()\ntail  = dummy\nwhile a and b:\n    if a.val <= b.val:\n        tail.next, a = a, a.next\n    else:\n        tail.next, b = b, b.next\n    tail = tail.next\n\ntail.next = a or b          # attach the WHOLE remainder in one line\nreturn dummy.next           # skip the dummy\n",
+    variants:[
+      ['<b>Merge k sorted lists</b> (LC 23)','Pair them up and merge repeatedly — O(N log k). Your repo has this one; it calls this function.'],
+      ['Merge two sorted <b>arrays</b> in place','LC 88 — fill from the BACK so you never overwrite unread data.'],
+      ['<b>Sort a linked list</b> (LC 148)','Merge sort: split with fast/slow, recurse, merge with exactly this function.'],
+      ['Recursive merge','Four lines and very pretty, but O(m+n) stack depth.']
+    ],
+    thinking:'Adopt this rule: <b>if a linked-list operation could touch the head, start with a dummy node.</b> It costs one line and removes an entire class of null-pointer bugs. The second habit from this problem: when you finish a loop, ask "what is left over, and can I attach it in O(1) instead of looping?" With linked lists the answer is usually yes, and that is precisely the advantage they have over arrays.'
+  }
+});
+
+</script>
+</body>
+</html>

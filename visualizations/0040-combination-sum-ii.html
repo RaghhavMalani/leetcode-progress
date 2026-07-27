@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>40 - Combination Sum II</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:", "        res = []", "        candidates.sort()", "", "        def dfs(i, curr, total):", "            if total == target:", "                res.append(curr.copy())", "                return", "            ", "            if i >= len(candidates) or total > target:", "                return", "", "            curr.append(candidates[i])", "            dfs(i+1, curr, total + candidates[i])", "            curr.pop()", "", "            while i+1 < len(candidates) and candidates[i] == candidates[i+1]:", "                i += 1", "", "            dfs(i+1, curr, total)", "", "        dfs(0, [], 0)", "        return res"];
+function build(){
+  var T=LV.trace(), cand=[1,1,2], target=3, curr=[];
+  var tb=LV.treeBuilder(62,32,72,52);
+  function C(){ return '['+curr.join(', ')+']'; }
+  function V(id,hot){ var m={}; if(hot!=null){m[hot]='hot'; if(hot+1<cand.length&&cand[hot]===cand[hot+1]) m[hot+1]='warn';}
+    return [ LV.arr('curr', curr.slice(), {}, {idx:false}),
+      LV.arr('candidates (sorted)', cand, m, {}),
+      LV.frames('call stack', tb.chain(id).reverse().map(function(x){return tb.nodes[x].frame;})),
+      LV.tree(tb,id) ]; }
+  function VA(i,t){ return ['i = <b>'+i+'</b>','total = <em>'+t+'</em> / target 3','curr = <u>'+C()+'</u>']; }
+
+  var root=tb.add(null,'dfs','t=0','dfs(0, [], 0)');
+  T.step(4,'info','`candidates.sort()` has already run, so equal values sit next to each other. That adjacency is the only reason the while loop on line 18 can work.',VA(0,0),V(root,null));
+  T.step(23,'info','`dfs(0, [], 0)` — start at index 0 with an empty combination.',VA(0,0),V(root,0));
+
+  function dfs(i,total,id){
+    T.step(6,'call','Enter dfs(i='+i+', curr='+C()+', total='+total+').',VA(i,total),V(id,i<cand.length?i:null));
+    if(total===target){
+      T.save(C()); tb.win(id,T.events.length);
+      T.step(8,'found','total == target. Save '+C()+'.',VA(i,total),V(id,null));
+      T.step(9,'ok','return.',VA(i,total),V(id,null)); return;
+    }
+    if(i>=cand.length||total>target){
+      tb.kill(id,T.events.length);
+      var why = i>=cand.length ? 'i ('+i+') is past the end of candidates' : 'total ('+total+') overshot the target';
+      T.step(12,'prune','Dead end: '+why+'. Return with nothing saved.',VA(i,total),V(id,null)); return;
+    }
+    curr.push(cand[i]);
+    var a=tb.add(id,'+'+cand[i],'t='+(total+cand[i]),'dfs('+(i+1)+', '+C()+', '+(total+cand[i])+')');
+    T.step(15,'push','Take candidates['+i+'] = '+cand[i]+'. curr → '+C()+'. Recurse with i+1 — unlike problem 39, each element is usable only once.',VA(i+1,total+cand[i]),V(a,i));
+    dfs(i+1,total+cand[i],a);
+    curr.pop();
+    T.step(16,'pop','Back in dfs('+i+', …, '+total+'). curr.pop() → '+C()+'.',VA(i,total),V(id,i));
+    var j=i, skipped=0;
+    while(j+1<cand.length && cand[j]===cand[j+1]){ j++; skipped++; }
+    if(skipped){
+      T.step(19,'dup','The while loop fires: candidates['+i+'] == candidates['+(i+1)+'] == '+cand[i]+'. i slides from '+i+' to '+j+'. Without this line the skip branch would start on an identical value and rebuild a combination already found — the exact duplicate bug this problem exists to test.',VA(j,total),V(id,j));
+    }
+    var b=tb.add(id,'skip→'+(j+1),'t='+total,'dfs('+(j+1)+', '+C()+', '+total+')');
+    T.step(21,'skip','Now the branch that leaves '+cand[i]+' out entirely: recurse from index '+(j+1)+'.',VA(j+1,total),V(b,j+1<cand.length?j+1:null));
+    dfs(j+1,total,b);
+  }
+  dfs(0,0,root);
+  T.step(24,'done','Done. res = '+(T.out.join(', ')||'[]')+'. Exactly one combination survives, and it was never built twice.',VA(0,0),V(root,null));
+  return T;
+}
+LV.render({
+  num:'40', name:'Combination Sum II', slug:'0040-combination-sum-ii',
+  difficulty:'Medium', pattern:'Backtracking · duplicate suppression',
+  url:'https://leetcode.com/problems/combination-sum-ii',
+  blurb:'One while loop is the entire problem. Watch the step where <code>i</code> jumps from 0 to 1 — that is the line separating a correct answer from one with duplicate rows.',
+  input:'candidates = [1,1,2], target = 3', runName:'dfs(0, [], 0)',
+  skipLabel:'Skip to next answer', skipTypes:['found'], emptyResult:'res is still empty',
+  src:SRC, build:build,
+  complexity:{time:'O(2ⁿ · n) — every subset may be visited, n to copy each hit',space:'O(n) depth'},
+  theory:{
+    idea:'Two things are happening and they are easy to confuse. <b>Single use</b> is handled by recursing on <code>i+1</code>. <b>Duplicate answers</b> are handled by the while loop. They are independent bugs with independent fixes: get one right and you can still fail the other.',
+    recognize:[
+      'The input <b>contains repeated values</b> and the output must have <b>no repeated rows</b>. That combination is the signature.',
+      'Each element usable at most once → recurse on <code>i+1</code>.',
+      'If the input were guaranteed distinct, the while loop would be dead code — this is worth saying out loud in an interview.'
+    ],
+    pitfalls:[
+      '<b>Forgetting <code>sort()</code>.</b> The while loop compares <em>neighbours</em>. Unsorted, equal values are scattered and the skip never triggers.',
+      '<b>Deduping with a set of tuples at the end.</b> It works and it is the answer people reach for under pressure, but it does the exponential work anyway and then throws it away. The interviewer is watching for the in-tree fix.',
+      '<b>Putting the skip on the take branch.</b> Skipping duplicates when you <em>take</em> is wrong — [1,1] is a legitimate answer. You only skip on the branch that <em>excludes</em> the value.',
+      '<b>Off-by-one in the while condition.</b> <code>i+1 &lt; len</code> guards the read of <code>candidates[i+1]</code>; drop it and you index out of range on the last element.'
+    ],
+    template: "# Killing duplicates - two interchangeable idioms.\n\n# (a) sort + skip equal neighbours   (LC 40, 90)\narr.sort()\nsubset.append(arr[i]); backtrack(i+1); subset.pop()\nwhile i+1 < len(arr) and arr[i] == arr[i+1]:\n    i += 1\nbacktrack(i+1)                # the \"skip\" branch lands on a NEW value\n\n# (b) loop over distinct values with a count budget   (LC 47)\nfor val in count:             # keys, not positions\n    if count[val] > 0:\n        path.append(val); count[val] -= 1\n        backtrack()\n        count[val] += 1; path.pop()\n",
+    variants:[
+      ['Input distinct, unlimited reuse','LC 39 — drop the while loop, recurse on <code>i</code> not <code>i+1</code>.'],
+      ['<b>Subsets II</b> (LC 90)','Identical machinery, no target: every node is an answer instead of only the ones that hit the sum.'],
+      ['<b>Permutations II</b> (LC 47)','Same goal, different weapon — count distinct values rather than skip duplicate positions.'],
+      ['Duplicates allowed in output','Delete the while loop. Nothing else changes.']
+    ],
+    thinking:'When an input has duplicates, ask: <b>what makes two branches produce the same answer?</b> Here it is that positions 0 and 1 hold the same value, so "skip position 0, take position 1" produces exactly what "take position 0" already produced. The fix is always the same shape — <em>at each level, consider each distinct value at most once</em>. Sorting is what makes "distinct value" cheap to detect. Carry that sentence into 47 and 90 and you will not have to re-derive anything.'
+  }
+});
+
+</script>
+</body>
+</html>

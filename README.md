@@ -1,3 +1,21 @@
+<!-- TRACED-VISUALIZATIONS:START -->
+## 📊 Traced solutions & pattern handbook
+
+Every solution in this repo has been replayed **line by line** against its own source, with the data structures
+drawn as they change — the recursion tree growing and pruning, the sliding window expanding, the pointers moving,
+the heap reordering.
+
+| | |
+|---|---|
+| **[▶ Open the index](visualizations/index.html)** | all 109 traced solutions, grouped by pattern, with a live filter |
+| **[📖 Pattern handbook](PATTERNS.md)** | 16 pattern families: how to recognise each one, the reusable template, the mistakes that cost people the problem, and how to think about the family next time |
+| **`NOTES.md` in each problem folder** | the same theory, scoped to that one problem |
+
+Open a page and use **← →** to step, **space** to play, or drag the scrubber. Each page ends with recognition
+signals, a template, pitfalls, interviewer variants, and complexity.
+
+<!-- TRACED-VISUALIZATIONS:END -->
+
 # leetcode-progress
 A collection of LeetCode questions to ace the coding interview! - Created using [LeetHub v2](https://github.com/arunbhardwaj/LeetHub-2.0)
 

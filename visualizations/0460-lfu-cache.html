@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>460 - LFU Cache</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class ListNode:", "    def __init__(self, val, prev = None, next = None):", "        self.val = val", "        self.prev = prev", "        self.next = next", "", "class LinkedList:", "    def __init__(self):", "        self.left = ListNode(0)", "        self.right = ListNode(0, self.left)", "        self.left.next = self.right", "        self.map = {}", "", "    def length(self):", "        return len(self.map)", "", "    def pushRight(self, val):", "        node = ListNode(val, self.right.prev, self.right)", "        self.map[val] = node", "        self.right.prev = node", "        node.prev.next = node", "", "    def pop(self, val):", "        if val in self.map:", "            node = self.map[val]", "            node.next.prev = node.prev", "            node.prev.next = node.next", "            self.map.pop(val, None)", "", "    def popLeft(self):", "        res = self.left.next.val", "        self.pop(res)", "        return res", "", "    def update(self, val):", "        self.pop(val)", "        self.pushRight(val)", "", "class LFUCache:", "    def __init__(self, capacity: int):", "        self.cap = capacity", "        self.lfuCnt = 0", "        self.valMap = {} # key to val ", "        self.countMap = collections.defaultdict(int) # key to count", "        self.listMap = collections.defaultdict(LinkedList) # count to linkedlist", "    ", "    def counter(self, key):", "        count = self.countMap[key]", "        self.countMap[key] += 1", "        self.listMap[count].pop(key)", "        self.listMap[count + 1].pushRight(key)", "", "        if count == self.lfuCnt and self.listMap[count].length() == 0:", "            self.lfuCnt += 1", "", "    def get(self, key: int) -> int:", "        if key not in self.valMap:", "            return -1", "        self.counter(key)", "        return self.valMap[key]", "", "    def put(self, key: int, value: int) -> None:", "        if self.cap == 0:", "            return ", "", "        if key not in self.valMap and len(self.valMap) == self.cap:", "            res = self.listMap[self.lfuCnt].popLeft()", "            self.valMap.pop(res)", "            self.countMap.pop(res)", "", "        self.valMap[key] = value", "        self.counter(key)", "        self.lfuCnt = min(self.lfuCnt, self.countMap[key])", "", "", "# Your LFUCache object will be instantiated and called as such:", "# obj = LFUCache(capacity)", "# param_1 = obj.get(key)", "# obj.put(key,value)"];
+function build(){
+  var T=LV.trace(), cap=2;
+  var val={}, cnt={}, lists={}, lfu=0, order=[];
+  function LV_(hot){
+    var ks=Object.keys(lists).map(Number).sort(function(a,b){return a-b;});
+    return LV.kv('listMap:  frequency → keys (least→most recently used within each)',
+      ks.filter(function(f){ return lists[f].length; }).map(function(f){ return ['freq '+f, '['+lists[f].join(', ')+']']; }),
+      (function(){ var m={}; if(hot!=null) m['freq '+hot]='hot'; return m; })(), {emptyText:'empty'}); }
+  function V(hot,hk){ return [
+    LV.kv('valMap:  key → value', Object.keys(val).map(function(k){ return [k, val[k]]; }),
+      (function(){ var m={}; if(hk!=null) m[hk]='hot'; return m; })(), {emptyText:'empty'}),
+    LV.kv('countMap:  key → use count', Object.keys(cnt).map(function(k){ return [k, cnt[k]]; }),
+      (function(){ var m={}; if(hk!=null) m[hk]='hot'; return m; })(), {emptyText:'empty'}),
+    LV_(hot),
+    LV.kv('lfuCnt (the current minimum frequency)', [['lfuCnt', lfu]], {'lfuCnt':'hot'}, {}) ]; }
+  function push(f,k){ lists[f]=lists[f]||[]; lists[f].push(k); }
+  function pull(f,k){ if(lists[f]) lists[f]=lists[f].filter(function(x){ return x!==k; }); }
+
+  T.step(45,'info','THREE maps. <code>valMap</code> holds the values. <code>countMap</code> holds each key’s use count. <code>listMap</code> maps a frequency to an ordered list of the keys at that frequency — and that list is what breaks ties by recency, exactly like LRU.',['capacity = <b>2</b>'],V(null,null));
+  T.step(42,'info','<code>lfuCnt</code> tracks the current minimum frequency, so eviction is O(1): pop the LEAST RECENTLY USED key from <code>listMap[lfuCnt]</code>.',['lfuCnt = <b>0</b>'],V(null,null));
+
+  function counter(k){
+    var c=cnt[k]; cnt[k]=c+1;
+    pull(c,k); push(c+1,k);
+    T.step(50,'push','counter('+k+'): move it from frequency '+c+' to '+(c+1)+', appending on the RIGHT so it counts as most-recently-used at its new level.',['count['+k+'] = <b>'+cnt[k]+'</b>'],V(c+1,String(k)));
+    if(c===lfu && (!lists[c]||!lists[c].length)){
+      lfu++;
+      T.step(54,'ok','That was the last key at the old minimum frequency '+c+', so lfuCnt advances to <b>'+lfu+'</b>.',['lfuCnt = <b>'+lfu+'</b>'],V(lfu,String(k)));
+    }
+  }
+  function put(k,v){
+    T.step(62,'call','<b>put('+k+', '+v+')</b>',['op'],V(null,null));
+    if(val[k]===undefined && Object.keys(val).length===cap){
+      var ev=lists[lfu].shift();
+      delete val[ev]; delete cnt[ev];
+      T.step(67,'bad','Cache is full and '+k+' is new. Evict from frequency '+lfu+': the leftmost key there is <b>'+ev+'</b> — least frequently used, and among ties the least recently used. Remove it from ALL THREE maps.',['evicted <u>'+ev+'</u>'],V(lfu,String(ev)));
+      T.save('evicted '+ev);
+    }
+    val[k]=v; if(cnt[k]===undefined) cnt[k]=0;
+    T.step(71,'push','Store valMap['+k+'] = '+v+'.',[],V(null,String(k)));
+    counter(k);
+    lfu=Math.min(lfu, cnt[k]);
+    T.step(73,'ok','<code>lfuCnt = min(lfuCnt, countMap['+k+'])</code> — a brand-new key has count 1, so this resets the minimum to 1. Miss this line and eviction looks at an empty frequency bucket.',['lfuCnt = <b>'+lfu+'</b>'],V(lfu,String(k)));
+    T.save('put('+k+','+v+')');
+  }
+  function get(k){
+    T.step(56,'call','<b>get('+k+')</b>',['op'],V(null,String(k)));
+    if(val[k]===undefined){ T.step(58,'bad','Not present — return −1, and do NOT touch any counts.',['returns <u>-1</u>'],V(null,null)); T.save('get('+k+') = -1'); return; }
+    counter(k);
+    T.step(60,'found','Return '+val[k]+'. A read counts as a use, so its frequency went up.',['returns <u>'+val[k]+'</u>'],V(cnt[k],String(k)));
+    T.save('get('+k+') = '+val[k]);
+  }
+
+  put(1,1); put(2,2); get(1); put(3,3); get(2); get(3); put(4,4); get(1); get(3); get(4);
+  T.step(73,'done','Every operation O(1). LFU needs one more layer than LRU: a map from frequency to an LRU list, plus a running minimum frequency.',[],V(null,null));
+  return T;
+}
+LV.render({
+  num:'460', name:'LFU Cache', slug:'0460-lfu-cache',
+  difficulty:'Hard', pattern:'Design · three maps + per-frequency LRU lists',
+  url:'https://leetcode.com/problems/lfu-cache',
+  blurb:'LRU with one more dimension. Evict by lowest frequency, and break ties by recency — which means each frequency needs its own LRU list, plus a running minimum so eviction stays O(1).',
+  input:'capacity = 2, then a sequence of put/get calls', runName:'LFUCache',
+  skipLabel:null, emptyResult:'no operations yet',
+  src:SRC, build:build,
+  complexity:{time:'O(1) for get and put', space:'O(capacity)'},
+  theory:{
+    idea:'Compose structures, one per requirement. <b>O(1) lookup by key</b> → hash map. <b>Evict the least frequent</b> → group keys by frequency. <b>Break frequency ties by recency</b> → each frequency bucket is itself an ordered (LRU) list. <b>Find the minimum frequency in O(1)</b> → maintain it incrementally, since it only ever increases by one or resets to 1.',
+    recognize:[
+      '"Evict by usage count", "least frequently used", multi-level cache policies.',
+      'Any ranking with a tie-breaker: the primary key selects a bucket, the secondary key orders within it.',
+      'The <code>lfuCnt</code> trick generalises — a running minimum is maintainable in O(1) whenever it changes only in predictable ways.'
+    ],
+    pitfalls:[
+      '<b>Forgetting <code>lfuCnt = min(lfuCnt, count[key])</code> after a put.</b> A new key has frequency 1; without the reset the eviction bucket is empty and everything breaks. It is the single hardest line to remember.',
+      '<b>Not removing the evicted key from all three maps.</b> Any one left behind is a leak or a wrong answer.',
+      '<b>Advancing <code>lfuCnt</code> unconditionally.</b> It only advances when the old minimum bucket becomes EMPTY — line 53 checks both conditions.',
+      '<b>Using a heap for the minimum frequency.</b> O(log n) per operation and stale entries to clean up. The incremental counter is both simpler and faster.',
+      '<b>Forgetting that <code>get</code> counts as a use.</b> Same trap as LRU.',
+      '<b>capacity == 0.</b> Line 63 returns immediately; without it you evict from an empty cache.'
+    ],
+    template: "# lookup -> map;  evict-min -> bucket by frequency;\n# tie-break -> LRU list inside each bucket;  find-min -> running counter\n\nvalMap   = {}                       # key -> value\ncountMap = defaultdict(int)         # key -> use count\nlistMap  = defaultdict(LinkedList)  # frequency -> LRU list of keys\nlfu      = 0                        # current minimum frequency\n\ndef touch(key):                     # called by BOTH get and put\n    c = countMap[key]; countMap[key] += 1\n    listMap[c].pop(key); listMap[c + 1].push_right(key)\n    if c == lfu and listMap[c].empty():\n        lfu += 1                    # only when the old min bucket EMPTIES\n\ndef put(key, value):\n    if cap == 0: return\n    if key not in valMap and len(valMap) == cap:\n        gone = listMap[lfu].pop_left()          # LFU, ties broken by LRU\n        valMap.pop(gone); countMap.pop(gone)    # ALL structures\n    valMap[key] = value\n    touch(key)\n    lfu = min(lfu, countMap[key])   # <- THE line everyone forgets. new key -> 1.\n",
+    variants:[
+      ['<b>LRU Cache</b> (LC 146)','Drop the frequency dimension entirely — one list. Also in your repo.'],
+      ['LFU with ageing','Periodically halve all counts so old hot keys decay.'],
+      ['<b>All O(1) Data Structure</b> (LC 432)','The same frequency-bucket idea, with buckets in a doubly linked list.'],
+      ['Approximate LFU','Sample a few keys and evict the worst — what Redis actually does, because exact LFU costs memory.']
+    ],
+    thinking:'Hard design problems are <b>layered</b>, and the way in is to list the required operations and give each one a structure. Write them as a table: lookup → map; evict-min → bucket by key; tie-break → order within bucket; find-min → incremental counter. Then the only remaining work is keeping the layers consistent, which is where every bug lives — so for each mutation, ask explicitly "which of my structures does this touch?" and update all of them in one place.'
+  }
+});
+
+</script>
+</body>
+</html>

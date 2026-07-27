@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2574 - Left and Right Sum Differences</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def leftRightDifference(self, nums: List[int]) -> List[int]:", "        total_sum = sum(nums)", "        left_sum = 0", "        answer = []", "", "        for num in nums:", "            right_sum = total_sum - left_sum - num", "", "            difference = abs(left_sum - right_sum)", "            answer.append(difference)", "", "            left_sum += num", "", "        return answer"];
+function build(){
+  var T=LV.trace(), a=[10,4,8,3], total=25, left=0, out=[];
+  function V(i,r){ var m={};
+    for(var x=0;x<a.length;x++){ if(x<i) m[x]='good'; else if(x===i) m[x]='hot'; else m[x]='win'; }
+    return [ LV.arr('nums — green = left of i, blue = right of i', a, m, {}),
+             LV.arr('answer', out.slice(), {}, {emptyText:'empty'}),
+             LV.kv('sums', [['total',total],['left_sum',left], r!=null?['right_sum',r]:['','']].filter(function(p){return p[0];}), {'left_sum':'hot'}, {}) ]; }
+  function VA(i){ return ['i = <b>'+i+'</b>','left_sum = <em>'+left+'</em>']; }
+  T.step(3,'info','Compute the total ONCE. Then right_sum at position i is just total − left_sum − nums[i], with no second loop and no suffix array.',['total = <b>25</b>'],V(null,null));
+  a.forEach(function(x,i){
+    var r=total-left-x;
+    T.step(8,'info','right_sum = total ('+total+') − left_sum ('+left+') − nums[i] ('+x+') = <b>'+r+'</b>. The subtraction of nums[i] is what excludes the element from both sides.',VA(i),V(i,r));
+    var d=Math.abs(left-r); out.push(d);
+    T.step(11,'push','answer['+i+'] = |'+left+' − '+r+'| = <b>'+d+'</b>.',VA(i),V(i,r));
+    T.save('answer['+i+'] = '+d);
+    left+=x;
+    T.step(13,'ok','left_sum += '+x+' → '+left+'. Note this happens AFTER the write, which is what keeps nums[i] out of its own left sum.',VA(i),V(i,r));
+  });
+  T.step(15,'done','Answer: <b>['+out.join(', ')+']</b>. One pass plus one sum, O(1) extra space.',[],V(a.length,null));
+  return T;
+}
+LV.render({
+  num:'2574', name:'Left and Right Sum Differences', slug:'2574-left-and-right-sum-differences',
+  difficulty:'Easy', pattern:'Prefix sum · total minus prefix',
+  url:'https://leetcode.com/problems/left-and-right-sum-differences',
+  blurb:'The suffix sum for free: <code>right = total - left - nums[i]</code>. No second array, no backward pass — worth internalising because it applies whenever the operation has an inverse.',
+  input:'nums = [10,4,8,3]', runName:'leftRightDifference',
+  skipLabel:null, emptyResult:'answer is empty',
+  src:SRC, build:build,
+  complexity:{time:'O(n)', space:'O(1) extra'},
+  theory:{
+    idea:'A suffix aggregate can be derived from the total and the prefix <b>whenever the operation is invertible</b>. Sum has subtraction, XOR is its own inverse, product has division (if there are no zeros). Max and min have no inverse — which is exactly why LC 238 in your repo needs two passes and this one does not.',
+    recognize:[
+      'You need "everything before i" and "everything after i" simultaneously.',
+      'The combining operation is a sum, XOR, or count — something you can undo.',
+      'If the operation is max/min/gcd, you cannot subtract; build a real suffix array (two passes).'
+    ],
+    pitfalls:[
+      '<b>Forgetting to exclude nums[i].</b> right = total − left is wrong; it includes the current element.',
+      '<b>Updating <code>left_sum</code> before writing the answer.</b> Same bug as LC 238 — write, then accumulate.',
+      '<b>Building both prefix and suffix arrays.</b> Correct, O(n) space, and unnecessary here.',
+      '<b>Recomputing <code>sum(nums)</code> inside the loop.</b> O(n²) by accident.'
+    ],
+    template: "# invertible operation -> suffix comes free from the total\ntotal, left = sum(nums), 0\nfor x in nums:\n    right = total - left - x       # exclude x from BOTH sides\n    ans.append(abs(left - right))\n    left += x                      # accumulate AFTER the write\n\n# not invertible (max, min, gcd)? build a real suffix array, two passes.\n",
+    variants:[
+      ['<b>Product</b> except self (LC 238)','Division is unsafe with zeros, so two passes. Also in your repo.'],
+      ['<b>Find Pivot Index</b> (LC 724)','Same identity, looking for where left == right.'],
+      ['Max on each side','No inverse — build prefix-max and suffix-max arrays.'],
+      ['<b>Trapping Rain Water</b> (LC 42)','Prefix-max and suffix-max, then optimised to two pointers. Also in your repo.']
+    ],
+    thinking:'Whenever you need both sides of every index, ask one question: <b>is my operation invertible?</b> If yes, one pass plus a total. If no, two passes. That single question tells you immediately whether you need O(1) or O(n) extra space, and it distinguishes this problem from LC 238 despite them looking identical.'
+  }
+});
+
+</script>
+</body>
+</html>

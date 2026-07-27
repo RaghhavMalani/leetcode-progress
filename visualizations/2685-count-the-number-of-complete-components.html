@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2685 - Count the Number of Complete Components</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution {", "private:", "    void dfs(int node, vector<vector<int>>& adj, vector<bool>& visited,", "             int& vertices, int& degreeSum) {", "        visited[node] = true;", "        vertices++;", "        degreeSum += adj[node].size();", "", "        for (int neighbor : adj[node]) {", "            if (!visited[neighbor]) {", "                dfs(neighbor, adj, visited, vertices, degreeSum);", "            }", "        }", "    }", "", "public:", "    int countCompleteComponents(int n, vector<vector<int>>& edges) {", "        vector<vector<int>> adj(n);", "", "        for (auto& edge : edges) {", "            int u = edge[0];", "            int v = edge[1];", "", "            adj[u].push_back(v);", "            adj[v].push_back(u);", "        }", "", "        vector<bool> visited(n, false);", "        int completeComponents = 0;", "", "        for (int node = 0; node < n; node++) {", "            if (!visited[node]) {", "                int vertices = 0;", "                int degreeSum = 0;", "", "                dfs(node, adj, visited, vertices, degreeSum);", "", "                int actualEdges = degreeSum / 2;", "                int requiredEdges = vertices * (vertices - 1) / 2;", "", "                if (actualEdges == requiredEdges) {", "                    completeComponents++;", "                }", "            }", "        }", "", "        return completeComponents;", "    }", "};"];
+function build(){
+  var T=LV.trace();
+  var n=6, edges=[[0,1],[0,2],[1,2],[3,4]];
+  var adj={}; for(var i=0;i<n;i++) adj[i]=[];
+  edges.forEach(function(e){ adj[e[0]].push(e[1]); adj[e[1]].push(e[0]); });
+  var vis={}, count=0;
+  function V(cur,comp,note){ var m={};
+    for(var i=0;i<n;i++) m[i]= (comp&&comp.indexOf(i)>=0)?'hot':(vis[i]?'good':'dim');
+    return [ LV.arr('nodes 0…'+(n-1), Array.from({length:n},function(_,i){return i;}), m, {idx:false,
+      note: note||'edges: '+edges.map(function(e){return e[0]+'–'+e[1];}).join(', ')}),
+      LV.kv('adjacency', Object.keys(adj).map(function(k){ return [k, '['+adj[k].join(',')+']']; }),
+        (function(){ var q={}; if(cur!=null) q[cur]='hot'; return q; })(), {}) ]; }
+  T.step(18,'info','Build the adjacency list. A component is <b>complete</b> when every pair of its vertices is joined — i.e. it has exactly C(v, 2) = v(v−1)/2 edges.',['n = <b>6</b>'],V(null,null));
+  T.step(31,'info','Loop over every node. Each unvisited node starts a fresh DFS that measures its component: how many vertices, and the sum of their degrees.',['components = <u>0</u>'],V(null,null));
+  for(var node=0;node<n;node++){
+    if(vis[node]){ continue; }
+    T.step(32,'call','Node '+node+' is unvisited — start a new component here.',['components = <u>'+count+'</u>'],V(node,[node]));
+    var verts=0, degSum=0, comp=[];
+    (function dfs(u){
+      vis[u]=1; verts++; degSum+=adj[u].length; comp.push(u);
+      T.step(7,'push','Visit '+u+'. vertices = '+verts+', degreeSum += deg('+u+') = '+adj[u].length+' → '+degSum+'. Passing these by reference (<code>int&amp;</code>) is how the C++ DFS accumulates without a return value.',
+        ['vertices = <b>'+verts+'</b>','degreeSum = <em>'+degSum+'</em>'],V(u,comp));
+      adj[u].forEach(function(w){ if(!vis[w]) dfs(w); });
+    })(node);
+    var actual=degSum/2, need=verts*(verts-1)/2;
+    T.step(38,'info','Component {'+comp.join(', ')+'}: degreeSum = '+degSum+', so actual edges = '+degSum+' / 2 = <b>'+actual+'</b>. Every edge contributes to TWO degrees, which is the handshake lemma.',
+      ['actualEdges = <b>'+actual+'</b>'],V(null,comp));
+    T.step(39,'info','A complete graph on '+verts+' vertices needs '+verts+'×'+(verts-1)+'/2 = <b>'+need+'</b> edges.',['requiredEdges = <b>'+need+'</b>'],V(null,comp));
+    if(actual===need){ count++;
+      T.step(42,'found',actual+' == '+need+' — this component IS complete. count → <b>'+count+'</b>.',['count = <u>'+count+'</u>'],V(null,comp,'complete'));
+      T.save('{'+comp.join(',')+'} complete');
+    } else {
+      T.step(41,'bad',actual+' ≠ '+need+' — not complete.',['count = <u>'+count+'</u>'],V(null,comp,'not complete'));
+      T.save('{'+comp.join(',')+'} incomplete');
+    }
+  }
+  T.step(47,'done','Answer: <b>'+count+'</b>. One DFS over the whole graph, O(n + e), and completeness is decided by counting rather than by checking every pair.',['count = <u>'+count+'</u>'],V(null,null));
+  return T;
+}
+LV.render({
+  num:'2685', name:'Count the Number of Complete Components', slug:'2685-count-the-number-of-complete-components',
+  difficulty:'Medium', pattern:'Connected components + a counting criterion',
+  url:'https://leetcode.com/problems/count-the-number-of-complete-components',
+  blurb:'Two standard pieces: DFS to find components, and the handshake lemma to test completeness by counting edges instead of checking every pair.',
+  input:'n = 6, edges = [[0,1],[0,2],[1,2],[3,4]]', runName:'countCompleteComponents',
+  skipLabel:'Skip to next complete component', skipTypes:['found'], emptyResult:'no components checked yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n + e)', space:'O(n + e)'},
+  theory:{
+    idea:'Two ideas. <b>Component discovery:</b> loop over all nodes, and every unvisited one starts a DFS/BFS that consumes its whole component — the standard O(n + e) sweep. <b>Handshake lemma:</b> the sum of degrees equals twice the edge count, so you can get a component’s edge count without touching the edge list, and compare it against C(v, 2).',
+    recognize:[
+      'Any per-component property: size, edge count, is-it-a-tree, is-it-bipartite, is-it-complete.',
+      '"Complete graph" = every pair joined = exactly v(v−1)/2 edges. Similarly "is a tree" = connected and exactly v−1 edges.',
+      'Union-find is the natural alternative and is often shorter: union everything, then group by root and count edges per root.'
+    ],
+    pitfalls:[
+      '<b>Forgetting to divide the degree sum by 2.</b> The handshake lemma is the whole point of the criterion.',
+      '<b>Checking every pair for an edge.</b> O(v²) per component and unnecessary.',
+      '<b>Recursion depth.</b> With n up to 5×10⁴ and a path-shaped graph, recursive DFS blows the stack in Python — use an explicit stack or BFS.',
+      '<b>Not resetting the per-component accumulators.</b> They must be zeroed for each new DFS.',
+      '<b>Self-loops or duplicate edges.</b> They break the degree arithmetic; the constraints here forbid them, and it is worth saying so.'
+    ],
+    template: "# sweep + DFS per component, accumulate, then apply a criterion\ndef count_components(n, edges):\n    adj = [[] for _ in range(n)]\n    for u, v in edges:\n        adj[u].append(v); adj[v].append(u)\n\n    seen, ans = [False] * n, 0\n    for start in range(n):\n        if seen[start]:\n            continue\n        verts = deg_sum = 0\n        stack = [start]; seen[start] = True        # ITERATIVE: no depth limit\n        while stack:\n            u = stack.pop()\n            verts += 1; deg_sum += len(adj[u])\n            for w in adj[u]:\n                if not seen[w]:\n                    seen[w] = True; stack.append(w)\n\n        edges_in = deg_sum // 2                    # handshake lemma\n        if edges_in == verts * (verts - 1) // 2:   # complete?  (tree: verts - 1)\n            ans += 1\n    return ans\n",
+    variants:[
+      ['Union-find version','Union all edges, then count vertices and edges per root. Often shorter and iterative by nature.'],
+      ['Count components that are TREES','Same sweep, criterion becomes <code>edges == vertices - 1</code>.'],
+      ['<b>Number of Provinces</b> (LC 547)','Just count the components; no criterion.'],
+      ['Bipartite check per component','DFS with 2-colouring instead of counting.']
+    ],
+    thinking:'Separate <b>traversal</b> from <b>criterion</b>. The sweep-and-DFS that enumerates components is boilerplate you should be able to write without thinking; what changes between problems is only the quantity you accumulate and the test you apply at the end. Write the boilerplate first, leave a hole for "what do I measure?", and then think hard only about the criterion — here, edges vs C(v,2), which the handshake lemma makes free.'
+  }
+});
+
+</script>
+</body>
+</html>

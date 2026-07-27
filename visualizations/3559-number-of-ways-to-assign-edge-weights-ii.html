@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3559 - Number of Ways to Assign Edge Weights II</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    MOD = 10**9 + 7", "", "    def assignEdgeWeights(", "        self,", "        edges: List[List[int]],", "        queries: List[List[int]]", "    ) -> List[int]:", "", "        n = len(edges) + 1", "        graph = [[] for _ in range(n + 1)]", "", "        for u, v in edges:", "            graph[u].append(v)", "            graph[v].append(u)", "", "        LOG = n.bit_length()", "", "        depth = [0] * (n + 1)", "", "        up = [[0] * (n + 1) for _ in range(LOG)]", "", "        stack = [(1, 1)]", "", "        while stack:", "            node, parent = stack.pop()", "", "            up[0][node] = parent", "", "            for j in range(1, LOG):", "                previous_ancestor = up[j - 1][node]", "                up[j][node] = up[j - 1][previous_ancestor]", "", "            for neighbor in graph[node]:", "                if neighbor == parent:", "                    continue", "", "                depth[neighbor] = depth[node] + 1", "                stack.append((neighbor, node))", "", "        def lca(u: int, v: int) -> int:", "            if depth[u] < depth[v]:", "                u, v = v, u", "", "            depth_difference = depth[u] - depth[v]", "            for j in range(LOG):", "                if depth_difference & (1 << j):", "                    u = up[j][u]", "", "            if u == v:", "                return u", "", "            for j in range(LOG - 1, -1, -1):", "                if up[j][u] != up[j][v]:", "                    u = up[j][u]", "                    v = up[j][v]", "", "            return up[0][u]", "", "        powers_of_two = [1] * (n + 1)", "", "        for i in range(1, n + 1):", "            powers_of_two[i] = (", "                powers_of_two[i - 1] * 2", "            ) % self.MOD", "", "        answer = []", "", "        for u, v in queries:", "            ancestor = lca(u, v)", "", "            path_length = (", "                depth[u]", "                + depth[v]", "                - 2 * depth[ancestor]", "            )", "", "            if path_length == 0:", "                answer.append(0)", "            else:", "                answer.append(", "                    powers_of_two[path_length - 1]", "                )", "", "        return answer"];
+function build(){
+  var T=LV.trace();
+  var nodes=[{id:'1',val:1,l:'2',r:'3'},{id:'2',val:2},{id:'3',val:3,l:'4',r:'5'},{id:'4',val:4},{id:'5',val:5}];
+  var depth={1:0,2:1,3:1,4:2,5:2}, par={1:1,2:1,3:1,4:3,5:3};
+  function tv(hot,note){ var m={}; (hot||[]).forEach(function(x){ m[String(x)]='hot'; });
+    var labs={}; Object.keys(depth).forEach(function(k){ labs[k]='d='+depth[k]; });
+    return LV.btree('tree rooted at 1 (depth shown below each node)', nodes, '1', m, labs, {note:note||''}); }
+  function V(hot,note){ return [ tv(hot,note),
+    LV.kv('depth[]', Object.keys(depth).map(function(k){ return [k, depth[k]]; }),
+      (function(){ var m={}; (hot||[]).forEach(function(x){ m[String(x)]='hot'; }); return m; })(), {}) ]; }
+
+  T.step(11,'info','Part I asked one question about the tree height. Part II asks MANY questions about arbitrary node pairs — so you need the length of the path between any u and v, quickly.',['queries incoming'],V(null));
+  T.step(38,'info','An iterative DFS records each node’s <b>depth</b> and its immediate parent, <code>up[0][node]</code>. Iterative rather than recursive because n can be 10⁵ and Python’s stack is not.',[],V([1]));
+  T.step(32,'info','<b>Binary lifting table:</b> <code>up[j][node] = up[j−1][ up[j−1][node] ]</code>. Row j holds the 2^j-th ancestor, built by composing the row below with itself. Building it costs O(n log n) once.',[],V([1,3]));
+  T.step(41,'info','<b>LCA in O(log n):</b> first lift the deeper node until the depths match, then lift BOTH together while their ancestors differ. When they stop differing, their parent is the lowest common ancestor.',[],V([4,5]));
+  [[4,5],[2,4],[1,1]].forEach(function(q){
+    var u=q[0], v=q[1];
+    T.step(69,'call','query('+u+', '+v+') — depths '+depth[u]+' and '+depth[v]+'.',['u = <b>'+u+'</b>','v = <b>'+v+'</b>'],V([u,v]));
+    var a=u,b=v; while(depth[a]>depth[b]) a=par[a]; while(depth[b]>depth[a]) b=par[b];
+    while(a!==b){ a=par[a]; b=par[b]; }
+    var anc=a;
+    T.step(70,'info','LCA('+u+', '+v+') = <b>'+anc+'</b> at depth '+depth[anc]+'.',['lca = <em>'+anc+'</em>'],V([anc]));
+    var plen=depth[u]+depth[v]-2*depth[anc];
+    T.step(75,'info','Path length = depth[u] + depth[v] − 2·depth[lca] = '+depth[u]+' + '+depth[v]+' − 2×'+depth[anc]+' = <b>'+plen+'</b> edges. Subtracting twice removes the shared segment, which was counted from both sides.',['path = <b>'+plen+'</b> edges'],V([u,v,anc]));
+    var ans = plen===0 ? 0 : Math.pow(2,plen-1);
+    T.save('query('+u+','+v+') → path '+plen+' → '+ans);
+    T.step(plen===0?79:82, plen===0?'bad':'found', plen===0
+      ? 'u == v, so the path has 0 edges and there is nothing to weight. Answer 0.'
+      : 'Same parity argument as Part I: '+plen+' edges give 2^'+plen+' assignments and exactly half satisfy the condition → <b>2^'+(plen-1)+' = '+ans+'</b>.',
+      ['answer = <u>'+ans+'</u>'],V([u,v]));
+  });
+  T.step(85,'done','O(n log n) preprocessing, O(log n) per query. The powers of two are precomputed into an array so each answer is a single lookup.',['done'],V(null));
+  return T;
+}
+LV.render({
+  num:'3559', name:'Number of Ways to Assign Edge Weights II', slug:'3559-number-of-ways-to-assign-edge-weights-ii',
+  difficulty:'Hard', pattern:'Binary lifting LCA + parity counting',
+  url:'https://leetcode.com/problems/number-of-ways-to-assign-edge-weights-ii',
+  blurb:'Part I needed one tree height; Part II needs the distance between arbitrary pairs. That single change forces the whole LCA machinery — and the counting argument stays identical.',
+  input:'a 5-node tree, then three queries', runName:'assignEdgeWeights',
+  skipLabel:'Skip to next answer', skipTypes:['found'], emptyResult:'no queries answered yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n log n) preprocessing + O(log n) per query', space:'O(n log n)'},
+  theory:{
+    idea:'Three standard pieces. <b>(1) Distance formula:</b> dist(u,v) = depth[u] + depth[v] − 2·depth[LCA(u,v)] — the shared prefix is counted twice, so remove it twice. <b>(2) Binary lifting:</b> precompute 2^j-th ancestors so LCA is O(log n). <b>(3) Parity counting:</b> unchanged from Part I — half of the 2^d assignments satisfy the condition.',
+    recognize:[
+      '<b>Many</b> path or ancestor queries on a static tree → binary lifting (or Euler tour + sparse table).',
+      'Any tree distance question — the depth-minus-twice-LCA formula is universal.',
+      'A "Part II" whose only change is "now there are queries" almost always means: precompute a structure that makes each query logarithmic.'
+    ],
+    pitfalls:[
+      '<b>Recursive DFS.</b> With n = 10⁵ and a path-shaped tree it overflows. This solution uses an explicit stack for exactly that reason.',
+      '<b>Lifting order.</b> Equalise depths FIRST, then lift both together. Doing it in the other order gives wrong ancestors.',
+      '<b>The final step of LCA.</b> You lift while the ancestors DIFFER, which lands you on the LCA’s children — so the answer is <code>up[0][u]</code>, not <code>u</code>.',
+      '<b>u == v.</b> Path length 0, and the answer must be 0, not 2^(−1).',
+      '<b>Sizing LOG.</b> It must satisfy 2^LOG &gt; n, or deep lifts silently truncate.',
+      '<b>Recomputing powers of two per query.</b> Precompute the array once.'
+    ],
+    template: "# tree distance = depth[u] + depth[v] - 2 * depth[LCA(u, v)]\n\nLOG = n.bit_length()                 # must satisfy 2^LOG > n\nup = [[0] * (n + 1) for _ in range(LOG)]\n\n# iterative DFS (n can be 1e5 - do NOT recurse) fills depth[] and up[0][]\nfor j in range(1, LOG):              # up[j] = 2^j-th ancestor\n    for v in range(1, n + 1):\n        up[j][v] = up[j-1][ up[j-1][v] ]\n\ndef lca(u, v):\n    if depth[u] < depth[v]: u, v = v, u\n    diff = depth[u] - depth[v]\n    for j in range(LOG):             # 1. equalise depths FIRST\n        if diff >> j & 1: u = up[j][u]\n    if u == v: return u\n    for j in range(LOG - 1, -1, -1):  # 2. lift BOTH while they DIFFER\n        if up[j][u] != up[j][v]:\n            u, v = up[j][u], up[j][v]\n    return up[0][u]                  # they stopped differing -> parent is the LCA\n",
+    variants:[
+      ['<b>Part I</b> (LC 3558)','One question about the height — a plain BFS. Also in your repo.'],
+      ['<b>LCA of a Binary Tree</b> (LC 236)','A single query, so a simple recursive search beats building any table.'],
+      ['Kth ancestor of a node','LC 1483 — the same table, queried directly.'],
+      ['Path sums instead of lengths','Store accumulated weights alongside the ancestor pointers.'],
+      ['Offline queries','Tarjan’s LCA with union-find — O(n α(n)) total, but only if you can batch.']
+    ],
+    thinking:'The general move here is <b>trade preprocessing for query time</b>. One query? Do the simple linear thing. A million queries? Build a structure. Binary lifting, sparse tables, prefix sums and Fenwick trees are all instances of the same trade, and choosing between "just compute it" and "precompute a table" is mostly about reading the query count in the constraints. Notice too how little of Part II is new — the counting argument is identical, and all the added difficulty is infrastructure for answering many questions fast.'
+  }
+});
+
+</script>
+</body>
+</html>

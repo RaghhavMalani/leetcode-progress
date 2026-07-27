@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>304 - Range Sum Query 2D</title>
+<link rel="stylesheet" href="_engine.css">
+</head>
+<body>
+<script src="_engine.js"></script>
+<script>
+
+var SRC = ["class NumMatrix:", "", "    def __init__(self, matrix: List[List[int]]):", "        m = len(matrix)", "        n = len(matrix[0])", "", "        self.prefix = [[0] * (n + 1) for _ in range(m + 1)]", "", "        for r in range(m):", "            for c in range(n):", "                self.prefix[r + 1][c + 1] = (", "                    matrix[r][c]", "                    + self.prefix[r][c + 1]", "                    + self.prefix[r + 1][c]", "                    - self.prefix[r][c]", "                )", "", "    def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -> int:", "        return (", "            self.prefix[row2 + 1][col2 + 1]", "            - self.prefix[row1][col2 + 1]", "            - self.prefix[row2 + 1][col1]", "            + self.prefix[row1][col1]", "        )"];
+function build(){
+  var T=LV.trace();
+  var M=[[3,0,1,4],[5,6,3,2],[1,2,0,1],[4,1,0,1]];
+  var m=4,n=4;
+  var P=[]; for(var r=0;r<=m;r++){ P.push(new Array(n+1).fill(0)); }
+  function PV(marks,note){ return LV.grid('prefix — prefix[r+1][c+1] = sum of the rectangle from (0,0) to (r,c)', P, marks||{}, {head:true, note:note||''}); }
+  function MV(marks){ return LV.grid('matrix', M, marks||{}, {head:true}); }
+  function VA(r,c){ return r==null?[]:['r = <b>'+r+'</b>','c = <i>'+c+'</i>']; }
+
+  T.step(7,'info','The prefix table is (m+1) × (n+1), one bigger in each direction. That border of zeros is the trick that removes every "am I on the first row?" branch — the same reason we use dummy nodes in linked lists.',[],[MV(),PV()]);
+  for(var r=0;r<m;r++){
+    for(var c=0;c<n;c++){
+      var above=P[r][c+1], leftv=P[r+1][c], diag=P[r][c];
+      P[r+1][c+1]=M[r][c]+above+leftv-diag;
+      var pm={}; pm[(r+1)+','+(c+1)]='hot'; pm[r+','+(c+1)]='win'; pm[(r+1)+','+c]='win'; pm[r+','+c]='bad';
+      var mm={}; mm[r+','+c]='hot';
+      T.step(11, (r===0&&c===0)?'info':'push','prefix['+(r+1)+']['+(c+1)+'] = matrix['+r+']['+c+'] ('+M[r][c]+') + above ('+above+') + left ('+leftv+') − diagonal ('+diag+') = <b>'+P[r+1][c+1]+'</b>. '+((r===0&&c===0)?'Inclusion–exclusion: the block above and the block to the left both contain the top-left corner region, so it has been added twice and must be subtracted once.':''),VA(r,c),[MV(mm),PV(pm)]);
+    }
+  }
+  T.step(16,'ok','Table built in O(m·n). Every query from now on is O(1) — that asymmetry is the entire point of the data structure.',[],[MV(),PV()]);
+
+  [[2,1,3,3],[1,1,2,2],[1,2,2,3]].forEach(function(q){
+    var r1=q[0],c1=q[1],r2=q[2],c2=q[3];
+    var mm={}; for(var r=r1;r<=r2;r++) for(var c=c1;c<=c2;c++) mm[r+','+c]='win';
+    var pm={}; pm[(r2+1)+','+(c2+1)]='good'; pm[r1+','+(c2+1)]='bad'; pm[(r2+1)+','+c1]='bad'; pm[r1+','+c1]='warn';
+    var A=P[r2+1][c2+1], B=P[r1][c2+1], C=P[r2+1][c1], D=P[r1][c1];
+    var ans=A-B-C+D;
+    T.step(19,'call','<b>sumRegion('+r1+', '+c1+', '+r2+', '+c2+')</b> — the blue block in the matrix.',['query'],[MV(mm),PV(pm)]);
+    T.step(20,'found','big rectangle ('+A+') − strip above ('+B+') − strip left ('+C+') + overlap added back ('+D+') = <b>'+ans+'</b>. Four array reads, no loop.',['answer = <u>'+ans+'</u>'],[MV(mm),PV(pm)]);
+    T.save('sumRegion('+r1+','+c1+','+r2+','+c2+') = '+ans);
+  });
+  T.step(24,'done','Build once in O(mn), then answer any number of queries in O(1) each. The naive per-query loop would be O(mn) every time.',[],[MV(),PV()]);
+  return T;
+}
+LV.render({
+  num:'304', name:'Range Sum Query 2D — Immutable', slug:'0304-range-sum-query-2d-immutable',
+  difficulty:'Medium', pattern:'2D prefix sum · inclusion–exclusion',
+  url:'https://leetcode.com/problems/range-sum-query-2d-immutable',
+  blurb:'Prefix sums in two dimensions. Both the build and the query are inclusion–exclusion — add two overlapping regions, subtract the double-counted overlap — and the padded border makes every index safe.',
+  input:'a 4×4 matrix, then three sumRegion queries', runName:'NumMatrix',
+  skipLabel:'Skip to next query', skipTypes:['found'], emptyResult:'no queries yet',
+  src:SRC, build:build,
+  complexity:{time:'O(m·n) to build, <b>O(1) per query</b>', space:'O(m·n)'},
+  theory:{
+    idea:'A prefix table stores, at every cell, the sum of everything above and to the left of it. Any rectangle is then four reads: the big corner, minus the strip above, minus the strip to the left, plus the corner region you just subtracted twice. That last <code>+</code> is <b>inclusion–exclusion</b>, and it is the only part people get wrong.',
+    recognize:[
+      '<b>Many queries, immutable data.</b> That combination always means "precompute". The word "Immutable" in the title is a direct hint.',
+      '"Sum / count over a range" repeated many times.',
+      'If the data <em>changes</em>, prefix sums die and you need a Fenwick tree or segment tree — that is LC 308.'
+    ],
+    pitfalls:[
+      '<b>Not padding the table.</b> Without the extra row and column you need <code>if r &gt; 0</code> guards in four places. The +1 border costs one row of memory and removes them all.',
+      '<b>Sign errors.</b> Build is <code>+cell +above +left −diag</code>; query is <code>+big −above −left +corner</code>. Draw the four rectangles once and you will never mix them up.',
+      '<b>Off-by-one between matrix and prefix coordinates.</b> <code>prefix[r+1][c+1]</code> corresponds to <code>matrix[r][c]</code>. Keeping that one line of translation explicit in your head is most of the battle.',
+      '<b>Recomputing the table on each query.</b> Defeats the entire purpose.'
+    ],
+    template: "# 2D prefix sum - pad by one so there are no boundary branches\nprefix = [[0] * (n + 1) for _ in range(m + 1)]\nfor r in range(m):\n    for c in range(n):\n        prefix[r+1][c+1] = (matrix[r][c]\n                            + prefix[r][c+1]     # everything above\n                            + prefix[r+1][c]     # everything left\n                            - prefix[r][c])      # counted twice -> remove once\n\ndef sumRegion(r1, c1, r2, c2):\n    return (prefix[r2+1][c2+1]\n            - prefix[r1][c2+1]                   # strip above\n            - prefix[r2+1][c1]                   # strip left\n            + prefix[r1][c1])                    # subtracted twice -> add back\n\n# 1D version, learn this first:  prefix[j+1] - prefix[i]\n",
+    variants:[
+      ['1D range sum','LC 303 — <code>prefix[j+1] - prefix[i]</code>. Learn this one first.'],
+      ['<b>Mutable</b> 2D range sum','LC 308 — 2D Fenwick tree, O(log m · log n) per update and query.'],
+      ['<b>Subarray Sum Equals K</b> (LC 560)','Prefix sums plus a hash map of counts — the same complement trick as Two Sum.'],
+      ['<b>Max Sum Rectangle ≤ K</b> (LC 363)','Fix a pair of columns, collapse to 1D, then a sorted-prefix search.'],
+      ['Count of range sums','LC 327 — prefix sums plus merge sort or a BIT.']
+    ],
+    thinking:'Prefix sums are the answer to "<b>many range queries over static data</b>", and the pattern generalises far beyond sums: prefix XOR, prefix max (via sparse tables), prefix counts of a character, prefix products (LC 238 in your repo). The general question to ask is: <em>can I precompute a value at every position such that any range answer is a cheap combination of two or four of them?</em> If the operation has an inverse — sum, XOR, product with no zeros — the answer is yes.'
+  }
+});
+
+</script>
+</body>
+</html>
