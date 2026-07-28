@@ -1,9 +1,9 @@
 # 3753. Total Waviness of Numbers in Range II
-> **Hard** &nbsp;·&nbsp; Digit DP · tight / started / carried context &nbsp;·&nbsp; family: **Dynamic programming**
+> **Hard** &nbsp;&middot;&nbsp; Digit DP · tight / started / carried context &nbsp;&middot;&nbsp; family: **Dynamic programming**
 
 The canonical digit DP, with one extra twist: the recursion returns a *pair* — how many numbers, and how much waviness — because a peak at this position adds 1 to every number below it.
 
-**▶ [Step through this solution line by line](../visualizations/3753-total-waviness-of-numbers-in-range-ii.html)** — 10 steps, traced on `num1 = 1, num2 = 132`.
+**▶ [Step through this solution line by line](./visualization.html)** — 10 steps, traced on `num1 = 1, num2 = 132`.
 
 | | |
 |---|---|
@@ -75,4 +75,4 @@ Digit DP is a **template with three slots**: tight, started, and context. Learn 
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/total-waviness-of-numbers-in-range-ii)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/total-waviness-of-numbers-in-range-ii)

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>344 - Reverse String</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def reverseString(self, s: List[str]) -> None:", "        \"\"\"", "        Do not return anything, modify s in-place instead.", "        \"\"\"", "", "        left = 0", "        right = len(s) -1", "", "        while left < right:", "            temp = s[left]", "            s[left] = s[right]", "            s[right] = temp", "            left += 1", "            right -=1"];
+function build(){
+  var T=LV.trace(), s=['h','e','l','l','o'], L=0, R=s.length-1;
+  function marks(){ var m={};
+    for(var x=0;x<s.length;x++){ if(x<L||x>R) m[x]='good'; else if(x===L||x===R) m[x]='hot'; else m[x]='dim'; }
+    return m; }
+  function ptr(){ var p={}; p[L]=(L===R?'left right':'left'); if(R!==L) p[R]='right'; return p; }
+  function V(n){ return [ LV.arr('s (modified in place) — green = already swapped', s, marks(), {ptrs:ptr(), note:n||''}) ]; }
+  function VA(){ return ['left = <b>'+L+'</b>','right = <i>'+R+'</i>','s = <u>"'+s.join('')+'"</u>']; }
+
+  T.step(7,'info','One pointer at each end. Each iteration swaps a pair and moves both inward, so the loop runs n/2 times.',VA(),V());
+  while(L<R){
+    T.step(10,'call','left ('+L+') &lt; right ('+R+') — there is still a pair to swap.',VA(),V());
+    T.step(11,'info','`temp = s[left]` saves "'+s[L]+'" before it gets overwritten. Skip this and you lose the value.',VA(),V());
+    var t=s[L]; s[L]=s[R]; s[R]=t;
+    T.step(13,'push','Swapped s['+L+'] and s['+R+'] → "'+s.join('')+'".',VA(),V());
+    L++; R--;
+    T.step(15,'pop','Move both pointers inward: left = '+L+', right = '+R+'.',VA(),V());
+  }
+  T.save('"'+s.join('')+'"');
+  T.step(10,'done','left is no longer &lt; right, so every pair has been handled. Result: <b>"'+s.join('')+'"</b>. Note the middle character of an odd-length string is never touched — it is already in the right place.',VA(),V('done'));
+  return T;
+}
+LV.render({
+  num:'344', name:'Reverse String', slug:'0344-reverse-string',
+  difficulty:'Easy', pattern:'Two pointers · converging',
+  url:'https://leetcode.com/problems/reverse-string',
+  blurb:'The smallest possible converging-two-pointer problem. Worth five minutes because the <em>shape</em> — start at both ends, swap, step inward — reappears in palindromes, rotations and in-place partitions.',
+  input:'s = ["h","e","l","l","o"]', runName:'reverseString',
+  skipLabel:null, emptyResult:'not reversed yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n) — n/2 swaps', space:'O(1) — in place, which is the entire point of the problem'},
+  theory:{
+    idea:'Converging pointers in their purest form. The problem is really testing one thing: do you understand that "in place" forbids allocating a second array, and do you know the three-line swap (or Python’s tuple swap) that makes it possible?',
+    recognize:[
+      'Explicit "modify in place / do not return anything / O(1) extra memory".',
+      'The operation is symmetric about the centre — reverse, palindrome check, mirror.',
+      'Anything you can phrase as "pair up element i with element n-1-i".'
+    ],
+    pitfalls:[
+      '<b>Returning <code>s[::-1]</code>.</b> That allocates a new list and rebinds a local name; the caller’s list is untouched, so the test fails even though the value looks right. <code>s[:] = s[::-1]</code> would work but sidesteps the exercise.',
+      '<b><code>while left &lt;= right</code>.</b> Harmless (it swaps the middle element with itself) but it signals you have not thought about the invariant.',
+      '<b>Overwriting before saving.</b> <code>s[left] = s[right]; s[right] = s[left]</code> destroys the value. In Python prefer <code>s[l], s[r] = s[r], s[l]</code>, which evaluates the right side first.'
+    ],
+    template: "# Converging pointers - reverse / palindrome / mirror\nleft, right = 0, len(a) - 1\nwhile left < right:\n    a[left], a[right] = a[right], a[left]   # or: compare, for palindromes\n    left += 1\n    right -= 1\n\n# Compose it: rotate an array right by k\n#   reverse(a, 0, n-1); reverse(a, 0, k-1); reverse(a, k, n-1)\n",
+    variants:[
+      ['Reverse only the vowels','LC 345 — same loop, advance each pointer past non-vowels first.'],
+      ['<b>Valid Palindrome</b> (LC 125)','Compare instead of swap, and skip non-alphanumerics.'],
+      ['Reverse words in a string','LC 151 — reverse the whole thing, then reverse each word. A classic two-stage trick.'],
+      ['Rotate array by k','LC 189 — reverse all, reverse the first k, reverse the rest. Same primitive three times.']
+    ],
+    thinking:'Do not skip easy problems like this one — mine them for <b>primitives</b>. "Reverse a range in place" is a primitive; once you own it, Rotate Array and Reverse Words become two-line compositions instead of new problems. A good habit: after solving anything easy, ask "what one-sentence operation did I just implement, and what harder problem is built out of it?"'
+  }
+});
+
+</script>
+</body>
+</html>

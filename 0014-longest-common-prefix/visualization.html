@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>14 - Longest Common Prefix</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution(object):", "    def longestCommonPrefix(self, strs):", "        \"\"\"", "        :type strs: List[str]", "        :rtype: str", "        \"\"\"", "        if not strs:", "            return \"\"", "", "        for i, char in enumerate(strs[0]):", "            for other_str in strs[1:]:", "                if i >= len(other_str) or other_str[i] != char:", "                    return strs[0][:i]", "        ", "        return strs[0]"];
+function build(){
+  var T=LV.trace(), strs=['flower','flow','flight'];
+  function V(i,j,bad){ var vs=[];
+    strs.forEach(function(s,k){ var m={};
+      s.split('').forEach(function(_,x){
+        if(x<i) m[x]='good';
+        else if(x===i) m[x]= (k===0||k===j) ? (bad&&k===j?'bad':'hot') : 'dim';
+        else m[x]='dim'; });
+      vs.push(LV.arr('strs['+k+'] = "'+s+'"', s.split(''), m, {idx:k===0}));
+    });
+    return vs; }
+  T.step(7,'info','Guard the empty list first.',['strs has <b>3</b> words'],V(0,null,false));
+  T.step(10,'info','The strategy: use strs[0] as the <b>candidate</b> and walk it character by character. For each position, check that every other word agrees. The answer can never be longer than the first word, which is what makes this bound the work.',[],V(0,null,false));
+  var ans=null;
+  outer:
+  for(var i=0;i<strs[0].length;i++){
+    var ch=strs[0][i];
+    T.step(10,'call','Position '+i+', candidate character "'+ch+'".',['i = <b>'+i+'</b>','char = <em>"'+ch+'"</em>'],V(i,null,false));
+    for(var j=1;j<strs.length;j++){
+      T.step(11,'info','Compare against strs['+j+'] = "'+strs[j]+'".',['i = <b>'+i+'</b>','j = <em>'+j+'</em>'],V(i,j,false));
+      if(i>=strs[j].length){
+        ans=strs[0].slice(0,i);
+        T.step(13,'found','strs['+j+'] is only '+strs[j].length+' characters long — it RAN OUT. That length check must come first, or the next comparison would index out of range. Return "'+ans+'".',['answer = <u>"'+ans+'"</u>'],V(i,j,true));
+        break outer;
+      }
+      if(strs[j][i]!==ch){
+        ans=strs[0].slice(0,i);
+        T.step(13,'found','strs['+j+']['+i+'] = "'+strs[j][i]+'" ≠ "'+ch+'". Mismatch — the common prefix ends here. Return "'+ans+'".',['answer = <u>"'+ans+'"</u>'],V(i,j,true));
+        break outer;
+      }
+      T.step(12,'ok','Match.',['i = <b>'+i+'</b>','j = <em>'+j+'</em>'],V(i,j,false));
+    }
+  }
+  if(ans===null){ ans=strs[0]; T.step(15,'found','Every character of strs[0] survived — the whole first word is the common prefix.',[],V(strs[0].length,null,false)); }
+  T.save('"'+ans+'"');
+  T.step(15,'done','Answer: <b>"'+ans+'"</b>. This is vertical scanning — O(total characters) worst case, but it exits at the FIRST disagreement, which in practice is very early.',['answer = <u>"'+ans+'"</u>'],V(ans.length,null,false));
+  return T;
+}
+LV.render({
+  num:'14', name:'Longest Common Prefix', slug:'0014-longest-common-prefix',
+  difficulty:'Easy', pattern:'Vertical scanning',
+  url:'https://leetcode.com/problems/longest-common-prefix',
+  blurb:'Vertical scanning: compare position 0 across all words, then position 1, and stop at the first disagreement. Better than the horizontal version because it exits early on the most common inputs.',
+  input:'strs = ["flower","flow","flight"]', runName:'longestCommonPrefix',
+  skipLabel:null, emptyResult:'no answer yet',
+  src:SRC, build:build,
+  complexity:{time:'O(S) worst case where S is the total number of characters; O(n · answer length) in practice', space:'O(1)'},
+  theory:{
+    idea:'Two ways to scan. <b>Horizontal:</b> fold the prefix across words one at a time (prefix = LCP(prefix, next)). <b>Vertical (this code):</b> fix a column and check it across every word. Vertical is better when the answer is short, because it stops after examining only <code>answer_length × n</code> characters instead of reading a long first word in full.',
+    recognize:[
+      '"Common prefix / suffix / shared start" across a collection.',
+      'The answer is bounded by the shortest string — a useful early observation, and it gives an O(n log n) binary-search variant.',
+      'If prefixes are queried repeatedly against a growing set, build a <b>trie</b> instead: the LCP is the path down to the first branching node.'
+    ],
+    pitfalls:[
+      '<b>Checking <code>other[i] != char</code> before the length check.</b> IndexError on "flow" at i = 4. The <code>or</code> short-circuits in the right order here — that ordering is the bug most people write.',
+      '<b>Empty input.</b> <code>strs[0]</code> would raise. Line 7 handles it.',
+      '<b>An empty string in the list.</b> The answer is "" immediately, and the length check catches it on the first iteration.',
+      '<b>Sorting the array and comparing only first and last.</b> Clever and correct (the extremes bound everything between) — but O(n log n · m) and worth mentioning only as a curiosity.'
+    ],
+    template: "# vertical scanning - exits at the first disagreement\nif not strs:\n    return \"\"\nfor i, ch in enumerate(strs[0]):\n    for other in strs[1:]:\n        if i >= len(other) or other[i] != ch:   # LENGTH CHECK FIRST\n            return strs[0][:i]\nreturn strs[0]\n\n# horizontal alternative: fold  prefix = lcp(prefix, word)  over the list\n# many queries over a growing set: build a trie instead\n",
+    variants:[
+      ['Longest common SUFFIX','Reverse everything and run the same code.'],
+      ['LCP of two strings only','A single while loop.'],
+      ['Many prefix queries over a set','Build a trie; the LCP is the path to the first node with more than one child.'],
+      ['<b>Longest common SUBSTRING</b> (not prefix)','A completely different problem — DP or suffix automaton.']
+    ],
+    thinking:'When you have a choice of scan direction, ask <b>which one exits earliest on realistic input</b>. Vertical scanning wins here because common prefixes are usually short. The same reasoning shows up everywhere: check the cheap disqualifying condition first, iterate over the smaller collection in a nested loop, and order your <code>or</code> conditions so the safe check short-circuits the dangerous one — which is literally what line 12 is doing.'
+  }
+});
+
+</script>
+</body>
+</html>

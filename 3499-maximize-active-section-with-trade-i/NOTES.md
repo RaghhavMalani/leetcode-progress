@@ -1,9 +1,9 @@
 # 3499. Maximize Active Section With Trade I
-> **Medium** &nbsp;·&nbsp; Run-length scan · pair of adjacent runs &nbsp;·&nbsp; family: **Prefix sums & intervals**
+> **Medium** &nbsp;&middot;&nbsp; Run-length scan · pair of adjacent runs &nbsp;&middot;&nbsp; family: **Prefix sums & intervals**
 
 Once you decode what the trade actually does — merge two zero-runs separated by one block of ones — the code is a single pass keeping the previous and current run lengths.
 
-**▶ [Step through this solution line by line](../visualizations/3499-maximize-active-section-with-trade-i.html)** — 15 steps, traced on `s = "1001010"`.
+**▶ [Step through this solution line by line](./visualization.html)** — 15 steps, traced on `s = "1001010"`.
 
 | | |
 |---|---|
@@ -61,4 +61,4 @@ For binary or categorical sequences, **compress to run-length encoding in your h
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/maximize-active-sections-with-trade-i)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/maximize-active-sections-with-trade-i)

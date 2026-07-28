@@ -1,9 +1,9 @@
 # 3739. Count Subarrays With Majority Element II
-> **Hard** &nbsp;·&nbsp; +1/−1 transform · prefix sums · Fenwick tree &nbsp;·&nbsp; family: **Prefix sums & intervals**
+> **Hard** &nbsp;&middot;&nbsp; +1/−1 transform · prefix sums · Fenwick tree &nbsp;&middot;&nbsp; family: **Prefix sums & intervals**
 
 Three techniques composed. Map target to +1 and everything else to −1; "majority" becomes "positive sum"; counting those becomes an inversion count, which a Fenwick tree does in O(n log n).
 
-**▶ [Step through this solution line by line](../visualizations/3739-count-subarrays-with-majority-element-ii.html)** — 16 steps, traced on `nums = [1,2,1,1], target = 1`.
+**▶ [Step through this solution line by line](./visualization.html)** — 16 steps, traced on `nums = [1,2,1,1], target = 1`.
 
 | | |
 |---|---|
@@ -70,4 +70,4 @@ This problem is a good model of how Hard problems are built: **a chain of three 
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/count-subarrays-with-majority-element-ii)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/count-subarrays-with-majority-element-ii)

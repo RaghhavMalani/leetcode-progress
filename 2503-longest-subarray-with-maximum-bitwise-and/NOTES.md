@@ -1,9 +1,9 @@
 # 2503. Longest Subarray With Maximum Bitwise AND
-> **Medium** &nbsp;·&nbsp; Observation-driven · monotone operation &nbsp;·&nbsp; family: **Greedy**
+> **Medium** &nbsp;&middot;&nbsp; Observation-driven · monotone operation &nbsp;&middot;&nbsp; family: **Greedy**
 
 A problem where the code is trivial once you notice one fact: AND never increases. That reduces the whole thing to "find the longest run of the maximum value".
 
-**▶ [Step through this solution line by line](../visualizations/2503-longest-subarray-with-maximum-bitwise-and.html)** — 21 steps, traced on `nums = [1,2,3,3,2,2]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 21 steps, traced on `nums = [1,2,3,3,2,2]`.
 
 | | |
 |---|---|
@@ -61,4 +61,4 @@ Before writing any loop, ask **"what is the best value that is even possible, an
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/longest-subarray-with-maximum-bitwise-and)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/longest-subarray-with-maximum-bitwise-and)

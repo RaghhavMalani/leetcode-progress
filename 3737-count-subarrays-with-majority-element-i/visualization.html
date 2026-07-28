@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3737 - Count Subarrays With Majority Element I</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def countMajoritySubarrays(self, nums: List[int], target: int) -> int:", "        n = len(nums)", "        ans = 0", "", "        for i in range(n):", "            target_count = 0", "", "            for j in range(i, n):", "                if nums[j] == target:", "                    target_count += 1", "", "                length = j - i + 1", "", "                if target_count > length // 2:", "                    ans += 1", "", "        return ans"];
+function build(){
+  var T=LV.trace(), a=[1,2,1,1], target=1, ans=0;
+  function V(i,j,cnt,hit){ var m={};
+    for(var x=0;x<a.length;x++){
+      if(x<i||x>j) m[x]='dim';
+      else m[x]= a[x]===target ? (hit?'good':'win') : 'bad';
+    }
+    return [ LV.arr('nums — blue/green = inside the window, green when it qualifies', a, m,
+      {note:'target = 1;  a subarray qualifies when count(target) > length // 2'}) ]; }
+  function VA(i,j,cnt){ return ['i = <b>'+i+'</b>','j = <i>'+j+'</i>','target_count = <em>'+cnt+'</em>','length = <em>'+(j-i+1)+'</em>','ans = <u>'+ans+'</u>']; }
+  T.step(4,'info','Brute force over all O(n²) subarrays. Crucially, the inner loop <b>reuses</b> the count from the previous j instead of recounting — that keeps it O(n²) rather than O(n³).',['ans = <u>0</u>'],V(null,null,0,false));
+  for(var i=0;i<a.length;i++){
+    var cnt=0;
+    T.step(7,'call','Fix the left end at i = '+i+' and reset target_count to 0.',VA(i,i,0),V(i,i,0,false));
+    for(var j=i;j<a.length;j++){
+      if(a[j]===target) cnt++;
+      T.step(11,'info','Extend to j = '+j+'. nums['+j+'] = '+a[j]+(a[j]===target?' — that is the target, so target_count → '+cnt:' — not the target'),VA(i,j,cnt),V(i,j,cnt,false));
+      var len=j-i+1;
+      var ok=cnt>Math.floor(len/2);
+      T.step(15, ok?'found':'bad','Length '+len+', target_count '+cnt+'. Majority needs count &gt; length // 2 = '+Math.floor(len/2)+' → <b>'+(ok?'yes':'no')+'</b>.',VA(i,j,cnt),V(i,j,cnt,ok));
+      if(ok){ ans++; T.save('['+i+'..'+j+'] = ['+a.slice(i,j+1).join(',')+']'); }
+    }
+  }
+  T.step(18,'done','Answer: <b>'+ans+'</b> subarrays. This is the O(n²) version, which the "I" in the title licenses. See the notes for the O(n log n) technique that Part II demands.',['ans = <u>'+ans+'</u>'],V(null,null,0,false));
+  return T;
+}
+LV.render({
+  num:'3737', name:'Count Subarrays With Majority Element I', slug:'3737-count-subarrays-with-majority-element-i',
+  difficulty:'Medium', pattern:'Brute force with incremental state',
+  url:'https://leetcode.com/problems/count-subarrays-with-majority-element-i',
+  blurb:'The intended O(n²) solution — but note the one detail that makes it O(n²) and not O(n³): the count is carried forward as <code>j</code> advances instead of being recomputed.',
+  input:'nums = [1,2,1,1], target = 1', runName:'countMajoritySubarrays',
+  skipLabel:'Skip to next qualifying subarray', skipTypes:['found'], emptyResult:'no subarrays yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n²)', space:'O(1)'},
+  theory:{
+    idea:'Even when brute force is the intended answer, structure it so that extending the window is <b>O(1)</b>, not O(length). That single discipline is the difference between O(n²) and O(n³), and it is also the seed of every sliding-window and prefix-sum optimisation.',
+    recognize:[
+      'Small constraints (n ≤ 1000ish) explicitly permitting the quadratic answer — and a "Part II" with bigger constraints that does not.',
+      '"Majority" means strictly more than half: <code>count &gt; length // 2</code>. Note that with <code>//</code> this is correct for both odd and even lengths.',
+      'The reframing that unlocks Part II: map target → +1 and everything else → −1. Then "majority" becomes "the sum of the subarray is positive".'
+    ],
+    pitfalls:[
+      '<b>Recounting the target inside the inner loop.</b> O(n³) and it will time out even here.',
+      '<b><code>count &gt;= length / 2</code>.</b> Majority is strict, and float division introduces its own problems. Use <code>count * 2 &gt; length</code> to avoid both issues.',
+      '<b>Forgetting to reset <code>target_count</code></b> when <code>i</code> advances.',
+      '<b>Confusing this with Boyer–Moore majority vote.</b> That finds the majority of the WHOLE array; here you need per-subarray counts.'
+    ],
+    template: "# O(n^2) done right: carry the count, do not recompute it\nans = 0\nfor i in range(n):\n    cnt = 0\n    for j in range(i, n):\n        cnt += (nums[j] == target)          # O(1) extension\n        if cnt * 2 > (j - i + 1):           # strict majority, no float division\n            ans += 1\nreturn ans\n\n# for n up to 1e5 (part II): map target -> +1, others -> -1.\n# \"majority\" becomes \"prefix[j+1] > prefix[i]\", then count inversions\n# with a Fenwick tree or merge sort in O(n log n).\n",
+    variants:[
+      ['<b>Part II</b> (LC 3739)','Same question, n up to 10⁵. Use the +1/−1 transform, then count pairs of prefix sums with p[j] &gt; p[i] using a Fenwick tree or merge sort. Also in your repo.'],
+      ['<b>Majority Element</b> (LC 169)','Boyer–Moore vote, O(n) time and O(1) space.'],
+      ['Count subarrays with sum &gt; 0','Exactly what the transform reduces this to.'],
+      ['Count subarrays with sum equal to k','LC 560 — prefix sums plus a hash map.']
+    ],
+    thinking:'Two lessons. First: <b>make brute force incremental</b> — carrying state as the window grows is free and usually saves a whole factor of n. Second, and more valuable: learn the <b>+1/−1 transform</b>. "More X than Y in this range" becomes "positive sum in this range", which converts a counting problem into a prefix-sum problem and opens the door to hash maps, BITs and merge sort. That transform is the entire content of Part II, and it recurs constantly.'
+  }
+});
+
+</script>
+</body>
+</html>

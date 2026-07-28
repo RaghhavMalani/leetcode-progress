@@ -1,9 +1,9 @@
 # 3534. Path Existence Queries in a Graph II
-> **Hard** &nbsp;·&nbsp; Sort + greedy farthest + binary lifting &nbsp;·&nbsp; family: **Graphs, BFS & DFS**
+> **Hard** &nbsp;&middot;&nbsp; Sort + greedy farthest + binary lifting &nbsp;&middot;&nbsp; family: **Graphs, BFS & DFS**
 
 Part I asked "are they connected?" and a component label answered it. Part II asks "how far apart?", and that needs a jump table — the same doubling trick used for lowest common ancestor.
 
-**▶ [Step through this solution line by line](../visualizations/3534-path-existence-queries-in-a-graph-ii.html)** — 15 steps, traced on `nums = [1,8,3,10], maxDiff = 3, queries`.
+**▶ [Step through this solution line by line](./visualization.html)** — 15 steps, traced on `nums = [1,8,3,10], maxDiff = 3, queries`.
 
 | | |
 |---|---|
@@ -70,4 +70,4 @@ return dist + 1
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/path-existence-queries-in-a-graph-ii)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/path-existence-queries-in-a-graph-ii)

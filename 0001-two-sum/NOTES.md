@@ -1,9 +1,9 @@
 # 1. Two Sum
-> **Easy** &nbsp;·&nbsp; Hash map · complement lookup &nbsp;·&nbsp; family: **Hashing**
+> **Easy** &nbsp;&middot;&nbsp; Hash map · complement lookup &nbsp;&middot;&nbsp; family: **Hashing**
 
 The foundational hash-map trade: spend O(n) memory to turn an O(n) search into an O(1) lookup. Note the ordering — check the hash *before* inserting, which is what prevents an element pairing with itself.
 
-**▶ [Step through this solution line by line](../visualizations/0001-two-sum.html)** — 9 steps, traced on `nums = [2,7,11,15], target = 9`.
+**▶ [Step through this solution line by line](./visualization.html)** — 9 steps, traced on `nums = [2,7,11,15], target = 9`.
 
 | | |
 |---|---|
@@ -61,4 +61,4 @@ Whenever you catch yourself writing a nested loop that searches for a partner, s
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/two-sum)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/two-sum)

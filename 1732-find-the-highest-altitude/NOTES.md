@@ -1,9 +1,9 @@
 # 1732. Find the Highest Altitude
-> **Easy** &nbsp;·&nbsp; Prefix sum · running maximum &nbsp;·&nbsp; family: **Prefix sums & intervals**
+> **Easy** &nbsp;&middot;&nbsp; Prefix sum · running maximum &nbsp;&middot;&nbsp; family: **Prefix sums & intervals**
 
 A prefix sum with a running max, in four lines. The one thing to notice is that `max_altitude` must start at 0 — the starting point counts as a candidate.
 
-**▶ [Step through this solution line by line](../visualizations/1732-find-the-highest-altitude.html)** — 12 steps, traced on `gain = [-5,1,5,0,-7]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 12 steps, traced on `gain = [-5,1,5,0,-7]`.
 
 | | |
 |---|---|
@@ -55,4 +55,4 @@ Add "prefix sum ↔ difference array" to your list of **reversible transforms**.
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/find-the-highest-altitude)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/find-the-highest-altitude)

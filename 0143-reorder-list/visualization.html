@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>143 - Reorder List</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["# Definition for singly-linked list.", "# class ListNode:", "#     def __init__(self, val=0, next=None):", "#         self.val = val", "#         self.next = next", "class Solution:", "    def reorderList(self, head: Optional[ListNode]) -> None:", "        \"\"\"", "        Do not return anything, modify head in-place instead.", "        \"\"\"", "        ", "        slow, fast = head, head", "        while fast and fast.next:", "            slow = slow.next", "            fast = fast.next.next", "", "        second = slow.next", "        slow.next = None", "        prev = None", "", "        while second:", "            nxt = second.next", "            second.next = prev", "            prev = second", "            second = nxt", "", "        first,second = head, prev", "        while second:", "            nxt1 = first.next", "            nxt2 = second.next", "", "            first.next = second", "            second.next = nxt1", "", "            first,second = nxt1, nxt2"];
+function build(){
+  var T=LV.trace();
+  var A=[1,2,3,4], first=[1,2], second=[4,3], out=[];
+  function N(a,hot){ return a.map(function(v,i){ return {v:v,id:'z'+v,cls:(i===0&&hot)?'hot':''}; }); }
+  function VA(l){ return l; }
+
+  // ---- phase 1: find the middle
+  var slow=0,fast=0, v=[1,2,3,4];
+  function P1(){ var t={}; t[slow]=(t[slow]?t[slow]+' ':'')+'slow'; if(fast<v.length) t[fast]=(t[fast]?t[fast]+' ':'')+'fast';
+    var m={}; m[slow]='hot'; if(fast<v.length) m[fast]='warn';
+    return [ LV.arr('list — phase 1: find the middle', v, m, {ptrs:t}) ]; }
+  T.step(12,'info','Three phases, each a primitive you already know. <b>Phase 1:</b> fast/slow to find the middle. <b>Phase 2:</b> reverse the second half. <b>Phase 3:</b> weave the two halves together.',['phase <b>1</b> of 3'],P1());
+  while(fast<v.length && fast+1<v.length){
+    slow++; fast+=2;
+    T.step(14,'push','slow → node '+v[slow]+', fast → '+(fast<v.length?'node '+v[fast]:'None')+'.',['phase <b>1</b>','slow at <em>'+v[slow]+'</em>'],P1());
+  }
+  T.step(13,'ok','fast ran off. slow is on node '+v[slow]+' — the end of the FIRST half.',['phase <b>1</b> done'],P1());
+
+  // ---- phase 2
+  var rem=[3,4], rev=[];
+  function P2(){ return [ LV.ll('first half (cut off)', N([1,2],false), {}, {nullTail:true}),
+                          LV.ll('still to reverse  (second →)', N(rem,true), {}, {}),
+                          LV.ll('reversed so far  (prev →)', N(rev,false), {}, {}) ]; }
+  T.step(17,'info','`second = slow.next` grabs node 3, the start of the back half.',['phase <b>2</b> of 3'],P2());
+  T.step(18,'ok','`slow.next = None` CUTS the list in two. Skip this and the interleave in phase 3 builds a cycle — the single nastiest bug in this problem.',['phase <b>2</b>'],P2());
+  while(rem.length){
+    T.step(22,'info','`nxt = second.next` saves '+(rem.length>1?'node '+rem[1]:'None')+' before we overwrite the pointer.',['phase <b>2</b>'],P2());
+    var m=rem.shift(); rev.unshift(m);
+    T.step(23,'push','Flip node '+m+'’s arrow backwards. Reversed part is now '+rev.join('→')+'.',['phase <b>2</b>'],P2());
+  }
+  T.step(21,'ok','Second half reversed: <b>'+rev.join(' → ')+'</b>. `prev` is its head.',['phase <b>2</b> done'],P2());
+
+  // ---- phase 3
+  var f=[1,2], s=[4,3];
+  function P3(){ return [ LV.ll('first  (→)', N(f,true), {}, {}),
+                          LV.ll('second (reversed, →)', N(s,true), {}, {}),
+                          LV.ll('woven result', N(out,false), {}, {}) ]; }
+  T.step(27,'info','`first = head` (1 → 2), `second = prev` (4 → 3). Now alternate between them.',['phase <b>3</b> of 3'],P3());
+  while(s.length){
+    T.step(29,'info','Save both successors first — `nxt1` and `nxt2` — because the next two lines destroy both pointers.',['phase <b>3</b>'],P3());
+    var a=f.shift(); out.push(a);
+    T.step(32,'push','`first.next = second` — node '+a+' now points at node '+s[0]+'.',['phase <b>3</b>'],P3());
+    var b=s.shift(); out.push(b);
+    T.step(33,'push','`second.next = nxt1` — node '+b+' now points at '+(f.length?'node '+f[0]:'None')+'.',['phase <b>3</b>'],P3());
+    T.save(out.join(' → '));
+    T.step(35,'ok','Advance both to their saved successors.',['phase <b>3</b>'],P3());
+  }
+  T.step(28,'done','second is None — the weave is complete. Final list: <b>'+out.join(' → ')+'</b>. Three linear phases, O(n) time, O(1) space.',['done'],P3());
+  return T;
+}
+LV.render({
+  num:'143', name:'Reorder List', slug:'0143-reorder-list',
+  difficulty:'Medium', pattern:'Linked list · compose three primitives',
+  url:'https://leetcode.com/problems/reorder-list',
+  blurb:'Not one algorithm but three you already know, in sequence: find the middle, reverse the back half, interleave. The single most important line is <code>slow.next = None</code>.',
+  input:'head = [1,2,3,4]', runName:'reorderList',
+  skipLabel:null, emptyResult:'nothing woven yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n) — three linear passes', space:'O(1)'},
+  theory:{
+    idea:'This is a <b>composition</b> problem. Interviewers use it to check whether your primitives are solid enough to be used as building blocks without re-deriving them. If reversing a list is still something you have to think about, you will run out of working memory here.',
+    recognize:[
+      'The target order pairs the first element with the last, second with second-last, and so on. Any time indices pair up as i with n−1−i in a structure with no random access, "reverse the second half" is the move.',
+      'Same decomposition solves palindrome-linked-list (LC 234) and is half of sort-list (LC 148).',
+      'The O(1) space demand is what rules out the easy answer of dumping everything into an array.'
+    ],
+    pitfalls:[
+      '<b>Forgetting <code>slow.next = None</code>.</b> The two halves stay joined, the weave creates a cycle, and your test hangs instead of failing. Worst possible failure mode.',
+      '<b>Interleaving with the wrong loop condition.</b> <code>while second</code> is right for this split; <code>while first and second</code> can leave a stray link. Test on both n = 4 and n = 5.',
+      '<b>Not saving both successors in phase 3.</b> You overwrite <code>first.next</code> and then need it. Two temporaries, no shortcuts.',
+      '<b>Using an array of nodes.</b> O(n) space, and it makes the problem trivial — which is exactly why the constraint exists.'
+    ],
+    template: "# Reorder = middle + reverse + weave\nslow = fast = head                       # 1. middle\nwhile fast and fast.next:\n    slow, fast = slow.next, fast.next.next\n\nsecond, slow.next = slow.next, None      # CUT. do not skip this.\n\nprev = None                              # 2. reverse the back half\nwhile second:\n    second.next, prev, second = prev, second, second.next\n\nfirst, second = head, prev               # 3. weave\nwhile second:\n    n1, n2 = first.next, second.next\n    first.next, second.next = second, n1\n    first, second = n1, n2\n",
+    variants:[
+      ['<b>Palindrome Linked List</b> (LC 234)','Middle, reverse, then compare instead of weave.'],
+      ['<b>Sort List</b> (LC 148)','Middle to split, recurse on both, merge.'],
+      ['Reorder an array','Trivial with two indices — the difficulty here is entirely the lack of random access.'],
+      ['Reverse in k-groups','LC 25 — the reversal primitive applied repeatedly. The hardest in the family.']
+    ],
+    thinking:'When a list problem looks intimidating, try to <b>write the solution as three sentences before writing any code</b>. Here: "cut it in half; reverse the back; zip them." If you can say it in sentences and each sentence is a primitive you own, the code is mechanical. If a sentence is not a primitive yet, that is the sub-problem to go and drill. This decomposition habit is what separates people who solve Mediums reliably from people who solve them when they happen to have seen the trick.'
+  }
+});
+
+</script>
+</body>
+</html>

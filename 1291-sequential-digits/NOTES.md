@@ -1,9 +1,9 @@
 # 1291. Sequential Digits
-> **Medium** &nbsp;·&nbsp; Generate the small candidate set, then filter &nbsp;·&nbsp; family: **Greedy**
+> **Medium** &nbsp;&middot;&nbsp; Generate the small candidate set, then filter &nbsp;&middot;&nbsp; family: **Greedy**
 
 The whole problem is realising there are only 36 sequential-digit numbers in existence. Generate all of them from the string "123456789" and filter — the range never enters the loop.
 
-**▶ [Step through this solution line by line](../visualizations/1291-sequential-digits.html)** — 45 steps, traced on `low = 100, high = 300`.
+**▶ [Step through this solution line by line](./visualization.html)** — 45 steps, traced on `low = 100, high = 300`.
 
 | | |
 |---|---|
@@ -59,4 +59,4 @@ When a problem gives a wide range and a narrow property, always ask **"how many 
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/sequential-digits)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/sequential-digits)

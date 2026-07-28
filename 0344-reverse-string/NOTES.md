@@ -1,9 +1,9 @@
 # 344. Reverse String
-> **Easy** &nbsp;·&nbsp; Two pointers · converging &nbsp;·&nbsp; family: **Two pointers & sliding window**
+> **Easy** &nbsp;&middot;&nbsp; Two pointers · converging &nbsp;&middot;&nbsp; family: **Two pointers & sliding window**
 
 The smallest possible converging-two-pointer problem. Worth five minutes because the *shape* — start at both ends, swap, step inward — reappears in palindromes, rotations and in-place partitions.
 
-**▶ [Step through this solution line by line](../visualizations/0344-reverse-string.html)** — 10 steps, traced on `s = ["h","e","l","l","o"]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 10 steps, traced on `s = ["h","e","l","l","o"]`.
 
 | | |
 |---|---|
@@ -55,4 +55,4 @@ Do not skip easy problems like this one — mine them for **primitives**. "Rever
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/reverse-string)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/reverse-string)

@@ -1,9 +1,9 @@
 # 1288. Remove Covered Intervals
-> **Medium** &nbsp;·&nbsp; Intervals · sort key does the work &nbsp;·&nbsp; family: **Prefix sums & intervals**
+> **Medium** &nbsp;&middot;&nbsp; Intervals · sort key does the work &nbsp;&middot;&nbsp; family: **Prefix sums & intervals**
 
 A five-line loop that is only correct because of one sort key. `(x[0], -x[1])` — start ascending, **end descending** — is the entire algorithm; everything after it is a running maximum.
 
-**▶ [Step through this solution line by line](../visualizations/1288-remove-covered-intervals.html)** — 9 steps, traced on `intervals = [[1,4],[3,6],[2,8]]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 9 steps, traced on `intervals = [[1,4],[3,6],[2,8]]`.
 
 | | |
 |---|---|
@@ -59,4 +59,4 @@ When a problem involves two dimensions and a "dominates / contains / fits inside
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/remove-covered-intervals)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/remove-covered-intervals)

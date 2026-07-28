@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3513 - Number of Unique XOR Triplets I</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def uniqueXorTriplets(self, nums: List[int]) -> int:", "        n = len(nums)", "", "        if n <= 2:", "            return n", "", "        return 1 << n.bit_length()"];
+function build(){
+  var T=LV.trace(), n=4;
+  function bits(x,w){ var s=(x>>>0).toString(2); while(s.length<(w||3)) s='0'+s; return s.split(''); }
+  T.step(3,'info','The input is a PERMUTATION of 1..n — the problem guarantees it. So the multiset of values is fully determined by n, and the actual array order is irrelevant. That is the observation the whole solution rests on.',['n = <b>4</b>','nums = [1,2,3,4] in some order'],
+    [LV.arr('nums (any permutation of 1..4)', [1,2,3,4], {}, {})]);
+  T.step(5,'info','Tiny cases first: with n ≤ 2 there are not enough elements to form three distinct-index picks in the general way, and the answer is just n.',['n = <b>4</b>'],[LV.arr('nums',[1,2,3,4],{},{})]);
+  var bl=(4).toString(2).length;
+  T.step(7,'info','For n ≥ 3 the answer is <b>2^(bit_length(n))</b>. bit_length(4) = '+bl+', so the answer is 1 &lt;&lt; '+bl+' = <b>'+(1<<bl)+'</b>.',['bit_length(4) = <b>'+bl+'</b>'],
+    [LV.arr('4 in binary', bits(4), {}, {idx:false, note:'3 bits, so every value 0..7 is reachable — that is 2³ = 8'})]);
+  T.step(7,'found','Why: with 1..n available and three free picks, the XOR of a triplet can reach <b>every</b> value from 0 up to (2^bits − 1). 0 is reachable (x ^ x ^ x = x… and with repeats allowed you can cancel), and any target below 2^bits can be assembled because the small numbers give you every individual bit.',['answer = <u>'+(1<<bl)+'</u>'],
+    [LV.arr('every reachable XOR value', [0,1,2,3,4,5,6,7], (function(){ var m={}; for(var i=0;i<8;i++) m[i]='good'; return m; })(), {idx:false})]);
+  T.save('2^'+bl+' = '+(1<<bl));
+  T.step(7,'done','Answer: <b>'+(1<<bl)+'</b>. O(1) — no enumeration of the O(n³) triplets at all.',['answer = <u>'+(1<<bl)+'</u>'],[LV.arr('nums',[1,2,3,4],{},{})]);
+  return T;
+}
+LV.render({
+  num:'3513', name:'Number of Unique XOR Triplets I', slug:'3513-number-of-unique-xor-triplets-i',
+  difficulty:'Medium', pattern:'Bit reasoning · closed form',
+  url:'https://leetcode.com/problems/number-of-unique-xor-triplets-i',
+  blurb:'One line, O(1). The whole problem is the promise hidden in the statement: <em>nums is a permutation of 1..n</em>, which means the answer depends only on n.',
+  input:'nums = a permutation of [1,2,3,4]', runName:'uniqueXorTriplets',
+  skipLabel:null, emptyResult:'no answer yet',
+  src:SRC, build:build,
+  complexity:{time:'O(1)', space:'O(1)'},
+  theory:{
+    idea:'When the input is promised to be a <b>permutation of 1..n</b>, the array carries no information beyond n. Every question about its multiset therefore has an answer that is a function of n alone — and the job becomes proving what that function is, not writing a loop.',
+    recognize:[
+      'The phrase "nums is a permutation of [1, n]" or "contains each of 1..n exactly once". Highlight it; it is never decorative.',
+      'XOR reachability arguments: with the numbers 1..n you can produce every value in [0, 2^bits(n)), because each power of two below n is available and XOR lets you combine them freely.',
+      'A brute force of O(n³) with n up to 10⁵ — the gap between that and the constraints tells you a closed form is expected.'
+    ],
+    pitfalls:[
+      '<b>Enumerating triplets.</b> O(n³) times out immediately.',
+      '<b>Off-by-one in <code>bit_length</code>.</b> <code>(4).bit_length()</code> is 3, and <code>1 &lt;&lt; 3</code> = 8. Check n = 3 (bit_length 2 → 4) and n = 4 by hand.',
+      '<b>Missing the n ≤ 2 guard.</b> The reachability argument needs at least three elements to work as stated.',
+      '<b>Assuming the array order matters.</b> It never does when the input is a permutation of a fixed range.'
+    ],
+    template: "# the input is a PERMUTATION of 1..n, so only n matters\nif n <= 2:\n    return n\nreturn 1 << n.bit_length()      # every XOR value in [0, 2^bits) is reachable\n\n# arbitrary array (part II)? no closed form:\n#   pair_xors = {a ^ b for a in nums for b in nums}      # O(n^2)\n#   answer    = len({p ^ c for p in pair_xors for c in nums})\n",
+    variants:[
+      ['<b>Part II</b> (LC 3514)','The array is arbitrary, so the closed form dies. You compute the set of pairwise XORs first, then XOR each with every element — O(n² + n·maxValue/64) with bitsets.'],
+      ['Unique XOR of PAIRS','Same style of reasoning, one order lower.'],
+      ['Maximum XOR of two numbers (LC 421)','A binary trie, built bit by bit from the top.'],
+      ['Count subarrays with XOR = k','Prefix XOR plus a hash map — the Two Sum trick again.']
+    ],
+    thinking:'Read constraints as <b>information</b>, not just as size limits. "A permutation of 1..n", "all values distinct", "values ≤ 100", "the array is sorted" — each of these hands you a structural fact that can collapse the problem. When the stated brute force is wildly beyond the constraints, the intended solution is usually not a cleverer search but a proof that the answer has a closed form. Ask "what could the answer possibly depend on?" before you ask "how do I compute it faster?"'
+  }
+});
+
+</script>
+</body>
+</html>

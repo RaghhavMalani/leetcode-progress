@@ -1,9 +1,9 @@
 # 219. Contains Duplicate II
-> **Easy** &nbsp;·&nbsp; Sliding window · fixed size &nbsp;·&nbsp; family: **Two pointers & sliding window**
+> **Easy** &nbsp;&middot;&nbsp; Sliding window · fixed size &nbsp;&middot;&nbsp; family: **Two pointers & sliding window**
 
 A fixed-size window instead of a variable one — no `while` loop, just "add one, drop one". The trick is realising that "indices at most k apart" IS a window of size k+1.
 
-**▶ [Step through this solution line by line](../visualizations/0219-contains-duplicate-ii.html)** — 20 steps, traced on `nums = [1,2,3,1,2,3], k = 2`.
+**▶ [Step through this solution line by line](./visualization.html)** — 20 steps, traced on `nums = [1,2,3,1,2,3], k = 2`.
 
 | | |
 |---|---|
@@ -56,4 +56,4 @@ When a problem constrains **index distance**, translate it immediately into a wi
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/contains-duplicate-ii)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/contains-duplicate-ii)

@@ -1,9 +1,9 @@
 # 1081. Smallest Subsequence of Distinct Characters
-> **Medium** &nbsp;·&nbsp; Monotonic stack · greedy with a safety check &nbsp;·&nbsp; family: **Stacks & monotonic stacks**
+> **Medium** &nbsp;&middot;&nbsp; Monotonic stack · greedy with a safety check &nbsp;&middot;&nbsp; family: **Stacks & monotonic stacks**
 
 A monotonic stack with one extra condition. Popping a bigger character is only safe if it *reappears later* — the `last` array is what makes the greedy legal.
 
-**▶ [Step through this solution line by line](../visualizations/1081-smallest-subsequence-of-distinct-characters.html)** — 20 steps, traced on `s = "cbacdcbc"`.
+**▶ [Step through this solution line by line](./visualization.html)** — 20 steps, traced on `s = "cbacdcbc"`.
 
 | | |
 |---|---|
@@ -62,4 +62,4 @@ Greedy plus a feasibility check is a recurring shape: **"take the locally best a
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/smallest-subsequence-of-distinct-characters)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/smallest-subsequence-of-distinct-characters)

@@ -1,9 +1,9 @@
 # 3336. Find the Number of Subsequences With Equal GCD
-> **Hard** &nbsp;·&nbsp; DP over a bounded state (gcd × gcd) &nbsp;·&nbsp; family: **Dynamic programming**
+> **Hard** &nbsp;&middot;&nbsp; DP over a bounded state (gcd × gcd) &nbsp;&middot;&nbsp; family: **Dynamic programming**
 
 The state is a *pair of gcds*, not a pair of subsets. Because every gcd of the input divides some value ≤ 200, the state space is only 201×201 — that bound is what makes an exponential problem polynomial.
 
-**▶ [Step through this solution line by line](../visualizations/3336-find-the-number-of-subsequences-with-equal-gcd.html)** — 51 steps, traced on `nums = [1,2,3]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 51 steps, traced on `nums = [1,2,3]`.
 
 | | |
 |---|---|
@@ -64,4 +64,4 @@ The single most useful question in DP design is **"what is the smallest piece of
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/find-the-number-of-subsequences-with-equal-gcd)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/find-the-number-of-subsequences-with-equal-gcd)

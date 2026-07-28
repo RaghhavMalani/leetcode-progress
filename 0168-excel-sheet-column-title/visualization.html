@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>168 - Excel Sheet Column Title</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def convertToTitle(self, columnNumber: int) -> str:", "        res = \"\"", "        while (columnNumber > 0):", "            offset = (columnNumber - 1) % 26", "            res += chr(ord(\"A\") + offset)", "            columnNumber = (columnNumber - 1) // 26", "        return res[::-1]"];
+function build(){
+  var T=LV.trace(), col=701, res='';
+  function V(off){ return [
+    LV.kv('state', [['columnNumber',col],['res so far','"'+res+'"'], off!=null?['offset',off]:['','']].filter(function(p){return p[0];}), {'columnNumber':'hot'}, {}),
+    LV.arr('res (built backwards, reversed at the end)', res.split(''), {}, {idx:false, emptyText:'empty'}) ]; }
+  function VA(){ return ['columnNumber = <b>'+col+'</b>','res = <u>"'+res+'"</u>']; }
+
+  T.step(3,'info','This is base-26 conversion with one twist: the digits run <b>1..26 (A..Z), not 0..25</b>. There is no "zero digit", so 26 is "Z" rather than "A0". Every <code>−1</code> in this code exists to shift that 1-based alphabet into 0-based arithmetic.',VA(),V(null));
+  while(col>0){
+    T.step(4,'call','columnNumber = '+col+' &gt; 0, so there is at least one more letter.',VA(),V(null));
+    var off=(col-1)%26;
+    T.step(5,'info','offset = (columnNumber − 1) % 26 = ('+col+' − 1) % 26 = <b>'+off+'</b>. The −1 converts 1-based to 0-based BEFORE the modulo; do it after and 26 maps to 0, which has no letter.',VA(),V(off));
+    res+=String.fromCharCode(65+off);
+    T.step(6,'push','chr(ord("A") + '+off+') = <b>"'+res[res.length-1]+'"</b>. Appended — so res is being built least-significant-letter first.',VA(),V(off));
+    T.save('digit: '+res[res.length-1]);
+    col=Math.floor((col-1)/26);
+    T.step(7,'ok','columnNumber = (columnNumber − 1) // 26 = <b>'+col+'</b>. The same −1 again, for the same reason.',VA(),V(null));
+  }
+  var out=res.split('').reverse().join('');
+  T.step(8,'done','Reverse it: <b>"'+out+'"</b>. (701 = 26×26 + 25 → "ZY".) The whole problem is remembering that spreadsheet columns are a <em>bijective</em> base-26 system.',['answer = <u>"'+out+'"</u>'],V(null));
+  return T;
+}
+LV.render({
+  num:'168', name:'Excel Sheet Column Title', slug:'0168-excel-sheet-column-title',
+  difficulty:'Easy', pattern:'Math · bijective base conversion',
+  url:'https://leetcode.com/problems/excel-sheet-column-title',
+  blurb:'Base-26 with no zero digit. Every <code>-1</code> in these five lines is doing the same job: shifting a 1-based alphabet into the 0-based arithmetic that <code>%</code> and <code>//</code> expect.',
+  input:'columnNumber = 701', runName:'convertToTitle',
+  skipLabel:null, emptyResult:'no letters yet',
+  src:SRC, build:build,
+  complexity:{time:'O(log₂₆ n)', space:'O(log₂₆ n) for the output'},
+  theory:{
+    idea:'Ordinary base-b uses digits 0..b−1. A <b>bijective</b> base-b uses 1..b — there is no zero, so every positive integer has exactly one representation and no leading-zero ambiguity. Spreadsheet columns work this way: A, …, Z, AA, …, AZ, BA. Subtracting 1 before each <code>%</code> and <code>//</code> converts between the two systems.',
+    recognize:[
+      'A counting system with <b>no zero symbol</b> — spreadsheet columns, some ID schemes, 1-indexed alphabets.',
+      'The giveaway test case is the exact multiple: 26 must be "Z", not "A@" or "AZ". If your code gets 26 right it is almost certainly correct.',
+      'General base conversion: repeated <code>%</code> for the digit, <code>//</code> to shrink, then reverse.'
+    ],
+    pitfalls:[
+      '<b>Forgetting the −1.</b> The single bug in this problem. Test 26, 52, 676 — all the exact multiples.',
+      '<b>Only subtracting 1 in one of the two places.</b> Both the modulo and the division need it.',
+      '<b>Building the string forwards.</b> Digits come out least-significant first, so you must reverse (or prepend, which is O(n²) in Python).',
+      '<b>Confusing this with the reverse direction.</b> LC 171 (title → number) is Horner’s method: <code>n = n*26 + (ord(c) - 64)</code>, and it needs no −1 at all.'
+    ],
+    template: "# Bijective base 26 (digits 1..26, no zero)\nres = \"\"\nwhile n > 0:\n    n -= 1                        # 1-based -> 0-based, ONCE, before both ops\n    res += chr(ord('A') + n % 26)\n    n //= 26\nreturn res[::-1]\n\n# ordinary base b: drop the -1 entirely\n# the reverse direction (LC 171) is Horner:  n = n * 26 + (ord(c) - 64)\n",
+    variants:[
+      ['<b>Column title → number</b> (LC 171)','<code>n = n * 26 + (ord(c) - ord("A") + 1)</code>. No offset gymnastics.'],
+      ['Ordinary base conversion','Digits 0..b−1, so drop every −1.'],
+      ['Roman numerals (LC 12 / 13)','Not positional at all — a greedy table of value/symbol pairs.'],
+      ['Base 62 / URL shortening','Ordinary base conversion over [0-9a-zA-Z].']
+    ],
+    thinking:'When a problem involves 1-based indexing and modular arithmetic, <b>convert to 0-based at the boundary, do all the maths, convert back</b>. That is a general discipline, not a trick for this problem — it is why <code>(x - 1) % n</code> and <code>((x - 1) % n) + 1</code> show up all over circular-array and calendar code. Fixing the convention once at the edge beats scattering ±1 through the body.'
+  }
+});
+
+</script>
+</body>
+</html>

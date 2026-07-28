@@ -1,9 +1,9 @@
 # 682. Baseball Game
-> **Easy** &nbsp;·&nbsp; Stack · simulation with undo &nbsp;·&nbsp; family: **Stacks & monotonic stacks**
+> **Easy** &nbsp;&middot;&nbsp; Stack · simulation with undo &nbsp;&middot;&nbsp; family: **Stacks & monotonic stacks**
 
 A stack chosen for one specific reason: the "C" operation needs an *undo*, and a running total cannot undo. Recognising which operation forces the data structure is the whole lesson.
 
-**▶ [Step through this solution line by line](../visualizations/0682-baseball-game.html)** — 15 steps, traced on `operations = ["5","2","C","D","+"]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 15 steps, traced on `operations = ["5","2","C","D","+"]`.
 
 | | |
 |---|---|
@@ -55,4 +55,4 @@ Make this your habit when choosing a data structure: **list every operation the 
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/baseball-game)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/baseball-game)

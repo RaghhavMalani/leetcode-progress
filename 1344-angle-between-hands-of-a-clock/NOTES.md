@@ -1,9 +1,9 @@
 # 1344. Angle Between Hands of a Clock
-> **Medium** &nbsp;·&nbsp; Math · modular geometry &nbsp;·&nbsp; family: **Math & number theory**
+> **Medium** &nbsp;&middot;&nbsp; Math · modular geometry &nbsp;&middot;&nbsp; family: **Math & number theory**
 
 No algorithm at all — just three facts. 30° per hour, **0.5° per minute of hour-hand drift**, 6° per minute. The drift term is what people forget.
 
-**▶ [Step through this solution line by line](../visualizations/1344-angle-between-hands-of-a-clock.html)** — 5 steps, traced on `hour = 12, minutes = 30`.
+**▶ [Step through this solution line by line](./visualization.html)** — 5 steps, traced on `hour = 12, minutes = 30`.
 
 | | |
 |---|---|
@@ -55,4 +55,4 @@ For closed-form problems, **write the model down in words before touching code**
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/angle-between-hands-of-a-clock)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/angle-between-hands-of-a-clock)

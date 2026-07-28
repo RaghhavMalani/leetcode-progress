@@ -1,9 +1,9 @@
 # 49. Group Anagrams
-> **Medium** &nbsp;·&nbsp; Hash map · canonical key &nbsp;·&nbsp; family: **Hashing**
+> **Medium** &nbsp;&middot;&nbsp; Hash map · canonical key &nbsp;&middot;&nbsp; family: **Hashing**
 
 Grouping by a *canonical form*. The counting signature is O(n·k) where sorting each word would be O(n·k log k) — a small but real win, and the version worth knowing.
 
-**▶ [Step through this solution line by line](../visualizations/0049-group-anagrams.html)** — 38 steps, traced on `strs = ["eat","tea","tan","ate","nat","bat"]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 38 steps, traced on `strs = ["eat","tea","tan","ate","nat","bat"]`.
 
 | | |
 |---|---|
@@ -56,4 +56,4 @@ Any time a problem says "these two things count as the same", the question to as
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/group-anagrams)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/group-anagrams)

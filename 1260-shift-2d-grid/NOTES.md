@@ -1,9 +1,9 @@
 # 1260. Shift 2D Grid
-> **Easy** &nbsp;·&nbsp; Flatten · modular shift · unflatten &nbsp;·&nbsp; family: **Math & number theory**
+> **Easy** &nbsp;&middot;&nbsp; Flatten · modular shift · unflatten &nbsp;&middot;&nbsp; family: **Math & number theory**
 
 Two ideas that pay off far beyond this problem: `k %= total` to collapse a huge shift, and flatten-shift-unflatten to delete every wrap-around special case.
 
-**▶ [Step through this solution line by line](../visualizations/1260-shift-2d-grid.html)** — 12 steps, traced on `grid = [[1,2,3],[4,5,6],[7,8,9]], k = 1`.
+**▶ [Step through this solution line by line](./visualization.html)** — 12 steps, traced on `grid = [[1,2,3],[4,5,6],[7,8,9]], k = 1`.
 
 | | |
 |---|---|
@@ -58,4 +58,4 @@ Add one question to your grid checklist: **"can I treat this as a 1D array?"** I
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/shift-2d-grid)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/shift-2d-grid)

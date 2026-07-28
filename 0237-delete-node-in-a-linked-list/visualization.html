@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>237 - Delete Node in a Linked List</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["# Definition for singly-linked list.", "# class ListNode:", "#     def __init__(self, x):", "#         self.val = x", "#         self.next = None", "", "class Solution:", "    def deleteNode(self, node):", "        \"\"\"", "        :type node: ListNode", "        :rtype: void Do not return anything, modify node in-place instead.", "        \"\"\"", "", "        node.val = node.next.val", "        node.next =  node.next.next"];
+function build(){
+  var T=LV.trace();
+  var v=[4,5,1,9], target=1, gone=null;
+  function V(n){ return [ LV.ll('list', v.map(function(x,i){ return {v:x,id:'n'+i,cls: i===gone?'dim':(i===target?'hot':'')}; }),
+      (function(){ var m={}; m['n'+target]='node'; return m; })(), {note:n||''}) ]; }
+
+  T.step(8,'info','You are handed the node itself — NOT the head. So you can never reach its predecessor, and the normal "rewire the previous node" deletion is impossible.',['node = <b>'+v[target]+'</b>'],V('we only have a reference to this node'));
+  T.step(14,'push','The trick: instead of deleting this node, IMPERSONATE the next one. Copy next.val ('+v[target+1]+') into this node, so it now reads '+v[target+1]+'.',['node.val ← <b>'+v[target+1]+'</b>'],(function(){ v[target]=v[target+1]; return V('node now holds 9'); })());
+  gone=target+1;
+  T.save('list becomes [4, 5, 9]');
+  T.step(15,'found','Now delete the NEXT node instead — and we CAN do that, because we are its predecessor. `node.next = node.next.next`.',['deleted the duplicate'],V('the real node 9 is unlinked'));
+  T.step(15,'done','Result: <b>[4, 5, 9]</b>. The value 1 is gone from the list, which is all anyone can observe. Two lines, O(1).',['result = <u>[4, 5, 9]</u>'],V());
+  return T;
+}
+LV.render({
+  num:'237', name:'Delete Node in a Linked List', slug:'0237-delete-node-in-a-linked-list',
+  difficulty:'Medium', pattern:'Linked list · impersonation trick',
+  url:'https://leetcode.com/problems/delete-node-in-a-linked-list',
+  blurb:'A lateral-thinking problem. You cannot delete the node you were given, so you make it pretend to be the next one and delete that instead. Note the restriction this creates: it cannot work on the tail.',
+  input:'head = [4,5,1,9], node = the node with value 1', runName:'deleteNode',
+  skipLabel:null, emptyResult:'not deleted yet',
+  src:SRC, build:build,
+  complexity:{time:'O(1)', space:'O(1)'},
+  theory:{
+    idea:'A node has no identity beyond its value and its link. If you cannot remove a node from the chain, <b>overwrite its contents with its successor’s and remove the successor</b> — an observer walking the list cannot tell the difference. The lesson generalises: when you cannot change a structure, ask whether you can change what it <em>contains</em>.',
+    recognize:[
+      'You are given a pointer into the middle of a structure with no access to the head or to a parent.',
+      'The problem explicitly promises the node is not the tail — that promise is load-bearing, since there would be nothing to impersonate.',
+      'Similar shape: deleting from a BST when you only have the node, deleting the middle of an array by copying the last element over it.'
+    ],
+    pitfalls:[
+      '<b>Trying to null the node out.</b> <code>node = None</code> rebinds a local name; the list is untouched. This is the same trap as <code>s = s[::-1]</code> in LC 344.',
+      '<b>Assuming it works on the tail.</b> It cannot — <code>node.next.val</code> throws. If the interviewer removes the guarantee, the honest answer is "impossible without the head".',
+      '<b>Only copying the value and forgetting to relink.</b> Then the list has a duplicate.',
+      '<b>Thinking this is a normal deletion.</b> It is a value shift. If nodes carried identity — object references held elsewhere — this would be observably wrong, and that is a good caveat to raise.'
+    ],
+    template: "# Cannot unlink yourself? Impersonate your successor.\nnode.val  = node.next.val      # become the next node\nnode.next = node.next.next     # then delete the next node - you ARE its predecessor\n\n# Requires: node is not the tail.\n# Same idea on an array when order does not matter:\n#   a[i] = a[-1]; a.pop()\n",
+    variants:[
+      ['With access to the head','Walk to the predecessor and rewire normally. O(n), and the usual case.'],
+      ['Doubly linked list','<code>node.prev.next = node.next</code> — genuinely O(1), no impersonation.'],
+      ['Delete from the middle of an <b>array</b> in O(1)','Same idea: copy the last element over the hole and shrink. Only legal when order does not matter.'],
+      ['Node is the tail','Impossible. Being able to say why is the point.']
+    ],
+    thinking:'Cheap but real lesson: <b>separate the structure from its contents.</b> Interviewers use this problem to see whether you accept "I do not have a pointer to the previous node, therefore I cannot delete" or push past it to "what would an observer actually notice?" Reframing "delete this node" as "make the list look as if this value is gone" is the whole solve — and that reframing habit is what makes hard problems tractable.'
+  }
+});
+
+</script>
+</body>
+</html>

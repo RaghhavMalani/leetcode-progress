@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3499 - Maximize Active Section With Trade I</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution {", "public:", "    int maxActiveSectionsAfterTrade(string s) {", "        int active = count(s.begin(), s.end(), '1');", "        int previousZeros = -1;", "        int currentZeros = 0;", "        int maxGain = 0;", "", "        for (char c : s) {", "            if (c == '0') {", "                currentZeros++;", "            } else if (currentZeros > 0) {", "                if (previousZeros != -1) {", "                    maxGain = max(maxGain, previousZeros + currentZeros);", "                }", "", "                previousZeros = currentZeros;", "                currentZeros = 0;", "            }", "        }", "", "        if (currentZeros > 0 && previousZeros != -1) {", "            maxGain = max(maxGain, previousZeros + currentZeros);", "        }", "", "        return active + maxGain;", "    }", "};"];
+function build(){
+  var T=LV.trace(), s='01';
+  s='1001010';
+  var active=(s.match(/1/g)||[]).length;
+  var prev=-1, cur=0, gain=0;
+  function V(i,note){ var m={};
+    s.split('').forEach(function(ch,k){ m[k]= k>i?'dim':(ch==='1'?'good':(k===i?'hot':'warn')); });
+    return [ LV.arr('s', s.split(''), m, {note:note||''}),
+      LV.kv('state', [['active (count of 1s)',active],['previousZeros',prev===-1?'−1 (none yet)':prev],['currentZeros',cur],['maxGain',gain]], {'currentZeros':'hot'}, {}) ]; }
+  T.step(4,'info','Count the 1s once — that is the baseline, <b>'+active+'</b>. The trade lets you take one block of 1s, turn it to 0s, and turn an equal-or-larger stretch elsewhere to 1s. Net effect: you can <b>merge two zero-runs that are separated by a single one-run</b>, converting both zero-runs to ones.',['active = <b>'+active+'</b>'],V(-1));
+  T.step(9,'info','So the answer is active + the largest sum of two ADJACENT zero-runs (adjacent meaning separated by exactly one run of 1s). One pass tracking the previous and current zero-run lengths finds it.',[],V(-1));
+  for(var i=0;i<s.length;i++){
+    if(s[i]==='0'){
+      cur++;
+      T.step(11,'push','s['+i+'] = 0 → currentZeros = '+cur+'.',['currentZeros = <b>'+cur+'</b>'],V(i));
+    } else if(cur>0){
+      T.step(12,'call','s['+i+'] = 1 and we were inside a zero-run of length '+cur+'. That run just ended.',['currentZeros = <b>'+cur+'</b>'],V(i));
+      if(prev!==-1){
+        var g=prev+cur; var old=gain; gain=Math.max(gain,g);
+        T.step(14, gain>old?'found':'info','There WAS a previous zero-run of length '+prev+'. Merging it with this one would light up '+prev+' + '+cur+' = <b>'+g+'</b> extra sections. maxGain = '+gain+'.',['maxGain = <u>'+gain+'</u>'],V(i));
+        if(gain>old) T.save('merge runs of '+prev+' and '+cur+' → gain '+g);
+      } else {
+        T.step(13,'bad','previousZeros is still −1 — this is the FIRST zero-run, so there is nothing to merge it with yet.',[],V(i));
+      }
+      prev=cur; cur=0;
+      T.step(17,'ok','Slide the window of two runs: previousZeros = '+prev+', currentZeros = 0.',['previousZeros = <em>'+prev+'</em>'],V(i));
+    } else {
+      T.step(9,'info','s['+i+'] = 1 and currentZeros is 0 — still inside a run of ones, nothing to do.',[],V(i));
+    }
+  }
+  if(cur>0&&prev!==-1){
+    var g2=prev+cur; gain=Math.max(gain,g2);
+    T.step(23,'found','The string ENDED inside a zero-run of length '+cur+'. The loop never closed it, so handle it here: '+prev+' + '+cur+' = '+g2+'. maxGain = <b>'+gain+'</b>. Forgetting this tail case is the classic bug in run-scanning code.',['maxGain = <u>'+gain+'</u>'],V(s.length-1,'trailing run'));
+    T.save('tail merge → gain '+g2);
+  }
+  T.save('answer = '+(active+gain));
+  T.step(26,'done','Answer: active + maxGain = '+active+' + '+gain+' = <b>'+(active+gain)+'</b>.',['answer = <u>'+(active+gain)+'</u>'],V(s.length-1));
+  return T;
+}
+LV.render({
+  num:'3499', name:'Maximize Active Section With Trade I', slug:'3499-maximize-active-section-with-trade-i',
+  difficulty:'Medium', pattern:'Run-length scan · pair of adjacent runs',
+  url:'https://leetcode.com/problems/maximize-active-sections-with-trade-i',
+  blurb:'Once you decode what the trade actually does — merge two zero-runs separated by one block of ones — the code is a single pass keeping the previous and current run lengths.',
+  input:'s = "1001010"', runName:'maxActiveSectionsAfterTrade',
+  skipLabel:'Skip to next improvement', skipTypes:['found'], emptyResult:'no gain yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n)', space:'O(1)'},
+  theory:{
+    idea:'<b>Think in runs, not characters.</b> A binary string is a sequence of alternating runs, and most operations on it are really operations on adjacent runs. Here the trade sacrifices one run of 1s to light up the zero-runs on either side of it, so the answer is the baseline plus the best adjacent zero-run pair.',
+    recognize:[
+      'Binary strings or arrays where the question is about blocks, groups, or consecutive stretches.',
+      'Operations described as flipping, merging, or removing a block.',
+      'Whenever you catch yourself writing nested loops over positions, ask whether a single pass over <em>runs</em> answers it.'
+    ],
+    pitfalls:[
+      '<b>Forgetting the trailing run.</b> Lines 22–24 exist because a zero-run at the very end of the string never triggers the "we just hit a 1" branch. Nearly every run-scanning bug is this one.',
+      '<b>The <code>previousZeros = -1</code> sentinel.</b> It distinguishes "no previous run yet" from "a previous run of length 0", and using 0 instead would allow an illegal merge at the start.',
+      '<b>Only resetting <code>currentZeros</code> when you see a 1 following zeros.</b> The <code>else if (currentZeros > 0)</code> guard means consecutive 1s do not reset the pairing — which is correct, since only ONE block of ones may be traded.',
+      '<b>Trying to simulate the trade.</b> O(n²). Decoding what the trade means is the whole problem.'
+    ],
+    template: "# scan RUNS, not characters. keep the previous and current run.\nprev, cur, best = -1, 0, 0        # -1 = \"no previous run yet\" (not 0!)\nfor c in s:\n    if c == '0':\n        cur += 1\n    elif cur > 0:                 # a zero-run just ended\n        if prev != -1:\n            best = max(best, prev + cur)\n        prev, cur = cur, 0\n\nif cur > 0 and prev != -1:        # TAIL: the string ended mid-run\n    best = max(best, prev + cur)\n\nreturn active + best\n",
+    variants:[
+      ['<b>Part II</b> (LC 3501)','Larger constraints and a subtler trade rule; you need prefix structures over runs.'],
+      ['<b>Max Consecutive Ones III</b> (LC 1004)','Flip at most k zeros — a sliding window, not a run scan.'],
+      ['Longest run of equal characters','A single run scan, keeping the maximum length.'],
+      ['<b>Longest Subarray With Max Bitwise AND</b> (LC 2503)','Also a run problem. Also in your repo.']
+    ],
+    thinking:'For binary or categorical sequences, <b>compress to run-length encoding in your head first</b>: "1001010" is 1×one, 2×zero, 1×one, 1×zero, 1×one, 1×zero, 1×one. Most operations then become simple statements about neighbouring runs, and the O(n²) simulation you were about to write collapses into a single pass. And always, always check what happens when the sequence ends mid-run.'
+  }
+});
+
+</script>
+</body>
+</html>

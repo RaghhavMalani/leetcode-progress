@@ -1,9 +1,9 @@
 # 47. Permutations II
-> **Medium** &nbsp;·&nbsp; Backtracking · counter as state &nbsp;·&nbsp; family: **Backtracking**
+> **Medium** &nbsp;&middot;&nbsp; Backtracking · counter as state &nbsp;&middot;&nbsp; family: **Backtracking**
 
 A different weapon for the same job as problem 40. Instead of skipping duplicate *positions*, this counts distinct *values* — so identical numbers are never separate objects to begin with.
 
-**▶ [Step through this solution line by line](../visualizations/0047-permutations-ii.html)** — 38 steps, traced on `nums = [1,1,2]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 38 steps, traced on `nums = [1,1,2]`.
 
 | | |
 |---|---|
@@ -62,4 +62,4 @@ Notice what changed between 40 and 47: nothing about the *skeleton*, only the **
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/permutations-ii)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/permutations-ii)

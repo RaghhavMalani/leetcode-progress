@@ -1,9 +1,9 @@
 # 62. Unique Paths
-> **Medium** &nbsp;·&nbsp; Grid DP · rolling row &nbsp;·&nbsp; family: **Dynamic programming**
+> **Medium** &nbsp;&middot;&nbsp; Grid DP · rolling row &nbsp;&middot;&nbsp; family: **Dynamic programming**
 
 Grid DP solved bottom-up, keeping only one row. Same recurrence as the m×n table version, one dimension of memory less — and there is also a pure combinatorics answer with no DP at all.
 
-**▶ [Step through this solution line by line](../visualizations/0062-unique-paths.html)** — 18 steps, traced on `m = 3, n = 7`.
+**▶ [Step through this solution line by line](./visualization.html)** — 18 steps, traced on `m = 3, n = 7`.
 
 | | |
 |---|---|
@@ -58,4 +58,4 @@ Two habits from this problem. First: **always check whether a counting DP has a 
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/unique-paths)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/unique-paths)

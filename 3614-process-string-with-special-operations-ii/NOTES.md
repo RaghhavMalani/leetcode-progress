@@ -1,9 +1,9 @@
 # 3614. Process String With Special Operations II
-> **Hard** &nbsp;·&nbsp; Forward lengths + backward index mapping &nbsp;·&nbsp; family: **Math & number theory**
+> **Hard** &nbsp;&middot;&nbsp; Forward lengths + backward index mapping &nbsp;&middot;&nbsp; family: **Math & number theory**
 
 The result can be exponentially long, so you never build it. Instead: track only the LENGTH forwards, then map the query index BACKWARDS through each operation until it lands on a literal character.
 
-**▶ [Step through this solution line by line](../visualizations/3614-process-string-with-special-operations-ii.html)** — 19 steps, traced on `s = "a#b%*", k = 1`.
+**▶ [Step through this solution line by line](./visualization.html)** — 19 steps, traced on `s = "a#b%*", k = 1`.
 
 | | |
 |---|---|
@@ -49,4 +49,4 @@ The reusable idea is **"simulate the metadata, not the object"**. If you only ev
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/process-string-with-special-operations-ii)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/process-string-with-special-operations-ii)

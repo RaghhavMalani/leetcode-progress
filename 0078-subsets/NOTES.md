@@ -1,9 +1,9 @@
 # 78. Subsets
-> **Medium** &nbsp;·&nbsp; Backtracking · take / skip &nbsp;·&nbsp; family: **Backtracking**
+> **Medium** &nbsp;&middot;&nbsp; Backtracking · take / skip &nbsp;&middot;&nbsp; family: **Backtracking**
 
 The cleanest specimen in the whole family. Take or skip, once per element, three levels deep, 2³ leaves and every one is an answer. If the choose/explore/un-choose rhythm ever stops making sense, come back to this page.
 
-**▶ [Step through this solution line by line](../visualizations/0078-subsets.html)** — 54 steps, traced on `nums = [1,2,3]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 54 steps, traced on `nums = [1,2,3]`.
 
 | | |
 |---|---|
@@ -56,4 +56,4 @@ Use this problem as your reference implementation. When a harder backtracking pr
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/subsets)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/subsets)

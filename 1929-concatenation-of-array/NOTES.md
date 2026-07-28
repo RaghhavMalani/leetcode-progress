@@ -1,9 +1,9 @@
 # 1929. Concatenation of Array
-> **Easy** &nbsp;·&nbsp; Index arithmetic · pre-sized output &nbsp;·&nbsp; family: **Math & number theory**
+> **Easy** &nbsp;&middot;&nbsp; Index arithmetic · pre-sized output &nbsp;&middot;&nbsp; family: **Math & number theory**
 
 Trivial, but it demonstrates a habit worth having: pre-size the output and write with an index offset rather than appending twice.
 
-**▶ [Step through this solution line by line](../visualizations/1929-concatenation-of-array.html)** — 6 steps, traced on `nums = [1,3,2,1]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 6 steps, traced on `nums = [1,3,2,1]`.
 
 | | |
 |---|---|
@@ -56,4 +56,4 @@ Easy problems are where index arithmetic becomes automatic. Get comfortable with
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/concatenation-of-array)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/concatenation-of-array)

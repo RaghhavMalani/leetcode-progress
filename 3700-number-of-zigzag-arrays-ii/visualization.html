@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3700 - Number of Zigzag Arrays II</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def zigZagArrays(self, n: int, l: int, r: int) -> int:", "        MOD = 10**9 + 7", "        m = r - l + 1", "        d = 2 * m", "", "        def mat_mul(A, B):", "            C = [[0] * d for _ in range(d)]", "            for i in range(d):", "                Ci = C[i]", "                Ai = A[i]", "                for k in range(d):", "                    if Ai[k]:", "                        a = Ai[k]", "                        Bk = B[k]", "                        for j in range(d):", "                            Ci[j] += a * Bk[j]", "                for j in range(d):", "                    Ci[j] %= MOD", "            return C", "", "        def mat_vec_mul(A, v):", "            res = [0] * d", "            for i in range(d):", "                total = 0", "                Ai = A[i]", "                for j in range(d):", "                    total += Ai[j] * v[j]", "                res[i] = total % MOD", "            return res", "", "        state = [0] * d", "", "        for x in range(1, m + 1):", "            state[x - 1] = x - 1", "            state[m + x - 1] = m - x", "", "        T = [[0] * d for _ in range(d)]", "", "        for x in range(1, m + 1):", "            for y in range(1, x):", "                T[x - 1][m + y - 1] = 1", "", "            for y in range(x + 1, m + 1):", "                T[m + x - 1][y - 1] = 1", "", "        power = n - 2", "", "        while power:", "            if power & 1:", "                state = mat_vec_mul(T, state)", "", "            T = mat_mul(T, T)", "            power >>= 1", "", "        return sum(state) % MOD"];
+function build(){
+  var T=LV.trace(), n=4, m=2, d=2*m, MOD=1000000007;
+  var state=[0,1,1,0];  // [up_1..up_m, down_1..down_m] for m=2
+  state=[0,1,1,0];
+  function SV(hot,note){ var m2={}; if(hot!=null) m2[hot]='hot';
+    return LV.arr('state vector  [up₁ … up_m,  down₁ … down_m]  (length 2m = '+d+')', state.slice(), m2, {idx:false, note:note||''}); }
+  function MV(Tm,hot,note){
+    return LV.grid('transition matrix T  ('+d+'×'+d+')', Tm, hot||{}, {head:true, note:note||'T[i][j] = 1 when state j can be extended into state i'}); }
+  var Tm=[[0,0,0,0],[0,0,1,0],[0,1,0,0],[0,0,0,0]];
+  T.step(7,'info','Part I ran a DP for n steps. Here n can be up to 10¹⁸, so a loop is impossible. But the transition is <b>linear</b> — every new state is a fixed linear combination of the old ones — and any linear recurrence can be applied n times with <b>matrix exponentiation</b> in O(log n) multiplications.',['n = <b>'+n+'</b> (can be 10¹⁸)','m = <b>'+m+'</b>'],[SV(null)]);
+  T.step(32,'info','Flatten the two arrays <code>up[]</code> and <code>down[]</code> into ONE vector of length 2m = '+d+'. That is what lets a single matrix act on the whole state.',[],[SV(null,'base case: length-2 arrays')]);
+  T.step(38,'info','Build T once. Row x−1 has 1s where a DOWN-ending array with a smaller last value can be extended upward; row m+x−1 mirrors it. This is just Part I’s prefix-sum transition written as a matrix.',[],[SV(null),MV(Tm)]);
+  var power=n-2;
+  T.step(47,'info','We need T applied '+power+' times (n − 2, because the base case already covers length 2). <b>Binary exponentiation:</b> write '+power+' in binary and square T repeatedly, multiplying it into the answer whenever a bit is set. That is O(log n) matrix multiplications instead of n.',['power = <b>'+power+'</b> = 0b'+power.toString(2)],[SV(null),MV(Tm)]);
+  var p=power, step=0;
+  function mul(A,v){ var r=[]; for(var i=0;i<d;i++){ var s=0; for(var j=0;j<d;j++) s+=A[i][j]*v[j]; r.push(s%MOD); } return r; }
+  function mm(A,B){ var C=[]; for(var i=0;i<d;i++){ C.push([]); for(var j=0;j<d;j++){ var s=0; for(var k=0;k<d;k++) s+=A[i][k]*B[k][j]; C[i].push(s%MOD); } } return C; }
+  var guard=0;
+  while(p && guard++<6){
+    step++;
+    if(p&1){
+      state=mul(Tm,state);
+      T.step(51,'push','Bit '+(step-1)+' of the exponent is <b>1</b> → apply the current T to the state vector. state = ['+state.join(', ')+'].',['bit '+(step-1)+' set'],[SV(null),MV(Tm)]);
+      T.save('applied T^'+(1<<(step-1))+' → ['+state.join(', ')+']');
+    } else {
+      T.step(51,'info','Bit '+(step-1)+' is 0 — skip the multiply into the state.',[],[SV(null),MV(Tm)]);
+    }
+    Tm=mm(Tm,Tm);
+    T.step(53,'ok','Square the matrix: T → T². Now it represents twice as many steps.',[],[SV(null),MV(Tm,null,'T squared')]);
+    p>>=1;
+    T.step(54,'ok','Shift the exponent right: '+p+' remaining.',['power = <b>'+p+'</b>'],[SV(null)]);
+  }
+  var ans=state.reduce(function(a,b){ return (a+b)%MOD; },0);
+  T.save('total = '+ans);
+  T.step(56,'done','Sum the state vector: <b>'+ans+'</b>. Total cost O(m³ log n) — the m³ is one matrix multiply, done log n times.',['answer = <u>'+ans+'</u>'],[SV(null,'final')]);
+  return T;
+}
+LV.render({
+  num:'3700', name:'Number of Zigzag Arrays II', slug:'3700-number-of-zigzag-arrays-ii',
+  difficulty:'Hard', pattern:'Matrix exponentiation of a linear recurrence',
+  url:'https://leetcode.com/problems/number-of-zigzag-arrays-ii',
+  blurb:'Part I with n up to 10¹⁸. The DP transition is linear, so encode it as a matrix and apply it n times with binary exponentiation — O(log n) instead of O(n).',
+  input:'n = 4, value range of size m = 2', runName:'zigZagArrays',
+  skipLabel:null, emptyResult:'no multiplications yet',
+  src:SRC, build:build,
+  complexity:{time:'O(m³ log n)', space:'O(m²)'},
+  theory:{
+    idea:'Any DP whose transition is a <b>fixed linear map</b> — new state = matrix × old state, with the matrix not depending on the step — can be advanced n steps by computing T^n. And T^n takes only O(log n) matrix multiplications via binary exponentiation: square repeatedly, multiply in wherever the exponent has a set bit.',
+    recognize:[
+      '<b>n up to 10¹⁸</b> (or any bound far beyond what a loop can reach) with a per-step recurrence. That constraint alone is the signal.',
+      'The state has fixed, small dimension and each new component is a linear combination of old ones — no products of two state variables, no conditionals on the step.',
+      'The classic instance is Fibonacci in O(log n); everything else is the same idea with a bigger matrix.'
+    ],
+    pitfalls:[
+      '<b>A non-linear transition.</b> If the recurrence multiplies two state variables, or depends on the step index, matrix exponentiation does not apply.',
+      '<b>Exponent off by one.</b> Here it is n − 2, because the base case already represents length-2 arrays. Verify on the smallest n by hand.',
+      '<b>Cost of the matrix multiply.</b> O(m³) per multiply, so this is only worthwhile when m is small. If m is large but the matrix is structured (banded, circulant), exploit that instead.',
+      '<b>Modulus placement.</b> Reduce inside the innermost accumulation, or the intermediate sums overflow.',
+      '<b>Multiplying matrix × matrix when vector × matrix would do.</b> Applying T to a vector is O(m²); only the squaring needs O(m³).'
+    ],
+    template: "# linear transition + huge n  ->  matrix exponentiation, O(dim^3 log n)\ndef mat_mul(A, B): ...          # O(dim^3)\ndef mat_vec(A, v): ...          # O(dim^2) - cheaper, use it for the state\n\nstate = base_case_vector        # flatten ALL dp arrays into ONE vector\nT     = transition_matrix       # T[i][j] = coefficient of old j in new i\n\npower = n - 2                   # check this offset on the smallest n by hand\nwhile power:\n    if power & 1:\n        state = mat_vec(T, state)\n    T = mat_mul(T, T)           # square: T now covers twice as many steps\n    power >>= 1\n\nreturn sum(state) % MOD\n# requires: the transition is the SAME every step and LINEAR in the state.\n",
+    variants:[
+      ['<b>Part I</b> (LC 3699)','n is small, so the plain O(n·m) prefix-sum DP is enough. Also in your repo.'],
+      ['Fibonacci for huge n','The 2×2 matrix [[1,1],[1,0]] raised to the nth power.'],
+      ['Counting walks of length n in a graph','A^n[i][j] is exactly the number of walks — the same operation.'],
+      ['Linear recurrence with a constant term','Add one row and column to absorb the constant into the matrix.'],
+      ['Very large m','Matrix exponentiation dies; look for a closed form or a polynomial-based method (Kitamasa).']
+    ],
+    thinking:'Build the habit of checking two things whenever you see an enormous n: <b>is the transition the same at every step, and is it linear?</b> If both are yes, you can jump n steps in O(log n) and the size of n stops mattering. This is one of a small family of "escape hatches" for huge inputs — the others being closed forms, binary exponentiation on numbers, and periodicity arguments (find the cycle, then take n mod period). Recognising which escape hatch applies is usually the entire problem.'
+  }
+});
+
+</script>
+</body>
+</html>

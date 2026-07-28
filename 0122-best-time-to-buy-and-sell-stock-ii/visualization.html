@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>122 - Best Time to Buy and Sell Stock II</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def maxProfit(self, prices: List[int]) -> int:", "        profit = 0", "", "        for i in range(1, len(prices)):", "            if prices[i] > prices[i - 1]:", "                profit += prices[i] - prices[i - 1]", "", "        return profit"];
+function build(){
+  var T=LV.trace(), p=[7,1,5,3,6,4], profit=0;
+  function V(i,gain){ var m={};
+    for(var x=0;x<p.length;x++) m[x]= x>i?'dim':(x===i?'hot':(x===i-1?'win':''));
+    return [ LV.bars('prices', p, m, {}, {note:gain?'this rise is being harvested':''}) ]; }
+  function VA(i){ return ['i = <b>'+i+'</b>','prices[i−1] = <em>'+p[i-1]+'</em>','prices[i] = <em>'+p[i]+'</em>','profit = <u>'+profit+'</u>']; }
+
+  T.step(3,'info','You may buy and sell as many times as you like. The insight: any profitable multi-day hold equals the sum of its individual daily rises, so you can just collect <b>every</b> upward step and ignore the notion of "trades" entirely.',['profit = <u>0</u>'],[LV.bars('prices',p,{},{},{})]);
+  for(var i=1;i<p.length;i++){
+    T.step(5,'call','Day '+i+': yesterday '+p[i-1]+', today '+p[i]+'.',VA(i),V(i));
+    if(p[i]>p[i-1]){
+      profit+=p[i]-p[i-1];
+      T.step(7,'found','Price rose by '+(p[i]-p[i-1])+'. Harvest it: profit → <b>'+profit+'</b>. Equivalent to buying at '+p[i-1]+' and selling at '+p[i]+' — and if the rise continues tomorrow, buying back at the same price costs nothing.',VA(i),V(i,true));
+      T.save('day '+(i-1)+'→'+i+': +'+(p[i]-p[i-1]));
+    } else {
+      T.step(6,'bad','Price fell (or held). Take nothing — you would never hold through a decline.',VA(i),V(i));
+    }
+  }
+  T.step(9,'done','Total profit: <b>'+profit+'</b>. One pass, O(1) space, and no explicit buy/sell bookkeeping at all.',['profit = <u>'+profit+'</u>'],V(p.length-1));
+  return T;
+}
+LV.render({
+  num:'122', name:'Best Time to Buy and Sell Stock II', slug:'0122-best-time-to-buy-and-sell-stock-ii',
+  difficulty:'Medium', pattern:'Greedy · decompose into local gains',
+  url:'https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii',
+  blurb:'Four lines, and the whole difficulty is proving they are right. The argument: a hold from day a to day b earns exactly the sum of the daily changes between them, so taking every positive change is optimal and no worse.',
+  input:'prices = [7,1,5,3,6,4]', runName:'maxProfit',
+  skipLabel:'Skip to next gain', skipTypes:['found'], emptyResult:'no profit yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n)', space:'O(1)'},
+  theory:{
+    idea:'A <b>telescoping</b> argument. prices[b] − prices[a] = Σ (prices[i] − prices[i−1]) for i in (a, b]. So any strategy’s profit is a sum of daily deltas, and the best possible sum of a subset of deltas is simply all the positive ones. Being able to give that two-line proof is what separates a greedy answer from a lucky guess.',
+    recognize:[
+      'Unlimited transactions with no cooldown and no fee — those extra rules are exactly what breaks the greedy and forces DP.',
+      'A global optimum that decomposes into independent local choices. If choices interact, greedy fails.',
+      'The tell that greedy is <em>wrong</em>: a constraint linking decisions ("at most k transactions", "wait a day after selling").'
+    ],
+    pitfalls:[
+      '<b>Reaching for DP.</b> It works, it is O(n) too, and it is far more code. Recognising the greedy is the point.',
+      '<b>Tracking a buy price and a sell price.</b> Correct but noisier; the delta formulation removes the state entirely.',
+      '<b>Applying this to LC 121.</b> Only <em>one</em> transaction is allowed there, so this over-counts badly. Check the transaction limit before you write a line.',
+      '<b>Not being able to justify it.</b> "It just works" is the wrong answer; the telescoping argument takes ten seconds.'
+    ],
+    template: "# Greedy by telescoping - take every positive daily delta\nprofit = 0\nfor i in range(1, len(prices)):\n    if prices[i] > prices[i - 1]:\n        profit += prices[i] - prices[i - 1]\nreturn profit\n\n# WHY: prices[b] - prices[a] == sum of the daily deltas in (a, b].\n# So every strategy's profit is a subset-sum of deltas, and the best\n# subset is \"all the positive ones\". Add a fee or a cooldown and this\n# argument collapses -> use DP.\n",
+    variants:[
+      ['<b>At most one</b> transaction (LC 121)','Track the minimum price so far and the best profit against it.'],
+      ['<b>At most k</b> transactions (LC 188)','DP over (day, transactions used, holding or not). Greedy dies.'],
+      ['With a transaction fee (LC 714)','Greedy dies — the fee makes tiny gains unprofitable. Two-state DP.'],
+      ['With a cooldown (LC 309)','Three-state DP: holding, just sold, free.']
+    ],
+    thinking:'The habit worth building is: <b>when a greedy solution occurs to you, spend thirty seconds trying to prove it before you write it.</b> Usually the proof is either an exchange argument ("swapping to the greedy choice never makes things worse") or a decomposition like this one. If you cannot construct either, treat the greedy as suspect and reach for DP. Interviewers grade greedy answers on the justification far more than on the code, because the code is always four lines.'
+  }
+});
+
+</script>
+</body>
+</html>

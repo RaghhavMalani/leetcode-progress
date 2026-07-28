@@ -1,9 +1,9 @@
 # 860. Lemonade Change
-> **Easy** &nbsp;·&nbsp; Greedy · spend the least flexible resource first &nbsp;·&nbsp; family: **Greedy**
+> **Easy** &nbsp;&middot;&nbsp; Greedy · spend the least flexible resource first &nbsp;&middot;&nbsp; family: **Greedy**
 
 Only one line in this problem is a real decision: paying $15 with a $10 + $5 rather than three $5s. The reason is that $5 notes are more flexible, so you hoard them.
 
-**▶ [Step through this solution line by line](../visualizations/0860-lemonade-change.html)** — 18 steps, traced on `bills = [5,5,10,10,20]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 18 steps, traced on `bills = [5,5,10,10,20]`.
 
 | | |
 |---|---|
@@ -63,4 +63,4 @@ When several resources can satisfy a demand, rank them by **how many future dema
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/lemonade-change)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/lemonade-change)

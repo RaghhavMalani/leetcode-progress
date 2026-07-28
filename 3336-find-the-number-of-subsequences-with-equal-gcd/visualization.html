@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3336 - Subsequences With Equal GCD</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution {", "public:", "    int subsequencePairCount(vector<int>& nums) {", "        const int MOD = 1e9 + 7;", "        const int MAX_VALUE = 200;", "", "        vector<vector<int>> dp(", "            MAX_VALUE + 1,", "            vector<int>(MAX_VALUE + 1, 0)", "        );", "", "        dp[0][0] = 1;", "", "        for (int x : nums) {", "            vector<vector<int>> next(", "                MAX_VALUE + 1,", "                vector<int>(MAX_VALUE + 1, 0)", "            );", "", "            for (int gcd1 = 0; gcd1 <= MAX_VALUE; gcd1++) {", "                for (int gcd2 = 0; gcd2 <= MAX_VALUE; gcd2++) {", "                    if (dp[gcd1][gcd2] == 0) {", "                        continue;", "                    }", "", "                    int ways = dp[gcd1][gcd2];", "", "                    next[gcd1][gcd2] =", "                        (next[gcd1][gcd2] + ways) % MOD;", "", "                    int newGcd1 = gcd(gcd1, x);", "                    next[newGcd1][gcd2] =", "                        (next[newGcd1][gcd2] + ways) % MOD;", "", "                    int newGcd2 = gcd(gcd2, x);", "                    next[gcd1][newGcd2] =", "                        (next[gcd1][newGcd2] + ways) % MOD;", "                }", "            }", "", "            dp = move(next);", "        }", "", "        int answer = 0;", "", "        for (int gcdValue = 1; gcdValue <= MAX_VALUE; gcdValue++) {", "            answer = (answer + dp[gcdValue][gcdValue]) % MOD;", "        }", "", "        return answer;", "    }", "};"];
+function build(){
+  var T=LV.trace(), nums=[1,2,3], MOD=1000000007;
+  function g(a,b){ while(b){ var t=b; b=a%b; a=t; } return a; }
+  var dp={}; dp['0,0']=1;
+  function tbl(hot){
+    var keys=Object.keys(dp).filter(function(k){ return dp[k]; });
+    return LV.kv('dp[g1][g2] = number of ways to build two disjoint groups with these gcds',
+      keys.map(function(k){ return ['('+k+')', dp[k]]; }),
+      (function(){ var m={}; if(hot) m['('+hot+')']='hot'; return m; })(), {emptyText:'empty'}); }
+  function V(i,hot,note){ var m={}; nums.forEach(function(_,k){ m[k]= k<i?'good':(k===i?'hot':'dim'); });
+    return [ LV.arr('nums', nums, m, {note:note||'gcd 0 is the identity: gcd(0, x) = x, so an EMPTY group has gcd 0'}), tbl(hot) ]; }
+
+  T.step(12,'info','<code>dp[0][0] = 1</code>. Both groups start empty, and the gcd of an empty set is taken as <b>0</b> — which works because gcd(0, x) = x, so adding the first element to an empty group just sets its gcd to that element. Choosing 0 as the identity is what removes all the "is this group empty?" special cases.',['ways = <b>1</b>'],V(null,'0,0'));
+  T.step(14,'info','Process each element in turn. For every state that currently has a non-zero count, the new element has <b>three</b> mutually exclusive fates: skip it, put it in group 1, or put it in group 2. That three-way branch is the whole recurrence.',[],V(0,null));
+  nums.forEach(function(x,i){
+    var next={};
+    function bump(k,v){ next[k]=((next[k]||0)+v)%MOD; }
+    Object.keys(dp).forEach(function(k){
+      var v=dp[k]; if(!v) return;
+      var p=k.split(',').map(Number), g1=p[0], g2=p[1];
+      T.step(21,'call','x = '+x+', state ('+g1+', '+g2+') has '+v+' way'+(v===1?'':'s')+'.',['x = <b>'+x+'</b>'],V(i,k));
+      bump(g1+','+g2, v);
+      T.step(28,'push','<b>Fate 1 — skip x.</b> The state is unchanged: next['+g1+']['+g2+'] += '+v+'.',[],V(i,g1+','+g2));
+      var n1=g(g1,x);
+      bump(n1+','+g2, v);
+      T.step(32,'push','<b>Fate 2 — x joins group 1.</b> Its gcd becomes gcd('+g1+', '+x+') = '+n1+'. next['+n1+']['+g2+'] += '+v+'.',[],V(i,n1+','+g2));
+      var n2=g(g2,x);
+      bump(g1+','+n2, v);
+      T.step(36,'push','<b>Fate 3 — x joins group 2.</b> gcd('+g2+', '+x+') = '+n2+'. next['+g1+']['+n2+'] += '+v+'.',[],V(i,g1+','+n2));
+    });
+    dp=next;
+    T.step(41,'ok','Element '+x+' folded in. The table is rebuilt fresh each round (<code>next</code>), never updated in place — updating in place would let one element be used twice.',[],V(i,null));
+  });
+  var ans=0, hits=[];
+  Object.keys(dp).forEach(function(k){
+    var p=k.split(',').map(Number);
+    if(p[0]===p[1] && p[0]>=1){ ans=(ans+dp[k])%MOD; hits.push('gcd '+p[0]+': '+dp[k]+' ways'); }
+  });
+  hits.forEach(function(h){ T.save(h); });
+  T.step(47,'found','Now sum the diagonal, skipping gcd 0 (which would mean an EMPTY group — both groups must be non-empty). '+hits.join('; ')+'.',['answer = <u>'+ans+'</u>'],V(nums.length,null));
+  T.step(50,'done','Answer: <b>'+ans+'</b>. O(n · V²) where V = 200, because gcds of the input are bounded by the maximum value.',['answer = <u>'+ans+'</u>'],V(nums.length,null));
+  return T;
+}
+LV.render({
+  num:'3336', name:'Find the Number of Subsequences With Equal GCD', slug:'3336-find-the-number-of-subsequences-with-equal-gcd',
+  difficulty:'Hard', pattern:'DP over a bounded state (gcd × gcd)',
+  url:'https://leetcode.com/problems/find-the-number-of-subsequences-with-equal-gcd',
+  blurb:'The state is a <em>pair of gcds</em>, not a pair of subsets. Because every gcd of the input divides some value ≤ 200, the state space is only 201×201 — that bound is what makes an exponential problem polynomial.',
+  input:'nums = [1,2,3]', runName:'subsequencePairCount',
+  skipLabel:null, emptyResult:'no answer yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n · V²) with V = 200', space:'O(V²)'},
+  theory:{
+    idea:'The trick is <b>choosing a state that is small enough to enumerate</b>. You cannot track which elements went into each group — that is 3ⁿ. But you only ever <em>need</em> the two gcds, and gcds of values ≤ 200 are themselves ≤ 200. So the state collapses from exponential to 201² and a DP becomes possible.',
+    recognize:[
+      'Counting subsets or partitions where the condition depends on an <b>aggregate</b> (gcd, sum, xor, max) rather than on the identity of the elements.',
+      'Small value bounds in the constraints (here 200) — that number is the size of your state dimension, and it is always deliberate.',
+      'The three-way "skip / group A / group B" branch is the standard shape for partitioning into two labelled groups.'
+    ],
+    pitfalls:[
+      '<b>Updating <code>dp</code> in place.</b> An element could then be added to a state that already includes it. The fresh <code>next</code> table is mandatory — this is the same discipline as 0/1 knapsack iterating backwards.',
+      '<b>Including gcd 0 in the final sum.</b> gcd 0 means the group is empty, and both groups must be non-empty. Line 46 starts at 1.',
+      '<b>Forgetting the modulus</b> on every addition, not just at the end.',
+      '<b>Allocating a fresh 201×201 table per element without the <code>if dp == 0: continue</code> skip.</b> Most states are unreachable; skipping them is what keeps it fast in practice.',
+      '<b>Double counting.</b> The groups here are labelled (group 1 vs group 2), so (A, B) and (B, A) are distinct — check whether the problem wants that.'
+    ],
+    template: "# state = (gcd of group 1, gcd of group 2). bounded by max value, so 201x201.\ndp = [[0] * (V + 1) for _ in range(V + 1)]\ndp[0][0] = 1                       # gcd of an EMPTY group is 0 (the identity)\n\nfor x in nums:\n    nxt = [[0] * (V + 1) for _ in range(V + 1)]     # FRESH table, never in place\n    for g1 in range(V + 1):\n        for g2 in range(V + 1):\n            w = dp[g1][g2]\n            if not w: continue                       # most states are unreachable\n            nxt[g1][g2]        = (nxt[g1][g2] + w) % MOD          # skip x\n            nxt[gcd(g1,x)][g2] = (nxt[gcd(g1,x)][g2] + w) % MOD   # x -> group 1\n            nxt[g1][gcd(g2,x)] = (nxt[g1][gcd(g2,x)] + w) % MOD   # x -> group 2\n    dp = nxt\n\nreturn sum(dp[g][g] for g in range(1, V + 1)) % MOD   # from 1: skip empty groups\n",
+    variants:[
+      ['Sum instead of gcd','Subset-sum DP — the state is the sum, bounded by n × maxValue.'],
+      ['XOR instead of gcd','State is the xor value, bounded by the next power of two.'],
+      ['Three groups','A three-dimensional state, V³ — check the bound before committing.'],
+      ['<b>Subsequences with equal sum</b>','Classic partition DP; same skip/A/B branch.']
+    ],
+    thinking:'The single most useful question in DP design is <b>"what is the smallest piece of information about the past that determines the future?"</b> Here it is not the subsets but their two gcds. Then check the second question: <b>is that state space small enough to enumerate?</b> The constraint "values ≤ 200" is the problem telling you the answer is yes. When you see a suspiciously small value bound in a counting problem, it is almost always the dimension of the intended DP state.'
+  }
+});
+
+</script>
+</body>
+</html>

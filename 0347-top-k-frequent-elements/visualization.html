@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>347 - Top K Frequent Elements</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def topKFrequent(self, nums: List[int], k: int) -> List[int]:", "        freq = {}", "", "        for num in nums:", "            freq[num] = freq.get(num, 0) + 1", "", "        buckets = [[] for _ in range(len(nums) + 1)]", "", "        for num, count in freq.items():", "            buckets[count].append(num)", "", "        res = []", "", "        for count in range(len(buckets) - 1, 0, -1):", "            for num in buckets[count]:", "                res.append(num)", "", "                if len(res) == k:", "                    return res"];
+function build(){
+  var T=LV.trace(), a=[1,1,1,2,2,3], k=2;
+  var freq={}, ford=[], buckets=[[],[],[],[],[],[],[]], res=[];
+  function FP(){ return ford.map(function(x){ return [x, freq[x]]; }); }
+  function BV(hot){ var m={}; if(hot!=null) m[hot]='hot';
+    return LV.arr('buckets — index = frequency, value = the numbers with that frequency', buckets.map(function(b){ return b.length?'['+b.join(',')+']':'·'; }), m, {}); }
+  function V(i,hot,fhot){ var m={}; if(i!=null) for(var x=0;x<a.length;x++) m[x]= x<i?'good':(x===i?'hot':'dim');
+    var fm={}; if(fhot!=null) fm[fhot]='hot';
+    return [ LV.arr('nums', a, m, {}), LV.kv('freq', FP(), fm, {emptyText:'empty'}), BV(hot),
+             LV.seq('res', res, {}, {emptyText:'empty'}) ]; }
+
+  T.step(3,'info','Three stages: count frequencies, bucket the numbers BY frequency, then read the buckets from the top. The point is to avoid sorting — bucketing gives O(n) where a sort would give O(n log n).',['k = 2'],V(null,null,null));
+  a.forEach(function(x,i){
+    freq[x]=(freq[x]||0)+1; if(ford.indexOf(x)<0) ford.push(x);
+    T.step(6,'push','freq['+x+'] → '+freq[x]+'.',['i = <b>'+i+'</b>'],V(i,null,x));
+  });
+  T.step(8,'info','Now the key move: create len(nums)+1 buckets. A frequency can never exceed n, so index = frequency is always in range. This is counting sort in disguise.',[],V(null,null,null));
+  ford.forEach(function(x){
+    buckets[freq[x]].push(x);
+    T.step(11,'push',x+' appears '+freq[x]+' times → drop it into bucket '+freq[x]+'.',['num = <b>'+x+'</b>','count = <em>'+freq[x]+'</em>'],V(null,freq[x],x));
+  });
+  T.step(15,'info','Read the buckets from the highest frequency downwards. The first k numbers you meet are the k most frequent, by construction.',[],V(null,null,null));
+  for(var cnt=buckets.length-1;cnt>0;cnt--){
+    if(!buckets[cnt].length){
+      T.step(15,'info','Bucket '+cnt+' is empty — no number appears exactly '+cnt+' times. Skip.',['count = <em>'+cnt+'</em>'],V(null,cnt,null));
+      continue;
+    }
+    for(var j=0;j<buckets[cnt].length;j++){
+      res.push(buckets[cnt][j]);
+      T.save(buckets[cnt][j]+' (freq '+cnt+')');
+      T.step(17,'found','Bucket '+cnt+' holds '+buckets[cnt][j]+'. Append it — res is now ['+res.join(', ')+'].',['count = <em>'+cnt+'</em>','len(res) = <u>'+res.length+'</u>'],V(null,cnt,null));
+      if(res.length===k){
+        T.step(20,'done','len(res) == k, so return immediately: <b>['+res.join(', ')+']</b>. Total O(n) — no sort, no heap.',['answer = <u>['+res.join(', ')+']</u>'],V(null,cnt,null));
+        return T;
+      }
+    }
+  }
+  return T;
+}
+LV.render({
+  num:'347', name:'Top K Frequent Elements', slug:'0347-top-k-frequent-elements',
+  difficulty:'Medium', pattern:'Bucket sort · frequency',
+  url:'https://leetcode.com/problems/top-k-frequent-elements',
+  blurb:'The O(n) answer that beats both sorting and the heap. It works because a frequency is bounded by n, which means you can use it directly as an array index.',
+  input:'nums = [1,1,1,2,2,3], k = 2', runName:'topKFrequent',
+  skipLabel:'Skip to next result', skipTypes:['found'], emptyResult:'res is still empty',
+  src:SRC, build:build,
+  complexity:{time:'O(n) — beats heap O(n log k) and sort O(n log n)', space:'O(n)'},
+  theory:{
+    idea:'<b>Bucket sort by an index-able key.</b> Whenever the value you would sort by is a bounded non-negative integer, you can skip sorting entirely: make an array indexed by that value and drop items into it. Here the key is frequency, bounded by n, so n+1 buckets always suffice.',
+    recognize:[
+      '"Top k", "k most frequent", "k largest" — and then check whether the sort key is a small bounded integer. If yes, bucket. If not, heap.',
+      'Frequencies, ages, scores out of 100, character counts — all bounded, all bucketable.',
+      'If k is close to n, bucketing wins outright; if k is tiny and n is huge, a size-k heap uses less memory.'
+    ],
+    pitfalls:[
+      '<b>Sizing the buckets as <code>len(freq)</code>.</b> The index is a <em>frequency</em>, whose maximum is <code>len(nums)</code>, not the number of distinct values. Get this wrong and you index out of range on <code>[1,1,1]</code>.',
+      '<b>Looping <code>range(len(buckets)-1, 0, -1)</code> vs <code>-1</code>.</b> Bucket 0 is always empty (a number present in the list appears at least once) so stopping at 1 is right — but be able to say why.',
+      '<b>Forgetting to stop at k.</b> Without the early return you can return more than k elements when several tie.',
+      '<b>Reaching for <code>heapq.nlargest</code> first.</b> Fine as a first answer, but the interviewer asking "can you do better than O(n log k)?" is asking for exactly this.'
+    ],
+    template: "# Bucket by a bounded integer key - counting sort in disguise\nfreq = Counter(nums)\nbuckets = [[] for _ in range(len(nums) + 1)]   # size = MAX POSSIBLE KEY + 1\nfor num, c in freq.items():\n    buckets[c].append(num)\n\nres = []\nfor c in range(len(buckets) - 1, 0, -1):       # read from the top down\n    for num in buckets[c]:\n        res.append(num)\n        if len(res) == k:\n            return res\n",
+    variants:[
+      ['k closest points to the origin','LC 973 — distances are unbounded, so heap or quickselect, not buckets.'],
+      ['<b>Kth largest element</b> (LC 215)','Quickselect for O(n) average, heap for O(n log k) worst case.'],
+      ['Sort characters by frequency','LC 451 — same buckets, emit all of them instead of stopping at k.'],
+      ['Streaming top-k','Buckets do not work; keep a size-k min-heap.']
+    ],
+    thinking:'Add one question to your checklist whenever you are about to sort: <b>"is my sort key a bounded small integer?"</b> If it is, you can index by it and drop from O(n log n) to O(n). This is the same realisation behind counting sort, radix sort, and the bucket trick in LC 164. It costs nothing to check and occasionally hands you a whole complexity class.'
+  }
+});
+
+</script>
+</body>
+</html>

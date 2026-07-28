@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1358 - Substrings With All Three Characters</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def numberOfSubstrings(self, s: str) -> int:", "        count = {", "            'a': 0,", "            'b': 0,", "            'c': 0", "        }", "", "        left = 0", "        ans = 0", "        n = len(s)", "", "        for right in range(n):", "            count[s[right]] += 1", "", "            while count['a'] > 0 and count['b'] > 0 and count['c'] > 0:", "                ans += n - right", "", "                count[s[left]] -= 1", "                left += 1", "", "        return ans"];
+function build(){
+  var T=LV.trace(), s='abcabc', n=s.length, cnt={a:0,b:0,c:0}, L=0, ans=0;
+  function pairs(){ return [['a',cnt.a],['b',cnt.b],['c',cnt.c]]; }
+  function cm(){ var m={}; ['a','b','c'].forEach(function(k){ m[k]= cnt[k]>0?'good':'bad'; }); return m; }
+  function marks(R,hot){ var m={};
+    for(var x=0;x<s.length;x++){ if(x>R) m[x]='dim'; else if(x>=L&&x<=R) m[x]=(x===R&&hot)?'hot':'win'; else m[x]=''; }
+    return m; }
+  function ptr(R){ var p={}; p[L]=(L===R?'l r':'l'); if(R!==L) p[R]='r'; return p; }
+  function V(R,hot){ return [
+    LV.arr('s — blue block is the current window', s.split(''), marks(R,hot), {ptrs:ptr(R)}),
+    LV.kv('count', pairs(), cm(), {}) ]; }
+  function VA(R){ return ['left = <b>'+L+'</b>','right = <i>'+R+'</i>','n = 6','ans = <u>'+ans+'</u>']; }
+
+  T.step(9,'info','The counting trick: for each `right`, shrink the window until it is the SMALLEST valid one ending there. Then every window that starts at or before `left` and ends at `right` or later is also valid.',['ans = <u>0</u>'],[LV.arr('s',s.split(''),{},{}),LV.kv('count',[['a',0],['b',0],['c',0]],{},{})]);
+  for(var R=0;R<n;R++){
+    cnt[s[R]]++;
+    T.step(14,'call','right = '+R+'. Take in "'+s[R]+'" — count['+s[R]+'] is now '+cnt[s[R]]+'.',VA(R),V(R,true));
+    while(cnt.a>0&&cnt.b>0&&cnt.c>0){
+      T.step(16,'ok','Window s['+L+'..'+R+'] = "'+s.slice(L,R+1)+'" contains all three letters.',VA(R),V(R,false));
+      ans+=n-R;
+      T.step(17,'found','Add <b>n − right = '+n+' − '+R+' = '+(n-R)+'</b> to the answer. Why: the window starting at '+L+' is valid, and so is every window starting at '+L+' but ending at '+R+', '+(R+1)+', … , '+(n-1)+'. That is '+(n-R)+' substrings, all counted in one step. ans → '+ans+'.',VA(R),V(R,false));
+      T.save('left='+L+': +'+(n-R));
+      var g=s[L]; cnt[g]--; L++;
+      T.step(20,'pop','Now shrink: drop "'+g+'" from the left, count['+g+'] → '+cnt[g]+', left → '+L+'. If the window is still valid we count again from the new left.',VA(R),V(R,false));
+    }
+    T.step(16,'info','The window no longer has all three letters, so stop shrinking and let `right` grow again.',VA(R),V(R,false));
+  }
+  T.step(22,'done','Answer: <b>'+ans+'</b>. Every valid substring was counted exactly once, in O(n) — never enumerate substrings one by one for this shape of problem.',VA(n-1),V(n-1,false));
+  return T;
+}
+LV.render({
+  num:'1358', name:'Number of Substrings Containing All Three Characters', slug:'1358-number-of-substrings-containing-all-three-characters',
+  difficulty:'Medium', pattern:'Sliding window · counting',
+  url:'https://leetcode.com/problems/number-of-substrings-containing-all-three-characters',
+  blurb:'The counting variant of the sliding window. The whole problem is one line: <code>ans += n - right</code>. Understanding <em>why</em> that counts each substring exactly once is the skill being tested.',
+  input:'s = "abcabc"', runName:'numberOfSubstrings',
+  skipLabel:'Skip to next count', skipTypes:['found'], emptyResult:'ans is still 0',
+  src:SRC, build:build,
+  complexity:{time:'O(n) — each pointer moves forward at most n times', space:'O(1) — three counters'},
+  theory:{
+    idea:'When a window is valid, <b>every extension of it is also valid</b>. So instead of counting substrings one at a time, find the boundary and count a whole batch. Here, once s[left..right] is valid, so is s[left..right+1] through s[left..n-1] — that is <code>n - right</code> substrings, added in O(1).',
+    recognize:[
+      '"Count the number of substrings/subarrays such that …" — count, not longest.',
+      'The property is <b>monotone under extension</b>: adding more characters can never break it. "Contains all of X" is monotone; "contains exactly k distinct" is NOT, which is why that problem needs the atMost(k) − atMost(k-1) trick instead.',
+      'n up to 10⁵ — the O(n²) enumeration is being ruled out on purpose.'
+    ],
+    pitfalls:[
+      '<b>Adding <code>left + 1</code> instead of <code>n - right</code>.</b> Both are valid counting schemes but they answer different questions: <code>n - right</code> counts by <em>extending the right end</em>, <code>left+1</code> (used after the shrink loop) counts by <em>choosing any left start</em>. Mixing them double-counts.',
+      '<b>Counting after the while loop instead of inside it.</b> You would miss every valid window except the last one at each right.',
+      '<b>Using <code>if</code> not <code>while</code>.</b> Several lefts may be valid for the same right.',
+      '<b>Reaching for this template when the property is not monotone.</b> "Exactly k distinct" needs <code>atMost(k) - atMost(k-1)</code>; applying this one directly gives nonsense.'
+    ],
+    template: "# Counting valid windows in O(n)\nleft, ans = 0, 0\nfor right in range(n):\n    add(s[right])\n    while window_is_valid():         # find the smallest valid window\n        ans += n - right             # ...and every extension of it\n        remove(s[left]); left += 1\n\n# Non-monotone property (\"exactly k\")? Decompose it:\n#   exactly(k) = atMost(k) - atMost(k - 1)\n",
+    variants:[
+      ['Subarrays with at most k distinct','LC 340 / 992 — same loop, count <code>right - left + 1</code> after shrinking.'],
+      ['Subarrays with <b>exactly</b> k distinct','LC 992 — <code>atMost(k) - atMost(k-1)</code>. The single most useful counting trick in this family.'],
+      ['Subarrays with product less than k','LC 713 — identical structure, multiply/divide instead of counters.'],
+      ['<b>Longest</b> substring with all three','Not a count — record <code>right - left + 1</code> and take the max.']
+    ],
+    thinking:'Train yourself to spot the sentence <b>"if this window works, every bigger one works too"</b>. The moment it is true, counting problems collapse from O(n²) enumeration to O(n) batch counting. And when it is false — "exactly k", "at least k occurrences of the max" — reach for the <code>atMost(k) − atMost(k−1)</code> decomposition, which turns a non-monotone question into two monotone ones. Those two ideas cover almost every "count the subarrays" problem you will be asked.'
+  }
+});
+
+</script>
+</body>
+</html>

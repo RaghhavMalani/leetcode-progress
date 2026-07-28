@@ -1,9 +1,9 @@
 # 463. Island Perimeter
-> **Easy** &nbsp;·&nbsp; Grid DFS · flood fill &nbsp;·&nbsp; family: **Graphs, BFS & DFS**
+> **Easy** &nbsp;&middot;&nbsp; Grid DFS · flood fill &nbsp;&middot;&nbsp; family: **Graphs, BFS & DFS**
 
 A flood fill where the return value counts the walls you bump into rather than the cells you visit. Watch the base cases: `return 1` means "I hit an edge", `return 0` means "already counted".
 
-**▶ [Step through this solution line by line](../visualizations/0463-island-perimeter.html)** — 55 steps, traced on `grid = [[1,1],[1,0]]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 55 steps, traced on `grid = [[1,1],[1,0]]`.
 
 | | |
 |---|---|
@@ -60,4 +60,4 @@ When you meet a grid problem, answer three questions before coding. **(1) DFS or
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/island-perimeter)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/island-perimeter)

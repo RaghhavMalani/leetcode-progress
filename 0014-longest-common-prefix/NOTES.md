@@ -1,9 +1,9 @@
 # 14. Longest Common Prefix
-> **Easy** &nbsp;·&nbsp; Vertical scanning &nbsp;·&nbsp; family: **Two pointers & sliding window**
+> **Easy** &nbsp;&middot;&nbsp; Vertical scanning &nbsp;&middot;&nbsp; family: **Two pointers & sliding window**
 
 Vertical scanning: compare position 0 across all words, then position 1, and stop at the first disagreement. Better than the horizontal version because it exits early on the most common inputs.
 
-**▶ [Step through this solution line by line](../visualizations/0014-longest-common-prefix.html)** — 18 steps, traced on `strs = ["flower","flow","flight"]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 18 steps, traced on `strs = ["flower","flow","flight"]`.
 
 | | |
 |---|---|
@@ -58,4 +58,4 @@ When you have a choice of scan direction, ask **which one exits earliest on real
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/longest-common-prefix)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/longest-common-prefix)

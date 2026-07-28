@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3699 - Number of Zigzag Arrays I</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def zigZagArrays(self, n: int, l: int, r: int) -> int:", "        MOD = 10**9 + 7", "        m = r - l + 1", "", "        up = [0] * (m + 2)", "        down = [0] * (m + 2)", "", "        for x in range(1, m + 1):", "            up[x] = x - 1", "            down[x] = m - x", "", "        for _ in range(3, n + 1):", "            new_up = [0] * (m + 2)", "            new_down = [0] * (m + 2)", "", "            prefix = 0", "            for x in range(1, m + 1):", "                new_up[x] = prefix", "                prefix = (prefix + down[x]) % MOD", "", "            suffix = 0", "            for x in range(m, 0, -1):", "                new_down[x] = suffix", "                suffix = (suffix + up[x]) % MOD", "", "            up, down = new_up, new_down", "", "        return (sum(up) + sum(down)) % MOD"];
+function build(){
+  var T=LV.trace(), n=3, l=4, r=5, MOD=1000000007;
+  var m=r-l+1;
+  var up=new Array(m+2).fill(0), down=new Array(m+2).fill(0);
+  function V(hot,phase,note){
+    var uu=[], dd=[];
+    for(var x=1;x<=m;x++){ uu.push(up[x]); dd.push(down[x]); }
+    var um={}, dm={}; if(hot!=null){ if(phase==='u') um[hot-1]='hot'; else if(phase==='d') dm[hot-1]='hot'; }
+    return [ LV.arr('up[x] — arrays ending at value x where the LAST step went UP', uu, um, {idx:false}),
+             LV.arr('down[x] — arrays ending at value x where the LAST step went DOWN', dd, dm, {idx:false, note:note||'values are l…r, shown as offsets 1…'+m}) ]; }
+  T.step(4,'info','Compress the value range to 1…m where m = r − l + 1 = '+m+'. Only the RELATIVE order matters for a zigzag, so the actual values are irrelevant — a very common normalisation.',['n = <b>3</b>','m = <b>'+m+'</b>'],V(null));
+  T.step(9,'info','<b>The state.</b> An array is extendable if you know two things: its last value, and whether the last step went up or down. That is the whole state — <code>up[x]</code> and <code>down[x]</code>. Everything earlier is irrelevant.',[],V(null));
+  for(var x=1;x<=m;x++){
+    up[x]=x-1; down[x]=m-x;
+    T.step(10,'push','Base case (length 2): an array ending at '+x+' whose last step went UP must have started below '+x+' — that is '+(x-1)+' choices. Going DOWN means starting above — '+(m-x)+' choices.',['x = <b>'+x+'</b>'],V(x,'u'));
+  }
+  T.step(13,'info','Now extend from length 2 up to n = '+n+'. Each new element must reverse the direction: an array that ends going UP can only be extended DOWNWARD, and vice versa.',[],V(null));
+  for(var len=3;len<=n;len++){
+    var nu=new Array(m+2).fill(0), nd=new Array(m+2).fill(0);
+    var pre=0;
+    for(var x=1;x<=m;x++){
+      nu[x]=pre;
+      T.step(19,'push','new_up['+x+'] = the number of DOWN-ending arrays whose last value is &lt; '+x+' = <b>'+pre+'</b> (a running prefix sum). Without this prefix trick you would loop over all smaller values and the DP would be O(n·m²).',['len = <b>'+len+'</b>','x = <em>'+x+'</em>'],V(x,'u'));
+      pre=(pre+down[x])%MOD;
+      T.step(20,'ok','Fold down['+x+'] = '+down[x]+' into the running prefix → '+pre+'.',[],V(x,'d'));
+    }
+    var suf=0;
+    for(var x2=m;x2>=1;x2--){
+      nd[x2]=suf;
+      T.step(24,'push','new_down['+x2+'] = the number of UP-ending arrays with last value &gt; '+x2+' = <b>'+suf+'</b> — the mirror-image SUFFIX sum.',['len = <b>'+len+'</b>','x = <em>'+x2+'</em>'],V(x2,'d'));
+      suf=(suf+up[x2])%MOD;
+    }
+    up=nu; down=nd;
+    T.step(27,'ok','Length '+len+' complete. Swap in the new tables.',[],V(null));
+  }
+  var ans=0; for(var x3=1;x3<=m;x3++) ans=(ans+up[x3]+down[x3])%MOD;
+  T.save('total = '+ans);
+  T.step(29,'done','Answer: sum of both tables = <b>'+ans+'</b>. O(n·m) thanks to the prefix and suffix sums — the naive transition would have been O(n·m²).',['answer = <u>'+ans+'</u>'],V(null,null,'final'));
+  return T;
+}
+LV.render({
+  num:'3699', name:'Number of Zigzag Arrays I', slug:'3699-number-of-zigzag-arrays-i',
+  difficulty:'Hard', pattern:'DP with direction state + prefix-sum transitions',
+  url:'https://leetcode.com/problems/number-of-zigzag-arrays-i',
+  blurb:'Two lessons: the state you need is "last value + last direction", and a transition that sums over a range collapses from O(m) to O(1) with a running prefix sum.',
+  input:'n = 3, l = 4, r = 5', runName:'zigZagArrays',
+  skipLabel:null, emptyResult:'no answer yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n · m) where m = r − l + 1', space:'O(m)'},
+  theory:{
+    idea:'Two techniques stacked. <b>(1) State design:</b> to extend a zigzag you need only the last value and the last direction — nothing earlier matters, so the state is 2m rather than exponential. <b>(2) Prefix-sum transitions:</b> the natural transition is "sum over all smaller values", which is O(m) per state and O(m²) per length. Accumulating a running prefix as you sweep makes each transition O(1).',
+    recognize:[
+      'Counting sequences with an <b>alternating</b> or local-comparison constraint — zigzag, wiggle, strictly alternating parity.',
+      'A DP transition of the form <code>dp[x] = Σ dp'+"'"+'[y] for y &lt; x</code> — that shape is <em>always</em> a prefix sum in disguise.',
+      'Value ranges compressed to 1..m because only relative order matters.'
+    ],
+    pitfalls:[
+      '<b>Writing the O(m²) transition and stopping.</b> Correct but too slow; the prefix sum is the intended optimisation and the whole point of the problem.',
+      '<b>Sweep direction.</b> <code>new_up</code> needs a PREFIX (smaller values) so you sweep left to right; <code>new_down</code> needs a SUFFIX so you sweep right to left. Mixing them is the easiest bug to introduce here.',
+      '<b>Adding to the prefix before writing.</b> <code>new_up[x] = prefix</code> must come before <code>prefix += down[x]</code>, or x counts itself. Same discipline as LC 238 in your repo.',
+      '<b>The base case.</b> Length 2, not 1 — hence the loop starting at 3.',
+      '<b>Forgetting the modulus</b> inside the accumulation, not just at the end.'
+    ],
+    template: "# state: (last value, last direction). transition: sum over a RANGE -> prefix sum.\nup   = [x - 1 for x in range(m + 1)]     # base: length-2 arrays ending going UP\ndown = [m - x for x in range(m + 1)]\n\nfor _ in range(3, n + 1):\n    new_up, new_down = [0] * (m + 2), [0] * (m + 2)\n\n    pre = 0\n    for x in range(1, m + 1):            # LEFT to RIGHT: needs smaller values\n        new_up[x] = pre                  # write BEFORE accumulating\n        pre = (pre + down[x]) % MOD\n\n    suf = 0\n    for x in range(m, 0, -1):            # RIGHT to LEFT: needs larger values\n        new_down[x] = suf\n        suf = (suf + up[x]) % MOD\n\n    up, down = new_up, new_down\n\nreturn (sum(up) + sum(down)) % MOD\n# n up to 1e18? the transition is linear -> matrix exponentiation (part II).\n",
+    variants:[
+      ['<b>Part II</b> (LC 3700)','n up to 10¹⁸ — the transition is linear, so use <b>matrix exponentiation</b> for O(m³ log n). Also in your repo.'],
+      ['<b>Wiggle Subsequence</b> (LC 376)','Longest zigzag rather than a count — greedy, O(n).'],
+      ['<b>Count Vowel Permutations</b> (LC 1220)','Same "state = last symbol" DP with a fixed transition table.'],
+      ['Strictly increasing arrays','Drop the direction state; the transition is a plain prefix sum.']
+    ],
+    thinking:'Two questions to run on every DP. <b>First: what is the minimal state?</b> Here, "last value and last direction" — anything more is waste, anything less is insufficient. <b>Second: is my transition summing over a contiguous range?</b> If so, replace the inner loop with a running prefix or suffix sum and drop a whole factor. Those two questions turn most Hard counting DPs into Medium ones, and the second one in particular is the difference between accepted and TLE far more often than the state design is.'
+  }
+});
+
+</script>
+</body>
+</html>

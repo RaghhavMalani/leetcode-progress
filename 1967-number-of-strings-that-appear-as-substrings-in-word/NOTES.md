@@ -1,9 +1,9 @@
 # 1967. Number of Strings That Appear as Substrings in Word
-> **Easy** &nbsp;·&nbsp; String matching · know what your library does &nbsp;·&nbsp; family: **Brute force done right**
+> **Easy** &nbsp;&middot;&nbsp; String matching · know what your library does &nbsp;&middot;&nbsp; family: **Brute force done right**
 
 Three lines. Worth a minute anyway, because it is a good moment to know what `in` actually costs and what you would reach for if the input were a million times bigger.
 
-**▶ [Step through this solution line by line](../visualizations/1967-number-of-strings-that-appear-as-substrings-in-word.html)** — 10 steps, traced on `patterns = ["a","abc","bc","d"], word = "abc"`.
+**▶ [Step through this solution line by line](./visualization.html)** — 10 steps, traced on `patterns = ["a","abc","bc","d"], word = "abc"`.
 
 | | |
 |---|---|
@@ -52,4 +52,4 @@ For every library call you make in an interview, be ready to answer **"what does
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/number-of-strings-that-appear-as-substrings-in-word)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/number-of-strings-that-appear-as-substrings-in-word)

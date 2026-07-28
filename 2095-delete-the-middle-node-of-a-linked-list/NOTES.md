@@ -1,9 +1,9 @@
 # 2095. Delete the Middle Node of a Linked List
-> **Medium** &nbsp;·&nbsp; Fast & slow pointers · find the middle &nbsp;·&nbsp; family: **Two pointers & sliding window**
+> **Medium** &nbsp;&middot;&nbsp; Fast & slow pointers · find the middle &nbsp;&middot;&nbsp; family: **Two pointers & sliding window**
 
 Fast/slow doing its second job: finding the midpoint. The extra wrinkle is `prev` — to delete a node you need its predecessor, and a singly linked list will not give you one.
 
-**▶ [Step through this solution line by line](../visualizations/2095-delete-the-middle-node-of-a-linked-list.html)** — 8 steps, traced on `head = [1,3,4,7,1,2,6]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 8 steps, traced on `head = [1,3,4,7,1,2,6]`.
 
 | | |
 |---|---|
@@ -55,4 +55,4 @@ while fast and fast.next:      # -> slow ends on the UPPER middle
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list)

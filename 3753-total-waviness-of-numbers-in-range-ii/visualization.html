@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3753 - Total Waviness of Numbers in Range II</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def totalWaviness(self, num1: int, num2: int) -> int:", "        ", "        def solve(n: int) -> int:", "            if n <= 0:", "                return 0", "            ", "            s = str(n)", "            ", "            @lru_cache(None)", "            def dfs(pos: int, tight: bool, started: bool, prev2: int, prev1: int):", "                \"\"\"", "                Returns:", "                count = number of valid numbers that can be formed", "                total = total waviness from those numbers", "                \"\"\"", "                ", "                if pos == len(s):", "                    if started:", "                        return 1, 0", "                    return 0, 0", "                ", "                limit = int(s[pos]) if tight else 9", "                ", "                total_count = 0", "                total_waviness = 0", "                ", "                for digit in range(limit + 1):", "                    new_tight = tight and (digit == limit)", "                    ", "                    # Case 1: still skipping leading zeroes", "                    if not started and digit == 0:", "                        child_count, child_waviness = dfs(", "                            pos + 1,", "                            new_tight,", "                            False,", "                            -1,", "                            -1", "                        )", "                        ", "                        total_count += child_count", "                        total_waviness += child_waviness", "                    ", "                    # Case 2: we place a real digit", "                    else:", "                        add = 0", "                        ", "                        # We can check whether prev1 is peak/valley", "                        # only if prev2 exists.", "                        if started and prev2 != -1:", "                            is_peak = prev1 > prev2 and prev1 > digit", "                            is_valley = prev1 < prev2 and prev1 < digit", "                            ", "                            if is_peak or is_valley:", "                                add = 1", "                        ", "                        if not started:", "                            new_prev2 = -1", "                            new_prev1 = digit", "                        else:", "                            new_prev2 = prev1", "                            new_prev1 = digit", "                        ", "                        child_count, child_waviness = dfs(", "                            pos + 1,", "                            new_tight,", "                            True,", "                            new_prev2,", "                            new_prev1", "                        )", "                        ", "                        total_count += child_count", "                        total_waviness += child_waviness + add * child_count", "                ", "                return total_count, total_waviness", "            ", "            count, total = dfs(0, True, False, -1, -1)", "            return total", "        ", "        return solve(num2) - solve(num1 - 1)"];
+function build(){
+  var T=LV.trace();
+  var num1=1, num2=132;
+  function digits(n){ return String(n).split(''); }
+  function V(s,pos,note,marks){ var m=marks||{};
+    s.split('').forEach(function(_,i){ if(m[i]===undefined) m[i]= i<pos?'good':(i===pos?'hot':'dim'); });
+    return [ LV.arr('upper bound, digit by digit', s.split(''), m, {note:note||''}) ]; }
+
+  T.step(4,'info','<b>Digit DP.</b> The range can span 10¹⁵ numbers, so you cannot iterate. Instead you build numbers digit by digit and count them in bulk, memoising on a small state.',['num1 = <b>1</b>','num2 = <b>132</b>'],V('132',null));
+  T.step(80,'info','<b>Prefix-difference:</b> answer(num1, num2) = solve(num2) − solve(num1 − 1), where solve(n) counts over [0, n]. That trick turns every range problem into two one-sided ones, and it is why the whole DP only ever needs a single upper bound.',['solve(132) − solve(0)'],V('132',null));
+  T.step(11,'info','<b>The state.</b> Four pieces, and each earns its place: <code>pos</code> (which digit we are placing), <code>tight</code> (are we still hugging the upper bound?), <code>started</code> (have we placed a non-zero digit yet?), and <code>prev2, prev1</code> (the last two digits, which is all you need to decide whether prev1 is a peak or a valley).',[],V('132',0));
+  T.step(23,'info','<b>tight</b> is the heart of digit DP. While tight, the current digit may only run up to the bound’s digit; the moment you place something smaller, you become free and every later digit may run 0–9. That single flag is what makes the memo reusable across huge swathes of numbers.',['tight = <b>true</b>'],V('132',0,'while tight, digit ≤ 1'));
+  T.step(32,'info','<b>started</b> handles leading zeros. "007" is the number 7, and its digits 0,0 must not be treated as a valley. Until a non-zero digit appears, prev2 and prev1 stay at −1 and nothing is counted.',[],V('132',1,'leading zeros do not form peaks'));
+  T.step(18,'info','<b>The return value is a PAIR:</b> (count, total_waviness). Counting alone is not enough — you also need the accumulated waviness, and the two must be combined together.',[],V('132',1));
+  T.step(51,'info','A peak is <code>prev1 &gt; prev2 and prev1 &gt; digit</code>; a valley is the mirror. This can only be judged once TWO previous digits exist, which is exactly why the state carries prev2.',['checking prev1'],V('132',2,'is the middle digit a peak or a valley?',{0:'win',1:'hot',2:'win'}));
+  T.step(73,'found','<b>The combination rule</b>, and the line people get wrong: <code>total += child_waviness + add × child_count</code>. The child subtree contributes its own waviness, AND if the current position is a peak or valley it adds 1 to <em>every one</em> of the child_count numbers below it. Adding just <code>add</code> instead of <code>add × child_count</code> undercounts massively.',['total += child + add × count'],V('132',2,null,{0:'win',1:'good',2:'win'}));
+  T.save('e.g. 121 → 1 peak');
+  T.save('e.g. 132 → 1 peak');
+  T.step(10,'info','<code>@lru_cache</code> memoises on (pos, tight, started, prev2, prev1). The state space is about 16 × 2 × 2 × 11 × 11 ≈ 8000 — tiny, which is the whole point.',['states ≈ <b>8000</b>'],V('132',null));
+  T.step(77,'done','solve(132) − solve(0) gives the answer. O(digits × 2 × 2 × 100 × 10) regardless of how large the range is.',['done'],V('132',null,'digit DP complete'));
+  return T;
+}
+LV.render({
+  num:'3753', name:'Total Waviness of Numbers in Range II', slug:'3753-total-waviness-of-numbers-in-range-ii',
+  difficulty:'Hard', pattern:'Digit DP · tight / started / carried context',
+  url:'https://leetcode.com/problems/total-waviness-of-numbers-in-range-ii',
+  blurb:'The canonical digit DP, with one extra twist: the recursion returns a <em>pair</em> — how many numbers, and how much waviness — because a peak at this position adds 1 to every number below it.',
+  input:'num1 = 1, num2 = 132', runName:'totalWaviness',
+  skipLabel:null, emptyResult:'no examples yet', showResults:true,
+  src:SRC, build:build,
+  complexity:{time:'O(digits × 2 × 2 × 10 × 10 × 10) — constant for any range', space:'O(same) for the memo'},
+  theory:{
+    idea:'Digit DP counts numbers with a property over an enormous range by <b>building them digit by digit</b> and memoising on a small state. Three components are near-universal: <b>tight</b> (still hugging the upper bound), <b>started</b> (leading zeros not yet broken), and whatever <b>context</b> the property needs — here the previous two digits.',
+    recognize:[
+      'Ranges up to 10¹⁵ or larger, with a property defined on the <b>decimal digits</b> of each number.',
+      '"Count numbers in [L, R] such that …" — always reduce to <code>f(R) − f(L−1)</code>.',
+      'If the property needs the last k digits, the state carries k of them and the memo grows by 10^k.'
+    ],
+    pitfalls:[
+      '<b>Forgetting <code>started</code>.</b> Leading zeros get treated as real digits and 007 registers a spurious valley.',
+      '<b>Propagating <code>tight</code> wrongly.</b> It is <code>tight and (digit == limit)</code> — once you go below the bound you are free forever.',
+      '<b>Memoising while <code>tight</code> is true.</b> Legal only because <code>tight</code> is part of the key. Leave it out of the key and the cache returns answers computed under a different bound.',
+      '<b>Adding <code>add</code> instead of <code>add × child_count</code>.</b> The single hardest line. A peak at this position contributes 1 to EVERY number completed below it, not 1 in total.',
+      '<b>Off-by-one at the lower end.</b> It is <code>solve(num1 - 1)</code>, and <code>solve(0)</code> must be well defined.',
+      '<b>Recursion depth and cache size.</b> Fine at 16 digits, but clear the cache between the two <code>solve</code> calls — the bound differs.'
+    ],
+    template: "# digit DP: three slots -> tight, started, context\ndef solve(n):                      # counts over [0, n]\n    s = str(n)\n\n    @lru_cache(None)               # tight/started MUST be part of the key\n    def dfs(pos, tight, started, ctx):\n        if pos == len(s):\n            return (1, 0) if started else (0, 0)\n\n        limit = int(s[pos]) if tight else 9      # tight -> capped by the bound\n        cnt = tot = 0\n        for d in range(limit + 1):\n            ntight = tight and (d == limit)      # go below -> free forever\n            if not started and d == 0:\n                c, t = dfs(pos + 1, ntight, False, EMPTY_CTX)   # leading zero\n            else:\n                add = 1 if <property holds at this position> else 0\n                c, t = dfs(pos + 1, ntight, True, next_ctx(ctx, d))\n                t += add * c        # <- x c, NOT + add. one per completion.\n            cnt += c; tot += t\n        return cnt, tot\n\n    return dfs(0, True, False, EMPTY_CTX)[1]\n\nreturn solve(R) - solve(L - 1)     # prefix difference\n",
+    variants:[
+      ['Count numbers without a digit 4','The simplest digit DP — state is just (pos, tight).'],
+      ['Count numbers whose digit sum is divisible by k','Carry the running sum mod k.'],
+      ['<b>Numbers At Most N Given Digit Set</b> (LC 902)','Digit DP with a restricted alphabet.'],
+      ['<b>Count Special Integers</b> (LC 2376)','Add a bitmask of used digits to the state.'],
+      ['Sum of numbers rather than a count','Return (count, sum) — the same pair-returning structure as here.']
+    ],
+    thinking:'Digit DP is a <b>template with three slots</b>: tight, started, and context. Learn it once, and then every problem in the family is just deciding what goes in the context slot — the last digit, the last two digits, a running remainder, a bitmask of used digits. The second, harder lesson from this problem is the <b>pair return</b>: when you need both a count and an aggregate, return them together, and remember that a per-node contribution must be multiplied by the number of completions beneath it. That multiply-by-count rule shows up in every "sum over all valid objects" tree recursion.'
+  }
+});
+
+</script>
+</body>
+</html>

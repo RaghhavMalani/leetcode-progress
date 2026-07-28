@@ -1,9 +1,9 @@
 # 3558. Number of Ways to Assign Edge Weights I
-> **Medium** &nbsp;·&nbsp; BFS height + parity counting &nbsp;·&nbsp; family: **Graphs, BFS & DFS**
+> **Medium** &nbsp;&middot;&nbsp; BFS height + parity counting &nbsp;&middot;&nbsp; family: **Graphs, BFS & DFS**
 
 BFS to measure the tree height, then a counting argument: exactly half of all 2^d weight assignments satisfy any fixed parity condition, so the answer is 2^(d−1).
 
-**▶ [Step through this solution line by line](../visualizations/3558-number-of-ways-to-assign-edge-weights-i.html)** — 11 steps, traced on `edges = [[1,2],[1,3],[3,4],[3,5]]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 11 steps, traced on `edges = [[1,2],[1,3],[3,4],[3,5]]`.
 
 | | |
 |---|---|
@@ -60,4 +60,4 @@ When a counting problem involves independent binary choices and a mod-2 conditio
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/number-of-ways-to-assign-edge-weights-i)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/number-of-ways-to-assign-edge-weights-i)

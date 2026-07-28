@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>242 - Valid Anagram</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution(object):", "    def isAnagram(self, s, t):", "        \"\"\"", "        :type s: str", "        :type t: str", "        :rtype: bool", "        \"\"\"", "        ", "        if len(s) != len(t):", "            return False", "", "        countt = {}", "        counts = {}", "", "        for i in range(len(s)):", "            counts[s[i]] = 1 + counts.get(s[i], 0)", "            countt[t[i]] = 1 + countt.get(t[i],0)", "        return countt == counts"];
+function build(){
+  var T=LV.trace(), s='anagram', t='nagaram', cs={}, ct={}, os=[], ot=[];
+  function P(o,c){ return o.map(function(k){ return [k,c[k]]; }); }
+  function marks(i,arr){ var m={}; for(var x=0;x<arr.length;x++) m[x]= x<i?'good':(x===i?'hot':'dim'); return m; }
+  function V(i){ return [
+    LV.arr('s', s.split(''), marks(i,s), {}),
+    LV.arr('t', t.split(''), marks(i,t), {}),
+    LV.kv('counts', P(os,cs), {}, {emptyText:'empty'}),
+    LV.kv('countt', P(ot,ct), {}, {emptyText:'empty'}) ]; }
+
+  T.step(9,'info','First the cheap rejection: different lengths can never be anagrams. Always lead with the O(1) impossibility check.',['len(s) = <b>7</b>','len(t) = <b>7</b>'],V(-1));
+  T.step(13,'info','Two counters. The neat part of this solution is that one loop fills both — index i reads s[i] and t[i] together.',[],V(-1));
+  for(var i=0;i<s.length;i++){
+    cs[s[i]]=(cs[s[i]]||0)+1; if(os.indexOf(s[i])<0) os.push(s[i]);
+    T.step(16,'push','counts["'+s[i]+'"] → '+cs[s[i]]+'. `.get(key, 0)` is what lets you increment a key that does not exist yet.',['i = <b>'+i+'</b>','s[i] = <em>'+s[i]+'</em>'],V(i));
+    ct[t[i]]=(ct[t[i]]||0)+1; if(ot.indexOf(t[i])<0) ot.push(t[i]);
+    T.step(17,'push','countt["'+t[i]+'"] → '+ct[t[i]]+'.',['i = <b>'+i+'</b>','t[i] = <em>'+t[i]+'</em>'],V(i));
+  }
+  var eq=os.slice().sort().join('')===ot.slice().sort().join('') && os.every(function(k){ return cs[k]===ct[k]; });
+  T.save(eq?'True':'False');
+  T.step(18,'done','Compare the two dictionaries directly — Python compares dicts by contents, not by insertion order, so this is exactly the right test. Result: <b>'+eq+'</b>.',['result = <u>'+eq+'</u>'],V(s.length));
+  return T;
+}
+LV.render({
+  num:'242', name:'Valid Anagram', slug:'0242-valid-anagram',
+  difficulty:'Easy', pattern:'Hash map · frequency count',
+  url:'https://leetcode.com/problems/valid-anagram',
+  blurb:'Frequency counting in its simplest form. Two things worth stealing: the O(1) length rejection first, and <code>dict.get(k, 0)</code> as the idiom for "increment a possibly-missing key".',
+  input:'s = "anagram", t = "nagaram"', runName:'isAnagram',
+  skipLabel:null, emptyResult:'no verdict yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n)', space:'O(alphabet) — O(1) if the alphabet is fixed at 26'},
+  theory:{
+    idea:'Two strings are anagrams iff their <b>character multisets</b> are equal. A dict (or <code>Counter</code>, or a 26-slot array) represents a multiset in O(1) per update, so the whole comparison is linear.',
+    recognize:[
+      'Any question about <b>rearrangement</b>, "same letters", "permutation of" — the multiset is the invariant.',
+      'Fixed small alphabet → a 26-length list is faster and lighter than a dict, and worth mentioning.',
+      'If you need to find anagrams inside a longer string, this becomes a sliding window over a counter (LC 438).'
+    ],
+    pitfalls:[
+      '<b>Skipping the length check.</b> Not just an optimisation: without it, "a" vs "aa" needs the counter comparison to catch it, which it does — but the check documents your thinking and costs nothing.',
+      '<b><code>sorted(s) == sorted(t)</code>.</b> Correct and one line, but O(n log n). Fine to offer, then improve.',
+      '<b>Assuming ASCII lowercase</b> when the follow-up explicitly asks about Unicode. With Unicode, a dict is required and a 26-slot array is wrong.',
+      '<b>Comparing <code>len(dict)</code> instead of the dicts.</b> Same number of distinct letters does not mean same counts.'
+    ],
+    template: "# Frequency counting - the three idioms worth having in your fingers\ncount = {}\nfor c in s:\n    count[c] = 1 + count.get(c, 0)      # dict, any alphabet\n\nfrom collections import Counter\ncount = Counter(s)                      # same thing, batteries included\n\ncount = [0] * 26                        # fixed small alphabet: fastest\nfor c in s:\n    count[ord(c) - ord('a')] += 1\n",
+    variants:[
+      ['Group all anagrams together','LC 49 — the counter becomes a dictionary key.'],
+      ['Find all anagram start indices in a string','LC 438 — fixed-size sliding window over a counter.'],
+      ['Anagram after at most one swap','Count positions that differ; must be exactly 0 or 2 and mirror-equal.'],
+      ['Unicode input','Dict only. State this before someone asks.']
+    ],
+    thinking:'Easy problems are where you build <b>idiom fluency</b>. <code>d[k] = 1 + d.get(k, 0)</code>, <code>Counter(s) == Counter(t)</code>, <code>ord(c) - ord(\'a\')</code> — these should be typing reflexes, not decisions, so that in a hard problem your attention is free for the actual algorithm. When you finish an easy problem, ask "did I write that fluently, or did I have to think?" and drill whatever was slow.'
+  }
+});
+
+</script>
+</body>
+</html>

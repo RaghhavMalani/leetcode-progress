@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1863 - Sum of All Subset XOR Totals</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def subsetXORSum(self, nums: List[int]) -> int:", "        res = 0", "        for n in nums:", "            res = res | n", "        return res * 2**(len(nums) - 1)"];
+function build(){
+  var T=LV.trace(), a=[5,1,6], res=0;
+  function bits(x,w){ var s=(x>>>0).toString(2); while(s.length<(w||3)) s='0'+s; return s.split(''); }
+  function V(i){ var m={}; for(var x=0;x<a.length;x++) m[x]= x<i?'good':(x===i?'hot':'dim');
+    return [ LV.arr('nums', a, m, {}),
+             LV.arr('res = OR of everything so far (binary)', bits(res), {}, {idx:false,
+               note:'a bit is set here iff at least one number has it'}) ]; }
+  T.step(3,'info','The brute force enumerates all 2ⁿ subsets. This solution does no enumeration at all — it uses a counting argument, and the whole answer is one formula.',['res = <u>0</u>'],V(null));
+  a.forEach(function(x,i){
+    var b=res; res=res|x;
+    T.step(5,'push','res = '+b+' | '+x+' = <b>'+res+'</b>  ('+bits(b).join('')+' | '+bits(x).join('')+' = '+bits(res).join('')+').',['res = <u>'+res+'</u>'],V(i));
+    T.save('after '+x+': OR = '+res);
+  });
+  var pow=Math.pow(2,a.length-1), ans=res*pow;
+  T.step(6,'found','Now the counting argument. Fix any bit position b that is set in at least one number. Across all 2ⁿ subsets, that bit ends up set in the XOR exactly <b>2ⁿ⁻¹</b> times — half of them. So its contribution is 2^b × 2ⁿ⁻¹, and summing over all bits gives <b>OR(nums) × 2ⁿ⁻¹</b>.',['OR = <u>'+res+'</u>','2^(n−1) = <u>'+pow+'</u>'],V(a.length));
+  T.step(6,'done','Answer: '+res+' × '+pow+' = <b>'+ans+'</b>. O(n) time, O(1) space — versus O(2ⁿ · n) for enumerating every subset.',['answer = <u>'+ans+'</u>'],V(a.length));
+  return T;
+}
+LV.render({
+  num:'1863', name:'Sum of All Subset XOR Totals', slug:'1863-sum-of-all-subset-xor-totals',
+  difficulty:'Easy', pattern:'Bit counting · contribution technique',
+  url:'https://leetcode.com/problems/sum-of-all-subset-xor-totals',
+  blurb:'Marked Easy because backtracking passes. The real solution is one line, and it comes from asking a different question: not "what is each subset worth?" but "how often does each <em>bit</em> appear?"',
+  input:'nums = [5,1,6]', runName:'subsetXORSum',
+  skipLabel:null, emptyResult:'OR is 0',
+  src:SRC, build:build,
+  complexity:{time:'O(n)', space:'O(1)  — versus O(2ⁿ · n) for enumeration'},
+  theory:{
+    idea:'The <b>contribution technique</b>: instead of computing each object’s value and summing, compute how much each <em>component</em> contributes across all objects. Here, fix a bit b that some number has. Split the numbers into those with bit b set and those without. Exactly half of all subsets contain an odd count of the former, so bit b is set in exactly 2ⁿ⁻¹ of the XOR totals — regardless of anything else.',
+    recognize:[
+      '"Sum over all subsets / subarrays / pairs" — the answer is nearly always a contribution argument, not enumeration.',
+      'Bitwise operations plus a sum. Bits are independent, so you can handle each position separately and add up.',
+      'Constraints small enough for brute force (n ≤ 12 here) are often a deliberate red herring — the elegant solution is what the problem is really about.'
+    ],
+    pitfalls:[
+      '<b>n = 1.</b> Then 2ⁿ⁻¹ = 2⁰ = 1 and the formula still holds. Check it — off-by-one exponents are the usual bug here.',
+      '<b>Using XOR instead of OR to accumulate.</b> You want "which bits appear anywhere", which is OR. XOR would cancel pairs.',
+      '<b>Thinking half the subsets means half the numbers.</b> The argument is about subsets, and it holds for every bit independently.',
+      '<b>Writing the backtracking version and stopping there.</b> It passes; it also misses the entire lesson.'
+    ],
+    template: "# contribution technique: count how often each COMPONENT appears\n# sum over all 2^n subsets of XOR(subset)  ==  OR(nums) * 2^(n-1)\nres = 0\nfor n in nums:\n    res |= n                      # which bits appear ANYWHERE\nreturn res * 2 ** (len(nums) - 1)\n\n# why: for any bit set in some number, exactly half of all subsets contain\n# an ODD number of the elements having that bit -> it survives the XOR in\n# 2^(n-1) subsets. Same argument gives sum-of-subset-SUMS = sum * 2^(n-1).\n",
+    variants:[
+      ['<b>Sum of subarray minimums</b> (LC 907)','Contribution again: count for how many subarrays each element is the minimum, using a monotonic stack.'],
+      ['<b>Sum of subarray ranges</b> (LC 2104)','Max contributions minus min contributions.'],
+      ['Count of set bits in 0..n','LC 338 — per-bit counting once more.'],
+      ['Sum of all subset SUMS','Each element appears in 2ⁿ⁻¹ subsets, so the answer is <code>sum(nums) × 2ⁿ⁻¹</code>. Same argument, different operation.']
+    ],
+    thinking:'When you see "sum over all X", <b>flip the order of summation</b>. Instead of Σ over objects of (value of object), compute Σ over components of (component × how many objects contain it). That single reversal turns exponential enumeration into a counting problem, and it is the key to a whole tier of problems that look impossible at first — subarray minimums, subarray ranges, pairwise distances, and this one.'
+  }
+});
+
+</script>
+</body>
+</html>

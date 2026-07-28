@@ -1,9 +1,9 @@
 # 36. Valid Sudoku
-> **Medium** &nbsp;·&nbsp; Hash sets · index-to-bucket mapping &nbsp;·&nbsp; family: **Hashing**
+> **Medium** &nbsp;&middot;&nbsp; Hash sets · index-to-bucket mapping &nbsp;&middot;&nbsp; family: **Hashing**
 
 The whole problem is one expression: `(row//3, col//3)`. That maps a cell to its 3×3 box, which turns three different geometric constraints into three identical set lookups.
 
-**▶ [Step through this solution line by line](../visualizations/0036-valid-sudoku.html)** — 28 steps, traced on `the LeetCode example 2 board (invalid)`.
+**▶ [Step through this solution line by line](./visualization.html)** — 28 steps, traced on `the LeetCode example 2 board (invalid)`.
 
 | | |
 |---|---|
@@ -60,4 +60,4 @@ The general lesson is **normalisation**: rather than writing three different loo
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/valid-sudoku)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/valid-sudoku)

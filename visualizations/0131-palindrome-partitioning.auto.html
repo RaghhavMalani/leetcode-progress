@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>131. Palindrome Partitioning — auto-traced</title>
+<link rel="stylesheet" href="./_engine.css">
+</head>
+<body>
+<script src="./_engine.js"></script>
+<script>
+var SRC = ["class Solution:", "    def isPal(self, s, l , r):", "        while l < r:", "            if s[l] != s[r]:", "                return False", "            l , r = l + 1, r - 1", "        return True", "        ", "    def partition(self, s: str) -> List[List[str]]:", "        res = []", "        part = []", "", "        def dfs(i):", "            if i >= len(s):", "                res.append(part.copy())", "                return", "            ", "            for j in range(i,len(s)):", "                if self.isPal(s,i,j):", "                    part.append(s[i:j+1])", "                    dfs(j+1)", "                    part.pop()", "", "        dfs(0)", "        return res", "", "        "];
+function build(){
+  var T = LV.trace();
+  T.step(10,"info","<b>s</b> = \"aab\"",["s = <b>&quot;aab&quot;</b>"],[]);
+  T.step(11,"info","<b>res</b> = []",["s = <b>&quot;aab&quot;</b>"],[LV.arr("res",[],{},{ptrs:{}})]);
+  T.step(13,"info","<b>part</b> = []",["s = <b>&quot;aab&quot;</b>"],[LV.arr("part",[],{},{ptrs:{}}),LV.arr("res",[],{},{ptrs:{}})]);
+  T.step(24,"info","The line runs; no tracked value changes.",["s = <b>&quot;aab&quot;</b>"],[LV.arr("part",[],{},{ptrs:{}}),LV.arr("res",[],{},{ptrs:{}})]);
+  T.step(14,"call","<b>i</b> = 0",["i = <b>0</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",[],{},{ptrs:{}}),LV.arr("res",[],{},{ptrs:{}})]);
+  T.step(18,"info","The line runs; no tracked value changes.",["i = <b>0</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",[],{},{ptrs:{}}),LV.arr("res",[],{},{ptrs:{}})]);
+  T.step(19,"call","<b>j</b> = 0",["i = <b>0</b>", "j = <b>0</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",[],{},{ptrs:{}}),LV.arr("res",[],{},{ptrs:{}})]);
+  T.step(3,"call","<b>l</b> = 0 &middot; <b>r</b> = 0",["l = <b>0</b>", "r = <b>0</b>", "s = <b>&quot;aab&quot;</b>"],[]);
+  T.step(7,"ok","The line runs; no tracked value changes.",["l = <b>0</b>", "r = <b>0</b>", "s = <b>&quot;aab&quot;</b>"],[]);
+  T.step(20,"push","<b>i</b> = 0 &middot; <b>part</b> = [] &middot; <b>res</b> = [] &middot; <b>j</b> = 0",["i = <b>0</b>", "j = <b>0</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",[],{},{ptrs:{}}),LV.arr("res",[],{},{ptrs:{}})]);
+  T.step(21,"push","<b>part</b> grows to [\"a\"]",["i = <b>0</b>", "j = <b>0</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",["a"],{"0": "hot"},{ptrs:{"0": "j"}}),LV.arr("res",[],{},{ptrs:{}})]);
+  T.step(14,"call","<b>i</b> rises to 1",["i = <b>1</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",["a"],{},{ptrs:{}}),LV.arr("res",[],{},{ptrs:{}})]);
+  T.step(18,"info","The line runs; no tracked value changes.",["i = <b>1</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",["a"],{},{ptrs:{}}),LV.arr("res",[],{},{ptrs:{}})]);
+  T.step(19,"call","<b>j</b> = 1",["i = <b>1</b>", "j = <b>1</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",["a"],{},{ptrs:{}}),LV.arr("res",[],{},{ptrs:{}})]);
+  T.step(3,"call","<b>l</b> = 1 &middot; <b>r</b> = 1",["l = <b>1</b>", "r = <b>1</b>", "s = <b>&quot;aab&quot;</b>"],[]);
+  T.step(7,"ok","The line runs; no tracked value changes.",["l = <b>1</b>", "r = <b>1</b>", "s = <b>&quot;aab&quot;</b>"],[]);
+  T.step(20,"push","<b>i</b> = 1 &middot; <b>part</b> = [\"a\"] &middot; <b>res</b> = [] &middot; <b>j</b> = 1",["i = <b>1</b>", "j = <b>1</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",["a"],{},{ptrs:{}}),LV.arr("res",[],{},{ptrs:{}})]);
+  T.step(21,"push","<b>part</b> grows to [\"a\", \"a\"]",["i = <b>1</b>", "j = <b>1</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",["a", "a"],{"1": "hot"},{ptrs:{"1": "j"}}),LV.arr("res",[],{},{ptrs:{}})]);
+  T.step(14,"call","<b>i</b> rises to 2",["i = <b>2</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",["a", "a"],{},{ptrs:{}}),LV.arr("res",[],{},{ptrs:{}})]);
+  T.step(18,"info","The line runs; no tracked value changes.",["i = <b>2</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",["a", "a"],{},{ptrs:{}}),LV.arr("res",[],{},{ptrs:{}})]);
+  T.step(19,"call","<b>j</b> = 2",["i = <b>2</b>", "j = <b>2</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",["a", "a"],{},{ptrs:{}}),LV.arr("res",[],{},{ptrs:{}})]);
+  T.step(3,"call","<b>l</b> = 2 &middot; <b>r</b> = 2",["l = <b>2</b>", "r = <b>2</b>", "s = <b>&quot;aab&quot;</b>"],[]);
+  T.step(7,"ok","The line runs; no tracked value changes.",["l = <b>2</b>", "r = <b>2</b>", "s = <b>&quot;aab&quot;</b>"],[]);
+  T.step(20,"push","<b>i</b> = 2 &middot; <b>part</b> = [\"a\", \"a\"] &middot; <b>res</b> = [] &middot; <b>j</b> = 2",["i = <b>2</b>", "j = <b>2</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",["a", "a"],{},{ptrs:{}}),LV.arr("res",[],{},{ptrs:{}})]);
+  T.step(21,"push","<b>part</b> grows to [\"a\", \"a\", \"b\"]",["i = <b>2</b>", "j = <b>2</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",["a", "a", "b"],{"2": "hot"},{ptrs:{"2": "j"}}),LV.arr("res",[],{},{ptrs:{}})]);
+  T.step(14,"call","<b>i</b> rises to 3",["i = <b>3</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",["a", "a", "b"],{},{ptrs:{}}),LV.arr("res",[],{},{ptrs:{}})]);
+  T.step(15,"push","The line runs; no tracked value changes.",["i = <b>3</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",["a", "a", "b"],{},{ptrs:{}}),LV.arr("res",[],{},{ptrs:{}})]);
+  T.step(16,"push","<b>res</b> grows to [[\"a\", \"a\", \"b\"]]",["i = <b>3</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",["a", "a", "b"],{},{ptrs:{}}),LV.grid("res",[["a", "a", "b"]],{},{head:true})]);
+  T.step(22,"pop","<b>i</b> falls to 2 &middot; <b>j</b> = 2",["i = <b>2</b>", "j = <b>2</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",["a", "a", "b"],{"2": "hot"},{ptrs:{"2": "j"}}),LV.grid("res",[["a", "a", "b"]],{},{head:true})]);
+  T.step(18,"pop","<b>part</b> shrinks to [\"a\", \"a\"]",["i = <b>2</b>", "j = <b>2</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",["a", "a"],{},{ptrs:{}}),LV.grid("res",[["a", "a", "b"]],{},{head:true})]);
+  T.step(22,"pop","<b>i</b> falls to 1 &middot; <b>j</b> falls to 1",["i = <b>1</b>", "j = <b>1</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",["a", "a"],{"1": "hot"},{ptrs:{"1": "j"}}),LV.grid("res",[["a", "a", "b"]],{},{head:true})]);
+  T.step(18,"pop","<b>part</b> shrinks to [\"a\"]",["i = <b>1</b>", "j = <b>1</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",["a"],{},{ptrs:{}}),LV.grid("res",[["a", "a", "b"]],{},{head:true})]);
+  T.step(19,"call","<b>j</b> rises to 2",["i = <b>1</b>", "j = <b>2</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",["a"],{},{ptrs:{}}),LV.grid("res",[["a", "a", "b"]],{},{head:true})]);
+  T.step(3,"call","<b>l</b> = 1 &middot; <b>r</b> = 2",["l = <b>1</b>", "r = <b>2</b>", "s = <b>&quot;aab&quot;</b>"],[]);
+  T.step(4,"call","The line runs; no tracked value changes.",["l = <b>1</b>", "r = <b>2</b>", "s = <b>&quot;aab&quot;</b>"],[]);
+  T.step(5,"ok","The line runs; no tracked value changes.",["l = <b>1</b>", "r = <b>2</b>", "s = <b>&quot;aab&quot;</b>"],[]);
+  T.step(18,"info","<b>i</b> = 1 &middot; <b>part</b> = [\"a\"] &middot; <b>res</b> = [[\"a\", \"a\", \"b\"]] &middot; <b>j</b> = 2",["i = <b>1</b>", "j = <b>2</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",["a"],{},{ptrs:{}}),LV.grid("res",[["a", "a", "b"]],{},{head:true})]);
+  T.step(22,"pop","<b>i</b> falls to 0 &middot; <b>j</b> falls to 0",["i = <b>0</b>", "j = <b>0</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",["a"],{"0": "hot"},{ptrs:{"0": "j"}}),LV.grid("res",[["a", "a", "b"]],{},{head:true})]);
+  T.step(18,"pop","<b>part</b> shrinks to []",["i = <b>0</b>", "j = <b>0</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",[],{},{ptrs:{}}),LV.grid("res",[["a", "a", "b"]],{},{head:true})]);
+  T.step(19,"call","<b>j</b> rises to 1",["i = <b>0</b>", "j = <b>1</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",[],{},{ptrs:{}}),LV.grid("res",[["a", "a", "b"]],{},{head:true})]);
+  T.step(3,"call","<b>l</b> = 0 &middot; <b>r</b> = 1",["l = <b>0</b>", "r = <b>1</b>", "s = <b>&quot;aab&quot;</b>"],[]);
+  T.step(4,"call","The line runs; no tracked value changes.",["l = <b>0</b>", "r = <b>1</b>", "s = <b>&quot;aab&quot;</b>"],[]);
+  T.step(6,"info","The line runs; no tracked value changes.",["l = <b>0</b>", "r = <b>1</b>", "s = <b>&quot;aab&quot;</b>"],[]);
+  T.step(3,"call","<b>l</b> rises to 1 &middot; <b>r</b> falls to 0",["l = <b>1</b>", "r = <b>0</b>", "s = <b>&quot;aab&quot;</b>"],[]);
+  T.step(7,"ok","The line runs; no tracked value changes.",["l = <b>1</b>", "r = <b>0</b>", "s = <b>&quot;aab&quot;</b>"],[]);
+  T.step(20,"push","<b>i</b> = 0 &middot; <b>part</b> = [] &middot; <b>res</b> = [[\"a\", \"a\", \"b\"]] &middot; <b>j</b> = 1",["i = <b>0</b>", "j = <b>1</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",[],{},{ptrs:{}}),LV.grid("res",[["a", "a", "b"]],{},{head:true})]);
+  T.step(21,"push","<b>part</b> grows to [\"aa\"]",["i = <b>0</b>", "j = <b>1</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",["aa"],{"0": "hot"},{ptrs:{"0": "i"}}),LV.grid("res",[["a", "a", "b"]],{},{head:true})]);
+  T.step(14,"call","<b>i</b> rises to 2",["i = <b>2</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",["aa"],{},{ptrs:{}}),LV.grid("res",[["a", "a", "b"]],{},{head:true})]);
+  T.step(18,"info","The line runs; no tracked value changes.",["i = <b>2</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",["aa"],{},{ptrs:{}}),LV.grid("res",[["a", "a", "b"]],{},{head:true})]);
+  T.step(19,"call","<b>j</b> = 2",["i = <b>2</b>", "j = <b>2</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",["aa"],{},{ptrs:{}}),LV.grid("res",[["a", "a", "b"]],{},{head:true})]);
+  T.step(3,"call","<b>l</b> = 2 &middot; <b>r</b> = 2",["l = <b>2</b>", "r = <b>2</b>", "s = <b>&quot;aab&quot;</b>"],[]);
+  T.step(7,"ok","The line runs; no tracked value changes.",["l = <b>2</b>", "r = <b>2</b>", "s = <b>&quot;aab&quot;</b>"],[]);
+  T.step(20,"push","<b>i</b> = 2 &middot; <b>part</b> = [\"aa\"] &middot; <b>res</b> = [[\"a\", \"a\", \"b\"]] &middot; <b>j</b> = 2",["i = <b>2</b>", "j = <b>2</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",["aa"],{},{ptrs:{}}),LV.grid("res",[["a", "a", "b"]],{},{head:true})]);
+  T.step(21,"push","<b>part</b> grows to [\"aa\", \"b\"]",["i = <b>2</b>", "j = <b>2</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",["aa", "b"],{},{ptrs:{}}),LV.grid("res",[["a", "a", "b"]],{},{head:true})]);
+  T.step(14,"call","<b>i</b> rises to 3",["i = <b>3</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",["aa", "b"],{},{ptrs:{}}),LV.grid("res",[["a", "a", "b"]],{},{head:true})]);
+  T.step(15,"push","The line runs; no tracked value changes.",["i = <b>3</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",["aa", "b"],{},{ptrs:{}}),LV.grid("res",[["a", "a", "b"]],{},{head:true})]);
+  T.step(16,"push","<b>res</b> grows to [[\"a\", \"a\", \"b\"], [\"aa\", \"b\"]]",["i = <b>3</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",["aa", "b"],{},{ptrs:{}}),LV.grid("res",[["a", "a", "b"], ["aa", "b"]],{},{head:true})]);
+  T.step(22,"pop","<b>i</b> falls to 2 &middot; <b>j</b> = 2",["i = <b>2</b>", "j = <b>2</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",["aa", "b"],{},{ptrs:{}}),LV.grid("res",[["a", "a", "b"], ["aa", "b"]],{},{head:true})]);
+  T.step(18,"pop","<b>part</b> shrinks to [\"aa\"]",["i = <b>2</b>", "j = <b>2</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",["aa"],{},{ptrs:{}}),LV.grid("res",[["a", "a", "b"], ["aa", "b"]],{},{head:true})]);
+  T.step(22,"pop","<b>i</b> falls to 0 &middot; <b>j</b> falls to 1",["i = <b>0</b>", "j = <b>1</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",["aa"],{"0": "hot"},{ptrs:{"0": "i"}}),LV.grid("res",[["a", "a", "b"], ["aa", "b"]],{},{head:true})]);
+  T.step(18,"pop","<b>part</b> shrinks to []",["i = <b>0</b>", "j = <b>1</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",[],{},{ptrs:{}}),LV.grid("res",[["a", "a", "b"], ["aa", "b"]],{},{head:true})]);
+  T.step(19,"call","<b>j</b> rises to 2",["i = <b>0</b>", "j = <b>2</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",[],{},{ptrs:{}}),LV.grid("res",[["a", "a", "b"], ["aa", "b"]],{},{head:true})]);
+  T.step(3,"call","<b>l</b> = 0 &middot; <b>r</b> = 2",["l = <b>0</b>", "r = <b>2</b>", "s = <b>&quot;aab&quot;</b>"],[]);
+  T.step(4,"call","The line runs; no tracked value changes.",["l = <b>0</b>", "r = <b>2</b>", "s = <b>&quot;aab&quot;</b>"],[]);
+  T.step(5,"ok","The line runs; no tracked value changes.",["l = <b>0</b>", "r = <b>2</b>", "s = <b>&quot;aab&quot;</b>"],[]);
+  T.step(18,"info","<b>i</b> = 0 &middot; <b>part</b> = [] &middot; <b>res</b> = [[\"a\", \"a\", \"b\"], [\"aa\", \"b\"]] &middot; <b>j</b> = 2",["i = <b>0</b>", "j = <b>2</b>", "s = <b>&quot;aab&quot;</b>"],[LV.arr("part",[],{},{ptrs:{}}),LV.grid("res",[["a", "a", "b"], ["aa", "b"]],{},{head:true})]);
+  T.step(25,"ok","The line runs; no tracked value changes.",["s = <b>&quot;aab&quot;</b>"],[LV.arr("part",[],{},{ptrs:{}}),LV.grid("res",[["a", "a", "b"], ["aa", "b"]],{},{head:true})]);
+  T.step(25,"done","Finished. <b>partition</b> returned [[&quot;a&quot;, &quot;a&quot;, &quot;b&quot;], [&quot;aa&quot;, &quot;b&quot;]]",[],[]);
+  return T;
+}
+LV.render({
+  num:"131", name:"Palindrome Partitioning", slug:"0131-palindrome-partitioning",
+  difficulty:"Medium", pattern:'Auto-traced from real execution',
+  url:"https://leetcode.com/problems/palindrome-partitioning",
+  blurb:'This page was generated by running the solution under <code>sys.settrace</code> and recording what actually happened \u2014 every line, every live variable. It can never drift from the code.',
+  input:"s = \"aab\"", runName:"partition()",
+  skipLabel:null, emptyResult:'nothing recorded',
+  showResults:false,
+  src: SRC, build: build,
+  complexity:{time:'\u2014 (measure it yourself; this page only shows behaviour)', space:'\u2014'},
+  theory:{
+    idea:'Generated by real execution, using <b>the README&#x27;s first example</b>. 67 recorded steps.',
+    recognize:['This trace was generated automatically, so there is no hand-written theory for it yet.',
+               'Open <a href="index.html">the index</a> to find the pattern family it belongs to, then read that family in <a href="../PATTERNS.md">PATTERNS.md</a>.'],
+    pitfalls:['Auto-traces show <b>what</b> happened, not <b>why</b>. Watch it once, then write your own one-sentence explanation of the invariant \u2014 that is the part that makes it stick.'],
+    thinking:'Re-run this on a different input with <code>python trace.py 0131-palindrome-partitioning --input "..."</code>. Watching the same code on an edge case \u2014 an empty list, all-equal values, a single element \u2014 is the fastest way to find out whether you actually understand it.'
+  }
+});
+</script>
+</body>
+</html>

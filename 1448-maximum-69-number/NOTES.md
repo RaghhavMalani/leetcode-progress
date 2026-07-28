@@ -1,9 +1,9 @@
 # 1448. Maximum 69 Number
-> **Easy** &nbsp;·&nbsp; Greedy · positional value &nbsp;·&nbsp; family: **Greedy**
+> **Easy** &nbsp;&middot;&nbsp; Greedy · positional value &nbsp;&middot;&nbsp; family: **Greedy**
 
 Three lines, and the argument behind them is worth more than the code: a digit change at place 10^k is worth 3·10^k, so always change the leftmost 6.
 
-**▶ [Step through this solution line by line](../visualizations/1448-maximum-69-number.html)** — 4 steps, traced on `num = 9669`.
+**▶ [Step through this solution line by line](./visualization.html)** — 4 steps, traced on `num = 9669`.
 
 | | |
 |---|---|
@@ -52,4 +52,4 @@ For any digit-editing problem, ask **"what is the marginal value of a change at 
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/maximum-69-number)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/maximum-69-number)

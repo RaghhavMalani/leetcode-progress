@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3532 - Path Existence Queries in a Graph I</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def pathExistenceQueries(self, n: int, nums: List[int], maxDiff: int, queries: List[List[int]]) -> List[bool]:", "        component = [0] * n", "        comp_id = 0", "", "        for i in range(1, n):", "            if nums[i] - nums[i - 1] > maxDiff:", "                comp_id += 1", "", "            component[i] = comp_id", "", "        ans = []", "", "        for u, v in queries:", "            ans.append(component[u] == component[v])", "", "        return ans"];
+function build(){
+  var T=LV.trace(), nums=[1,3,6,9], maxDiff=2;
+  var comp=[0,0,0,0], id=0;
+  function V(i,note){ var m={}, cm={};
+    for(var x=0;x<nums.length;x++){ m[x]= x<i?'good':(x===i?'hot':'dim'); }
+    return [ LV.arr('nums (guaranteed sorted)', nums, m, {note:note||''}),
+             LV.arr('component id', comp.map(function(c,k){ return k<=Math.max(0,i)?c:'·'; }),
+               (function(){ var q={}; for(var x=0;x<nums.length;x++) q[x]= x<=i?'win':'dim'; return q; })(), {}) ]; }
+  T.step(3,'info','The array is <b>sorted</b>, and an edge exists between i and j exactly when |nums[i] − nums[j]| ≤ maxDiff. On sorted data that means: node i connects to i+1 iff their gap is small. So the graph is a chain that BREAKS at every large gap — connected components are contiguous runs.',['maxDiff = <b>2</b>'],V(null));
+  T.step(6,'info','That reduces the whole graph to a single scan. No adjacency list, no union-find, no BFS.',['comp_id = <b>0</b>'],V(0));
+  for(var i=1;i<nums.length;i++){
+    var gap=nums[i]-nums[i-1];
+    T.step(7,'call','Gap between nums['+(i-1)+'] = '+nums[i-1]+' and nums['+i+'] = '+nums[i]+' is '+gap+'.',['gap = <b>'+gap+'</b>','maxDiff = 2'],V(i));
+    if(gap>maxDiff){
+      id++;
+      T.step(8,'bad',gap+' &gt; maxDiff = 2, so there is NO edge here. The chain snaps — start a new component: comp_id → <b>'+id+'</b>.',['comp_id = <b>'+id+'</b>'],V(i,'chain broken here'));
+      T.save('break between '+nums[i-1]+' and '+nums[i]);
+    } else {
+      T.step(7,'ok',gap+' ≤ maxDiff, so an edge exists and node '+i+' stays in the current component.',['comp_id = <b>'+id+'</b>'],V(i));
+    }
+    comp[i]=id;
+    T.step(10,'push','component['+i+'] = '+id+'.',['comp_id = <b>'+id+'</b>'],V(i));
+  }
+  T.step(12,'ok','Component labelling complete: ['+comp.join(', ')+']. Every query is now O(1).',[],V(nums.length-1,'done'));
+  [[0,1],[0,3],[2,3]].forEach(function(q){
+    var ans=comp[q[0]]===comp[q[1]];
+    T.step(15, ans?'found':'bad','<b>query('+q[0]+', '+q[1]+')</b> → component['+q[0]+'] = '+comp[q[0]]+', component['+q[1]+'] = '+comp[q[1]]+' → <b>'+ans+'</b>.',['answer = <u>'+ans+'</u>'],
+      [LV.arr('nums', nums, (function(){ var m={}; m[q[0]]='hot'; m[q[1]]='hot'; return m; })(), {}),
+       LV.arr('component id', comp, (function(){ var m={}; m[q[0]]='hot'; m[q[1]]='hot'; return m; })(), {})]);
+    T.save('query('+q[0]+','+q[1]+') = '+ans);
+  });
+  T.step(17,'done','O(n + q) overall. The sortedness turned a graph-connectivity problem into a one-pass run-labelling problem.',[],V(nums.length-1));
+  return T;
+}
+LV.render({
+  num:'3532', name:'Path Existence Queries in a Graph I', slug:'3532-path-existence-queries-in-a-graph-i',
+  difficulty:'Medium', pattern:'Sorted structure collapses a graph',
+  url:'https://leetcode.com/problems/path-existence-queries-in-a-graph-i',
+  blurb:'Looks like a graph problem, is not one. Because <code>nums</code> is sorted, the graph is a chain that breaks at every gap larger than <code>maxDiff</code> — so components are just contiguous runs.',
+  input:'nums = [1,3,6,9], maxDiff = 2, then three queries', runName:'pathExistenceQueries',
+  skipLabel:null, emptyResult:'no components yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n + q)', space:'O(n)'},
+  theory:{
+    idea:'Connectivity questions do not always need a connectivity algorithm. When nodes are laid out on a <b>sorted line</b> and edges only join nearby values, reachability becomes "are these two on the same unbroken run?" — answerable with one scan and one array lookup per query.',
+    recognize:[
+      'A graph whose edges are defined by a <b>numeric closeness</b> condition on sorted data.',
+      'Many queries against a static graph → precompute a component label, then O(1) per query. That is the same shape as union-find, but far cheaper here.',
+      'If the array were NOT sorted, you would sort it (keeping original indices) and the same argument applies — that is exactly what Part II does.'
+    ],
+    pitfalls:[
+      '<b>Building the adjacency list.</b> With n up to 10⁵ and dense closeness, the edge count can be O(n²) and you will run out of memory.',
+      '<b>Running BFS or union-find per query.</b> O(q·n) instead of O(n + q).',
+      '<b>Only comparing adjacent elements — and doubting it.</b> On sorted data, if i and i+1 are connected and i+1 and i+2 are connected, then i reaches i+2 <em>through</em> i+1 even if their direct gap is large. Transitivity is what makes the adjacent check sufficient.',
+      '<b>Assuming the input is sorted when it is not.</b> Part I promises it; Part II does not.'
+    ],
+    template: "# sorted + \"edges join nearby values\" -> components are contiguous runs\ncomponent = [0] * n\ncid = 0\nfor i in range(1, n):\n    if nums[i] - nums[i-1] > maxDiff:   # gap too big -> the chain snaps\n        cid += 1\n    component[i] = cid\n\n# every query is then O(1)\nreturn [component[u] == component[v] for u, v in queries]\n",
+    variants:[
+      ['<b>Part II</b> (LC 3534)','Same setup but the answer is the shortest path LENGTH. Sort, compute the farthest reachable index for each position, then binary lifting for O(log n) per query. Also in your repo.'],
+      ['Unsorted input','Sort with original indices, label components, map queries through the permutation.'],
+      ['Edges by absolute difference on 2D points','Sorting no longer works — union-find or a spatial index.'],
+      ['Dynamic edge insertions','Union-find with path compression is the right tool.']
+    ],
+    thinking:'Before reaching for a graph algorithm, ask <b>"does the structure of the edges let me avoid building the graph?"</b> Edges defined by proximity on a line collapse to runs. Edges defined by a total order collapse to intervals. Edges defined by a hierarchy collapse to ancestor queries. Building the graph is often the expensive mistake — the intended solution frequently exploits the very structure that generated the edges.'
+  }
+});
+
+</script>
+</body>
+</html>

@@ -1,9 +1,9 @@
 # 128. Longest Consecutive Sequence
-> **Medium** &nbsp;·&nbsp; Hash set · amortised scan &nbsp;·&nbsp; family: **Hashing**
+> **Medium** &nbsp;&middot;&nbsp; Hash set · amortised scan &nbsp;&middot;&nbsp; family: **Hashing**
 
 A nested loop that is nevertheless O(n). The guard `if (num-1) not in s` is what makes it so: each run is walked from its start exactly once, so the inner loop does n total work across the whole run of the outer loop.
 
-**▶ [Step through this solution line by line](../visualizations/0128-longest-consecutive-sequence.html)** — 26 steps, traced on `nums = [100,4,200,1,3,2]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 26 steps, traced on `nums = [100,4,200,1,3,2]`.
 
 | | |
 |---|---|
@@ -57,4 +57,4 @@ When you see a nested loop and instinctively think "that is O(n²)", stop and as
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/longest-consecutive-sequence)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/longest-consecutive-sequence)

@@ -1,9 +1,9 @@
 # 57. Insert Interval
-> **Medium** &nbsp;·&nbsp; Intervals · three-case scan &nbsp;·&nbsp; family: **Prefix sums & intervals**
+> **Medium** &nbsp;&middot;&nbsp; Intervals · three-case scan &nbsp;&middot;&nbsp; family: **Prefix sums & intervals**
 
 Three mutually exclusive cases — after, before, overlapping — and the elegant bit is case 3: the new interval keeps *absorbing* neighbours rather than being appended immediately.
 
-**▶ [Step through this solution line by line](../visualizations/0057-insert-interval.html)** — 6 steps, traced on `intervals = [[1,3],[6,9]], newInterval = [2,5]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 6 steps, traced on `intervals = [[1,3],[6,9]], newInterval = [2,5]`.
 
 | | |
 |---|---|
@@ -60,4 +60,4 @@ Interval problems are decided almost entirely by **the sort key**. Sort by start
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/insert-interval)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/insert-interval)

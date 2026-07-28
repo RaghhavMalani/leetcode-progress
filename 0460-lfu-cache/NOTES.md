@@ -1,9 +1,9 @@
 # 460. LFU Cache
-> **Hard** &nbsp;·&nbsp; Design · three maps + per-frequency LRU lists &nbsp;·&nbsp; family: **Design**
+> **Hard** &nbsp;&middot;&nbsp; Design · three maps + per-frequency LRU lists &nbsp;&middot;&nbsp; family: **Design**
 
 LRU with one more dimension. Evict by lowest frequency, and break ties by recency — which means each frequency needs its own LRU list, plus a running minimum so eviction stays O(1).
 
-**▶ [Step through this solution line by line](../visualizations/0460-lfu-cache.html)** — 40 steps, traced on `capacity = 2, then a sequence of put/get calls`.
+**▶ [Step through this solution line by line](./visualization.html)** — 40 steps, traced on `capacity = 2, then a sequence of put/get calls`.
 
 | | |
 |---|---|
@@ -71,4 +71,4 @@ Hard design problems are **layered**, and the way in is to list the required ope
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/lfu-cache)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/lfu-cache)

@@ -1,9 +1,9 @@
 # 704. Binary Search
-> **Easy** &nbsp;·&nbsp; Binary search · exact match &nbsp;·&nbsp; family: **Binary search**
+> **Easy** &nbsp;&middot;&nbsp; Binary search · exact match &nbsp;&middot;&nbsp; family: **Binary search**
 
 The template every other binary search is a mutation of. Three details carry all the weight: `<=` in the loop, `mid ± 1` in the updates, and the overflow-safe midpoint.
 
-**▶ [Step through this solution line by line](../visualizations/0704-binary-search.html)** — 9 steps, traced on `nums = [-1,0,3,5,9,12], target = 9`.
+**▶ [Step through this solution line by line](./visualization.html)** — 9 steps, traced on `nums = [-1,0,3,5,9,12], target = 9`.
 
 | | |
 |---|---|
@@ -64,4 +64,4 @@ The upgrade that pays off most: stop thinking "binary search needs a sorted arra
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/binary-search)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/binary-search)

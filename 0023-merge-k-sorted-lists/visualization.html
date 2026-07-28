@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>23 - Merge k Sorted Lists</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["# Definition for singly-linked list.", "# class ListNode:", "#     def __init__(self, val=0, next=None):", "#         self.val = val", "#         self.next = next", "class Solution:", "    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:", "        if not lists or len(lists) == 0:", "            return None", "", "        while len(lists)>1:", "            mergedlists = []", "", "            for i in range(0,len(lists),2):", "                l1 = lists[i]", "                l2 = lists[i + 1] if i + 1 < len(lists) else None", "                mergedlists.append(self.merge_2list(l1,l2))", "            lists = mergedlists", "        return lists[0]", "", "    def merge_2list(self, l1,l2):", "        dummy = ListNode()", "        tail = dummy", "", "        while l1 and l2:", "            if l1.val > l2.val:", "                tail.next = l2", "                l2 = l2.next", "            else:", "                tail.next = l1", "                l1 = l1.next", "            tail = tail.next", "        ", "        if l1:", "            tail.next = l1", "        ", "        if l2:", "            tail.next = l2", "", "        return dummy.next"];
+function build(){
+  var T=LV.trace();
+  var lists=[[1,4,5],[1,3,4],[2,6]], round=0;
+  function LV_(ls,marks,note){ return LV.seq('lists', ls.map(function(l){ return l.length?'['+l.join(',')+']':'None'; }), marks||{}, {note:note||''}); }
+  function pairV(l1,l2,out,note){ return [
+    LV.ll('l1', (l1||[]).map(function(v,i){ return {v:v,id:'p'+i,cls:i===0?'hot':''}; }), {}, {}),
+    LV.ll('l2', (l2||[]).map(function(v,i){ return {v:v,id:'q'+i,cls:i===0?'hot':''}; }), {}, {}),
+    LV.ll('merged', [{v:'dummy',id:'dd',dummy:true}].concat((out||[]).map(function(v,i){ return {v:v,id:'m'+i}; })), {}, {note:note||''}) ]; }
+
+  T.step(8,'info','Guard the empty input first.',['k = <b>3</b> lists'],[LV_(lists,{})]);
+  T.step(11,'info','The strategy is <b>pairwise merging in rounds</b>, like a knockout tournament. Merging one list at a time into an accumulator would cost O(kN); halving the number of lists each round costs O(N log k). That difference is the whole problem.',['round <b>0</b>','lists = <em>3</em>'],[LV_(lists,{})]);
+
+  while(lists.length>1){
+    round++;
+    var merged=[];
+    T.step(12,'call','<b>Round '+round+'</b> begins. Pair up the lists two at a time.',['round <b>'+round+'</b>','lists = <em>'+lists.length+'</em>'],[LV_(lists,{})]);
+    for(var i=0;i<lists.length;i+=2){
+      var l1=lists[i].slice(), l2=(i+1<lists.length)?lists[i+1].slice():null;
+      var mk={}; mk[i]='hot'; if(i+1<lists.length) mk[i+1]='hot';
+      T.step(16,'info','Pair up index '+i+(l2?' with index '+(i+1):' with None (odd count — it just passes through unchanged)')+'.',['round <b>'+round+'</b>'],[LV_(lists,mk)]);
+      // merge
+      var out=[];
+      T.step(22,'info','merge_2list starts with a dummy node and a `tail` pointer.',['round <b>'+round+'</b>'],pairV(l1,l2,out));
+      while(l1.length && l2 && l2.length){
+        if(l1[0]>l2[0]){ out.push(l2.shift());
+          T.step(27,'push','l1 head ('+ (l1.length?l1[0]:'-') +') is bigger, so take from l2 → '+out[out.length-1]+'.',['round <b>'+round+'</b>'],pairV(l1,l2,out));
+        } else { out.push(l1.shift());
+          T.step(30,'push','l1 head is smaller or equal, so take from l1 → '+out[out.length-1]+'.',['round <b>'+round+'</b>'],pairV(l1,l2,out));
+        }
+      }
+      if(l1.length){ T.step(35,'ok','l2 is exhausted — attach the whole rest of l1 ('+l1.join(',')+') in one assignment.',['round <b>'+round+'</b>'],pairV(l1,l2,out)); out=out.concat(l1); l1=[]; }
+      else if(l2&&l2.length){ T.step(38,'ok','l1 is exhausted — attach the rest of l2 ('+l2.join(',')+') in one assignment.',['round <b>'+round+'</b>'],pairV(l1,l2,out)); out=out.concat(l2); l2=[]; }
+      merged.push(out);
+      T.save('round '+round+': ['+out.join(',')+']');
+      T.step(17,'found','Merged pair → <b>['+out.join(', ')+']</b>. Append it to mergedlists.',['round <b>'+round+'</b>','merged so far = <u>'+merged.length+'</u>'],[LV_(merged,{})]);
+    }
+    lists=merged;
+    T.step(18,'ok','End of round '+round+': '+lists.length+' list'+(lists.length===1?'':'s')+' remain. The count halves every round, so there are ⌈log₂ k⌉ rounds in total.',['round <b>'+round+'</b> done','lists = <em>'+lists.length+'</em>'],[LV_(lists,{})]);
+  }
+  T.step(19,'done','One list left: <b>['+lists[0].join(', ')+']</b>. Total work is O(N log k) — every element is copied once per round, and there are log k rounds.',['answer'],[LV_(lists,{0:'good'})]);
+  return T;
+}
+LV.render({
+  num:'23', name:'Merge k Sorted Lists', slug:'0023-merge-k-sorted-lists',
+  difficulty:'Hard', pattern:'Divide and conquer · pairwise merge',
+  url:'https://leetcode.com/problems/merge-k-sorted-lists',
+  blurb:'Merging pairwise in rounds instead of one-at-a-time into an accumulator. Same total merges, but each element is copied log k times instead of k times — O(N log k) rather than O(N k).',
+  input:'lists = [[1,4,5],[1,3,4],[2,6]]', runName:'mergeKLists',
+  skipLabel:'Skip to next merged pair', skipTypes:['found'], emptyResult:'nothing merged yet',
+  src:SRC, build:build,
+  complexity:{time:'O(N log k) — N total nodes, log k rounds', space:'O(1) extra (plus O(k) for the list array)'},
+  theory:{
+    idea:'The naive "merge list 1 into the accumulator, then list 2, then list 3…" is O(Nk), because the elements of the first list get re-copied in every single merge. <b>Pairwise merging</b> makes every element participate in exactly log k merges. This is the same reasoning that makes merge sort O(n log n) rather than O(n²).',
+    recognize:[
+      '"Merge k sorted X" — lists, arrays, streams, files.',
+      'k-way problems generally: think either <b>divide and conquer</b> (this) or a <b>size-k heap</b> (the other O(N log k) answer).',
+      'The heap version is better when the lists arrive as a stream or k is huge; this version is better when you have them all up front and want O(1) extra space.'
+    ],
+    pitfalls:[
+      '<b>Sequential merging.</b> Correct, and it is what most people write first. Be able to explain why it is O(Nk) and this is O(N log k).',
+      '<b>Not handling an odd count.</b> <code>lists[i+1] if i+1 &lt; len(lists) else None</code> — the last list pairs with None and passes through.',
+      '<b><code>while len(lists) &gt; 1</code>, not <code>&gt;= 1</code>.</b> The latter loops forever.',
+      '<b>Empty input.</b> <code>lists = []</code> makes <code>lists[0]</code> throw — hence the guard on line 8.',
+      '<b>The heap version needs a tiebreaker.</b> <code>(node.val, i, node)</code> — without the index, Python tries to compare ListNodes when values tie and raises.'
+    ],
+    template: "# Pairwise merge in rounds - O(N log k), not O(N k)\nwhile len(lists) > 1:\n    merged = []\n    for i in range(0, len(lists), 2):\n        a = lists[i]\n        b = lists[i + 1] if i + 1 < len(lists) else None   # odd count -> None\n        merged.append(merge_two(a, b))\n    lists = merged                    # count HALVES every round\nreturn lists[0]\n\n# heap alternative, also O(N log k), better for streams:\n#   h = [(node.val, i, node) for i, node in enumerate(heads) if node]\n#   ...pop the smallest, push its successor.  the `i` is a tiebreaker so\n#   Python never has to compare two ListNodes.\n",
+    variants:[
+      ['Heap version','Push the head of every list, pop the smallest, push its successor. O(N log k), O(k) space, and the natural answer for streams.'],
+      ['Merge k sorted <b>arrays</b>','Same two strategies; with arrays you can also concatenate and sort for O(N log N), which is worse but simpler.'],
+      ['<b>Sort List</b> (LC 148)','Merge sort a single list — split with fast/slow, then this same merge.'],
+      ['<b>Smallest range covering k lists</b> (LC 632)','Heap plus a sliding window over the k current heads.']
+    ],
+    thinking:'When you have k things to combine, always ask: <b>can I combine them in a tree instead of a chain?</b> Chain = O(Nk), tree = O(N log k), and the code is barely longer. The same insight applies to concatenating k strings, unioning k sets, and multiplying k matrices. Whenever your algorithm repeatedly touches the same data because it sits in the accumulator, restructure the combination order.'
+  }
+});
+
+</script>
+</body>
+</html>

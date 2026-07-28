@@ -1,9 +1,9 @@
 # 622. Design Circular Queue
-> **Medium** &nbsp;·&nbsp; Design · doubly linked list with sentinels &nbsp;·&nbsp; family: **Linked lists**
+> **Medium** &nbsp;&middot;&nbsp; Design · doubly linked list with sentinels &nbsp;&middot;&nbsp; family: **Linked lists**
 
 Your solution uses a doubly linked list with two sentinels and a free-space counter. The classic alternative — a fixed array with modular indices — is where the name "circular" actually comes from.
 
-**▶ [Step through this solution line by line](../visualizations/0622-design-circular-queue.html)** — 18 steps, traced on `k = 3, then enQueue/deQueue/Front/Rear/isFull operations`.
+**▶ [Step through this solution line by line](./visualization.html)** — 18 steps, traced on `k = 3, then enQueue/deQueue/Front/Rear/isFull operations`.
 
 | | |
 |---|---|
@@ -69,4 +69,4 @@ For design questions, decide the **representation** first and the code follows. 
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/design-circular-queue)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/design-circular-queue)

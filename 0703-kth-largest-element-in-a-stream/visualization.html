@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>703 - Kth Largest in a Stream</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class KthLargest:", "", "    def __init__(self, k: int, nums: List[int]):", "        self.minHeap = nums", "        self.k = k", "        heapq.heapify(self.minHeap)", "        while len(self.minHeap) > k:", "            heapq.heappop(self.minHeap)", "", "    def add(self, val: int) -> int:", "        heapq.heappush(self.minHeap, val)", "        if len(self.minHeap) > self.k:", "            heapq.heappop(self.minHeap)", "", "        return self.minHeap[0]", "", "", "# Your KthLargest object will be instantiated and called as such:", "# obj = KthLargest(k, nums)", "# param_1 = obj.add(val)"];
+function build(){
+  var T=LV.trace(), k=3, h=[4,5,8,2];
+  function up(){ h.sort(function(a,b){ return a-b; }); }   // stand-in for heap order
+  function V(hot,cls){ var m={}; m[0]='good'; if(hot!=null) m[hot]=cls||'hot';
+    return [ LV.arr('minHeap — heap[0] is always the smallest of the k kept', h.slice(), m, {idx:false,
+      note:'the heap holds exactly the k largest values seen so far; its ROOT is therefore the kth largest'}) ]; }
+  function VA(){ return ['k = <b>3</b>','heap size = <em>'+h.length+'</em>','kth largest = <u>'+(h.length?h[0]:'—')+'</u>']; }
+
+  T.step(4,'info','The counter-intuitive part: to track the k <b>largest</b> values you keep a <b>min</b>-heap. Its root is the smallest of the ones you kept — which is precisely the kth largest overall.',['nums = [4,5,8,2]'],[LV.arr('nums',[4,5,8,2],{},{})]);
+  up();
+  T.step(6,'info','`heapify` rearranges the list into heap order in O(n) — cheaper than pushing n items one at a time (O(n log n)).',VA(),V(null));
+  while(h.length>k){
+    var g=h[0];
+    T.step(8,'pop','Size ('+h.length+') exceeds k ('+k+'), so pop the smallest: '+g+'. It can never be the kth largest again — anything that displaces it is bigger.',VA(),V(0,'bad'));
+    h.shift(); up();
+  }
+  T.step(7,'ok','The heap now holds exactly the '+k+' largest values: ['+h.join(', ')+']. Root = <b>'+h[0]+'</b> is the answer for the current stream.',VA(),V(0,'good'));
+
+  [3,5,10,9,4].forEach(function(v){
+    T.step(11,'call','<b>add('+v+')</b> — push it in.',VA(),V(null));
+    h.push(v); up();
+    T.step(11,'push','Heap is now ['+h.join(', ')+'], size '+h.length+'.',VA(),V(h.indexOf(v),'hot'));
+    if(h.length>k){
+      var g2=h[0];
+      T.step(13,'pop','Size '+h.length+' &gt; k, so evict the root: '+g2+'. '+(g2===v?'That was the value we just added — it was too small to be in the top '+k+'.':'')+'',VA(),V(0,'bad'));
+      h.shift(); up();
+    }
+    T.save('add('+v+') → '+h[0]);
+    T.step(15,'found','Return heap[0] = <b>'+h[0]+'</b>. Each add is O(log k), never O(n log n).',VA(),V(0,'good'));
+  });
+  T.step(15,'done','The heap never grew past k = 3. That bound is the whole design: memory is O(k) no matter how long the stream is.',VA(),V(0,'good'));
+  return T;
+}
+LV.render({
+  num:'703', name:'Kth Largest Element in a Stream', slug:'0703-kth-largest-element-in-a-stream',
+  difficulty:'Easy', pattern:'Heap · bounded size-k min-heap',
+  url:'https://leetcode.com/problems/kth-largest-element-in-a-stream',
+  blurb:'The inversion worth memorising: <b>k largest → min-heap of size k</b>. The root is the weakest survivor, which is exactly the kth largest, and it makes eviction O(1) to find.',
+  input:'k = 3, nums = [4,5,8,2], then add(3), add(5), add(10), add(9), add(4)', runName:'KthLargest',
+  skipLabel:'Skip to next answer', skipTypes:['found'], emptyResult:'no answers yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n) to build, O(log k) per add', space:'O(k) — independent of stream length'},
+  theory:{
+    idea:'Keep only what can still matter. If you only ever need the kth largest, anything outside the top k is dead weight. A min-heap of size k keeps exactly the survivors, and its root — the smallest survivor — is the answer. Every new value is compared against that root in O(1) and either replaces it or is discarded.',
+    recognize:[
+      '"Kth largest / smallest", especially over a <b>stream</b> where you cannot hold everything.',
+      '"Top k" anything: k closest points, k most frequent (though LC 347 in your repo has a better O(n) bucket answer), k pairs with smallest sums.',
+      'The size bound is what to look for — if the answer only depends on k items, do not store n.'
+    ],
+    pitfalls:[
+      '<b>Using a max-heap.</b> Intuitive and wrong: a max-heap of size k would evict the <em>largest</em>, which is the thing you most want to keep.',
+      '<b>Sorting on every add.</b> O(n log n) per call instead of O(log k).',
+      '<b>Pushing before checking the size, or after — it matters for the edge cases.</b> Push then pop if oversized is the clean order and handles the initial fill for free.',
+      '<b>Assuming the initial list has at least k elements.</b> It might not; the heap simply fills up as adds arrive, and this code handles that correctly.'
+    ],
+    template: "# k LARGEST -> min-heap of size k.  (k smallest -> max-heap, negate values)\nimport heapq\n\nclass KthLargest:\n    def __init__(self, k, nums):\n        self.k = k\n        self.h = nums\n        heapq.heapify(self.h)               # O(n), better than n pushes\n        while len(self.h) > k:\n            heapq.heappop(self.h)\n\n    def add(self, val):\n        heapq.heappush(self.h, val)         # push first...\n        if len(self.h) > self.k:\n            heapq.heappop(self.h)           # ...then trim\n        return self.h[0]                    # root = kth largest\n",
+    variants:[
+      ['<b>Kth Largest Element in an Array</b> (LC 215)','Quickselect for O(n) average; the heap gives O(n log k).'],
+      ['<b>Top K Frequent</b> (LC 347)','Bucket sort beats the heap here — O(n). Your repo uses the better one.'],
+      ['<b>Median from a data stream</b> (LC 295)','Two heaps, a max-heap for the low half and a min-heap for the high half.'],
+      ['<b>Merge k sorted lists</b> (LC 23)','A size-k heap of list heads. Your repo uses divide-and-conquer instead.'],
+      ['Sliding window maximum','LC 239 — a monotonic deque, not a heap, because you must evict by position not by value.']
+    ],
+    thinking:'The reusable question is <b>"what is the smallest set of items that could still affect the answer?"</b> If it is bounded by k, use a size-k heap and throw the rest away as it arrives. This is the core idea behind streaming algorithms in general, and it is why "the input does not fit in memory" is usually not fatal. The direction inversion — min-heap for max-k — trips up almost everyone once; get it wrong deliberately on paper today and you will never get it wrong again.'
+  }
+});
+
+</script>
+</body>
+</html>

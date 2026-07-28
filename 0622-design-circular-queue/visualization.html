@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>622 - Design Circular Queue</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class ListNode:", "    def __init__(self, val, nxt, prev):", "        self.val = val", "        self.next = nxt", "        self.prev = prev", "", "class MyCircularQueue:", "", "    def __init__(self, k: int):", "        self.space = k", "        self.left = ListNode(0, None, None)", "        self.right = ListNode(0, None, self.left)", "        self.left.next = self.right", "", "    def enQueue(self, value: int) -> bool:", "        if self.isFull(): return False", "        node = ListNode(value, self.right,self.right.prev)", "        self.right.prev.next = node", "        self.right.prev = node", "        self.space -= 1", "        return True", "", "    def deQueue(self) -> bool:", "        if self.isEmpty(): return False", "        self.left.next = self.left.next.next", "        self.left.next.prev = self.left", "        self.space += 1", "        return True", "", "    def Front(self) -> int:", "        if self.isEmpty(): return -1", "        return self.left.next.val", "", "    def Rear(self) -> int:", "        if self.isEmpty(): return -1", "        return self.right.prev.val", "", "    def isEmpty(self) -> bool:", "        return self.left.next == self.right", "", "    def isFull(self) -> bool:", "        return self.space == 0"];
+function build(){
+  var T=LV.trace(), k=3, space=3, q=[];
+  function V(hot,cls,note){
+    var ns=[{v:'left',id:'L',dummy:true}].concat(q.map(function(v,i){ return {v:v,id:'n'+i,cls:(hot===i?(cls||'hot'):'')}; })).concat([{v:'right',id:'R',dummy:true}]);
+    return [ LV.ll('the queue between two sentinels — front is left, rear is right', ns, {}, {nullTail:false, note:note||''}),
+             LV.kv('state', [['space (free slots)',space],['size',q.length],['capacity',k]], {'space (free slots)':'hot'}, {}) ]; }
+  function VA(){ return ['capacity = <b>3</b>','size = <em>'+q.length+'</em>','space = <em>'+space+'</em>']; }
+  T.step(9,'info','Two sentinels again — `left` and `right` permanently bracket the queue, so enqueue and dequeue are unconditional pointer updates. The capacity is tracked by a single counter, `space`, rather than by walking the list.',VA(),V(null));
+  var ops=[['enQueue',1],['enQueue',2],['enQueue',3],['enQueue',4],['Rear'],['isFull'],['deQueue'],['enQueue',4],['Rear'],['Front']];
+  ops.forEach(function(o){
+    if(o[0]==='enQueue'){
+      T.step(16,'call','<b>enQueue('+o[1]+')</b> — first check isFull().',VA(),V(null));
+      if(space===0){
+        T.step(16,'bad','space == 0, so the queue is full. Return False without touching anything. Checking a counter is O(1); counting nodes would be O(n).',VA(),V(null));
+        T.save('enQueue('+o[1]+') = false');
+      } else {
+        q.push(o[1]); space--;
+        T.step(19,'push','Splice a new node in just before `right` — the rear end. space → '+space+'.',VA(),V(q.length-1,'good'));
+        T.save('enQueue('+o[1]+') = true');
+      }
+    } else if(o[0]==='deQueue'){
+      T.step(24,'call','<b>deQueue()</b> — first check isEmpty().',VA(),V(null));
+      if(!q.length){ T.step(24,'bad','left.next == right, so it is empty. Return False.',VA(),V(null)); T.save('deQueue() = false'); }
+      else { var g=q.shift(); space++;
+        T.step(26,'pop','Unlink the node just after `left` — the front. Removed '+g+', space → '+space+'.',VA(),V(null));
+        T.save('deQueue() = true (removed '+g+')'); }
+    } else if(o[0]==='Rear'){
+      var r=q.length?q[q.length-1]:-1;
+      T.step(36,r<0?'bad':'found','<b>Rear()</b> → right.prev.val = <b>'+r+'</b>. This is why the list is DOUBLY linked — a singly linked list could not reach the last node in O(1).',VA(),V(q.length-1,'good'));
+      T.save('Rear() = '+r);
+    } else if(o[0]==='Front'){
+      var f=q.length?q[0]:-1;
+      T.step(32,f<0?'bad':'found','<b>Front()</b> → left.next.val = <b>'+f+'</b>.',VA(),V(0,'good'));
+      T.save('Front() = '+f);
+    } else {
+      T.step(42,'info','<b>isFull()</b> → space == 0 → <b>'+(space===0)+'</b>.',VA(),V(null));
+      T.save('isFull() = '+(space===0));
+    }
+  });
+  T.step(42,'done','Every operation is O(1). Note the name is a slight misnomer for this implementation — a linked list has no wrap-around; the "circular" behaviour is a property of the API (bounded capacity, FIFO), which an array-with-modulo would implement literally.',VA(),V(null));
+  return T;
+}
+LV.render({
+  num:'622', name:'Design Circular Queue', slug:'0622-design-circular-queue',
+  difficulty:'Medium', pattern:'Design · doubly linked list with sentinels',
+  url:'https://leetcode.com/problems/design-circular-queue',
+  blurb:'Your solution uses a doubly linked list with two sentinels and a free-space counter. The classic alternative — a fixed array with modular indices — is where the name "circular" actually comes from.',
+  input:'k = 3, then enQueue/deQueue/Front/Rear/isFull operations', runName:'MyCircularQueue',
+  skipLabel:null, emptyResult:'no operations yet',
+  src:SRC, build:build,
+  complexity:{time:'O(1) for every operation', space:'O(k)'},
+  theory:{
+    idea:'A bounded FIFO. Two implementations, both O(1): a <b>doubly linked list with sentinels</b> (this one — allocation per element, but no index arithmetic) or a <b>fixed array with head/tail indices mod k</b> (no allocation, better cache behaviour, but you must resolve the full-vs-empty ambiguity). Knowing both and being able to compare them is the point of the question.',
+    recognize:[
+      '"Design a queue/buffer with fixed capacity" — ring buffers, producer/consumer, sliding windows over streams.',
+      'The <code>Rear()</code> requirement is what forces a DOUBLY linked list; without it a singly linked list with a tail pointer suffices.',
+      'Real systems use ring buffers everywhere: audio, networking, logging.'
+    ],
+    pitfalls:[
+      '<b>The array version’s full-vs-empty ambiguity.</b> With only head and tail, <code>head == tail</code> means both. Fix it by keeping a size counter (as this solution does with <code>space</code>) or by leaving one slot permanently unused.',
+      '<b>Computing size by walking the list.</b> O(n) where a counter is O(1).',
+      '<b>Forgetting to update BOTH directions</b> when splicing a node into a doubly linked list. Four assignments, every time.',
+      '<b>Not returning the required booleans / −1 sentinels.</b> The API contract is part of the problem.'
+    ],
+    template: "# the OTHER implementation - fixed array + modular indices (a real ring buffer)\nclass MyCircularQueue:\n    def __init__(self, k):\n        self.a, self.k = [0] * k, k\n        self.head = self.size = 0\n\n    def enQueue(self, v):\n        if self.size == self.k: return False\n        self.a[(self.head + self.size) % self.k] = v      # wrap with %\n        self.size += 1\n        return True\n\n    def deQueue(self):\n        if self.size == 0: return False\n        self.head = (self.head + 1) % self.k\n        self.size -= 1\n        return True\n\n    def Front(self): return -1 if not self.size else self.a[self.head]\n    def Rear(self):  return -1 if not self.size else self.a[(self.head + self.size - 1) % self.k]\n\n# the `size` counter resolves the head==tail full-vs-empty ambiguity.\n",
+    variants:[
+      ['<b>Design Circular Deque</b> (LC 641)','Insert and delete at both ends — the doubly linked list version barely changes.'],
+      ['<b>LRU Cache</b> (LC 146)','Same sentinel-bracketed doubly linked list, plus a hash map. Also in your repo.'],
+      ['Growable ring buffer','On overflow, allocate double and copy — amortised O(1).'],
+      ['Lock-free ring buffer','Single producer / single consumer with atomic indices — the systems-interview version.']
+    ],
+    thinking:'For design questions, decide the <b>representation</b> first and the code follows. Array + modular indices: contiguous memory, no allocation, index arithmetic to get right. Linked list + sentinels: no arithmetic, no resizing, one allocation per element. Neither is universally better — say the trade-off out loud and pick deliberately. That sentence is what is actually being graded.'
+  }
+});
+
+</script>
+</body>
+</html>

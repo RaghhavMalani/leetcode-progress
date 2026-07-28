@@ -1,9 +1,9 @@
 # 77. Combinations
-> **Medium** &nbsp;·&nbsp; Backtracking · loop form &nbsp;·&nbsp; family: **Backtracking**
+> **Medium** &nbsp;&middot;&nbsp; Backtracking · loop form &nbsp;&middot;&nbsp; family: **Backtracking**
 
 The same pattern in its other dialect: one `for` loop with one recursive call, instead of two explicit branches. Passing `i+1` as the next start is what forces combinations to increase.
 
-**▶ [Step through this solution line by line](../visualizations/0077-combinations.html)** — 46 steps, traced on `n = 4, k = 2`.
+**▶ [Step through this solution line by line](./visualization.html)** — 46 steps, traced on `n = 4, k = 2`.
 
 | | |
 |---|---|
@@ -57,4 +57,4 @@ Practise converting between the two dialects. Take your problem 78 solution and 
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/combinations)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/combinations)

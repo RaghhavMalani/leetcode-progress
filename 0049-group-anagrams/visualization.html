@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>49 - Group Anagrams</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:", "", "        hashmap = defaultdict(list)", "        ", "        for word in strs:", "            count = [0] * 26", "", "            for char in word:", "                count[ord(char) - ord('a')] += 1", "", "            hashmap[tuple(count)].append(word)", "", "        return list(hashmap.values())"];
+function build(){
+  var T=LV.trace(), strs=['eat','tea','tan','ate','nat','bat'];
+  var H={}, order=[];
+  function sig(c){ var p=[]; for(var i=0;i<26;i++) if(c[i]) p.push(String.fromCharCode(97+i)+c[i]); return '('+p.join(',')+')'; }
+  function pairs(){ return order.map(function(k){ return [k, '['+H[k].join(', ')+']']; }); }
+  function V(wi,cnt,hot){ var m={}; strs.forEach(function(_,i){ m[i]= i<wi?'good':(i===wi?'hot':'dim'); });
+    var km={}; if(hot) km[hot]='hot';
+    var vs=[ LV.arr('strs', strs, m, {}) ];
+    if(cnt) vs.push(LV.arr('count — the 26-slot signature (only non-zero slots shown)', cnt.map(function(v,i){return v;}).slice(0,8), {}, {idx:false, note:'slots a…h shown; two words are anagrams exactly when all 26 slots match'}));
+    vs.push(LV.kv('hashmap — signature → words', pairs(), km, {emptyText:'empty'}));
+    return vs; }
+
+  T.step(4,'info','The plan: give every word a canonical <b>signature</b> that is identical for anagrams and different for everything else, then group by it.',['hashmap = <b>{}</b>'],V(-1,null,null));
+  strs.forEach(function(w,wi){
+    T.step(6,'call','word = "'+w+'".',['word = <b>"'+w+'"</b>'],V(wi,null,null));
+    var c=new Array(26).fill(0);
+    T.step(7,'info','Start a fresh 26-slot counter for this word.',['word = <b>"'+w+'"</b>'],V(wi,c,null));
+    for(var j=0;j<w.length;j++){
+      c[w.charCodeAt(j)-97]++;
+      T.step(10,'push','Count "'+w[j]+'": slot '+(w.charCodeAt(j)-97)+' → '+c[w.charCodeAt(j)-97]+'.',['word = <b>"'+w+'"</b>','letter = <em>'+w[j]+'</em>'],V(wi,c,null));
+    }
+    var key=sig(c);
+    var isNew = H[key]===undefined;
+    if(isNew){ H[key]=[]; order.push(key); }
+    H[key].push(w);
+    T.step(12, isNew?'found':'ok','Signature is <b>'+key+'</b>. '+(isNew?'Never seen — start a new group.':'Already a group — append "'+w+'" to it, next to '+H[key].slice(0,-1).map(function(x){return '"'+x+'"';}).join(', ')+'.')+' Note <code>tuple(count)</code>: a list is unhashable, a tuple is not.',['signature = <b>'+key+'</b>'],V(wi,c,key));
+    if(!isNew) T.save(key+' → '+H[key].join(', '));
+  });
+  T.step(14,'done','Answer: '+order.map(function(k){ return '['+H[k].join(', ')+']'; }).join(' ')+'. Each word was touched once, so O(total characters) — no pairwise comparison anywhere.',['groups = <u>'+order.length+'</u>'],V(strs.length,null,null));
+  return T;
+}
+LV.render({
+  num:'49', name:'Group Anagrams', slug:'0049-group-anagrams',
+  difficulty:'Medium', pattern:'Hash map · canonical key',
+  url:'https://leetcode.com/problems/group-anagrams',
+  blurb:'Grouping by a <em>canonical form</em>. The counting signature is O(n·k) where sorting each word would be O(n·k log k) — a small but real win, and the version worth knowing.',
+  input:'strs = ["eat","tea","tan","ate","nat","bat"]', runName:'groupAnagrams',
+  skipLabel:'Skip to next group', skipTypes:['found'], emptyResult:'no groups yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n · k) where k is the average word length — beats sort-based O(n · k log k)', space:'O(n · k)'},
+  theory:{
+    idea:'To group things that are "the same up to some transformation", invent a <b>canonical key</b>: a value that is identical for everything in a group and unique across groups. Then one pass with a dictionary does all the grouping. The art is picking a key that is cheap to compute and cannot collide.',
+    recognize:[
+      '"Group / bucket / partition these by some equivalence" — anagrams, isomorphic strings, similar shapes, congruent islands.',
+      'The naive approach is comparing every pair (O(n²) comparisons). A canonical key removes the pairwise comparison entirely.',
+      'Look for the cheapest invariant: for anagrams it is the letter multiset; for isomorphic strings it is the pattern of first occurrences; for island shapes it is the normalised set of relative coordinates.'
+    ],
+    pitfalls:[
+      '<b>Using a list as a dict key.</b> <code>hashmap[count]</code> raises <code>TypeError: unhashable</code>. <code>tuple(count)</code> is the fix and this is the line people forget.',
+      '<b>Reusing the counter across words.</b> It must be reset inside the loop — line 7 is inside the <code>for</code> for a reason.',
+      '<b>Assuming lowercase ASCII.</b> <code>ord(char) - ord(\'a\')</code> goes negative on uppercase or Unicode. Fine here because the constraints say lowercase; say so aloud rather than leaving it implicit.',
+      '<b>Sorting each word.</b> Perfectly acceptable and shorter (<code>tuple(sorted(w))</code>) — but mention that counting is asymptotically better when words are long.'
+    ],
+    template: "# Group by canonical key - one pass, no pairwise comparison\ngroups = defaultdict(list)\nfor item in items:\n    groups[canonical(item)].append(item)     # key MUST be hashable\nreturn list(groups.values())\n\n# anagrams:          tuple(counts_of_26)   or  tuple(sorted(word))\n# isomorphic:        tuple(first_seen_index_of_each_char)\n# island shapes:     tuple(coords normalised to the top-left cell)\n",
+    variants:[
+      ['Isomorphic strings','LC 205 — the key is the sequence of first-occurrence indices.'],
+      ['<b>Number of Distinct Islands</b> (LC 694)','The key is the shape normalised to the top-left corner.'],
+      ['Group by sorted digits, very long words','Counting beats sorting by a bigger margin; with a huge alphabet, hash the counter instead of materialising 26 slots.'],
+      ['Anagram check for two strings only','LC 242 — no grouping, just compare two counters.']
+    ],
+    thinking:'Any time a problem says "these two things count as the same", the question to ask is <b>"what is the smallest piece of data that decides sameness?"</b> That is your key. Compute it once per item, dictionary-group, done. This reflex turns a surprising number of Medium problems into five lines — and when the key is expensive or hard to define, that difficulty <em>is</em> the problem, which tells you where to spend your thinking time.'
+  }
+});
+
+</script>
+</body>
+</html>

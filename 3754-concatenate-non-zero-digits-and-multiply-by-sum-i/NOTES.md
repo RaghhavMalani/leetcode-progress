@@ -1,9 +1,9 @@
 # 3754. Concatenate Non-Zero Digits and Multiply by Sum I
-> **Easy** &nbsp;·&nbsp; Digit manipulation · single pass, two accumulators &nbsp;·&nbsp; family: **Math & number theory**
+> **Easy** &nbsp;&middot;&nbsp; Digit manipulation · single pass, two accumulators &nbsp;&middot;&nbsp; family: **Math & number theory**
 
 Straight simulation. Two things worth noting: both accumulators are built in one pass, and the empty-string guard is a real edge case, not decoration.
 
-**▶ [Step through this solution line by line](../visualizations/3754-concatenate-non-zero-digits-and-multiply-by-sum-i.html)** — 11 steps, traced on `n = 3049`.
+**▶ [Step through this solution line by line](./visualization.html)** — 11 steps, traced on `n = 3049`.
 
 | | |
 |---|---|
@@ -61,4 +61,4 @@ When several quantities must be derived from one traversal, **compute them all i
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/concatenate-non-zero-digits-and-multiply-by-sum-i)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/concatenate-non-zero-digits-and-multiply-by-sum-i)

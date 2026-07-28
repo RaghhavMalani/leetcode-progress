@@ -1,9 +1,9 @@
 # 124. Binary Tree Maximum Path Sum
-> **Hard** &nbsp;·&nbsp; Tree DFS · return one thing, track another &nbsp;·&nbsp; family: **Trees**
+> **Hard** &nbsp;&middot;&nbsp; Tree DFS · return one thing, track another &nbsp;&middot;&nbsp; family: **Trees**
 
 The problem that teaches the most important tree idea: **what a node returns to its parent is not the same as the answer it contributes.** Two quantities, computed at every node, and mixing them up is the entire failure mode.
 
-**▶ [Step through this solution line by line](../visualizations/0124-binary-tree-maximum-path-sum.html)** — 44 steps, traced on `root = [-10,9,20,null,null,15,7]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 44 steps, traced on `root = [-10,9,20,null,null,15,7]`.
 
 | | |
 |---|---|
@@ -61,4 +61,4 @@ Whenever a tree DFS feels confusing, write out two sentences before coding: **"d
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/binary-tree-maximum-path-sum)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/binary-tree-maximum-path-sum)

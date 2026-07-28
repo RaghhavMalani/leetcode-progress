@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>682 - Baseball Game</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def calPoints(self, operations: List[str]) -> int:", "        stack = []", "        for i in range(len(operations)):", "            if operations[i] == \"+\":", "                stack.append(stack[-2] + stack[-1])", "            elif operations[i] == \"D\":", "                stack.append(stack[-1]*2)", "            elif operations[i] == \"C\":", "                stack.pop()", "            else:", "                stack.append(int(operations[i]))", "", "        return sum(stack)"];
+function build(){
+  var T=LV.trace(), ops=['5','2','C','D','+'];
+  var st=[];
+  function marks(i){ var m={}; for(var x=0;x<ops.length;x++) m[x]= x<i?'good':(x===i?'hot':'dim'); return m; }
+  function V(i,sm){ return [
+    LV.arr('operations', ops, marks(i), {}),
+    LV.seq('stack (leftmost = bottom)', st.slice(), sm||{}, {top:true, emptyText:'empty'}) ]; }
+  function VA(i){ return ['i = <b>'+i+'</b>','op = <em>"'+ops[i]+'"</em>','sum = <u>'+st.reduce(function(a,b){return a+b;},0)+'</u>']; }
+
+  T.step(3,'info','A stack is the right structure because every operation refers to the <b>most recent</b> scores — and "C" needs to undo, which only a stack makes trivial.',['stack = <b>[]</b>'],V(0,{}));
+  ops.forEach(function(op,i){
+    T.step(4,'call','Operation '+i+': "'+op+'".',VA(i),V(i,{}));
+    if(op==='+'){
+      var v=st[st.length-2]+st[st.length-1];
+      var sm={}; sm[st.length-2]='hot'; sm[st.length-1]='hot';
+      T.step(6,'info','"+" means the sum of the previous TWO scores: '+st[st.length-2]+' + '+st[st.length-1]+' = '+v+'.',VA(i),V(i,sm));
+      st.push(v);
+      T.step(6,'push','Push '+v+'. Stack: ['+st.join(', ')+'].',VA(i),V(i,{}));
+    } else if(op==='D'){
+      var v2=st[st.length-1]*2;
+      var sm2={}; sm2[st.length-1]='hot';
+      T.step(8,'info','"D" means double the last score: '+st[st.length-1]+' × 2 = '+v2+'.',VA(i),V(i,sm2));
+      st.push(v2);
+      T.step(8,'push','Push '+v2+'. Stack: ['+st.join(', ')+'].',VA(i),V(i,{}));
+    } else if(op==='C'){
+      var sm3={}; sm3[st.length-1]='bad';
+      T.step(10,'bad','"C" cancels the last score, '+st[st.length-1]+'.',VA(i),V(i,sm3));
+      var g=st.pop();
+      T.step(10,'pop','Popped '+g+'. Stack: ['+st.join(', ')+'] — and note this is why a stack and not a running total: you cannot un-add from a plain sum without remembering what you added.',VA(i),V(i,{}));
+    } else {
+      st.push(parseInt(op,10));
+      T.step(12,'push','A number — push '+op+'. Stack: ['+st.join(', ')+'].',VA(i),V(i,{}));
+    }
+    T.save('after "'+op+'": ['+st.join(', ')+']');
+  });
+  var sum=st.reduce(function(a,b){return a+b;},0);
+  T.step(14,'done','Sum the surviving stack: '+st.join(' + ')+' = <b>'+sum+'</b>.',['answer = <u>'+sum+'</u>'],V(ops.length-1,{}));
+  return T;
+}
+LV.render({
+  num:'682', name:'Baseball Game', slug:'0682-baseball-game',
+  difficulty:'Easy', pattern:'Stack · simulation with undo',
+  url:'https://leetcode.com/problems/baseball-game',
+  blurb:'A stack chosen for one specific reason: the "C" operation needs an <em>undo</em>, and a running total cannot undo. Recognising which operation forces the data structure is the whole lesson.',
+  input:'operations = ["5","2","C","D","+"]', runName:'calPoints',
+  skipLabel:null, emptyResult:'stack is empty',
+  src:SRC, build:build,
+  complexity:{time:'O(n)', space:'O(n)'},
+  theory:{
+    idea:'The data structure is chosen by the <b>hardest single operation</b>, not the most common one. Three of these four operations would work fine with a running total. "C" — remove the most recent thing — is what forces a stack, and that one requirement decides the design.',
+    recognize:[
+      'Operations that reference "the last", "the previous two", or that <b>undo</b>.',
+      'Nesting or matching — brackets, tags, function calls — is the other classic stack signal.',
+      'Expression evaluation, especially postfix / RPN.'
+    ],
+    pitfalls:[
+      '<b>Not handling negative numbers.</b> <code>op.isdigit()</code> returns False for "-5". Using <code>else: int(op)</code> as the fallback, as this solution does, is the robust ordering.',
+      '<b>Indexing <code>stack[-2]</code> without checking length.</b> The problem guarantees validity; an interviewer might not.',
+      '<b>Maintaining a running sum alongside the stack.</b> A fine optimisation, but now "C" has to subtract too and you have two things to keep in sync. Summing once at the end is simpler and just as fast.'
+    ],
+    template: "# Stack simulation - the structure is chosen by the hardest operation\nstack = []\nfor op in operations:\n    if   op == '+': stack.append(stack[-2] + stack[-1])\n    elif op == 'D': stack.append(stack[-1] * 2)\n    elif op == 'C': stack.pop()              # <- THIS is why it is a stack\n    else:           stack.append(int(op))    # else, not isdigit(): handles \"-5\"\nreturn sum(stack)\n",
+    variants:[
+      ['<b>Valid Parentheses</b> (LC 20)','Push openers, pop and match closers.'],
+      ['<b>Evaluate RPN</b> (LC 150)','Pop two, apply, push. Same skeleton.'],
+      ['<b>Min Stack</b> (LC 155)','A second stack of running minima so <code>getMin</code> is O(1).'],
+      ['<b>Basic Calculator</b> (LC 224 / 227)','Stacks for numbers and operators, plus precedence. The serious version.'],
+      ['<b>Simplify Path</b> (LC 71)','".." is exactly a "C" operation on directory names.']
+    ],
+    thinking:'Make this your habit when choosing a data structure: <b>list every operation the problem requires, and pick for the most demanding one.</b> Need the most recent thing → stack. The oldest → queue. The largest → heap. Membership → set. Order-and-rank → sorted structure or BIT. Most "which structure?" questions are decided by a single operation, and finding that operation takes ten seconds and saves a rewrite.'
+  }
+});
+
+</script>
+</body>
+</html>

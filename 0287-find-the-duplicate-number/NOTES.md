@@ -1,9 +1,9 @@
 # 287. Find the Duplicate Number
-> **Medium** &nbsp;·&nbsp; Floyd cycle detection · fast & slow &nbsp;·&nbsp; family: **Two pointers & sliding window**
+> **Medium** &nbsp;&middot;&nbsp; Floyd cycle detection · fast & slow &nbsp;&middot;&nbsp; family: **Two pointers & sliding window**
 
 The famous disguise: an array of integers is secretly a linked list, and finding a duplicate value is secretly finding where a cycle begins. Two phases — detect, then locate.
 
-**▶ [Step through this solution line by line](../visualizations/0287-find-the-duplicate-number.html)** — 22 steps, traced on `nums = [1,3,4,2,2]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 22 steps, traced on `nums = [1,3,4,2,2]`.
 
 | | |
 |---|---|
@@ -64,4 +64,4 @@ The transferable skill is **reframing**. Before reaching for an algorithm, ask w
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/find-the-duplicate-number)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/find-the-duplicate-number)

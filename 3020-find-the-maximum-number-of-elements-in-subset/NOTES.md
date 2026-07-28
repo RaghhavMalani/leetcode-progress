@@ -1,9 +1,9 @@
 # 3020. Find the Maximum Number of Elements in a Subset
-> **Medium** &nbsp;·&nbsp; Frequency map · chain following &nbsp;·&nbsp; family: **Hashing**
+> **Medium** &nbsp;&middot;&nbsp; Frequency map · chain following &nbsp;&middot;&nbsp; family: **Hashing**
 
 The pattern x, x², x⁴, … and back down. Two things make it tractable: repeated squaring blows past 10⁹ in about five steps, and 1 needs its own case because 1² = 1.
 
-**▶ [Step through this solution line by line](../visualizations/3020-find-the-maximum-number-of-elements-in-subset.html)** — 16 steps, traced on `nums = [5,4,1,2,2]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 16 steps, traced on `nums = [5,4,1,2,2]`.
 
 | | |
 |---|---|
@@ -63,4 +63,4 @@ Two questions for any chain-following problem. **(1) How long can a chain be?** 
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/find-the-maximum-number-of-elements-in-a-subset)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/find-the-maximum-number-of-elements-in-a-subset)

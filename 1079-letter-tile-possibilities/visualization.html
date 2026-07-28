@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1079. Letter Tile Possibilities — auto-traced</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+var SRC = ["class Solution:", "    def numTilePossibilities(self, tiles: str) -> int:", "        count = Counter(tiles)", "", "        def backtrack():", "            res = 0", "", "            for c in count:", "                if count[c] > 0:", "                    count[c] -= 1", "                    res += 1", "                    res += backtrack()", "                    count[c] += 1", "            return res", "", "        return backtrack()", "        "];
+function build(){
+  var T = LV.trace();
+  T.step(3,"info","<b>tiles</b> = \"AAB\"",["tiles = <b>&quot;AAB&quot;</b>"],[]);
+  T.step(5,"info","<b>count</b> = {\"A\": 2, \"B\": 1}",["tiles = <b>&quot;AAB&quot;</b>"],[LV.kv("count",[["A", 2], ["B", 1]],{},{emptyText:"empty"})]);
+  T.step(16,"ok","The line runs; no tracked value changes.",["tiles = <b>&quot;AAB&quot;</b>"],[LV.kv("count",[["A", 2], ["B", 1]],{},{emptyText:"empty"})]);
+  T.step(6,"info","The line runs; no tracked value changes.",[],[LV.kv("count",[["A", 2], ["B", 1]],{},{emptyText:"empty"})]);
+  T.step(8,"info","<b>res</b> = 0",["res = <b>0</b>"],[LV.kv("count",[["A", 2], ["B", 1]],{},{emptyText:"empty"})]);
+  T.step(9,"call","<b>c</b> = \"A\"",["c = <b>&quot;A&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 2], ["B", 1]],{},{emptyText:"empty"})]);
+  T.step(10,"info","The line runs; no tracked value changes.",["c = <b>&quot;A&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 2], ["B", 1]],{},{emptyText:"empty"})]);
+  T.step(11,"info","<b>count</b> becomes {\"A\": 1, \"B\": 1}",["c = <b>&quot;A&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 1], ["B", 1]],{},{emptyText:"empty"})]);
+  T.step(12,"info","<b>res</b> rises to 1",["c = <b>&quot;A&quot;</b>", "res = <b>1</b>"],[LV.kv("count",[["A", 1], ["B", 1]],{},{emptyText:"empty"})]);
+  T.step(6,"info","The line runs; no tracked value changes.",[],[LV.kv("count",[["A", 1], ["B", 1]],{},{emptyText:"empty"})]);
+  T.step(8,"info","<b>res</b> = 0",["res = <b>0</b>"],[LV.kv("count",[["A", 1], ["B", 1]],{},{emptyText:"empty"})]);
+  T.step(9,"call","<b>c</b> = \"A\"",["c = <b>&quot;A&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 1], ["B", 1]],{},{emptyText:"empty"})]);
+  T.step(10,"info","The line runs; no tracked value changes.",["c = <b>&quot;A&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 1], ["B", 1]],{},{emptyText:"empty"})]);
+  T.step(11,"info","<b>count</b> becomes {\"A\": 0, \"B\": 1}",["c = <b>&quot;A&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 0], ["B", 1]],{},{emptyText:"empty"})]);
+  T.step(12,"info","<b>res</b> rises to 1",["c = <b>&quot;A&quot;</b>", "res = <b>1</b>"],[LV.kv("count",[["A", 0], ["B", 1]],{},{emptyText:"empty"})]);
+  T.step(6,"info","The line runs; no tracked value changes.",[],[LV.kv("count",[["A", 0], ["B", 1]],{},{emptyText:"empty"})]);
+  T.step(8,"info","<b>res</b> = 0",["res = <b>0</b>"],[LV.kv("count",[["A", 0], ["B", 1]],{},{emptyText:"empty"})]);
+  T.step(9,"call","<b>c</b> = \"A\"",["c = <b>&quot;A&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 0], ["B", 1]],{},{emptyText:"empty"})]);
+  T.step(8,"info","The line runs; no tracked value changes.",["c = <b>&quot;A&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 0], ["B", 1]],{},{emptyText:"empty"})]);
+  T.step(9,"call","<b>c</b> becomes \"B\"",["c = <b>&quot;B&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 0], ["B", 1]],{},{emptyText:"empty"})]);
+  T.step(10,"info","The line runs; no tracked value changes.",["c = <b>&quot;B&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 0], ["B", 1]],{},{emptyText:"empty"})]);
+  T.step(11,"info","<b>count</b> becomes {\"A\": 0, \"B\": 0}",["c = <b>&quot;B&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 0], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(12,"info","<b>res</b> rises to 1",["c = <b>&quot;B&quot;</b>", "res = <b>1</b>"],[LV.kv("count",[["A", 0], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(6,"info","The line runs; no tracked value changes.",[],[LV.kv("count",[["A", 0], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(8,"info","<b>res</b> = 0",["res = <b>0</b>"],[LV.kv("count",[["A", 0], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(9,"call","<b>c</b> = \"A\"",["c = <b>&quot;A&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 0], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(8,"info","The line runs; no tracked value changes.",["c = <b>&quot;A&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 0], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(9,"call","<b>c</b> becomes \"B\"",["c = <b>&quot;B&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 0], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(8,"info","The line runs; no tracked value changes.",["c = <b>&quot;B&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 0], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(14,"ok","The line runs; no tracked value changes.",["c = <b>&quot;B&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 0], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(13,"info","<b>res</b> rises to 1",["c = <b>&quot;B&quot;</b>", "res = <b>1</b>"],[LV.kv("count",[["A", 0], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(8,"info","<b>count</b> becomes {\"A\": 0, \"B\": 1}",["c = <b>&quot;B&quot;</b>", "res = <b>1</b>"],[LV.kv("count",[["A", 0], ["B", 1]],{},{emptyText:"empty"})]);
+  T.step(14,"ok","The line runs; no tracked value changes.",["c = <b>&quot;B&quot;</b>", "res = <b>1</b>"],[LV.kv("count",[["A", 0], ["B", 1]],{},{emptyText:"empty"})]);
+  T.step(13,"info","<b>res</b> rises to 2 &middot; <b>c</b> becomes \"A\"",["c = <b>&quot;A&quot;</b>", "res = <b>2</b>"],[LV.kv("count",[["A", 0], ["B", 1]],{},{emptyText:"empty"})]);
+  T.step(8,"info","<b>count</b> becomes {\"A\": 1, \"B\": 1}",["c = <b>&quot;A&quot;</b>", "res = <b>2</b>"],[LV.kv("count",[["A", 1], ["B", 1]],{},{emptyText:"empty"})]);
+  T.step(9,"call","<b>c</b> becomes \"B\"",["c = <b>&quot;B&quot;</b>", "res = <b>2</b>"],[LV.kv("count",[["A", 1], ["B", 1]],{},{emptyText:"empty"})]);
+  T.step(10,"info","The line runs; no tracked value changes.",["c = <b>&quot;B&quot;</b>", "res = <b>2</b>"],[LV.kv("count",[["A", 1], ["B", 1]],{},{emptyText:"empty"})]);
+  T.step(11,"info","<b>count</b> becomes {\"A\": 1, \"B\": 0}",["c = <b>&quot;B&quot;</b>", "res = <b>2</b>"],[LV.kv("count",[["A", 1], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(12,"info","<b>res</b> rises to 3",["c = <b>&quot;B&quot;</b>", "res = <b>3</b>"],[LV.kv("count",[["A", 1], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(6,"info","The line runs; no tracked value changes.",[],[LV.kv("count",[["A", 1], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(8,"info","<b>res</b> = 0",["res = <b>0</b>"],[LV.kv("count",[["A", 1], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(9,"call","<b>c</b> = \"A\"",["c = <b>&quot;A&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 1], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(10,"info","The line runs; no tracked value changes.",["c = <b>&quot;A&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 1], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(11,"info","<b>count</b> becomes {\"A\": 0, \"B\": 0}",["c = <b>&quot;A&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 0], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(12,"info","<b>res</b> rises to 1",["c = <b>&quot;A&quot;</b>", "res = <b>1</b>"],[LV.kv("count",[["A", 0], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(6,"info","The line runs; no tracked value changes.",[],[LV.kv("count",[["A", 0], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(8,"info","<b>res</b> = 0",["res = <b>0</b>"],[LV.kv("count",[["A", 0], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(9,"call","<b>c</b> = \"A\"",["c = <b>&quot;A&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 0], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(8,"info","The line runs; no tracked value changes.",["c = <b>&quot;A&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 0], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(9,"call","<b>c</b> becomes \"B\"",["c = <b>&quot;B&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 0], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(8,"info","The line runs; no tracked value changes.",["c = <b>&quot;B&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 0], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(14,"ok","The line runs; no tracked value changes.",["c = <b>&quot;B&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 0], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(13,"info","<b>res</b> rises to 1 &middot; <b>c</b> becomes \"A\"",["c = <b>&quot;A&quot;</b>", "res = <b>1</b>"],[LV.kv("count",[["A", 0], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(8,"info","<b>count</b> becomes {\"A\": 1, \"B\": 0}",["c = <b>&quot;A&quot;</b>", "res = <b>1</b>"],[LV.kv("count",[["A", 1], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(9,"call","<b>c</b> becomes \"B\"",["c = <b>&quot;B&quot;</b>", "res = <b>1</b>"],[LV.kv("count",[["A", 1], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(8,"info","The line runs; no tracked value changes.",["c = <b>&quot;B&quot;</b>", "res = <b>1</b>"],[LV.kv("count",[["A", 1], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(14,"ok","The line runs; no tracked value changes.",["c = <b>&quot;B&quot;</b>", "res = <b>1</b>"],[LV.kv("count",[["A", 1], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(13,"info","<b>res</b> rises to 4",["c = <b>&quot;B&quot;</b>", "res = <b>4</b>"],[LV.kv("count",[["A", 1], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(8,"info","<b>count</b> becomes {\"A\": 1, \"B\": 1}",["c = <b>&quot;B&quot;</b>", "res = <b>4</b>"],[LV.kv("count",[["A", 1], ["B", 1]],{},{emptyText:"empty"})]);
+  T.step(14,"ok","The line runs; no tracked value changes.",["c = <b>&quot;B&quot;</b>", "res = <b>4</b>"],[LV.kv("count",[["A", 1], ["B", 1]],{},{emptyText:"empty"})]);
+  T.step(13,"info","<b>res</b> rises to 5 &middot; <b>c</b> becomes \"A\"",["c = <b>&quot;A&quot;</b>", "res = <b>5</b>"],[LV.kv("count",[["A", 1], ["B", 1]],{},{emptyText:"empty"})]);
+  T.step(8,"info","<b>count</b> becomes {\"A\": 2, \"B\": 1}",["c = <b>&quot;A&quot;</b>", "res = <b>5</b>"],[LV.kv("count",[["A", 2], ["B", 1]],{},{emptyText:"empty"})]);
+  T.step(9,"call","<b>c</b> becomes \"B\"",["c = <b>&quot;B&quot;</b>", "res = <b>5</b>"],[LV.kv("count",[["A", 2], ["B", 1]],{},{emptyText:"empty"})]);
+  T.step(10,"info","The line runs; no tracked value changes.",["c = <b>&quot;B&quot;</b>", "res = <b>5</b>"],[LV.kv("count",[["A", 2], ["B", 1]],{},{emptyText:"empty"})]);
+  T.step(11,"info","<b>count</b> becomes {\"A\": 2, \"B\": 0}",["c = <b>&quot;B&quot;</b>", "res = <b>5</b>"],[LV.kv("count",[["A", 2], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(12,"info","<b>res</b> rises to 6",["c = <b>&quot;B&quot;</b>", "res = <b>6</b>"],[LV.kv("count",[["A", 2], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(6,"info","The line runs; no tracked value changes.",[],[LV.kv("count",[["A", 2], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(8,"info","<b>res</b> = 0",["res = <b>0</b>"],[LV.kv("count",[["A", 2], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(9,"call","<b>c</b> = \"A\"",["c = <b>&quot;A&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 2], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(10,"info","The line runs; no tracked value changes.",["c = <b>&quot;A&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 2], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(11,"info","<b>count</b> becomes {\"A\": 1, \"B\": 0}",["c = <b>&quot;A&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 1], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(12,"info","<b>res</b> rises to 1",["c = <b>&quot;A&quot;</b>", "res = <b>1</b>"],[LV.kv("count",[["A", 1], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(6,"info","The line runs; no tracked value changes.",[],[LV.kv("count",[["A", 1], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(8,"info","<b>res</b> = 0",["res = <b>0</b>"],[LV.kv("count",[["A", 1], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(9,"call","<b>c</b> = \"A\"",["c = <b>&quot;A&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 1], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(10,"info","The line runs; no tracked value changes.",["c = <b>&quot;A&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 1], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(11,"info","<b>count</b> becomes {\"A\": 0, \"B\": 0}",["c = <b>&quot;A&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 0], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(12,"info","<b>res</b> rises to 1",["c = <b>&quot;A&quot;</b>", "res = <b>1</b>"],[LV.kv("count",[["A", 0], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(6,"info","The line runs; no tracked value changes.",[],[LV.kv("count",[["A", 0], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(8,"info","<b>res</b> = 0",["res = <b>0</b>"],[LV.kv("count",[["A", 0], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(9,"call","<b>c</b> = \"A\"",["c = <b>&quot;A&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 0], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(8,"info","The line runs; no tracked value changes.",["c = <b>&quot;A&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 0], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(9,"call","<b>c</b> becomes \"B\"",["c = <b>&quot;B&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 0], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(8,"info","The line runs; no tracked value changes.",["c = <b>&quot;B&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 0], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(14,"ok","The line runs; no tracked value changes.",["c = <b>&quot;B&quot;</b>", "res = <b>0</b>"],[LV.kv("count",[["A", 0], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(13,"info","<b>res</b> rises to 1 &middot; <b>c</b> becomes \"A\"",["c = <b>&quot;A&quot;</b>", "res = <b>1</b>"],[LV.kv("count",[["A", 0], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(8,"info","<b>count</b> becomes {\"A\": 1, \"B\": 0}",["c = <b>&quot;A&quot;</b>", "res = <b>1</b>"],[LV.kv("count",[["A", 1], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(9,"call","<b>c</b> becomes \"B\"",["c = <b>&quot;B&quot;</b>", "res = <b>1</b>"],[LV.kv("count",[["A", 1], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(8,"info","The line runs; no tracked value changes.",["c = <b>&quot;B&quot;</b>", "res = <b>1</b>"],[LV.kv("count",[["A", 1], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(14,"ok","The line runs; no tracked value changes.",["c = <b>&quot;B&quot;</b>", "res = <b>1</b>"],[LV.kv("count",[["A", 1], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(13,"info","<b>res</b> rises to 2 &middot; <b>c</b> becomes \"A\"",["c = <b>&quot;A&quot;</b>", "res = <b>2</b>"],[LV.kv("count",[["A", 1], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(8,"info","<b>count</b> becomes {\"A\": 2, \"B\": 0}",["c = <b>&quot;A&quot;</b>", "res = <b>2</b>"],[LV.kv("count",[["A", 2], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(9,"call","<b>c</b> becomes \"B\"",["c = <b>&quot;B&quot;</b>", "res = <b>2</b>"],[LV.kv("count",[["A", 2], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(8,"info","The line runs; no tracked value changes.",["c = <b>&quot;B&quot;</b>", "res = <b>2</b>"],[LV.kv("count",[["A", 2], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(14,"ok","The line runs; no tracked value changes.",["c = <b>&quot;B&quot;</b>", "res = <b>2</b>"],[LV.kv("count",[["A", 2], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(13,"info","<b>res</b> rises to 8",["c = <b>&quot;B&quot;</b>", "res = <b>8</b>"],[LV.kv("count",[["A", 2], ["B", 0]],{},{emptyText:"empty"})]);
+  T.step(8,"info","<b>count</b> becomes {\"A\": 2, \"B\": 1}",["c = <b>&quot;B&quot;</b>", "res = <b>8</b>"],[LV.kv("count",[["A", 2], ["B", 1]],{},{emptyText:"empty"})]);
+  T.step(14,"ok","The line runs; no tracked value changes.",["c = <b>&quot;B&quot;</b>", "res = <b>8</b>"],[LV.kv("count",[["A", 2], ["B", 1]],{},{emptyText:"empty"})]);
+  T.step(14,"done","Finished. <b>numTilePossibilities</b> returned 8",[],[]);
+  return T;
+}
+LV.render({
+  num:"1079", name:"Letter Tile Possibilities", slug:"1079-letter-tile-possibilities",
+  difficulty:"Medium", pattern:'Auto-traced from real execution',
+  url:"https://leetcode.com/problems/letter-tile-possibilities",
+  blurb:'This page was generated by running the solution under <code>sys.settrace</code> and recording what actually happened \u2014 every line, every live variable. It can never drift from the code.',
+  input:"tiles = \"AAB\"", runName:"numTilePossibilities()",
+  skipLabel:null, emptyResult:'nothing recorded',
+  showResults:false,
+  src: SRC, build: build,
+  complexity:{time:'\u2014 (measure it yourself; this page only shows behaviour)', space:'\u2014'},
+  theory:{
+    idea:'Generated by real execution, using <b>the README&#x27;s first example</b>. 98 recorded steps.',
+    recognize:['This trace was generated automatically, so there is no hand-written theory for it yet.',
+               'Open <a href="../visualizations/index.html">the index</a> to find the pattern family it belongs to, then read that family in <a href="../PATTERNS.md">PATTERNS.md</a>.'],
+    pitfalls:['Auto-traces show <b>what</b> happened, not <b>why</b>. Watch it once, then write your own one-sentence explanation of the invariant \u2014 that is the part that makes it stick.'],
+    thinking:'Re-run this on a different input with <code>python trace.py 1079-letter-tile-possibilities --input "..."</code>. Watching the same code on an edge case \u2014 an empty list, all-equal values, a single element \u2014 is the fastest way to find out whether you actually understand it.'
+  }
+});
+</script>
+</body>
+</html>

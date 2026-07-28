@@ -1,9 +1,9 @@
 # 46. Permutations
-> **Medium** &nbsp;·&nbsp; Recursion · bottom-up construction (NOT backtracking) &nbsp;·&nbsp; family: **Backtracking**
+> **Medium** &nbsp;&middot;&nbsp; Recursion · bottom-up construction (NOT backtracking) &nbsp;&middot;&nbsp; family: **Backtracking**
 
 Your solution here is correct but it is *not* backtracking — there is no shared mutable state and no undo step. Worth understanding as a contrast, and worth re-solving with the standard skeleton so the pattern transfers to 47, 39 and N-Queens.
 
-**▶ [Step through this solution line by line](../visualizations/0046-permutations.html)** — 29 steps, traced on `nums = [1,2,3]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 29 steps, traced on `nums = [1,2,3]`.
 
 | | |
 |---|---|
@@ -64,4 +64,4 @@ Here is the concrete reason to re-solve this with backtracking: **bottom-up cons
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/permutations)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/permutations)

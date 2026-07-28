@@ -1,9 +1,9 @@
 # 773. Sliding Puzzle
-> **Hard** &nbsp;·&nbsp; BFS on a state graph &nbsp;·&nbsp; family: **Graphs, BFS & DFS**
+> **Hard** &nbsp;&middot;&nbsp; BFS on a state graph &nbsp;&middot;&nbsp; family: **Graphs, BFS & DFS**
 
 Rated Hard because of the modelling, not the algorithm. Once you see that a board *is* a node and a move *is* an edge, it is textbook BFS on a graph with 720 vertices.
 
-**▶ [Step through this solution line by line](../visualizations/0773-sliding-puzzle.html)** — 21 steps, traced on `board = [[1,2,3],[0,4,5]]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 21 steps, traced on `board = [[1,2,3],[0,4,5]]`.
 
 | | |
 |---|---|
@@ -66,4 +66,4 @@ Train yourself to hear "minimum number of steps" as "**shortest path in an unwei
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/sliding-puzzle)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/sliding-puzzle)

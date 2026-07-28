@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3614 - Process String With Special Operations II</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def processStr(self, s: str, k: int) -> str:", "        n = len(s)", "        length = [0] * (n + 1)", "", "        for i, ch in enumerate(s):", "            curr = length[i]", "", "            if ch.isalpha():", "                curr += 1", "            elif ch == '*':", "                if curr > 0:", "                    curr -= 1", "            elif ch == '#':", "                curr *= 2", "            elif ch == '%':", "                curr = curr", "", "            length[i + 1] = curr", "", "        if k >= length[n]:", "            return '.'", "", "        for i in range(n - 1, -1, -1):", "            ch = s[i]", "            before = length[i]", "            after = length[i + 1]", "", "            if ch.isalpha():", "                if k == before:", "                    return ch", "", "            elif ch == '*':", "                pass", "", "            elif ch == '#':", "                if before > 0:", "                    k %= before", "", "            elif ch == '%':", "                k = before - 1 - k", "", "        return '.'"];
+function build(){
+  var T=LV.trace(), s='a#b%*', k=1;
+  var n=s.length, len=new Array(n+1).fill(0);
+  function V(i,note,marks){ var m=marks||{};
+    s.split('').forEach(function(_,x){ if(m[x]===undefined) m[x]= x<i?'good':(x===i?'hot':'dim'); });
+    return [ LV.arr('s — the operation string', s.split(''), m, {}),
+      LV.arr('length[i] = length of the result AFTER the first i operations', len.slice(), {}, {note:note||''}) ]; }
+  T.step(4,'info','<b>Phase 1 (forward):</b> simulate only the LENGTH of the result, never the string itself. The string can grow to 2^n characters, so building it is impossible — but its length after each step is one integer.',['k = <b>'+k+'</b>'],V(null));
+  for(var i=0;i<n;i++){
+    var cur=len[i], ch=s[i], why;
+    if(/[a-z]/.test(ch)){ cur+=1; why='a letter is appended → length + 1'; }
+    else if(ch==='*'){ if(cur>0) cur-=1; why='"*" removes the last character → length − 1 (or stays 0)'; }
+    else if(ch==='#'){ cur*=2; why='"#" duplicates the whole string → length × 2'; }
+    else { why='"%" reverses the string → length unchanged'; }
+    len[i+1]=cur;
+    T.step(19,'push','Operation '+i+' is "'+ch+'": '+why+'. length['+(i+1)+'] = <b>'+cur+'</b>.',['i = <b>'+i+'</b>','length = <em>'+cur+'</em>'],V(i));
+    T.save('after "'+ch+'": length '+cur);
+  }
+  T.step(21,'info','Final length is '+len[n]+'. If k were ≥ that, the answer would be ".".',['final length = <b>'+len[n]+'</b>'],V(n));
+  T.step(24,'info','<b>Phase 2 (backward):</b> walk the operations in REVERSE, transforming k — "which index of the current string do I want?" — back through each operation until it lands on a literal letter. This is the key idea: instead of building the string and indexing it, you carry the index backwards.',['k = <b>'+k+'</b>'],V(null));
+  var kk=k, ans=null;
+  for(var i2=n-1;i2>=0;i2--){
+    var ch2=s[i2], before=len[i2];
+    T.step(25,'call','Operation '+i2+' is "'+ch2+'". Before it the string had length '+before+'; after it, '+len[i2+1]+'. Current target index k = '+kk+'.',['i = <b>'+i2+'</b>','k = <em>'+kk+'</em>'],V(i2));
+    if(/[a-z]/.test(ch2)){
+      if(kk===before){ ans=ch2;
+        T.step(30,'found','k == '+before+' — the target is EXACTLY the character this operation appended. Answer: <b>"'+ch2+'"</b>.',['answer = <u>'+ch2+'</u>'],V(i2,'found it'));
+        break;
+      }
+      T.step(30,'info','k ('+kk+') ≠ '+before+', so the target is not this letter — it lies in the earlier part and k is unchanged.',[],V(i2));
+    } else if(ch2==='#'){
+      var nk=before>0?kk%before:kk;
+      T.step(38,'ok','"#" doubled the string, so index '+kk+' in the doubled version corresponds to index '+kk+' mod '+before+' = <b>'+nk+'</b> in the original. Both halves are identical, which is what makes the modulo correct.',['k = <b>'+nk+'</b>'],V(i2));
+      kk=nk;
+    } else if(ch2==='%'){
+      var nk2=before-1-kk;
+      T.step(41,'ok','"%" reversed the string, so index '+kk+' from the front is index '+before+' − 1 − '+kk+' = <b>'+nk2+'</b> in the un-reversed version.',['k = <b>'+nk2+'</b>'],V(i2));
+      kk=nk2;
+    } else {
+      T.step(33,'info','"*" only removed a character from the END. Any index that still exists is unaffected, so k passes through unchanged.',[],V(i2));
+    }
+  }
+  T.step(43,'done','Answer: <b>"'+ans+'"</b>. O(n) time and O(n) space, with the exponentially long string never materialised.',['answer = <u>'+ans+'</u>'],V(null,'done'));
+  return T;
+}
+LV.render({
+  num:'3614', name:'Process String With Special Operations II', slug:'3614-process-string-with-special-operations-ii',
+  difficulty:'Hard', pattern:'Forward lengths + backward index mapping',
+  url:'https://leetcode.com/problems/process-string-with-special-operations-ii',
+  blurb:'The result can be exponentially long, so you never build it. Instead: track only the LENGTH forwards, then map the query index BACKWARDS through each operation until it lands on a literal character.',
+  input:'s = "a#b%*", k = 1', runName:'processStr',
+  skipLabel:null, emptyResult:'no lengths computed yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n)', space:'O(n)'},
+  theory:{
+    idea:'When a construction is too large to materialise but you only need <b>one element of it</b>, run the process forwards to record cheap summary data (here, lengths), then run it backwards translating the query index through each step’s inverse. Doubling inverts to a modulo; reversal inverts to <code>len − 1 − k</code>; appending inverts to an equality test.',
+    recognize:[
+      'A described construction whose size grows multiplicatively (doubling, repeating, concatenating with itself) plus a query for a single index.',
+      'The phrase "the string may be very large" or constraints where the output length would overflow.',
+      'The classic family member is LC 880 Decoded String at Index — the same forward-length / backward-index technique.'
+    ],
+    pitfalls:[
+      '<b>Building the string.</b> With n operations of "#" the length is 2ⁿ. This is the trap.',
+      '<b>Overflow in the length.</b> The forward pass must cap or use big integers; in Python it is free, in C++ you clamp once the length exceeds k.',
+      '<b>Getting an inverse backwards.</b> Reversal is <code>before - 1 - k</code>, not <code>before - k</code>. Doubling is <code>k % before</code>, and it needs <code>before &gt; 0</code>.',
+      '<b>Handling "*" as if it shifted indices.</b> It removes from the END, so surviving indices keep their positions.',
+      '<b>Forgetting the <code>k &gt;= final_length</code> guard</b> that returns ".".'
+    ],
+    template: "\"# never build the object - track LENGTHS forward, map the INDEX backward\\nlength = [0] * (n + 1)                 # phase 1: forward, cheap summary only\\nfor i, ch in enumerate(s):\\n    c = length[i]\\n    if   ch.isalpha(): c += 1\\n    elif ch == '*':    c = max(0, c - 1)\\n    elif ch == '#':    c *= 2\\n    length[i + 1] = c                  # '%' leaves it unchanged\\n\\nif k >= length[n]: return '.'\\n\\nfor i in range(n - 1, -1, -1):         # phase 2: backward, invert each op\\n    ch, before = s[i], length[i]\\n    if   ch.isalpha() and k == before: return ch        # it IS this letter\\n    elif ch == '#' and before:         k %= before      # doubling -> modulo\\n    elif ch == '%':                    k = before - 1 - k   # reversal\\n    # '*' removed from the END -> surviving indices unaffected\\n\"",
+    variants:[
+      ['<b>Decoded String at Index</b> (LC 880)','The canonical version: repeated concatenation, index mapped back with a modulo.'],
+      ['Return a RANGE of characters','Run the backward mapping once per index, or reconstruct only the needed segment.'],
+      ['Operations include arbitrary insertion','The inverse gets harder; you may need a rope or a balanced BST.'],
+      ['Part I with small constraints','Just simulate the string — which is exactly why Part II exists.']
+    ],
+    thinking:'The reusable idea is <b>"simulate the metadata, not the object"</b>. If you only ever need a summary (length, count, k-th element) then carry the summary forward and answer the query by inverting the process. This shows up in string-expansion problems, in fast-exponentiation-style constructions, and in any "the answer is astronomically large but the query is one item" setup. Ask yourself: <em>what is the smallest thing I can track that still answers the question?</em>'
+  }
+});
+
+</script>
+</body>
+</html>

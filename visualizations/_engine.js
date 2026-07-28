@@ -14,12 +14,25 @@
 
 var LV = {};
 
+/* Where does this script live?  A page opened from a problem folder loads us as
+   "../visualizations/_engine.js", so every internal link is written relative to
+   that, and the same page works from either location.                       */
+var BASE = (function(){
+  var s = document.currentScript;
+  if (!s){ var a = document.getElementsByTagName('script'); s = a[a.length-1]; }
+  var raw = s ? (s.getAttribute('src') || '') : '';
+  var m = raw.match(/^(.*\/)?_engine\.js/);
+  return (m && m[1]) ? m[1] : './';
+})();
+LV.base = BASE;
+
 /* ------------------------------------------------------------
    0. helpers
    ------------------------------------------------------------ */
 function esc(s){ return String(s).replace(/[&<>]/g, function(c){ return c==='&'?'&amp;':(c==='<'?'&lt;':'&gt;'); }); }
 function el(tag, cls, html){ var d=document.createElement(tag); if(cls) d.className=cls; if(html!=null) d.innerHTML=html; return d; }
 LV.esc = esc;
+LV.hl  = function(line){ return hl(line); };   /* reused by dojo.html */
 
 /* syntax highlighting — python / c-family, good enough to read by */
 var KW = /\b(class|def|if|elif|else|return|while|for|in|not|or|and|None|True|False|lambda|break|continue|import|from|global|nonlocal|try|except|with|as|yield|pass|del|is|public|private|void|int|long|bool|string|vector|auto|new|const|struct|nullptr|NULL|sort|static|float|double|char)\b/g;
@@ -398,13 +411,13 @@ LV.render = function (spec) {
   var wrap = el('div','wrap');
   wrap.innerHTML =
     '<div class="mast">'+
-      '<p class="crumb"><a href="./index.html">&#8592; all visualizations</a> &nbsp;·&nbsp; '+
+      '<p class="crumb"><a href="'+BASE+'index.html">&#8592; all visualizations</a> &nbsp;·&nbsp; '+
         'RaghhavMalani / leetcode-progress</p>'+
       '<h1>'+spec.num+' &middot; '+esc(spec.name)+'</h1>'+
       '<div class="tagrow">'+
         '<span class="tag '+diff+'">'+esc(spec.difficulty||'')+'</span>'+
         '<span class="tag pat">'+esc(spec.pattern||'')+'</span>'+
-        (spec.slug?'<span class="tag"><a href="../'+spec.slug+'/" target="_blank">solution folder</a></span>':'')+
+        (spec.slug?'<span class="tag"><a href="'+BASE+'../'+spec.slug+'/" target="_blank">solution folder</a></span>':'')+
         (spec.url?'<span class="tag"><a href="'+spec.url+'" target="_blank">leetcode</a></span>':'')+
       '</div>'+
       (spec.blurb?'<p style="margin:11px 0 0;color:var(--ink-2);max-width:80ch;font-size:13.5px">'+spec.blurb+'</p>':'')+
@@ -418,7 +431,7 @@ LV.render = function (spec) {
       '<button id="lv-play" class="primary">Play</button>'+
       '<button id="lv-next">Forward &rsaquo;</button>'+
       (spec.skipLabel!==null?'<button id="lv-skip">'+(spec.skipLabel||'Skip to next milestone')+'</button>':'')+
-      '<span class="count" id="lv-count"></span>'+
+      '<button id="lv-quiz" title="Hide the narration and predict each step before it happens">Quiz me</button>'+'<span class="count" id="lv-count"></span>'+
     '</div>'+
     '<input class="scrub" id="lv-scrub" type="range" min="0" value="0" step="1" aria-label="step">'+
     '<div class="vars" id="lv-vars"></div>'+
@@ -427,6 +440,7 @@ LV.render = function (spec) {
       '<div class="pane"><header>state</header><div class="state" id="lv-state"></div></div>'+
     '</div>'+
     '<div class="msg" id="lv-msg"></div>'+
+    '<div id="lv-quizbox"></div>'+
     '<div class="results" id="lv-res"></div>'+
     (spec.legend===false?'':'<div class="legend">'+
       '<span><i class="sw" style="background:#0d3a4e;border:1px solid var(--cy)"></i>active right now</span>'+
@@ -438,8 +452,8 @@ LV.render = function (spec) {
     '</div>'+
     theoryHtml(spec.theory, spec.complexity)+
     '<div class="fnav">'+
-      '<a href="./index.html">&#8592; all visualizations</a>'+
-      '<a href="../PATTERNS.md">pattern handbook &#8594;</a>'+
+      '<a href="'+BASE+'index.html">&#8592; all visualizations</a>'+
+      '<a href="'+BASE+'../PATTERNS.md">pattern handbook &#8594;</a>'+
     '</div>';
   document.body.appendChild(wrap);
 
@@ -484,6 +498,7 @@ LV.render = function (spec) {
     scrub.value = i;
     var hi = codeEl.querySelector('.ln.hi');
     if (hi && hi.scrollIntoView) hi.scrollIntoView({block:'nearest'});
+    drawQuiz();
     var ts = stateEl.querySelector('.treescroll');
     if (ts){
       var svg = ts.querySelector('svg'), cur = e.views.filter(function(v){return v.k==='tree';})[0];
@@ -493,6 +508,72 @@ LV.render = function (spec) {
       }
     }
   }
+
+  /* ---------------- opt-in quiz mode ----------------
+     At step i, hide what comes next and ask the reader to predict it.
+     The options are derived from the event `type`, so they are generated
+     from the trace itself and stay correct if the trace changes.        */
+  var TYPE_LABEL = {
+    push :'Make a choice / take a step deeper',
+    pop  :'Undo the last choice and back up',
+    found:'Record an answer or a new best',
+    prune:'Abandon this branch — it cannot work',
+    skip :'Skip this option and try the alternative',
+    dup  :'Slide past a duplicate to avoid repeating work',
+    call :'Enter a new call / start the next iteration',
+    bad  :'Reject this candidate and move on',
+    ok   :'Advance a pointer / commit the current state',
+    info :'Just read the state — nothing changes yet',
+    done :'Finish and return the answer'
+  };
+  var quizOn = false, quizRight = 0, quizAsked = 0, quizAnswered = {};
+  var quizBox = document.getElementById('lv-quizbox');
+  var quizBtn = document.getElementById('lv-quiz');
+  quizBtn.onclick = function(){
+    quizOn = !quizOn;
+    this.className = quizOn ? 'on' : '';
+    this.textContent = quizOn ? 'Quiz: on' : 'Quiz me';
+    draw();
+  };
+  function seeded(n, salt){            /* stable option order per step */
+    var x = Math.sin((n+1) * 9301 + salt * 49297) * 233280;
+    return x - Math.floor(x);
+  }
+  function drawQuiz(){
+    if (!quizOn || i >= T.events.length-1){ quizBox.innerHTML=''; return; }
+    var nxt = T.events[i+1], answer = TYPE_LABEL[nxt.type] || TYPE_LABEL.info;
+    var pool = [];
+    for (var k in TYPE_LABEL) if (TYPE_LABEL[k] !== answer) pool.push(TYPE_LABEL[k]);
+    pool.sort(function(a,b){ return seeded(a.length + i, 3) - seeded(b.length + i, 3); });
+    var opts = [answer].concat(pool.slice(0,3));
+    opts.sort(function(a,b){ return seeded(a.length, i+1) - seeded(b.length, i+1); });
+    var done = quizAnswered[i];
+    var h = '<div class="qz"><h6>Predict the next step'+
+            (quizAsked? '<span class="qzscore">'+quizRight+' / '+quizAsked+'</span>':'')+'</h6>'+
+            '<div class="qzopts">';
+    opts.forEach(function(o,k){
+      var cls = '';
+      if (done){ cls = (o===answer) ? 'right' : (o===done.chose ? 'wrong' : 'muted'); }
+      h += '<button data-k="'+k+'" class="'+cls+'"'+(done?' disabled':'')+'><kbd>'+(k+1)+'</kbd>'+esc(o)+'</button>';
+    });
+    h += '</div>';
+    if (done) h += '<div class="qzfb"><b>'+(done.ok?'Correct.':'Not this time.')+'</b> '+
+                   esc(nxt.msg).replace(/`([^`]+)`/g,'<code>$1</code>')+
+                   ' &nbsp;<span style="color:var(--ink-3)">(line '+nxt.line+')</span></div>';
+    else h += '<div class="qzfb" style="color:var(--ink-3)">The narration below is for the step you are on. '+
+              'Pick what the code does <b>next</b> — then press Forward.</div>';
+    quizBox.innerHTML = h;
+    if (!done) Array.prototype.forEach.call(quizBox.querySelectorAll('button'), function(b){
+      b.onclick = function(){
+        var chose = b.textContent.replace(/^\d/,'');
+        var ok = (opts[+b.dataset.k] === answer);
+        quizAnswered[i] = { chose: opts[+b.dataset.k], ok: ok };
+        quizAsked++; if (ok) quizRight++;
+        drawQuiz();
+      };
+    });
+  }
+
   function go(d){ i = Math.max(0, Math.min(T.events.length-1, i+d)); draw(); }
   function stop(){ if(timer){ clearInterval(timer); timer=null; document.getElementById('lv-play').textContent='Play'; } }
 
@@ -516,6 +597,10 @@ LV.render = function (spec) {
   scrub.oninput = function(){ stop(); i = +this.value; draw(); };
   document.addEventListener('keydown', function(ev){
     if (ev.target.tagName === 'INPUT' && ev.target.type === 'text') return;
+    var n = parseInt(ev.key,10);
+    if (quizOn && n>=1 && n<=4 && !quizAnswered[i]){
+      var b = quizBox.querySelector('button[data-k="'+(n-1)+'"]'); if (b){ b.click(); ev.preventDefault(); return; }
+    }
     if (ev.key==='ArrowRight'){ stop(); go(1); ev.preventDefault(); }
     else if (ev.key==='ArrowLeft'){ stop(); go(-1); ev.preventDefault(); }
     else if (ev.key===' '){ document.getElementById('lv-play').click(); ev.preventDefault(); }

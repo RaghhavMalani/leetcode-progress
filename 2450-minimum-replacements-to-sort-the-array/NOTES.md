@@ -1,9 +1,9 @@
 # 2450. Minimum Replacements to Sort the Array
-> **Hard** &nbsp;·&nbsp; Greedy from the right · equal splitting &nbsp;·&nbsp; family: **Greedy**
+> **Hard** &nbsp;&middot;&nbsp; Greedy from the right · equal splitting &nbsp;&middot;&nbsp; family: **Greedy**
 
 Two decisions carry the whole problem: process **right to left**, and when splitting, make the pieces as **equal** as possible so the leftmost one stays as large as it can.
 
-**▶ [Step through this solution line by line](../visualizations/2450-minimum-replacements-to-sort-the-array.html)** — 8 steps, traced on `nums = [3,9,3]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 8 steps, traced on `nums = [3,9,3]`.
 
 | | |
 |---|---|
@@ -59,4 +59,4 @@ For "minimum operations to satisfy an ordering", ask two questions in order. **(
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/minimum-replacements-to-sort-the-array)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/minimum-replacements-to-sort-the-array)

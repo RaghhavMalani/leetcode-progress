@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3739 - Count Subarrays With Majority Element II</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Fenwick:", "    def __init__(self, size):", "        self.bit = [0] * (size + 1)", "", "    def add(self, idx, val):", "        while idx < len(self.bit):", "            self.bit[idx] += val", "            idx += idx & -idx", "", "    def query(self, idx):", "        total = 0", "        while idx > 0:", "            total += self.bit[idx]", "            idx -= idx & -idx", "        return total", "", "", "class Solution:", "    def countMajoritySubarrays(self, nums: List[int], target: int) -> int:", "        n = len(nums)", "", "        offset = n + 2", "        size = 2 * n + 5", "", "        fenwick = Fenwick(size)", "", "        prefix = 0", "        ans = 0", "", "        fenwick.add(prefix + offset, 1)", "", "        for x in nums:", "            if x == target:", "                prefix += 1", "            else:", "                prefix -= 1", "", "            idx = prefix + offset", "", "            ans += fenwick.query(idx - 1)", "", "            fenwick.add(idx, 1)", "", "        return ans"];
+function build(){
+  var T=LV.trace(), a=[1,2,1,1], target=1, n=4;
+  var offset=n+2, size=2*n+5;
+  var bit=new Array(size+1).fill(0);
+  var prefix=0, ans=0, seen=[0];
+  function add(idx,v){ while(idx<bit.length){ bit[idx]+=v; idx+= idx & -idx; } }
+  function query(idx){ var t=0; while(idx>0){ t+=bit[idx]; idx-= idx & -idx; } return t; }
+  function V(i,note){ var m={};
+    a.forEach(function(_,k){ m[k]= k<i?'good':(k===i?'hot':'dim'); });
+    return [ LV.arr('nums (target = 1)', a, m, {}),
+      LV.arr('transformed: target → +1, else → −1', a.map(function(x){ return x===target?'+1':'−1'; }), m, {idx:false}),
+      LV.arr('prefix sums seen so far', seen.slice(), (function(){ var q={}; q[seen.length-1]='hot'; return q; })(), {idx:false,
+        note: note||'a subarray (i, j] has a majority iff prefix[j] > prefix[i]'}) ]; }
+  function VA(){ return ['prefix = <b>'+prefix+'</b>','ans = <u>'+ans+'</u>']; }
+
+  T.step(20,'info','<b>The transform.</b> Map target → +1 and everything else → −1. Then "more than half the elements equal target" becomes "the sum is positive", and a subarray’s sum is prefix[j] − prefix[i]. So the answer is the number of pairs i &lt; j with <b>prefix[j] &gt; prefix[i]</b> — a classic inversion count.',['target = 1'],V(null));
+  T.step(22,'info','Prefix sums range over [−n, n], so shift by <code>offset = n + 2</code> to keep every Fenwick index positive. A BIT is 1-indexed and cannot accept 0 or negatives.',['offset = <b>'+offset+'</b>'],V(null));
+  add(prefix+offset,1);
+  T.step(30,'push','Seed the tree with prefix = 0 (the empty prefix before index 0). Forgetting this seed loses every subarray that starts at index 0.',VA(),V(null));
+  a.forEach(function(x,i){
+    prefix += (x===target?1:-1);
+    T.step(x===target?34:36,'info','nums['+i+'] = '+x+' → '+(x===target?'+1':'−1')+'. prefix = <b>'+prefix+'</b>.',VA(),V(i));
+    var got=query(prefix+offset-1);
+    ans+=got;
+    T.step(40,'found','Count how many earlier prefixes are STRICTLY LESS than '+prefix+': <code>query('+(prefix+offset)+' − 1)</code> = <b>'+got+'</b>. Each one is a valid left endpoint, so ans → '+ans+'. The BIT answers this prefix-count in O(log n) instead of O(n).',VA(),V(i));
+    if(got) T.save('index '+i+': +'+got+' subarrays');
+    add(prefix+offset,1); seen.push(prefix);
+    T.step(42,'push','Insert the current prefix so future indices can count it.',VA(),V(i));
+  });
+  T.step(44,'done','Answer: <b>'+ans+'</b> — matching Part I’s brute force, but in O(n log n) instead of O(n²).',['ans = <u>'+ans+'</u>'],V(a.length));
+  return T;
+}
+LV.render({
+  num:'3739', name:'Count Subarrays With Majority Element II', slug:'3739-count-subarrays-with-majority-element-ii',
+  difficulty:'Hard', pattern:'+1/−1 transform · prefix sums · Fenwick tree',
+  url:'https://leetcode.com/problems/count-subarrays-with-majority-element-ii',
+  blurb:'Three techniques composed. Map target to +1 and everything else to −1; "majority" becomes "positive sum"; counting those becomes an inversion count, which a Fenwick tree does in O(n log n).',
+  input:'nums = [1,2,1,1], target = 1', runName:'countMajoritySubarrays',
+  skipLabel:'Skip to next count', skipTypes:['found'], emptyResult:'ans is 0',
+  src:SRC, build:build,
+  complexity:{time:'O(n log n)', space:'O(n)'},
+  theory:{
+    idea:'Three moves, each standard on its own. <b>(1) The ±1 transform</b> converts a counting condition ("more than half") into an arithmetic one ("sum &gt; 0"). <b>(2) Prefix sums</b> convert a subarray condition into a condition on two endpoints. <b>(3) A Fenwick tree</b> counts, for each j, how many earlier prefixes are smaller — the inversion-count primitive.',
+    recognize:[
+      '"More X than Y in a range" → ±1 transform, every time. It also solves LC 525 (equal 0s and 1s) and LC 1524.',
+      '"Count pairs i &lt; j with p[i] &lt; p[j]" → Fenwick tree, merge sort, or an order-statistics tree.',
+      'Part I with n ≤ 1000 permits O(n²); this version with n ≤ 10⁵ does not. The escalation is the point.'
+    ],
+    pitfalls:[
+      '<b>Forgetting to seed prefix 0.</b> Every subarray beginning at index 0 is lost. Line 30.',
+      '<b>Negative or zero Fenwick indices.</b> A BIT is 1-indexed; the <code>offset</code> shift is mandatory, and it must be big enough for the most negative prefix (−n).',
+      '<b>Querying <code>idx</code> instead of <code>idx - 1</code>.</b> You need STRICTLY less, so exclude equal prefixes — equal would mean a sum of exactly 0, which is a tie, not a majority.',
+      '<b>Inserting before querying.</b> A prefix would be counted against itself.',
+      '<b>Getting <code>idx & -idx</code> backwards.</b> Update walks upward with <code>+=</code>, query walks downward with <code>-=</code>. Mixing them silently corrupts everything.'
+    ],
+    template: "# 1. +/-1 transform:  \"majority\" -> \"sum > 0\" -> \"prefix[j] > prefix[i]\"\n# 2. Fenwick tree counts, for each j, how many earlier prefixes are smaller.\n\nclass Fenwick:\n    def __init__(self, n): self.b = [0] * (n + 1)\n    def add(self, i, v):\n        while i < len(self.b): self.b[i] += v; i += i & -i     # UP\n    def query(self, i):\n        t = 0\n        while i > 0: t += self.b[i]; i -= i & -i               # DOWN\n        return t\n\noffset = n + 2                       # prefix ranges over [-n, n]; BIT is 1-indexed\nbit, prefix, ans = Fenwick(2*n + 5), 0, 0\nbit.add(prefix + offset, 1)          # SEED the empty prefix. do not skip.\n\nfor x in nums:\n    prefix += 1 if x == target else -1\n    ans += bit.query(prefix + offset - 1)   # STRICTLY smaller -> the -1\n    bit.add(prefix + offset, 1)             # insert AFTER querying\nreturn ans\n",
+    variants:[
+      ['<b>Part I</b> (LC 3737)','n ≤ 1000, so the O(n²) double loop is intended. Also in your repo.'],
+      ['<b>Contiguous Array</b> (LC 525)','Equal 0s and 1s → same ±1 transform, then a hash map of first-seen prefix.'],
+      ['<b>Count of Smaller Numbers After Self</b> (LC 315)','The same inversion count, usually via merge sort.'],
+      ['Count subarrays with sum ≥ k','Prefix sums plus a BIT, or a sliding window when all values are positive.'],
+      ['Merge sort instead of a BIT','Same O(n log n), no index shifting to get wrong.']
+    ],
+    thinking:'This problem is a good model of how Hard problems are built: <b>a chain of three standard reductions</b>, none hard alone. Practise naming the chain out loud — "majority becomes positive sum, positive sum becomes a prefix comparison, prefix comparison becomes inversion counting" — because that is exactly what you would say in an interview before writing anything. When a Hard problem looks impossible, look for the first reduction rather than the whole solution; the second and third usually become obvious once the first lands.'
+  }
+});
+
+</script>
+</body>
+</html>

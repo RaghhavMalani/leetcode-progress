@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>387 - First Unique Character</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution(object):", "    def firstUniqChar(self, s):", "        \"\"\"", "        :type s: str", "        :rtype: int", "        \"\"\"", "        ", "        count ={}", "        for char in s:", "            count[char] = 1 + count.get(char, 0)", "", "        for i in range(len(s)):", "            if count[s[i]] == 1:", "                return i", "", "        return -1"];
+function build(){
+  var T=LV.trace(), s='loveleetcode', c={}, ord=[];
+  function P(){ return ord.map(function(k){ return [k,c[k]]; }); }
+  function V(i,phase,hot){ var m={};
+    for(var x=0;x<s.length;x++) m[x]= x<i?(phase===2?'bad':'good'):(x===i?'hot':'dim');
+    var km={}; if(hot) km[hot]= c[hot]===1?'good':'bad';
+    return [ LV.arr('s', s.split(''), m, {}), LV.kv('count', P(), km, {emptyText:'empty'}) ]; }
+
+  T.step(8,'info','Two passes. Pass one counts every character; pass two walks the string IN ORDER and returns the first character whose count is 1. Two passes are needed because "first" and "unique" are answered by different scans.',['pass <b>1</b> of 2'],V(-1,1,null));
+  for(var i=0;i<s.length;i++){
+    c[s[i]]=(c[s[i]]||0)+1; if(ord.indexOf(s[i])<0) ord.push(s[i]);
+    T.step(10,'push','count["'+s[i]+'"] → '+c[s[i]]+'.',['pass <b>1</b>','i = <em>'+i+'</em>'],V(i,1,s[i]));
+  }
+  T.step(12,'info','Pass one is done. Now walk again from the left — the FIRST index whose count is 1 is the answer, and iterating the string (not the dict) is what guarantees "first".',['pass <b>2</b> of 2'],V(-1,2,null));
+  for(var i=0;i<s.length;i++){
+    if(c[s[i]]===1){
+      T.save('index '+i+' → "'+s[i]+'"');
+      T.step(14,'found','count["'+s[i]+'"] == 1 and this is the leftmost such character. Return <b>'+i+'</b>.',['pass <b>2</b>','answer = <u>'+i+'</u>'],V(i,2,s[i]));
+      T.step(14,'done','Answer: <b>'+i+'</b>. Two linear passes, O(1) memory since the alphabet is fixed at 26.',['answer = <u>'+i+'</u>'],V(i,2,s[i]));
+      return T;
+    }
+    T.step(13,'bad','count["'+s[i]+'"] = '+c[s[i]]+' — not unique, keep walking.',['pass <b>2</b>','i = <em>'+i+'</em>'],V(i,2,s[i]));
+  }
+  T.step(16,'done','No unique character exists — return −1.',[],V(s.length,2,null));
+  return T;
+}
+LV.render({
+  num:'387', name:'First Unique Character in a String', slug:'0387-first-unique-character-in-a-string',
+  difficulty:'Easy', pattern:'Hash map · two-pass frequency',
+  url:'https://leetcode.com/problems/first-unique-character-in-a-string',
+  blurb:'The "two passes are fine" lesson. You cannot answer this in one pass because uniqueness is only known after seeing the whole string — and iterating the <em>string</em> in pass two, not the dictionary, is what makes "first" correct.',
+  input:'s = "loveleetcode"', runName:'firstUniqChar',
+  skipLabel:null, emptyResult:'no answer yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n) — two passes is still linear', space:'O(1) — at most 26 keys'},
+  theory:{
+    idea:'Some properties are only decidable once you have seen everything ("is this unique?"), while the question asks for the earliest occurrence. The resolution is <b>gather in pass one, decide in pass two</b>. Do not contort yourself trying to do it in one pass; two linear passes are still linear.',
+    recognize:[
+      '"First / leftmost X such that some GLOBAL property holds." The global property forces a first pass.',
+      'Frequency-of-characters problems generally: count first, then act.',
+      'If you truly need one pass over a stream, you need a different structure entirely — an ordered dict or a queue of candidates.'
+    ],
+    pitfalls:[
+      '<b>Iterating <code>count</code> instead of <code>s</code> in pass two.</b> In modern Python dicts preserve insertion order so it happens to work — but it is accidental, and it breaks the moment you use a <code>set</code> or another language. Iterate the string.',
+      '<b><code>s.index(ch)</code> inside a loop</b> — each call is O(n), so the whole thing becomes O(n²).',
+      '<b>Forgetting to return −1.</b> "aabb" has no answer.',
+      '<b>Claiming O(n) space.</b> With a fixed 26-letter alphabet it is O(1), and saying so is free credit.'
+    ],
+    template: "# Gather, then decide\ncount = Counter(s)                  # pass 1: global information\nfor i, ch in enumerate(s):          # pass 2: iterate the INPUT to keep order\n    if count[ch] == 1:\n        return i\nreturn -1\n",
+    variants:[
+      ['First unique in a <b>stream</b>','LC 387 follow-up — a queue of candidates plus a count map, popping stale heads.'],
+      ['First <b>repeating</b> character','One pass with a set — repetition IS decidable early, which is why this one is easier.'],
+      ['Last unique character','Same two passes, walk pass two backwards.'],
+      ['<b>Sort characters by frequency</b> (LC 451)','Count, then sort the items by count. Same first pass.']
+    ],
+    thinking:'When a one-pass solution feels impossible, ask <b>"is this property decidable from a prefix?"</b> Repetition is (you know the moment you see it twice). Uniqueness is not (you only know at the end). If the answer is no, stop fighting and take the second pass — candidates rejected for being "inelegant" are usually just correct. The genuinely one-pass version of this problem requires a queue, which is more machinery, not less.'
+  }
+});
+
+</script>
+</body>
+</html>

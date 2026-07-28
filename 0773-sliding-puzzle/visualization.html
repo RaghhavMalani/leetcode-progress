@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>773 - Sliding Puzzle</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def slidingPuzzle(self, board: List[List[int]]) -> int:", "        target = \"123450\"", "", "        start = \"\"", "        for row in board:", "            for num in row:", "                start += str(num)", "", "        if start == target:", "            return 0", "", "        neighbors = {", "            0: [1, 3],", "            1: [0, 2, 4],", "            2: [1, 5],", "            3: [0, 4],", "            4: [1, 3, 5],", "            5: [2, 4]", "        }", "", "        q = deque()", "        visited = set()", "", "        zero_index = start.index(\"0\")", "", "        q.append((start, zero_index, 0))", "        visited.add(start)", "", "        while q:", "            state, zero_index, moves = q.popleft()", "", "            for next_index in neighbors[zero_index]:", "                state_list = list(state)", "", "                state_list[zero_index], state_list[next_index] = state_list[next_index], state_list[zero_index]", "", "                new_state = \"\".join(state_list)", "", "                if new_state == target:", "                    return moves + 1", "", "                if new_state not in visited:", "                    visited.add(new_state)", "                    q.append((new_state, next_index, moves + 1))", "", "        return -1"];
+function build(){
+  var T=LV.trace();
+  var target='123450', start='123045';
+  var NB={0:[1,3],1:[0,2,4],2:[1,5],3:[0,4],4:[1,3,5],5:[2,4]};
+  var q=[], seen={}, order=[];
+  function board(s,zi,hot){ var rows=[[s[0],s[1],s[2]],[s[3],s[4],s[5]]];
+    var m={}; for(var r=0;r<2;r++) for(var c=0;c<3;c++){ var i=r*3+c;
+      if(s[i]==='0') m[r+','+c]='dim'; if(hot!=null&&hot===i) m[r+','+c]='hot'; }
+    return LV.grid('state "'+s+'"  (0 = the empty square)', rows, m, {}); }
+  function QV(){ return LV.seq('queue  (state, moves)', q.map(function(x){ return x[0]+' @'+x[2]; }), {0:'hot'}, {emptyText:'empty'}); }
+  function SV(){ return LV.seq('visited', order.slice(), {}, {emptyText:'empty'}); }
+
+  T.step(3,'info','Flatten the 2×3 board into a 6-character <b>string</b> — that is the whole modelling insight. A string is hashable, so it can go in a visited set, and there are only 6! = 720 possible states. The target is "123450".',['target = <b>123450</b>'],[board(start,3,null)]);
+  T.step(13,'info','The neighbours map encodes which flat indices are physically adjacent on a 2×3 grid: index 0 touches 1 and 3, index 4 touches 1, 3 and 5, and so on. Precomputing this beats recomputing row/col arithmetic every time.',[],[board(start,3,null)]);
+  q.push([start,start.indexOf('0'),0]); seen[start]=1; order.push(start);
+  T.step(27,'info','BFS from the start state. <b>BFS, not DFS</b> — because we need the MINIMUM number of moves, and BFS visits states in order of distance.',['moves = <b>0</b>'],[board(start,3,null),QV(),SV()]);
+
+  var guard=0;
+  while(q.length && guard++<40){
+    var cur=q.shift(), s=cur[0], zi=cur[1], mv=cur[2];
+    T.step(31,'call','Pop "'+s+'" (zero at index '+zi+', '+mv+' move'+(mv===1?'':'s')+' so far). Popping from the FRONT is what makes this breadth-first.',['state = <b>'+s+'</b>','moves = <em>'+mv+'</em>'],[board(s,zi,null),QV(),SV()]);
+    var found=false;
+    for(var t=0;t<NB[zi].length;t++){
+      var ni=NB[zi][t];
+      var L=s.split(''); var tmp=L[zi]; L[zi]=L[ni]; L[ni]=tmp;
+      var ns=L.join('');
+      T.step(36,'info','Slide the tile at index '+ni+' ("'+s[ni]+'") into the gap → new state "<b>'+ns+'</b>".',['state = <b>'+ns+'</b>','moves = <em>'+(mv+1)+'</em>'],[board(ns,ni,zi),QV(),SV()]);
+      if(ns===target){
+        T.save('solved in '+(mv+1)+' moves');
+        T.step(41,'found','That IS the target. Return moves + 1 = <b>'+(mv+1)+'</b>. Because BFS explores in distance order, the first time we reach the target is guaranteed to be the shortest way.',['answer = <u>'+(mv+1)+'</u>'],[board(ns,ni,null),QV(),SV()]);
+        found=true; break;
+      }
+      if(!seen[ns]){
+        seen[ns]=1; order.push(ns); q.push([ns,ni,mv+1]);
+        T.step(44,'push','Not seen before — mark visited and enqueue with '+(mv+1)+' moves. Marking on ENQUEUE (not on dequeue) is what stops the same state entering the queue several times.',[],[board(ns,ni,null),QV(),SV()]);
+      } else {
+        T.step(43,'bad','Already visited — skip it. Without this the search would revisit states forever.',[],[board(ns,ni,null),QV(),SV()]);
+      }
+    }
+    if(found) break;
+  }
+  T.step(47,'done','Answer: <b>2</b> moves. If the queue had drained without finding the target, the puzzle would be unsolvable and we would return −1 — which happens for exactly half of all 720 states, by a parity argument.',['answer = <u>2</u>'],[board(target,null,null),SV()]);
+  return T;
+}
+LV.render({
+  num:'773', name:'Sliding Puzzle', slug:'0773-sliding-puzzle',
+  difficulty:'Hard', pattern:'BFS on a state graph',
+  url:'https://leetcode.com/problems/sliding-puzzle',
+  blurb:'Rated Hard because of the modelling, not the algorithm. Once you see that a board <em>is</em> a node and a move <em>is</em> an edge, it is textbook BFS on a graph with 720 vertices.',
+  input:'board = [[1,2,3],[0,4,5]]', runName:'slidingPuzzle',
+  skipLabel:null, emptyResult:'not solved yet',
+  src:SRC, build:build,
+  complexity:{time:'O(6! × 6) — at most 720 states, up to 4 neighbours each', space:'O(6!) for the visited set'},
+  theory:{
+    idea:'<b>State-space BFS.</b> When a problem asks for the minimum number of operations to transform something, define a graph where <em>every configuration is a node</em> and <em>every legal operation is an edge</em>, then BFS. The art is choosing a state encoding that is cheap to hash — here, a 6-character string.',
+    recognize:[
+      '"Minimum number of moves / steps / operations to reach a goal." Minimum + unweighted edges = BFS, always.',
+      'The state space is finite and not too large. Count it before you start: 6! = 720 here, which is tiny.',
+      'Contrast: DFS finds <em>a</em> solution, BFS finds the <b>shortest</b>. If edges had different costs, you would need Dijkstra instead (see LC 1631 in your repo).'
+    ],
+    pitfalls:[
+      '<b>Marking visited on dequeue instead of enqueue.</b> The same state gets queued many times, and the queue explodes. Mark when you push.',
+      '<b>Using DFS.</b> It will find a solution, just not the shortest one — and it may recurse very deep.',
+      '<b>An unhashable state.</b> A list of lists cannot go in a set. Flatten to a string or a tuple.',
+      '<b>Forgetting the already-solved case.</b> Line 10 returns 0 before any search.',
+      '<b>Forgetting −1.</b> Half of all 2×3 board arrangements are unreachable from the goal — a parity invariant — so the queue really can drain.'
+    ],
+    template: "# BFS on a state graph - the shape is always this\nfrom collections import deque\n\nq = deque([(start, 0)])\nseen = {start}                      # hashable encoding: string or tuple\nwhile q:\n    state, dist = q.popleft()       # popLEFT = breadth-first\n    if state == target:\n        return dist\n    for nxt in neighbours(state):\n        if nxt not in seen:\n            seen.add(nxt)           # mark on ENQUEUE, not on dequeue\n            q.append((nxt, dist + 1))\nreturn -1                            # target unreachable\n\n# weighted edges instead? -> heapq and Dijkstra.\n# huge state space? -> A* with an admissible heuristic.\n",
+    variants:[
+      ['<b>Open the Lock</b> (LC 752)','Identical shape — states are 4-digit strings, edges turn one wheel.'],
+      ['<b>Word Ladder</b> (LC 127)','States are words, edges change one letter.'],
+      ['<b>Minimum Genetic Mutation</b> (LC 433)','Same again with gene strings.'],
+      ['Bigger board (8-puzzle, 15-puzzle)','9! = 362,880 is still fine; 16! is not. Use A* with a Manhattan-distance heuristic.'],
+      ['Weighted moves','Dijkstra instead of BFS — a priority queue instead of a plain queue.']
+    ],
+    thinking:'Train yourself to hear "minimum number of steps" as "<b>shortest path in an unweighted graph</b>", even when there is no graph in sight. Then answer three questions: what is a node (a full configuration), what is an edge (one legal operation), and how do I encode a node so it is hashable. Once those are answered the code is the same twelve lines every time — which is why Open the Lock, Word Ladder and this problem are genuinely the same problem.'
+  }
+});
+
+</script>
+</body>
+</html>

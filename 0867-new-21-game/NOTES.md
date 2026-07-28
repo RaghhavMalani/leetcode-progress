@@ -1,9 +1,9 @@
 # 867. New 21 Game
-> **Medium** &nbsp;·&nbsp; Probability DP · sliding window sum &nbsp;·&nbsp; family: **Two pointers & sliding window**
+> **Medium** &nbsp;&middot;&nbsp; Probability DP · sliding window sum &nbsp;&middot;&nbsp; family: **Two pointers & sliding window**
 
 A DP whose recurrence sums a fixed-width window of earlier states. Recomputing that sum is O(n·maxPts); maintaining it incrementally is O(n) — and that pattern generalises far beyond this problem.
 
-**▶ [Step through this solution line by line](../visualizations/0867-new-21-game.html)** — 20 steps, traced on `n = 6, k = 4, maxPts = 3`.
+**▶ [Step through this solution line by line](./visualization.html)** — 20 steps, traced on `n = 6, k = 4, maxPts = 3`.
 
 | | |
 |---|---|
@@ -61,4 +61,4 @@ Whenever you write a DP, look at the transition and ask **"is this a sum or an e
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/new-21-game)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/new-21-game)

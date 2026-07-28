@@ -1,9 +1,9 @@
 # 628. Maximum Product of Three Numbers
-> **Easy** &nbsp;·&nbsp; Sorting · exhaustive case analysis &nbsp;·&nbsp; family: **Math & number theory**
+> **Easy** &nbsp;&middot;&nbsp; Sorting · exhaustive case analysis &nbsp;&middot;&nbsp; family: **Math & number theory**
 
 Easy to code, easy to get wrong. The trap is forgetting that two large negatives multiply to a large positive — so the answer is not always "the three biggest".
 
-**▶ [Step through this solution line by line](../visualizations/0628-maximum-product-of-three-numbers.html)** — 4 steps, traced on `nums = [-100,-98,-1,2,3,4]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 4 steps, traced on `nums = [-100,-98,-1,2,3,4]`.
 
 | | |
 |---|---|
@@ -55,4 +55,4 @@ Two habits. First: **when negatives are allowed, always ask what a negative does
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/maximum-product-of-three-numbers)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/maximum-product-of-three-numbers)

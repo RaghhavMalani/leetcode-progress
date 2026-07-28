@@ -1,9 +1,9 @@
 # 1631. Path With Minimum Effort
-> **Medium** &nbsp;·&nbsp; Dijkstra · minimax path &nbsp;·&nbsp; family: **Graphs, BFS & DFS**
+> **Medium** &nbsp;&middot;&nbsp; Dijkstra · minimax path &nbsp;&middot;&nbsp; family: **Graphs, BFS & DFS**
 
 Dijkstra where the path cost is the **maximum** edge rather than the sum. One character changes — `max` instead of `+` — and everything else about Dijkstra survives intact.
 
-**▶ [Step through this solution line by line](../visualizations/1631-path-with-minimum-effort.html)** — 31 steps, traced on `heights = [[1,2,2],[3,8,2],[5,3,5]]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 31 steps, traced on `heights = [[1,2,2],[3,8,2],[5,3,5]]`.
 
 | | |
 |---|---|
@@ -65,4 +65,4 @@ Do not memorise Dijkstra as "shortest sum of weights" — memorise it as "**sett
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/path-with-minimum-effort)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/path-with-minimum-effort)

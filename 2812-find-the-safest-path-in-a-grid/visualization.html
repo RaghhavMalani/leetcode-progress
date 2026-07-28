@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2812 - Find the Safest Path in a Grid</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def maximumSafenessFactor(self, grid: List[List[int]]) -> int:", "        n = len(grid)", "", "        dist = [[-1] * n for _ in range(n)]", "        q = deque()", "", "        for r in range(n):", "            for c in range(n):", "                if grid[r][c] == 1:", "                    dist[r][c] = 0", "                    q.append((r, c))", "", "        directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]", "", "        while q:", "            r, c = q.popleft()", "", "            for dr, dc in directions:", "                nr, nc = r + dr, c + dc", "", "                if 0 <= nr < n and 0 <= nc < n and dist[nr][nc] == -1:", "                    dist[nr][nc] = dist[r][c] + 1", "                    q.append((nr, nc))", "", "        max_heap = [(-dist[0][0], 0, 0)]", "        visited = [[False] * n for _ in range(n)]", "        visited[0][0] = True", "", "        while max_heap:", "            safe, r, c = heapq.heappop(max_heap)", "            safe = -safe", "", "            if r == n - 1 and c == n - 1:", "                return safe", "", "            for dr, dc in directions:", "                nr, nc = r + dr, c + dc", "", "                if 0 <= nr < n and 0 <= nc < n and not visited[nr][nc]:", "                    visited[nr][nc] = True", "", "                    new_safe = min(safe, dist[nr][nc])", "                    heapq.heappush(max_heap, (-new_safe, nr, nc))", "", "        return 0"];
+function build(){
+  var T=LV.trace();
+  var G=[[0,0,1],[0,0,0],[0,0,0]], n=3;
+  var dist=[[-1,-1,-1],[-1,-1,-1],[-1,-1,-1]];
+  var q=[], heap=[], vis=[[false,false,false],[false,false,false],[false,false,false]];
+  function DV(cur,note){ var m={};
+    for(var r=0;r<n;r++) for(var c=0;c<n;c++){ if(G[r][c]===1) m[r+','+c]='bad'; else if(dist[r][c]>=0) m[r+','+c]='good'; else m[r+','+c]='dim'; }
+    if(cur) m[cur[0]+','+cur[1]]='hot';
+    return LV.grid('dist — Manhattan distance to the nearest thief (red = a thief)',
+      dist.map(function(row){ return row.map(function(v){ return v<0?'·':v; }); }), m, {head:true, note:note||''}); }
+  function QV(){ return LV.seq('BFS queue', q.map(function(x){ return '('+x[0]+','+x[1]+')'; }), {0:'hot'}, {emptyText:'empty'}); }
+
+  T.step(5,'info','Two phases. <b>Phase 1</b>: multi-source BFS from every thief at once, filling <code>dist</code> with each cell’s distance to the NEAREST thief. <b>Phase 2</b>: a max-heap search for the path whose minimum <code>dist</code> is as large as possible.',['phase <b>1</b> of 2'],[DV(null)]);
+  for(var r=0;r<n;r++) for(var c=0;c<n;c++) if(G[r][c]===1){ dist[r][c]=0; q.push([r,c]); }
+  T.step(12,'info','Seed the queue with ALL thieves simultaneously, each at distance 0. That is the trick of <b>multi-source BFS</b>: instead of running one BFS per source and taking the min, you run one BFS from a super-source — same O(mn) cost regardless of how many sources there are.',['sources = <b>'+q.length+'</b>'],[DV(null),QV()]);
+  var dirs=[[1,0],[-1,0],[0,1],[0,-1]];
+  while(q.length){
+    var cur=q.shift();
+    T.step(17,'call','Pop ('+cur[0]+', '+cur[1]+'), which is at distance '+dist[cur[0]][cur[1]]+'.',['phase <b>1</b>'],[DV(cur),QV()]);
+    for(var k=0;k<4;k++){
+      var nr=cur[0]+dirs[k][0], nc=cur[1]+dirs[k][1];
+      if(nr<0||nc<0||nr>=n||nc>=n||dist[nr][nc]!==-1) continue;
+      dist[nr][nc]=dist[cur[0]][cur[1]]+1; q.push([nr,nc]);
+      T.step(23,'push','('+nr+', '+nc+') is unvisited → dist = '+dist[nr][nc]+'. The <code>== -1</code> test doubles as the visited check, which is why no separate set is needed.',['phase <b>1</b>'],[DV([nr,nc]),QV()]);
+    }
+  }
+  T.step(16,'ok','Phase 1 done. Every cell now knows how far it is from the nearest thief.',['phase <b>1</b> complete'],[DV(null,'complete distance field')]);
+
+  function HV(){ var s=heap.slice().sort(function(a,b){ return b[0]-a[0]; });
+    return LV.seq('max-heap  [safeness, r, c]  — largest first', s.map(function(h){ return 's'+h[0]+' @('+h[1]+','+h[2]+')'; }), {0:'hot'}, {emptyText:'empty'}); }
+  heap.push([dist[0][0],0,0]); vis[0][0]=true;
+  T.step(26,'info','<b>Phase 2.</b> Start at (0,0) with safeness = dist[0][0] = '+dist[0][0]+'. The code pushes NEGATED values because Python only has a min-heap — negating turns it into a max-heap.',['phase <b>2</b> of 2'],[DV([0,0]),HV()]);
+  var guard=0;
+  while(heap.length && guard++<25){
+    heap.sort(function(a,b){ return b[0]-a[0]; });
+    var top=heap.shift(), s=top[0], r=top[1], c=top[2];
+    T.step(31,'call','Pop the LARGEST safeness: '+s+' at ('+r+', '+c+').',['phase <b>2</b>','safeness = <em>'+s+'</em>'],[DV([r,c]),HV()]);
+    if(r===n-1&&c===n-1){
+      T.save('safeness factor = '+s);
+      T.step(35,'found','Reached the bottom-right corner. Return <b>'+s+'</b> — the first arrival is optimal, exactly as in Dijkstra.',['answer = <u>'+s+'</u>'],[DV([r,c],'destination'),HV()]);
+      break;
+    }
+    for(var k2=0;k2<4;k2++){
+      var nr2=r+dirs[k2][0], nc2=c+dirs[k2][1];
+      if(nr2<0||nc2<0||nr2>=n||nc2>=n||vis[nr2][nc2]) continue;
+      vis[nr2][nc2]=true;
+      var ns=Math.min(s,dist[nr2][nc2]);
+      heap.push([ns,nr2,nc2]);
+      T.step(44,'push','Neighbour ('+nr2+', '+nc2+') has dist '+dist[nr2][nc2]+'. A path is only as safe as its WORST cell, so new safeness = min('+s+', '+dist[nr2][nc2]+') = <b>'+ns+'</b>.',['phase <b>2</b>'],[DV([nr2,nc2]),HV()]);
+    }
+  }
+  T.step(46,'done','Answer: <b>2</b>. Compare with LC 1631 in your repo: there we minimised a maximum with a min-heap, here we maximise a minimum with a max-heap. Mirror images.',['answer = <u>2</u>'],[DV(null,'done')]);
+  return T;
+}
+LV.render({
+  num:'2812', name:'Find the Safest Path in a Grid', slug:'2812-find-the-safest-path-in-a-grid',
+  difficulty:'Medium', pattern:'Multi-source BFS + maximin Dijkstra',
+  url:'https://leetcode.com/problems/find-the-safest-path-in-a-grid',
+  blurb:'Two classic techniques stacked. Multi-source BFS builds a distance field from all thieves at once; then a max-heap search finds the path whose weakest cell is as strong as possible.',
+  input:'grid = [[0,0,1],[0,0,0],[0,0,0]]', runName:'maximumSafenessFactor',
+  skipLabel:null, emptyResult:'no answer yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n² log n) — BFS is O(n²), the heap search dominates', space:'O(n²)'},
+  theory:{
+    idea:'<b>Multi-source BFS</b>: to find every cell’s distance to the <em>nearest</em> of many sources, seed the queue with all of them at distance 0 and run one BFS. It costs the same as a single-source BFS. <b>Maximin path</b>: a path’s value is its weakest link, so relax with <code>min(current, cell)</code> and pop the largest first.',
+    recognize:[
+      'Multi-source BFS: "distance to the nearest X" for many X — rotting oranges, walls and gates, nearest 0.',
+      'Maximin/minimax path: "maximise the minimum" or "minimise the maximum" along a route.',
+      'Two-phase structure: whenever a problem needs a derived quantity per cell before the real search, compute the whole field first.'
+    ],
+    pitfalls:[
+      '<b>Running BFS once per source.</b> O(sources × n²) instead of O(n²). Seeding them all together is the whole point.',
+      '<b>Negating for the max-heap and forgetting to negate back.</b> Line 32 (<code>safe = -safe</code>) is easy to drop and the bug is silent.',
+      '<b>Using <code>+</code> or <code>max</code> in the relaxation.</b> A path is as safe as its worst cell, so it must be <code>min</code>.',
+      '<b>Marking visited on push here</b> — which is correct in this variant because the max-heap pops in decreasing order, but be aware it differs from the lazy-deletion style used in LC 1631.',
+      '<b>Forgetting the start and end cells count</b> towards the safeness.'
+    ],
+    template: "# 1. multi-source BFS: seed EVERY source at distance 0, run ONE bfs\nq = deque((r, c) for r, c in all_sources)\nfor r, c in all_sources: dist[r][c] = 0\nwhile q:\n    r, c = q.popleft()\n    for nr, nc in nbrs(r, c):\n        if dist[nr][nc] == -1:          # -1 doubles as \"unvisited\"\n            dist[nr][nc] = dist[r][c] + 1\n            q.append((nr, nc))\n\n# 2. maximin path: max-heap (negate for heapq), relax with min()\nheap = [(-dist[0][0], 0, 0)]\nwhile heap:\n    safe, r, c = heapq.heappop(heap); safe = -safe      # NEGATE BACK\n    if (r, c) == goal: return safe\n    for nr, nc in nbrs(r, c):\n        if not seen[nr][nc]:\n            seen[nr][nc] = True\n            heapq.heappush(heap, (-min(safe, dist[nr][nc]), nr, nc))\n",
+    variants:[
+      ['<b>Rotting Oranges</b> (LC 994)','Multi-source BFS, and the answer is the final level count.'],
+      ['<b>Walls and Gates</b> (LC 286)','Multi-source BFS from every gate.'],
+      ['<b>01 Matrix</b> (LC 542)','Multi-source BFS from every zero.'],
+      ['<b>Path With Minimum Effort</b> (LC 1631)','The mirror image — minimise the maximum with a min-heap. Also in your repo.'],
+      ['Binary search the answer','Guess a safeness s, then BFS through cells with dist ≥ s. Often easier to write than the heap version.']
+    ],
+    thinking:'Two habits. First: when many sources need a "distance to nearest" field, <b>think super-source</b> — one BFS, all seeds. The same idea works for multi-source Dijkstra and for topological sort with many roots. Second: recognise the maximin/minimax family and remember it always admits <b>three</b> solutions — heap, binary-search-the-answer, or union-find. Under time pressure, binary search plus a simple reachability check is usually the one you can get right first try.'
+  }
+});
+
+</script>
+</body>
+</html>

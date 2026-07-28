@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1840 - Maximum Building Height</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def maxBuilding(self, n: int, restrictions: List[List[int]]) -> int:", "        restrictions.append([1, 0])", "        restrictions.append([n, n - 1])", "", "        restrictions.sort()", "", "        m = len(restrictions)", "", "        for i in range(1, m):", "            prev_id, prev_height = restrictions[i - 1]", "            curr_id, curr_height = restrictions[i]", "", "            distance = curr_id - prev_id", "            restrictions[i][1] = min(curr_height, prev_height + distance)", "", "        for i in range(m - 2, -1, -1):", "            curr_id, curr_height = restrictions[i]", "            next_id, next_height = restrictions[i + 1]", "", "            distance = next_id - curr_id", "            restrictions[i][1] = min(curr_height, next_height + distance)", "", "        ans = 0", "", "        for i in range(1, m):", "            left_id, left_height = restrictions[i - 1]", "            right_id, right_height = restrictions[i]", "", "            distance = right_id - left_id", "", "            peak = (left_height + right_height + distance) // 2", "            ans = max(ans, peak)", "", "        return ans"];
+function build(){
+  var T=LV.trace();
+  var n=5, R=[[2,1],[4,1]];
+  R=R.concat([[1,0],[n,n-1]]).sort(function(a,b){ return a[0]-b[0]; });
+  R=R.map(function(x){ return x.slice(); });
+  function V(i,phase,note){ var m={}; R.forEach(function(_,k){ 
+      if(phase===1) m[k]= k<i?'good':(k===i?'hot':'dim');
+      else if(phase===2) m[k]= k>i?'good':(k===i?'hot':'dim');
+      else m[k]= (k===i||k===i-1)?'hot':'win'; });
+    return [ LV.arr('restrictions [id, maxHeight] after sorting', R.map(function(x){ return x[0]+':'+x[1]; }), m, {note:note||''}) ]; }
+  T.step(3,'info','Two sentinels are appended: <b>[1, 0]</b> because building 1 must have height 0, and <b>[n, n−1]</b> because from building 1 you can gain at most 1 per step. Adding them means the two sweeps below need no special-casing at the ends.',['n = <b>5</b>'],V(null,1));
+  T.step(6,'info','Sort by id: '+R.map(function(x){return '['+x[0]+','+x[1]+']';}).join(' '),[],V(null,1));
+  T.step(10,'info','<b>Sweep 1, left to right.</b> Heights differ by at most 1 between neighbours, so a building can be no taller than (previous height + distance). Tighten every restriction against its left neighbour.',['pass <b>1</b> of 2'],V(null,1));
+  for(var i=1;i<R.length;i++){
+    var d=R[i][0]-R[i-1][0], before=R[i][1];
+    R[i][1]=Math.min(R[i][1], R[i-1][1]+d);
+    T.step(15,'push','id '+R[i][0]+': min(own limit '+before+', left neighbour '+R[i-1][1]+' + distance '+d+' = '+(R[i-1][1]+d)+') → <b>'+R[i][1]+'</b>.',['pass <b>1</b>'],V(i,1));
+    T.save('L→R: id '+R[i][0]+' capped at '+R[i][1]);
+  }
+  T.step(17,'info','<b>Sweep 2, right to left.</b> The same constraint applies in the other direction, and the left sweep could not see it. Two sweeps are needed because each restriction constrains both of its neighbours.',['pass <b>2</b> of 2'],V(null,2));
+  for(var i2=R.length-2;i2>=0;i2--){
+    var d2=R[i2+1][0]-R[i2][0], b2=R[i2][1];
+    R[i2][1]=Math.min(R[i2][1], R[i2+1][1]+d2);
+    T.step(22,'push','id '+R[i2][0]+': min('+b2+', right neighbour '+R[i2+1][1]+' + '+d2+') → <b>'+R[i2][1]+'</b>.',['pass <b>2</b>'],V(i2,2));
+    T.save('R→L: id '+R[i2][0]+' capped at '+R[i2][1]);
+  }
+  T.step(24,'info','Now every restriction holds its true maximum. The tallest building overall sits somewhere BETWEEN two consecutive restrictions, at the peak of a tent shape.',[],V(null,3));
+  var ans=0;
+  for(var i3=1;i3<R.length;i3++){
+    var lid=R[i3-1][0], lh=R[i3-1][1], rid=R[i3][0], rh=R[i3][1], dist=rid-lid;
+    var peak=Math.floor((lh+rh+dist)/2);
+    var old=ans; ans=Math.max(ans,peak);
+    T.step(32, ans>old?'found':'info','Between id '+lid+' (height '+lh+') and id '+rid+' (height '+rh+'), distance '+dist+'. Rising from both ends at slope 1, the peak is ⌊('+lh+' + '+rh+' + '+dist+') / 2⌋ = <b>'+peak+'</b>.'+(ans>old?' New best.':''),['ans = <u>'+ans+'</u>'],V(i3,3));
+    if(ans>old) T.save('peak between '+lid+' and '+rid+' = '+peak);
+  }
+  T.step(35,'done','Answer: <b>'+ans+'</b>. Two sweeps to propagate constraints, then one pass computing tent peaks — O(m log m) dominated by the sort.',['answer = <u>'+ans+'</u>'],V(null,3));
+  return T;
+}
+LV.render({
+  num:'1840', name:'Maximum Building Height', slug:'1840-maximum-building-height',
+  difficulty:'Hard', pattern:'Constraint propagation · two sweeps + geometry',
+  url:'https://leetcode.com/problems/maximum-building-height',
+  blurb:'Three ideas stacked: sentinel restrictions to kill edge cases, two sweeps to propagate a neighbour constraint in both directions, and a closed-form tent peak between each adjacent pair.',
+  input:'n = 5, restrictions = [[2,1],[4,1]]', runName:'maxBuilding',
+  skipLabel:'Skip to next peak record', skipTypes:['found'], emptyResult:'no peaks yet',
+  src:SRC, build:build,
+  complexity:{time:'O(m log m) where m is the number of restrictions', space:'O(m)'},
+  theory:{
+    idea:'A constraint that relates <b>neighbours</b> must be propagated in <b>both directions</b> before any value is final — hence the left-to-right sweep followed by the right-to-left sweep. Then, between two fixed points, the tallest reachable value follows from a slope-1 "tent": rise from both sides and meet in the middle, giving <code>(hL + hR + distance) // 2</code>.',
+    recognize:[
+      'Constraints of the form |f(i) − f(j)| ≤ |i − j| — heights, timestamps, positions with a speed limit.',
+      'A follow-the-neighbour rule plus fixed anchor points. Two sweeps is the standard tool; it also solves LC 135 Candy.',
+      'Very large n (10⁹) with few restrictions — you must reason about the gaps analytically, not iterate over buildings.'
+    ],
+    pitfalls:[
+      '<b>Only sweeping one direction.</b> A restriction to the right of a building constrains it just as much as one to the left.',
+      '<b>Forgetting the sentinels.</b> Without [1, 0] the first building is unconstrained; without [n, n−1] the last gap is computed wrongly. They also remove all the boundary branches.',
+      '<b>The tent formula.</b> <code>(hL + hR + dist) // 2</code> — derive it once: the peak p satisfies p − hL ≤ x and p − hR ≤ dist − x, and the best x makes both tight. Integer division handles the parity case.',
+      '<b>Iterating over all n buildings.</b> n can be 10⁹; only the restriction points and the gaps between them matter.'
+    ],
+    template: "# 1. sentinels turn boundary RULES into ordinary data\nrestrictions += [[1, 0], [n, n - 1]]\nrestrictions.sort()\n\n# 2. propagate the neighbour constraint BOTH ways\nfor i in range(1, m):                       # left -> right\n    d = restrictions[i][0] - restrictions[i-1][0]\n    restrictions[i][1] = min(restrictions[i][1], restrictions[i-1][1] + d)\n\nfor i in range(m - 2, -1, -1):              # right -> left\n    d = restrictions[i+1][0] - restrictions[i][0]\n    restrictions[i][1] = min(restrictions[i][1], restrictions[i+1][1] + d)\n\n# 3. peak of the \"tent\" between each adjacent pair\nans = max((hL + hR + (idR - idL)) // 2 for consecutive pairs)\n",
+    variants:[
+      ['<b>Candy</b> (LC 135)','The same two-sweep constraint propagation, taking a max instead of a min.'],
+      ['Slope other than 1','Multiply the distance term by the slope throughout.'],
+      ['Minimum height instead of maximum','Sweep with max instead of min, and the tent becomes a valley.'],
+      ['Restrictions may be infeasible','Detect it when a sweep would force a negative height.']
+    ],
+    thinking:'Two habits worth extracting. First: <b>when a rule links neighbours, one pass is never enough</b> — information flows both ways, so sweep forwards then backwards. That single pattern solves Candy, this problem, and several "smooth the array" questions. Second: <b>add sentinel entries to encode boundary rules as data</b> rather than as branches. Both are ways of turning special cases into ordinary cases, which is most of what makes hard problems writable.'
+  }
+});
+
+</script>
+</body>
+</html>

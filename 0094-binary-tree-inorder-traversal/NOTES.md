@@ -1,9 +1,9 @@
 # 94. Binary Tree Inorder Traversal
-> **Easy** &nbsp;·&nbsp; Tree traversal · explicit stack &nbsp;·&nbsp; family: **Trees**
+> **Easy** &nbsp;&middot;&nbsp; Tree traversal · explicit stack &nbsp;&middot;&nbsp; family: **Trees**
 
 The iterative inorder. The recursive version is four lines; this one exists so you understand what the call stack was doing — and because problems like BST Iterator demand a traversal you can pause.
 
-**▶ [Step through this solution line by line](../visualizations/0094-binary-tree-inorder-traversal.html)** — 23 steps, traced on `root = [1,null,2,3]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 23 steps, traced on `root = [1,null,2,3]`.
 
 | | |
 |---|---|
@@ -61,4 +61,4 @@ Fix the three orders by **what they are for**, not by their names. Need children
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/binary-tree-inorder-traversal)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/binary-tree-inorder-traversal)

@@ -1,9 +1,9 @@
 # 70. Climbing Stairs
-> **Easy** &nbsp;·&nbsp; DP · Fibonacci with rolling variables &nbsp;·&nbsp; family: **Dynamic programming**
+> **Easy** &nbsp;&middot;&nbsp; DP · Fibonacci with rolling variables &nbsp;&middot;&nbsp; family: **Dynamic programming**
 
 Every dynamic programming problem starts here. Two things to take away: how to *find* the recurrence, and how to notice that a dp array of size n can collapse to two integers.
 
-**▶ [Step through this solution line by line](../visualizations/0070-climbing-stairs.html)** — 17 steps, traced on `n = 6`.
+**▶ [Step through this solution line by line](./visualization.html)** — 17 steps, traced on `n = 6`.
 
 | | |
 |---|---|
@@ -59,4 +59,4 @@ Build every DP in four steps, out loud, before coding. **(1) What is the state?*
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/climbing-stairs)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/climbing-stairs)

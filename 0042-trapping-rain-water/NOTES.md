@@ -1,9 +1,9 @@
 # 42. Trapping Rain Water
-> **Hard** &nbsp;·&nbsp; Two pointers · converging &nbsp;·&nbsp; family: **Two pointers & sliding window**
+> **Hard** &nbsp;&middot;&nbsp; Two pointers · converging &nbsp;&middot;&nbsp; family: **Two pointers & sliding window**
 
 The classic argument for why two pointers work: you do not need both maxima, only to know which one is smaller — and comparing the two heights tells you that for free.
 
-**▶ [Step through this solution line by line](../visualizations/0042-trapping-rain-water.html)** — 46 steps, traced on `height = [0,1,0,2,1,0,1,3,2,1,2,1]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 46 steps, traced on `height = [0,1,0,2,1,0,1,3,2,1,2,1]`.
 
 | | |
 |---|---|
@@ -60,4 +60,4 @@ The generalisable move here is: **when the answer needs two pieces of informatio
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/trapping-rain-water)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/trapping-rain-water)

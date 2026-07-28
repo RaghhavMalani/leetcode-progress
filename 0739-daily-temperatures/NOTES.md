@@ -1,9 +1,9 @@
 # 739. Daily Temperatures
-> **Medium** &nbsp;·&nbsp; Monotonic stack · next greater element &nbsp;·&nbsp; family: **Stacks & monotonic stacks**
+> **Medium** &nbsp;&middot;&nbsp; Monotonic stack · next greater element &nbsp;&middot;&nbsp; family: **Stacks & monotonic stacks**
 
 The canonical monotonic stack. Every index is pushed once and popped once, so the nested while loop is still O(n) — the same amortised argument as LC 128.
 
-**▶ [Step through this solution line by line](../visualizations/0739-daily-temperatures.html)** — 28 steps, traced on `temperatures = [73,74,75,71,69,72,76,73]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 28 steps, traced on `temperatures = [73,74,75,71,69,72,76,73]`.
 
 | | |
 |---|---|
@@ -60,4 +60,4 @@ The mental model that makes monotonic stacks click: **the stack is a queue of un
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/daily-temperatures)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/daily-temperatures)

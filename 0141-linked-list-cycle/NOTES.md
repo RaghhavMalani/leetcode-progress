@@ -1,9 +1,9 @@
 # 141. Linked List Cycle
-> **Easy** &nbsp;·&nbsp; Fast & slow pointers · Floyd &nbsp;·&nbsp; family: **Two pointers & sliding window**
+> **Easy** &nbsp;&middot;&nbsp; Fast & slow pointers · Floyd &nbsp;&middot;&nbsp; family: **Two pointers & sliding window**
 
 The tortoise and the hare. Why it must work: inside a loop the gap between fast and slow shrinks by exactly one every iteration, so it reaches zero — they cannot step over each other.
 
-**▶ [Step through this solution line by line](../visualizations/0141-linked-list-cycle.html)** — 14 steps, traced on `head = [3,2,0,-4], tail connects to index 1`.
+**▶ [Step through this solution line by line](./visualization.html)** — 14 steps, traced on `head = [3,2,0,-4], tail connects to index 1`.
 
 | | |
 |---|---|
@@ -61,4 +61,4 @@ Fast/slow is a **whole toolkit, not one trick**. Learn the three jobs it does: d
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/linked-list-cycle)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/linked-list-cycle)

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>36 - Valid Sudoku</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution(object):", "    def isValidSudoku(self, board):", "        \"\"\"", "        :type board: List[List[str]]", "        :rtype: bool", "        \"\"\"", "", "        rows = defaultdict(set)", "        cols = defaultdict(set)", "        squares = defaultdict(set)", "", "        for row in range(9):", "            for col in range(9):", "                if board[row][col] == \".\":", "                    continue", "                if (board[row][col] in rows[row] or board[row][col] in cols[col] or board[row][col] in squares[(row//3, col//3)]):", "                    return False", "                ", "                cols[col].add(board[row][col])", "                rows[row].add(board[row][col])", "                squares[(row//3, col//3)].add(board[row][col])", "            ", "        ", "        return True"];
+function build(){
+  var T=LV.trace();
+  var B=[["8","3",".",".","7",".",".",".","."],
+         ["6",".",".","1","9","5",".",".","."],
+         [".","9","8",".",".",".",".","6","."],
+         ["8",".",".",".","6",".",".",".","3"],
+         ["4",".",".","8",".","3",".",".","1"],
+         ["7",".",".",".","2",".",".",".","6"],
+         [".","6",".",".",".",".","2","8","."],
+         [".",".",".","4","1","9",".",".","5"],
+         [".",".",".",".","8",".",".","7","9"]];
+  var rows={}, cols={}, sq={}, seen=[];
+  function S(o,k){ return (o[k]||[]).slice(); }
+  function marks(r,c,bad){ var m={};
+    seen.forEach(function(p){ m[p]='good'; });
+    if(r!=null) m[r+','+c]= bad?'bad':'hot';
+    if(r!=null){ for(var x=0;x<9;x++){ if(x!==c && m[r+','+x]!=='good') m[r+','+x]=m[r+','+x]||'win'; } }
+    return m; }
+  function V(r,c,bad,note){ return [
+    LV.grid('board', B, marks(r,c,bad), {note:note||''}),
+    LV.kv('rows['+(r==null?'-':r)+']', S(rows,r), {}, {emptyText:'empty'}),
+    LV.kv('cols['+(c==null?'-':c)+']', S(cols,c), {}, {emptyText:'empty'}),
+    LV.kv('squares['+(r==null?'-':Math.floor(r/3)+', '+Math.floor(c/3))+']', S(sq,r==null?'-':Math.floor(r/3)+','+Math.floor(c/3)), {}, {emptyText:'empty'}) ]; }
+  function VA(r,c){ return ['row = <b>'+r+'</b>','col = <i>'+c+'</i>','square = <em>('+Math.floor(r/3)+', '+Math.floor(c/3)+')</em>','value = <u>'+B[r][c]+'</u>']; }
+
+  T.step(8,'info','Three dictionaries of sets — one per row, one per column, one per 3×3 box. Every filled cell is checked against all three in O(1). The clever bit is the box key: <code>(row//3, col//3)</code> maps all nine cells of a box to the same pair.',['rows, cols, squares all empty'],[LV.grid('board',B,{},{})]);
+
+  var skipped=0;
+  for(var r=0;r<9;r++){
+    for(var c=0;c<9;c++){
+      if(B[r][c]==='.'){ skipped++; continue; }
+      T.step(13,'call','Cell ('+r+', '+c+') holds "'+B[r][c]+'"'+(skipped?'  —  '+skipped+' empty cell'+(skipped===1?'':'s')+' were skipped by line 15 on the way here':'')+'.',VA(r,c),V(r,c,false));
+      skipped=0;
+      var v=B[r][c], sk=Math.floor(r/3)+','+Math.floor(c/3);
+      var inR=(rows[r]||[]).indexOf(v)>=0, inC=(cols[c]||[]).indexOf(v)>=0, inS=(sq[sk]||[]).indexOf(v)>=0;
+      if(inR||inC||inS){
+        var which = inR?'its row':(inC?'its column':'its 3×3 box');
+        T.save('conflict: "'+v+'" repeats in '+which);
+        T.step(17,'found','<b>"'+v+'" already appears in '+which+'.</b> '+(inC?'cols['+c+'] already holds ['+S(cols,c).join(', ')+'] — the 8 at ('+0+', '+c+') collides with this one.':'')+' Return False immediately.',VA(r,c),V(r,c,true,'conflict'));
+        T.step(17,'done','Answer: <b>False</b>. The board is invalid. One pass over 81 cells, three O(1) lookups each — O(1) overall for a fixed 9×9 board.',VA(r,c),V(r,c,true));
+        return T;
+      }
+      T.step(16,'ok','"'+v+'" is not in rows['+r+'], cols['+c+'] or squares['+sk+'] — no conflict.',VA(r,c),V(r,c,false));
+      cols[c]=(cols[c]||[]).concat([v]); rows[r]=(rows[r]||[]).concat([v]); sq[sk]=(sq[sk]||[]).concat([v]);
+      seen.push(r+','+c);
+      T.step(21,'push','Record it in all three sets.',VA(r,c),V(r,c,false));
+    }
+  }
+  T.step(24,'done','No conflicts anywhere — return True.',[],[LV.grid('board',B,marks(null),{})]);
+  return T;
+}
+LV.render({
+  num:'36', name:'Valid Sudoku', slug:'0036-valid-sudoku',
+  difficulty:'Medium', pattern:'Hash sets · index-to-bucket mapping',
+  url:'https://leetcode.com/problems/valid-sudoku',
+  blurb:'The whole problem is one expression: <code>(row//3, col//3)</code>. That maps a cell to its 3×3 box, which turns three different geometric constraints into three identical set lookups.',
+  input:'the LeetCode example 2 board (invalid)', runName:'isValidSudoku',
+  skipLabel:null, emptyResult:'no conflict found yet',
+  src:SRC, build:build,
+  complexity:{time:'O(81) = O(1) for a fixed board; O(n²) for an n×n generalisation', space:'O(1) / O(n²)'},
+  theory:{
+    idea:'When several constraints have different <em>shapes</em>, find a <b>key function</b> that reduces each to the same operation. Row is keyed by <code>r</code>, column by <code>c</code>, box by <code>(r//3, c//3)</code> — and then all three are just "is this value already in that set?". Integer division as a bucketing function is worth remembering on its own.',
+    recognize:[
+      'Grid problems with block/region constraints — sudoku, chunked matrices, tiling.',
+      'More generally: whenever you need to group by a coarser coordinate, <code>index // block_size</code> is the mapping.',
+      'Doing three separate passes (one for rows, one for columns, one for boxes) is also correct; doing all three in a single pass is tidier and shows you saw the unification.'
+    ],
+    pitfalls:[
+      '<b>Getting the box key wrong.</b> <code>(r//3)*3 + c//3</code> and <code>(r//3, c//3)</code> both work; <code>r//3 + c//3</code> does NOT — it collides boxes (0,1) and (1,0).',
+      '<b>Forgetting to skip "."</b>. Empty cells would collide with each other instantly.',
+      '<b>Validating solvability instead of validity.</b> The question only asks whether the current board breaks a rule — not whether it can be completed. That is LC 37 and it is a much harder backtracking problem.',
+      '<b>Using <code>defaultdict(set)</code> and then indexing it in a membership test</b> — <code>rows[row]</code> creates an empty set as a side effect. Harmless here, but a real memory leak in long-running code.'
+    ],
+    template: "# Three constraints, one operation - the key function does the work\nrows = defaultdict(set); cols = defaultdict(set); boxes = defaultdict(set)\n\nfor r in range(9):\n    for c in range(9):\n        v = board[r][c]\n        if v == '.':\n            continue\n        box = (r // 3, c // 3)            # <- THE trick. not r//3 + c//3.\n        if v in rows[r] or v in cols[c] or v in boxes[box]:\n            return False\n        rows[r].add(v); cols[c].add(v); boxes[box].add(v)\nreturn True\n",
+    variants:[
+      ['<b>Sudoku Solver</b> (LC 37)','Backtracking with these same three sets as the pruning check — a direct sequel to your problem 22/39 work.'],
+      ['n×n board with √n boxes','Same code, replace 3 with <code>int(n ** 0.5)</code>.'],
+      ['Bitmask instead of sets','Nine bits per row/col/box. Faster and O(1) space, and a nice thing to offer as an optimisation.'],
+      ['Report ALL conflicts','Do not return early; collect them.']
+    ],
+    thinking:'The general lesson is <b>normalisation</b>: rather than writing three different loops for three different geometries, find the coordinate transform that makes them identical. This turns up constantly — flattening a 2D index to 1D with <code>r*cols + c</code> (see LC 1260 in your repo), bucketing values with <code>v // bucket_size</code> (LC 164, LC 220), grouping by <code>(r//3, c//3)</code> here. When you find yourself writing near-duplicate code, look for the mapping that collapses it.'
+  }
+});
+
+</script>
+</body>
+</html>

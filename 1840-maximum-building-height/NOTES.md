@@ -1,9 +1,9 @@
 # 1840. Maximum Building Height
-> **Hard** &nbsp;·&nbsp; Constraint propagation · two sweeps + geometry &nbsp;·&nbsp; family: **Prefix sums & intervals**
+> **Hard** &nbsp;&middot;&nbsp; Constraint propagation · two sweeps + geometry &nbsp;&middot;&nbsp; family: **Prefix sums & intervals**
 
 Three ideas stacked: sentinel restrictions to kill edge cases, two sweeps to propagate a neighbour constraint in both directions, and a closed-form tent peak between each adjacent pair.
 
-**▶ [Step through this solution line by line](../visualizations/1840-maximum-building-height.html)** — 15 steps, traced on `n = 5, restrictions = [[2,1],[4,1]]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 15 steps, traced on `n = 5, restrictions = [[2,1],[4,1]]`.
 
 | | |
 |---|---|
@@ -62,4 +62,4 @@ Two habits worth extracting. First: **when a rule links neighbours, one pass is 
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/maximum-building-height)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/maximum-building-height)

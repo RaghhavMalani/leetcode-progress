@@ -1,9 +1,9 @@
 # 706. Design HashMap
-> **Easy** &nbsp;·&nbsp; Design · hash table internals &nbsp;·&nbsp; family: **Design**
+> **Easy** &nbsp;&middot;&nbsp; Design · hash table internals &nbsp;&middot;&nbsp; family: **Design**
 
 LC 705 with values attached. The detail worth arguing about is the `-1` sentinel for a missing key — a design smell that a real API would handle differently.
 
-**▶ [Step through this solution line by line](../visualizations/0706-design-hashmap.html)** — 10 steps, traced on `put(1,1), put(2,2), get(1), get(3), put(2,1), get(2), remove(2), get(2)`.
+**▶ [Step through this solution line by line](./visualization.html)** — 10 steps, traced on `put(1,1), put(2,2), get(1), get(3), put(2,1), get(2), remove(2), get(2)`.
 
 | | |
 |---|---|
@@ -65,4 +65,4 @@ Notice how many "hard" design problems are **a hash map composed with one other 
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/design-hashmap)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/design-hashmap)

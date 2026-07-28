@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>75 - Sort Colors</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def sortColors(self, nums: List[int]) -> None:", "        low = 0", "        mid = 0", "        high = len(nums) - 1", "", "        while mid <= high:", "            if nums[mid] == 0:", "                nums[low], nums[mid] = nums[mid], nums[low]", "                low += 1", "                mid += 1", "", "            elif nums[mid] == 1:", "                mid += 1", "", "            else:  # nums[mid] == 2", "                nums[mid], nums[high] = nums[high], nums[mid]", "                high -= 1"];
+function build(){
+  var T=LV.trace(), a=[2,0,2,1,1,0];
+  var lo=0,mid=0,hi=a.length-1;
+  function marks(){ var m={};
+    for(var x=0;x<a.length;x++){
+      if(x<lo) m[x]='good';
+      else if(x>hi) m[x]='bad';
+      else if(x<mid) m[x]='warn';
+      else m[x]='dim';
+    }
+    if(mid<=hi) m[mid]='hot';
+    return m; }
+  function ptr(){ var p={}; 
+    var t={}; t[lo]=(t[lo]||'')+'low '; t[mid]=(t[mid]||'')+'mid '; if(hi>=0) t[hi]=(t[hi]||'')+'high';
+    Object.keys(t).forEach(function(k){ p[k]=t[k].trim(); });
+    return p; }
+  function V(note){ return [ LV.arr('nums — green 0s · amber 1s · red 2s · grey unexamined', a, marks(), {ptrs:ptr(), note:note||'everything left of low is a settled 0, everything right of high is a settled 2'}) ]; }
+  function VA(){ return ['low = <b>'+lo+'</b>','mid = <em>'+mid+'</em>','high = <i>'+hi+'</i>']; }
+
+  T.step(5,'info','Three pointers carve the array into four regions: [0, low) is all 0s, [low, mid) is all 1s, [mid, high] is unexamined, and (high, end] is all 2s. The loop shrinks the unexamined region to nothing.',VA(),V());
+  while(mid<=hi){
+    T.step(7,'call','mid ('+mid+') &le; high ('+hi+'), so there is still unexamined territory. nums[mid] = '+a[mid]+'.',VA(),V());
+    if(a[mid]===0){
+      var t=a[lo]; a[lo]=a[mid]; a[mid]=t;
+      T.step(9,'push','It is a 0. Swap it down to the low boundary (positions '+lo+' and '+mid+').'+(lo===mid?' They are the same index here, so the swap is a no-op — but it costs nothing and keeps the code branch-free.':''),VA(),V());
+      lo++; mid++;
+      T.step(11,'ok','Advance BOTH low and mid. Safe because whatever we just swapped into position mid came from the 1s region, and a 1 needs no further work.',VA(),V());
+    } else if(a[mid]===1){
+      T.step(13,'info','It is a 1 — already in the right region. Nothing to move.',VA(),V());
+      mid++;
+      T.step(14,'ok','Advance mid only.',VA(),V());
+    } else {
+      var t2=a[mid]; a[mid]=a[hi]; a[hi]=t2;
+      T.step(17,'push','It is a 2. Swap it up to the high boundary (positions '+mid+' and '+hi+').',VA(),V());
+      hi--;
+      T.step(18,'bad','Retreat high to '+hi+' — but do NOT advance mid. The value we just pulled in from the right has never been examined, so it must be tested on the next iteration. This asymmetry is the whole problem.',VA(),V());
+    }
+  }
+  T.save('['+a.join(', ')+']');
+  T.step(7,'done','mid passed high — nothing unexamined remains. The array is sorted: <b>['+a.join(', ')+']</b>, in one pass with no extra memory.',VA(),V('sorted'));
+  return T;
+}
+LV.render({
+  num:'75', name:'Sort Colors', slug:'0075-sort-colors',
+  difficulty:'Medium', pattern:'Three pointers · Dutch national flag',
+  url:'https://leetcode.com/problems/sort-colors',
+  blurb:'Dijkstra’s Dutch national flag partition. The only subtle line is the last one: after swapping with <code>high</code> you must NOT advance <code>mid</code>, because the incoming value is unexamined.',
+  input:'nums = [2,0,2,1,1,0]', runName:'sortColors',
+  skipLabel:null, emptyResult:'not sorted yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n) — one pass, no comparison sort', space:'O(1) — in place'},
+  theory:{
+    idea:'Partition an array into three regions in one pass by maintaining <b>loop invariants</b> on three pointers. The key mental discipline is naming exactly what each region means and checking that every branch preserves those meanings. Do that and the "why no <code>mid++</code>" question answers itself.',
+    recognize:[
+      'Only a <b>small fixed number of distinct values</b> (here 3). With k values you can do k-way partition in O(n).',
+      'The follow-up "can you do it in one pass with constant space?" — the two-pass counting-sort answer is the obvious one and this is the intended improvement.',
+      'More generally: any "move all X to the front and all Y to the back" phrasing.'
+    ],
+    pitfalls:[
+      '<b>Advancing <code>mid</code> after the 2-swap.</b> The single most common bug. The value swapped in from <code>high</code> has never been seen; skipping it can leave a 0 stranded in the middle.',
+      '<b><code>while mid &lt; high</code> instead of <code>&lt;=</code>.</b> Drops the last unexamined element.',
+      '<b>Reaching for <code>sort()</code>.</b> Correct and O(n log n), but the problem exists specifically to test the linear partition.',
+      '<b>Two-pass counting sort.</b> Perfectly valid, and worth offering first — but say "and I can do it in one pass" immediately after.'
+    ],
+    template: "# Dutch national flag - three-way partition\n# invariant: [0,low) = LOW   [low,mid) = MID   [mid,high] = unknown   (high,n) = HIGH\nlow = mid = 0\nhigh = len(a) - 1\nwhile mid <= high:\n    if a[mid] < pivot:\n        a[low], a[mid] = a[mid], a[low]; low += 1; mid += 1\n    elif a[mid] == pivot:\n        mid += 1\n    else:\n        a[mid], a[high] = a[high], a[mid]; high -= 1    # NO mid += 1\n",
+    variants:[
+      ['<b>Move Zeroes</b> (LC 283)','Two regions instead of three — a single write pointer.'],
+      ['Quicksort partition','Same idea with a pivot value; three-way partition is how you make quicksort survive many duplicate keys.'],
+      ['k distinct values, k &gt; 3','Pointers stop scaling — counting sort in two passes is the right answer.'],
+      ['<b>Partition Array According to Pivot</b> (LC 2161)','Order within each region must be preserved, so the in-place swap breaks it — you need three lists. Your repo has that one too.']
+    ],
+    thinking:'This problem is really a lesson in <b>loop invariants</b>. Before writing the loop, write down (in a comment, honestly) what each region means. Then for each branch ask: "after this branch, are all four statements still true?" The 2-case fails that check if you advance mid, and you discover it on paper instead of in a failing test. That habit is worth far more than memorising this particular problem — it is how you debug any in-place pointer algorithm.'
+  }
+});
+
+</script>
+</body>
+</html>

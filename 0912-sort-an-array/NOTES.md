@@ -1,9 +1,9 @@
 # 912. Sort an Array
-> **Medium** &nbsp;·&nbsp; Divide and conquer · merge sort &nbsp;·&nbsp; family: **Sorting & divide and conquer**
+> **Medium** &nbsp;&middot;&nbsp; Divide and conquer · merge sort &nbsp;&middot;&nbsp; family: **Sorting & divide and conquer**
 
 Merge sort from scratch. Watch the recursion tree: depth log n, O(n) work per level. That picture *is* the complexity proof, and it transfers to every divide-and-conquer algorithm.
 
-**▶ [Step through this solution line by line](../visualizations/0912-sort-an-array.html)** — 36 steps, traced on `nums = [5,2,3,1]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 36 steps, traced on `nums = [5,2,3,1]`.
 
 | | |
 |---|---|
@@ -66,4 +66,4 @@ Know your sorting algorithms by their **trade-off profile**, not their code: mer
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/sort-an-array)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/sort-an-array)

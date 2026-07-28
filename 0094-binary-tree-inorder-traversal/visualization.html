@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>94 - Binary Tree Inorder Traversal</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["# Definition for a binary tree node.", "# class TreeNode:", "#     def __init__(self, val=0, left=None, right=None):", "#         self.val = val", "#         self.left = left", "#         self.right = right", "class Solution:", "    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:", "        '''res = []", "", "        def inorder(root):", "            if not root:", "                return", "            inorder(root.left)", "            res.append(root.val)", "            inorder(root.right)", "", "        inorder(root)", "        return res '''", "        res = []", "        stack = []", "", "        curr = root", "        while curr or stack:", "            while curr:", "                stack.append(curr)", "                curr = curr.left", "            curr = stack.pop()", "            res.append(curr.val)", "            curr = curr.right", "", "        return res"];
+function build(){
+  var T=LV.trace();
+  var N=[{id:'a',val:1,r:'b'},{id:'b',val:2,l:'c'},{id:'c',val:3}];
+  var name={a:'1',b:'2',c:'3'}, L={a:null,b:'c',c:null}, R={a:'b',b:null,c:null};
+  var st=[], res=[], curr='a';
+  function marks(){ var m={};
+    ['a','b','c'].forEach(function(k){ m[k]= res.indexOf(name[k])>=0?'good':(st.indexOf(k)>=0?'warn':'dim'); });
+    if(curr) m[curr]='hot';
+    return m; }
+  function V(n){ return [
+    LV.btree('tree — amber = on the stack, green = already output', N, 'a', marks(), {}, {}),
+    LV.seq('stack (leftmost = bottom)', st.map(function(k){ return name[k]; }), {}, {top:true, emptyText:'empty'}),
+    LV.seq('res', res.slice(), {}, {emptyText:'empty'}) ]; }
+  function VA(){ return ['curr = <b>'+(curr?name[curr]:'None')+'</b>','stack = <em>['+st.map(function(k){return name[k];}).join(', ')+']</em>','res = <u>['+res.join(', ')+']</u>']; }
+
+  T.step(23,'info','Inorder means <b>left, node, right</b>. The recursive version is four lines (see the commented-out block above). This is the iterative one: the explicit stack replaces the call stack, and the payoff is O(h) space you control plus the ability to pause mid-traversal — which is exactly what LC 173 asks for.',VA(),V());
+  while(curr||st.length){
+    T.step(24,'call','Loop guard `curr or stack`: '+(curr?'curr is node '+name[curr]:'curr is None')+' and the stack has '+st.length+' item'+(st.length===1?'':'s')+'. '+(curr||st.length?'Work remains.':'Done.'),VA(),V());
+    while(curr){
+      st.push(curr);
+      T.step(26,'push','Push node '+name[curr]+' — we are NOT ready to output it yet, because its whole left subtree has to come first.',VA(),V());
+      curr=L[curr];
+      T.step(27,'ok','Dive left: curr = '+(curr?'node '+name[curr]:'None')+'.',VA(),V());
+    }
+    T.step(25,'info','curr is None, so we have hit the leftmost point of this branch. Everything on the stack is waiting to be output.',VA(),V());
+    curr=st.pop();
+    T.step(28,'pop','Pop node '+name[curr]+'. Its left subtree is fully processed, so NOW it is its turn.',VA(),V());
+    res.push(name[curr]);
+    T.save(name[curr]);
+    T.step(29,'found','Output '+name[curr]+'. res = ['+res.join(', ')+'].',VA(),V());
+    curr=R[curr];
+    T.step(30,'ok','Move to the right child: curr = '+(curr?'node '+name[curr]:'None')+'. The outer loop now treats that subtree exactly like a fresh tree.',VA(),V());
+  }
+  T.step(32,'done','Both curr and the stack are empty. Inorder traversal: <b>['+res.join(', ')+']</b>. For a BST this output would be sorted — which is why inorder matters more than the other two orders.',VA(),V());
+  return T;
+}
+LV.render({
+  num:'94', name:'Binary Tree Inorder Traversal', slug:'0094-binary-tree-inorder-traversal',
+  difficulty:'Easy', pattern:'Tree traversal · explicit stack',
+  url:'https://leetcode.com/problems/binary-tree-inorder-traversal',
+  blurb:'The iterative inorder. The recursive version is four lines; this one exists so you understand what the call stack was doing — and because problems like BST Iterator demand a traversal you can pause.',
+  input:'root = [1,null,2,3]', runName:'inorderTraversal',
+  skipLabel:'Skip to next output', skipTypes:['found'], emptyResult:'res is empty',
+  src:SRC, build:build,
+  complexity:{time:'O(n) — every node pushed once, popped once', space:'O(h) — h = height; O(n) for a degenerate tree'},
+  theory:{
+    idea:'Recursion <em>is</em> a stack. Making it explicit costs a few lines and buys two things: no recursion-depth limit, and the ability to <b>stop halfway</b> and resume — which is the entire point of an iterator. The pattern is: dive left pushing everything, pop-and-output, then pivot right and repeat.',
+    recognize:[
+      '<b>Inorder</b> on a BST gives sorted order. That single fact solves LC 98 (validate BST), LC 230 (kth smallest), LC 173 (iterator), and LC 501.',
+      'Preorder (node, left, right) is for <b>copying / serialising</b> — you see a node before its children.',
+      'Postorder (left, right, node) is for <b>aggregating upward</b> — children before parent. LC 124 in your repo is postorder.',
+      'Level order needs a queue, not a stack — that is BFS.'
+    ],
+    pitfalls:[
+      '<b>Getting the loop guard wrong.</b> It must be <code>while curr or stack</code>. Just <code>while stack</code> exits immediately at the start; just <code>while curr</code> never comes back up.',
+      '<b>Outputting on push instead of on pop.</b> That gives preorder, not inorder. The whole distinction between the three orders is <em>when you emit the node</em>.',
+      '<b>Forgetting <code>curr = curr.right</code> after popping.</b> Then you re-dive on the same node forever.',
+      '<b>Recursion depth.</b> Python defaults to 1000 frames; a 10⁴-node skewed tree crashes the recursive version. Worth saying aloud.'
+    ],
+    template: "# Iterative inorder - dive left, pop-and-emit, pivot right\nstack, res, curr = [], [], root\nwhile curr or stack:\n    while curr:                 # dive as far left as possible\n        stack.append(curr)\n        curr = curr.left\n    curr = stack.pop()          # leftmost unvisited node\n    res.append(curr.val)        # EMIT here -> inorder\n    curr = curr.right           # now treat the right subtree as a fresh tree\n\n# preorder : emit when you PUSH        (node, left, right)\n# postorder: emit on the way back up   (left, right, node)  - recursion is easier\n",
+    variants:[
+      ['<b>BST Iterator</b> (LC 173)','This exact loop, split across <code>next()</code> and <code>hasNext()</code>. The reason to learn the iterative form.'],
+      ['<b>Kth Smallest in a BST</b> (LC 230)','Inorder and stop after k pops — no need to traverse the whole tree.'],
+      ['<b>Validate BST</b> (LC 98)','Inorder must be strictly increasing; or pass down (low, high) bounds.'],
+      ['<b>Morris traversal</b>','O(1) space by temporarily rewiring right pointers into threads. Impressive, rarely required, worth knowing it exists.'],
+      ['Level order','LC 102 — a queue and a loop over each level’s size.']
+    ],
+    thinking:'Fix the three orders by <b>what they are for</b>, not by their names. Need children answered before the parent (heights, sums, max path)? <b>Postorder</b>. Need to visit a node before descending (serialise, copy, path-building)? <b>Preorder</b>. Need sorted order from a BST? <b>Inorder</b>. When you meet a tree problem, ask "does a node need information from its children?" — if yes, you are writing postorder and the recursion returns a value; if no, you are writing preorder and it carries a value downward.'
+  }
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2196 - Create Binary Tree From Descriptions</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["# Definition for a binary tree node.", "# class TreeNode:", "#     def __init__(self, val=0, left=None, right=None):", "#         self.val = val", "#         self.left = left", "#         self.right = right", "class Solution:", "    def createBinaryTree(self, descriptions: List[List[int]]) -> Optional[TreeNode]:", "        nodes = {}", "        children = set()", "", "        for parent, child, isLeft in descriptions:", "            if parent not in nodes:", "                nodes[parent] = TreeNode(parent)", "", "            if child not in nodes:", "                nodes[child] = TreeNode(child)", "", "            if isLeft == 1:", "                nodes[parent].left = nodes[child]", "            else:", "                nodes[parent].right = nodes[child]", "", "            children.add(child)", "", "        for value in nodes:", "            if value not in children:", "                return nodes[value]", "", "        return None"];
+function build(){
+  var T=LV.trace();
+  var D=[[20,15,1],[20,17,0],[50,20,1],[50,80,0],[80,19,1]];
+  var nodes={}, kids={}, edges={};
+  function tv(hot){
+    var ids=Object.keys(nodes);
+    if(!ids.length) return LV.html('tree','<div class="vnote">no nodes yet</div>');
+    var arr=ids.map(function(k){ return {id:k, val:k, l:(edges[k]||{}).l, r:(edges[k]||{}).r}; });
+    var roots=ids.filter(function(k){ return !kids[k]; });
+    var root=roots.length?roots[0]:ids[0];
+    var m={}; ids.forEach(function(k){ m[k]= kids[k]?'':'good'; }); if(hot) m[hot]='hot';
+    return LV.btree('tree so far — green = has no parent yet', arr, root, m, {}, {}); }
+  function V(i,hot){ var m={}; D.forEach(function(_,k){ m[k]= k<i?'good':(k===i?'hot':'dim'); });
+    return [ LV.arr('descriptions [parent, child, isLeft]', D.map(function(d){ return d.join(','); }), m, {}),
+      LV.kv('nodes  (value → TreeNode)', Object.keys(nodes), {}, {emptyText:'empty'}),
+      LV.kv('children  (values that have a parent)', Object.keys(kids), {}, {emptyText:'empty'}),
+      tv(hot) ]; }
+
+  T.step(9,'info','Two structures. <code>nodes</code> maps a value to its single TreeNode object — that identity map is what lets edges from different descriptions refer to the same node. <code>children</code> records every value seen as a child, so the root can be found by elimination.',['descriptions: <b>5</b>'],V(null,null));
+  D.forEach(function(d,i){
+    var p=d[0], c=d[1], left=d[2];
+    T.step(12,'call','Description ['+d.join(', ')+']: '+c+' is the '+(left?'LEFT':'RIGHT')+' child of '+p+'.',['parent = <b>'+p+'</b>','child = <em>'+c+'</em>'],V(i,null));
+    if(nodes[p]===undefined){ nodes[p]=1;
+      T.step(14,'push','Node '+p+' has not been created yet — create it. The dictionary check is what makes the same value appear as a node exactly ONCE, no matter how many descriptions mention it.',[],V(i,String(p)));
+    }
+    if(nodes[c]===undefined){ nodes[c]=1;
+      T.step(17,'push','Node '+c+' does not exist yet — create it.',[],V(i,String(c)));
+    }
+    edges[p]=edges[p]||{}; if(left) edges[p].l=String(c); else edges[p].r=String(c);
+    T.step(left?20:22,'ok','Link them: nodes['+p+'].'+(left?'left':'right')+' = nodes['+c+'].',[],V(i,String(c)));
+    kids[c]=1;
+    T.step(24,'info','Record '+c+' in the children set.',[],V(i,String(c)));
+    T.save(p+' → '+c+' ('+(left?'left':'right')+')');
+  });
+  var root=Object.keys(nodes).filter(function(k){ return !kids[k]; })[0];
+  T.step(26,'info','Every node except the root appears as somebody’s child. So scan the nodes and find the one that is NOT in the children set.',[],V(D.length,null));
+  T.step(28,'found','<b>'+root+'</b> is never a child — it is the root. Return it.',['root = <u>'+root+'</u>'],V(D.length,root));
+  T.step(28,'done','Tree built in one pass, O(n). The descriptions can arrive in ANY order and this still works, because nodes are created on demand rather than in tree order.',['root = <u>'+root+'</u>'],V(D.length,root));
+  return T;
+}
+LV.render({
+  num:'2196', name:'Create Binary Tree From Descriptions', slug:'2196-create-binary-tree-from-descriptions',
+  difficulty:'Medium', pattern:'Hash map · build a structure from edges',
+  url:'https://leetcode.com/problems/create-binary-tree-from-descriptions',
+  blurb:'Building a tree from an unordered edge list. Two ideas: a value→node map so nodes are created once and shared, and finding the root by elimination — the only value that is never a child.',
+  input:'descriptions = [[20,15,1],[20,17,0],[50,20,1],[50,80,0],[80,19,1]]', runName:'createBinaryTree',
+  skipLabel:null, emptyResult:'no links yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n)', space:'O(n)'},
+  theory:{
+    idea:'Two reusable ideas. <b>Create-on-demand via a map:</b> when edges arrive in arbitrary order, a <code>value → object</code> dictionary lets you reference a node before you have seen it "declared". <b>Find the root by elimination:</b> in a tree, exactly one node has no parent, so root = all_nodes − all_children.',
+    recognize:[
+      'A structure specified by an unordered list of edges or parent/child pairs.',
+      'Any time you must "find the root/start/source" of a DAG or tree — it is the node with in-degree 0. The same idea starts topological sort (see LC 3620 in your repo).',
+      'Adjacency lists in general are built exactly this way.'
+    ],
+    pitfalls:[
+      '<b>Creating a new node per description.</b> Then node 20 exists twice and the tree fragments. The <code>if value not in nodes</code> guard is essential.',
+      '<b>Assuming descriptions come parent-first.</b> They do not, which is precisely why creation must be on demand.',
+      '<b>Looking for the root before the loop finishes.</b> A node can look parentless until a later description names it as a child.',
+      '<b>Using a set of nodes instead of a dict.</b> You need the actual object to attach children to, not just the value.'
+    ],
+    template: "# create-on-demand + find the root by elimination\nnodes, children = {}, set()\nfor parent, child, is_left in descriptions:\n    if parent not in nodes: nodes[parent] = TreeNode(parent)   # ONCE each\n    if child  not in nodes: nodes[child]  = TreeNode(child)\n    if is_left: nodes[parent].left  = nodes[child]\n    else:       nodes[parent].right = nodes[child]\n    children.add(child)\n\nfor value in nodes:                 # exactly one node has no parent\n    if value not in children:\n        return nodes[value]\n\n# same idea: DAG sources = in-degree 0 -> the start of a topological sort\n",
+    variants:[
+      ['Build an adjacency list from an edge list','The same create-on-demand pattern with lists.'],
+      ['<b>Clone Graph</b> (LC 133)','A map from original node → copy, filled as you traverse.'],
+      ['<b>Copy List with Random Pointer</b> (LC 138)','Same old→new map. Also in your repo.'],
+      ['Detect a cycle / not-a-tree','Check that exactly one node has in-degree 0 and that the edge count is n−1.'],
+      ['<b>Topological sort</b>','Start from all in-degree-0 nodes. LC 3620 in your repo uses it.']
+    ],
+    thinking:'Whenever a structure is described by edges rather than by nesting, reach for <b>a dictionary keyed by identity</b> and create objects lazily. And remember the general "find the entry point" move: <b>the root is what nothing points to</b>. In-degree zero identifies tree roots, DAG sources, and topological-sort starting points — all the same observation, and it turns "where do I begin?" into a set difference.'
+  }
+});
+
+</script>
+</body>
+</html>

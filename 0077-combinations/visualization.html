@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>77 - Combinations</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def combine(self, n: int, k: int) -> List[List[int]]:", "        res = []", "", "        def backtrack(start, comb):", "            if len(comb) == k:", "                res.append(comb.copy())", "                return ", "            ", "            for i in range(start, n+1):", "                comb.append(i)", "                backtrack(i+1, comb)", "                comb.pop()", "", "        backtrack(1, [])", "        return res;"];
+function build(){
+  var T=LV.trace(), n=4,k=2, comb=[];
+  var tb=LV.treeBuilder(46,32,56,52);
+  function C(){ return '['+comb.join(', ')+']'; }
+  function V(id,lo){ var m={}; if(lo!=null) for(var x=lo;x<=n;x++) m[x-1]='win';
+    return [ LV.arr('comb', comb.slice(), {}, {idx:false}),
+      LV.arr('1 … n  (shaded = still in range)', [1,2,3,4], m, {idx:false}),
+      LV.frames('call stack', tb.chain(id).reverse().map(function(x){return tb.nodes[x].frame;})),
+      LV.tree(tb,id) ]; }
+  function VA(s){ return ['start = <b>'+s+'</b>','len(comb) = <em>'+comb.length+'</em> / k = 2','n = 4','comb = <u>'+C()+'</u>']; }
+
+  var root=tb.add(null,'bt','s=1','backtrack(1, [])');
+  T.step(15,'info','`backtrack(1, [])` — start at 1 with an empty combination.',VA(1),V(root,1));
+  function bt(start,id){
+    T.step(5,'call','Enter backtrack(start='+start+', comb='+C()+').',VA(start),V(id,start));
+    if(comb.length===k){
+      T.save(C()); tb.win(id,T.events.length);
+      T.step(7,'found','comb has reached length k = 2. Save a copy of '+C()+'.',VA(start),V(id,null));
+      T.step(8,'ok','return.',VA(start),V(id,null)); return;
+    }
+    var ran=false;
+    for(var i=start;i<=n;i++){
+      ran=true; comb.push(i);
+      var ch=tb.add(id,'+'+i,'s='+(i+1),'backtrack('+(i+1)+', ['+comb.join(', ')+'])');
+      T.step(11,'push','Loop iteration i = '+i+'. comb.append('+i+') → '+C()+'. Recurse from i+1 = '+(i+1)+' — that is what keeps numbers increasing and stops [1,2] and [2,1] both appearing.',VA(i+1),V(ch,i+1));
+      bt(i+1,ch);
+      comb.pop();
+      T.step(13,'pop','Back in backtrack('+start+', …). comb.pop() → '+C()+(i<n?' so the loop can try i = '+(i+1)+' next.':' and the loop is finished, so this frame returns.'),VA(start),V(id,start));
+    }
+    if(!ran){
+      tb.kill(id,T.events.length);
+      T.step(10,'prune','range('+start+', '+(n+1)+') is empty, so the loop body never runs. comb = '+C()+' never reached length k and this branch returns with nothing. One dead end is the price of the loop-based form.',VA(start),V(id,null));
+    }
+  }
+  bt(1,root);
+  T.step(16,'done','Done. 6 combinations — C(4,2). A single for loop replaced the explicit take/skip pair you see in problems 39 and 78.',VA(1),V(root,1));
+  return T;
+}
+LV.render({
+  num:'77', name:'Combinations', slug:'0077-combinations',
+  difficulty:'Medium', pattern:'Backtracking · loop form',
+  url:'https://leetcode.com/problems/combinations',
+  blurb:'The same pattern in its other dialect: one <code>for</code> loop with one recursive call, instead of two explicit branches. Passing <code>i+1</code> as the next start is what forces combinations to increase.',
+  input:'n = 4, k = 2', runName:'backtrack(1, [])',
+  skipLabel:'Skip to next combination', skipTypes:['found'], emptyResult:'res is still empty',
+  src:SRC, build:build,
+  complexity:{time:'O(C(n,k) · k)', space:'O(k) depth'},
+  theory:{
+    idea:'Backtracking comes in two dialects and they are fully interchangeable. <b>Take/skip</b> (problems 39, 78, 90) makes one binary decision per element. <b>Loop form</b> (this problem, 46, 47) iterates over all choices available at this level. Loop form is shorter when the number of choices per level varies; take/skip is clearer when each element has exactly two fates.',
+    recognize:[
+      '"Choose k of n, order irrelevant" — the definition of a combination.',
+      'The answer set has size C(n,k), which is small for the given constraints (n &le; 20, k &le; n).',
+      'Whenever output must be non-decreasing / non-repeating in position, the fix is <b>recurse from i+1, not from start</b>.'
+    ],
+    pitfalls:[
+      '<b><code>backtrack(start+1, …)</code> instead of <code>backtrack(i+1, …)</code>.</b> A subtle and very common slip: it lets you revisit values and produces permutations, not combinations.',
+      '<b><code>backtrack(i, …)</code></b> allows reuse — that would be LC 39 with a length target instead of a sum target.',
+      '<b>Missing the <code>.copy()</code>.</b> Same story as always.',
+      '<b>No early cut.</b> If <code>n - i + 1 &lt; k - len(comb)</code> there are not enough numbers left to ever finish; <code>break</code> there and the dead-end branch you can see in this trace disappears.'
+    ],
+    template: "def backtrack(state):\n    if is_complete(state):\n        res.append(path.copy())\n        return\n    if is_impossible(state):\n        return\n    for choice in choices(state):\n        path.append(choice)          # choose\n        backtrack(advance(state))    # explore\n        path.pop()                   # un-choose\n",
+    variants:[
+      ['Sum to n using k digits 1..9','LC 216 — same loop, add a running total and two guards.'],
+      ['All subsets (any k)','LC 78 — save at <em>every</em> node instead of only at depth k, or loop k from 0 to n.'],
+      ['Combinations with repetition allowed','Recurse from <code>i</code> instead of <code>i+1</code>.'],
+      ['Just the count','C(n,k) — Pascal or a factorial formula. No search.']
+    ],
+    thinking:'Practise converting between the two dialects. Take your problem 78 solution and rewrite it as a loop; take this one and rewrite it as take/skip. Ten minutes of that does more for your fluency than five new problems, because after it you stop seeing "combination problems" and "subset problems" as different — they are the same tree with a different rule for when you save.'
+  }
+});
+
+</script>
+</body>
+</html>

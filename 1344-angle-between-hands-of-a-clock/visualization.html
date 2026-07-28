@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1344 - Angle Between Hands of a Clock</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def angleClock(self, hour: int, minutes: int) -> float:", "        hour = hour % 12", "", "        hour_angle = hour * 30 + minutes * 0.5", "        minute_angle = minutes * 6", "", "        diff = abs(hour_angle - minute_angle)", "", "        return min(diff, 360 - diff)"];
+function build(){
+  var T=LV.trace(), H=12, M=30;
+  function face(ha,ma,note){
+    var cx=90,cy=90,r=68;
+    function pt(ang,len){ var a=(ang-90)*Math.PI/180; return [cx+Math.cos(a)*len, cy+Math.sin(a)*len]; }
+    var h=pt(ha,42), m=pt(ma,62);
+    var s='<svg viewBox="0 0 180 180" width="180" height="180" xmlns="http://www.w3.org/2000/svg">';
+    s+='<circle cx="90" cy="90" r="'+r+'" fill="#0f1520" stroke="#2e3a4e"/>';
+    for(var k=0;k<12;k++){ var p=pt(k*30,60), q=pt(k*30,66);
+      s+='<line x1="'+p[0]+'" y1="'+p[1]+'" x2="'+q[0]+'" y2="'+q[1]+'" stroke="#3b4759"/>'; }
+    s+='<line x1="90" y1="90" x2="'+h[0]+'" y2="'+h[1]+'" stroke="#5ec8f2" stroke-width="4" stroke-linecap="round"/>';
+    s+='<line x1="90" y1="90" x2="'+m[0]+'" y2="'+m[1]+'" stroke="#e879c8" stroke-width="2.5" stroke-linecap="round"/>';
+    s+='<circle cx="90" cy="90" r="3" fill="#e3e8f0"/></svg>';
+    return LV.html('clock face — blue = hour hand, pink = minute hand', s+(note?'<div class="vnote">'+note+'</div>':''));
+  }
+  T.step(3,'info','`hour % 12` folds 12 o’clock to 0. Without it the hour hand would be computed as 360° and the arithmetic breaks.',['hour = <b>12 → 0</b>','minutes = <b>30</b>'],[face(0,180)]);
+  var ha=(H%12)*30+M*0.5;
+  T.step(5,'info','Hour hand: 30° per hour, PLUS <b>0.5° per minute</b>. The hour hand drifts continuously — forgetting that half-degree term is the single reason this problem is not trivial. '+(H%12)+'×30 + 30×0.5 = <b>'+ha+'°</b>.',['hour_angle = <b>'+ha+'°</b>'],[face(ha,180,'the hour hand has already drifted past the 12')]);
+  var ma=M*6;
+  T.step(6,'info','Minute hand: 6° per minute (360/60). 30 × 6 = <b>'+ma+'°</b>.',['minute_angle = <b>'+ma+'°</b>'],[face(ha,ma)]);
+  var d=Math.abs(ha-ma);
+  T.step(8,'info','Raw difference = |'+ha+' − '+ma+'| = <b>'+d+'°</b>.',['diff = <b>'+d+'°</b>'],[face(ha,ma)]);
+  var ans=Math.min(d,360-d);
+  T.save(ans+'°');
+  T.step(10,'done','The question asks for the SMALLER angle, so take min('+d+', 360 − '+d+') = <b>'+ans+'°</b>. That min is how you handle the wrap-around without any case analysis.',['answer = <u>'+ans+'°</u>'],[face(ha,ma,'the smaller of the two angles between the hands')]);
+  return T;
+}
+LV.render({
+  num:'1344', name:'Angle Between Hands of a Clock', slug:'1344-angle-between-hands-of-a-clock',
+  difficulty:'Medium', pattern:'Math · modular geometry',
+  url:'https://leetcode.com/problems/angle-between-hands-of-a-clock',
+  blurb:'No algorithm at all — just three facts. 30° per hour, <b>0.5° per minute of hour-hand drift</b>, 6° per minute. The drift term is what people forget.',
+  input:'hour = 12, minutes = 30', runName:'angleClock',
+  skipLabel:null, emptyResult:'no angle yet',
+  src:SRC, build:build,
+  complexity:{time:'O(1)', space:'O(1)'},
+  theory:{
+    idea:'Model each hand as an <b>angle measured from 12 o’clock</b>, then the answer is a difference on a circle. Two modelling decisions carry everything: the hour hand moves continuously (0.5°/min), and "the angle between" on a circle means <code>min(d, 360 − d)</code>.',
+    recognize:[
+      'Anything circular — clocks, compass bearings, angles, cyclic buffers. The two tools are always <code>%</code> for wrapping and <code>min(d, period − d)</code> for shortest distance.',
+      'Constant-time closed-form problems: the "algorithm" is the modelling, so spend your time there.'
+    ],
+    pitfalls:[
+      '<b>Treating the hour hand as static.</b> At 3:30 it is NOT at 90° — it is at 105°, halfway to 4. This is the bug the problem exists to catch.',
+      '<b>Forgetting <code>hour % 12</code>.</b> 12:00 must be 0°.',
+      '<b>Returning the raw difference.</b> At 12:30 the raw difference is 165°, and that happens to be the smaller one — but at 12:50 it is 275° and the answer is 85°. Always take the min.',
+      '<b>Integer division.</b> <code>minutes * 0.5</code> must stay a float; <code>minutes // 2</code> loses the half degree on odd minutes.'
+    ],
+    template: "# model each hand as degrees clockwise from 12, then wrap\nhour %= 12\nhour_angle   = hour * 30 + minutes * 0.5    # 0.5 deg/min DRIFT - do not omit\nminute_angle = minutes * 6\n\nd = abs(hour_angle - minute_angle)\nreturn min(d, 360 - d)                       # shortest arc on a circle\n\n# general circular distance with period p:  min(d, p - d)\n",
+    variants:[
+      ['Angle at a given number of seconds','Add a seconds term to all three hands: seconds contribute to the minute hand too.'],
+      ['When are the hands exactly overlapping?','Solve 30h + 0.5m = 6m for m — every 65 5/11 minutes.'],
+      ['Compass bearing difference','Identical <code>min(d, 360 − d)</code>.'],
+      ['Circular array distance','<code>min(|i−j|, n − |i−j|)</code> — the same formula with period n.']
+    ],
+    thinking:'For closed-form problems, <b>write the model down in words before touching code</b>: "the hour hand is at 30·h + 0.5·m degrees clockwise from 12". Once the sentence is right the code is one line, and once it is wrong no amount of debugging helps. Also add <code>min(d, period − d)</code> to your permanent toolkit — it is the answer to "shortest distance on a circle" in every setting.'
+  }
+});
+
+</script>
+</body>
+</html>

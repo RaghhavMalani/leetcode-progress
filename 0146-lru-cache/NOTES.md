@@ -1,9 +1,9 @@
 # 146. LRU Cache
-> **Medium** &nbsp;·&nbsp; Design · hash map + doubly linked list &nbsp;·&nbsp; family: **Hashing**
+> **Medium** &nbsp;&middot;&nbsp; Design · hash map + doubly linked list &nbsp;&middot;&nbsp; family: **Hashing**
 
 The archetypal composition question. A hash map alone cannot track recency; a linked list alone cannot look up in O(1). Together they do both — and the two sentinel nodes remove every edge case.
 
-**▶ [Step through this solution line by line](../visualizations/0146-lru-cache.html)** — 31 steps, traced on `capacity = 2, then put/get operations`.
+**▶ [Step through this solution line by line](./visualization.html)** — 31 steps, traced on `capacity = 2, then put/get operations`.
 
 | | |
 |---|---|
@@ -77,4 +77,4 @@ Whenever a design problem demands O(1) for two operations that seem to conflict,
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/lru-cache)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/lru-cache)

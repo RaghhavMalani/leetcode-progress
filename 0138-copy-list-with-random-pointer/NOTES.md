@@ -1,9 +1,9 @@
 # 138. Copy List With Random Pointer
-> **Medium** &nbsp;·&nbsp; Hash map old→new · two-pass clone &nbsp;·&nbsp; family: **Hashing**
+> **Medium** &nbsp;&middot;&nbsp; Hash map old→new · two-pass clone &nbsp;&middot;&nbsp; family: **Hashing**
 
 The general recipe for deep-copying any linked structure: pass one creates the nodes, pass two wires them through an old→new map. And `map[null] = null` deletes every null check.
 
-**▶ [Step through this solution line by line](../visualizations/0138-copy-list-with-random-pointer.html)** — 19 steps, traced on `head = [[7,null],[13,0],[11,4],[10,2],[1,0]]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 19 steps, traced on `head = [[7,null],[13,0],[11,4],[10,2],[1,0]]`.
 
 | | |
 |---|---|
@@ -65,4 +65,4 @@ Memorise the recipe rather than the problem: **"map from old object to new objec
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/copy-list-with-random-pointer)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/copy-list-with-random-pointer)

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>46 - Permutations</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def permute(self, nums: List[int]) -> List[List[int]]:", "        if len(nums) == 0:", "            return [[]]", "", "        perms = self.permute(nums[1:])", "        res = []", "", "        for p in perms:", "            for i in range(len(p) + 1):", "                p_copy = p.copy()", "                p_copy.insert(i, nums[0])", "                res.append(p_copy)", "", "        return res"];
+function build(){
+  var T=LV.trace();
+  var tb=LV.treeBuilder(92,26,104,54);
+  function fmt(a){ return '['+a.join(',')+']'; }
+  function fmtl(L){ return L.length? L.map(fmt).join('  ') : '[]'; }
+  function V(id,perms,res,cur){ var vs=[];
+    vs.push(LV.arr('nums for this frame', cur, {0:'hot'}, {idx:false, note:'nums[0] (highlighted) is the element being inserted everywhere'}));
+    if(perms) vs.push(LV.seq('perms — what the recursive call returned', perms.map(fmt), {}, {}));
+    if(res)   vs.push(LV.seq('res — being assembled here', res.map(fmt), {}, {emptyText:'empty'}));
+    vs.push(LV.frames('call stack', tb.chain(id).reverse().map(function(x){return tb.nodes[x].frame;})));
+    vs.push(LV.tree(tb,id));
+    return vs; }
+
+  var root=tb.add(null,'[1,2,3]',null,'permute([1,2,3])');
+  T.step(2,'info','Top-level call. This solution is NOT backtracking — there is no shared list, no push/pop, no undo. It builds bottom-up: solve the smaller problem completely, then weave the first element into every answer.',['nums = <b>[1,2,3]</b>'],V(root,null,null,[1,2,3]));
+
+  function perm(nums,id){
+    T.step(3,'call','permute('+fmt(nums)+'): is the list empty?',['nums = <b>'+fmt(nums)+'</b>'],V(id,null,null,nums));
+    if(nums.length===0){
+      tb.win(id,T.events.length);
+      T.step(4,'found','Base case: the only permutation of nothing is the empty permutation. Return [[]] — note the outer list, this is a list OF permutations.',['returns <u>[[]]</u>'],V(id,null,null,nums));
+      return [[]];
+    }
+    var ch=tb.add(id,fmt(nums.slice(1)),null,'permute('+fmt(nums.slice(1))+')');
+    T.step(6,'push','Recurse on nums[1:] = '+fmt(nums.slice(1))+' FIRST. Nothing is built on the way down — all the work happens on the way back up.',['nums = <b>'+fmt(nums)+'</b>','waiting on <em>permute('+fmt(nums.slice(1))+')</em>'],V(ch,null,null,nums));
+    var perms=perm(nums.slice(1),ch);
+    var res=[];
+    T.step(7,'info','permute('+fmt(nums.slice(1))+') came back with '+perms.length+' permutation'+(perms.length>1?'s':'')+': '+fmtl(perms)+'. Now insert '+nums[0]+' into every gap of every one of them.',['nums[0] = <b>'+nums[0]+'</b>','perms has <em>'+perms.length+'</em> item'+(perms.length>1?'s':'')],V(id,perms,res,nums));
+    perms.forEach(function(p){
+      T.step(9,'call','Take p = '+fmt(p)+' from perms. It has '+p.length+' element'+(p.length===1?'':'s')+', so there are '+(p.length+1)+' gaps to insert into.',['p = <b>'+fmt(p)+'</b>','gaps = <em>'+(p.length+1)+'</em>'],V(id,perms,res,nums));
+      for(var i=0;i<=p.length;i++){
+        var pc=p.slice(); pc.splice(i,0,nums[0]); res.push(pc);
+        T.step(13,'push','Insert '+nums[0]+' at position '+i+' of '+fmt(p)+' → '+fmt(pc)+'. Appended to res. Note <code>p.copy()</code> on line 11 — without it every insert would pile into the same list.',['p = <b>'+fmt(p)+'</b>','i = <em>'+i+'</em>','res size = <u>'+res.length+'</u>'],V(id,perms,res,nums));
+      }
+    });
+    tb.nodes[id].label = res.length+' perms';
+    T.step(15,'ok','permute('+fmt(nums)+') returns '+res.length+' permutations: '+fmtl(res)+'.',['returns <u>'+res.length+'</u> permutations'],V(id,perms,res,nums));
+    return res;
+  }
+  var out=perm([1,2,3],root);
+  out.forEach(function(p){ T.save(fmt(p)); });
+  T.step(15,'done','All 6 permutations of [1,2,3], built from the inside out. Correct — but read the note below on why you should still learn the backtracking version.',['answer = <u>6 permutations</u>'],V(root,null,out,[1,2,3]));
+  return T;
+}
+LV.render({
+  num:'46', name:'Permutations', slug:'0046-permutations',
+  difficulty:'Medium', pattern:'Recursion · bottom-up construction (NOT backtracking)',
+  url:'https://leetcode.com/problems/permutations',
+  blurb:'Your solution here is correct but it is <em>not</em> backtracking — there is no shared mutable state and no undo step. Worth understanding as a contrast, and worth re-solving with the standard skeleton so the pattern transfers to 47, 39 and N-Queens.',
+  input:'nums = [1,2,3]', runName:'permute([1,2,3])',
+  skipLabel:null, emptyResult:'nothing returned yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n! · n²) — n! results, and each insert copies an O(n) list, n+1 times per level',
+              space:'O(n! · n) to hold all the intermediate lists — noticeably worse than backtracking'},
+  theory:{
+    idea:'Two legitimate ways to generate every permutation. <b>Bottom-up (this code):</b> get all permutations of the tail, then splice the head into every gap. No shared state, purely functional, easy to reason about. <b>Backtracking:</b> one shared list, choose / explore / un-choose. Backtracking uses O(n) extra space instead of O(n!·n) and is the one every follow-up question is phrased in terms of.',
+    recognize:[
+      '"All permutations", "all orderings", "all arrangements", n &le; 8ish.',
+      'If the input can repeat, you need the counter idiom → LC 47.',
+      'If you need only the k-th permutation, or the <em>next</em> one, do not enumerate — LC 60 and LC 31 have direct O(n) / O(n²) constructions.'
+    ],
+    pitfalls:[
+      '<b>The one this code gets right:</b> <code>p_copy = p.copy()</code> on line 11. Insert into <code>p</code> itself and every subsequent gap builds on the corrupted list.',
+      '<b>Returning <code>[]</code> instead of <code>[[]]</code> at the base case.</b> The empty list means "no permutations exist"; <code>[[]]</code> means "exactly one permutation, the empty one". Return the wrong one and the whole recursion collapses to nothing — a very common and very confusing bug.',
+      '<b>Slicing <code>nums[1:]</code> at every level</b> costs O(n) per call and quietly adds a factor to the runtime. Fine at n &le; 8; worth mentioning aloud.'
+    ],
+    template: "# The version to have in your fingers - same problem, backtracking form.\ndef permute(nums):\n    res, perm = [], []\n    used = [False] * len(nums)\n\n    def dfs():\n        if len(perm) == len(nums):\n            res.append(perm.copy())\n            return\n        for i in range(len(nums)):\n            if used[i]:\n                continue\n            used[i] = True;  perm.append(nums[i])    # choose\n            dfs()                                    # explore\n            perm.pop();      used[i] = False         # un-choose\n\n    dfs()\n    return res\n",
+    variants:[
+      ['Input contains duplicates','LC 47 — counter budget, or sort + skip.'],
+      ['Permutations of a fixed length k','Backtracking with a depth guard; bottom-up does not adapt cleanly.'],
+      ['<b>N-Queens</b> (LC 51)','A permutation search with pruning. Only the backtracking form supports pruning at all — you cannot abandon a branch you have already fully built.'],
+      ['Next permutation','LC 31 — O(n) in place, no recursion.']
+    ],
+    thinking:'Here is the concrete reason to re-solve this with backtracking: <b>bottom-up construction cannot prune.</b> It builds every complete answer and only then filters. The moment a problem adds a constraint — no two queens attacking, sum must equal X, string must stay valid — you need to abandon partial answers early, and that requires the shared-state-plus-undo shape. Your 47 solution already uses it. Rewrite 46 in the same style, diff the two files, and the pattern is yours.'
+  }
+});
+
+</script>
+</body>
+</html>

@@ -1,7 +1,8 @@
 import io,os,re,subprocess,sys,glob,json
 ROOT=os.path.dirname(os.path.abspath(__file__))
 STUB = """
-var document={title:'',body:{appendChild:function(){}},createElement:function(){return {};},
+var document={title:'',currentScript:{getAttribute:function(){return '_engine.js';}},
+  getElementsByTagName:function(){return [{getAttribute:function(){return '_engine.js';}}];},body:{appendChild:function(){}},createElement:function(){return {};},
   getElementById:function(){return {style:{},classList:{add:function(){},remove:function(){}},
     querySelectorAll:function(){return [];},querySelector:function(){return null;},
     scrollIntoView:function(){}};},

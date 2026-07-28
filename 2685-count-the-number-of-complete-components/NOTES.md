@@ -1,9 +1,9 @@
 # 2685. Count the Number of Complete Components
-> **Medium** &nbsp;·&nbsp; Connected components + a counting criterion &nbsp;·&nbsp; family: **Graphs, BFS & DFS**
+> **Medium** &nbsp;&middot;&nbsp; Connected components + a counting criterion &nbsp;&middot;&nbsp; family: **Graphs, BFS & DFS**
 
 Two standard pieces: DFS to find components, and the handshake lemma to test completeness by counting edges instead of checking every pair.
 
-**▶ [Step through this solution line by line](../visualizations/2685-count-the-number-of-complete-components.html)** — 21 steps, traced on `n = 6, edges = [[0,1],[0,2],[1,2],[3,4]]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 21 steps, traced on `n = 6, edges = [[0,1],[0,2],[1,2],[3,4]]`.
 
 | | |
 |---|---|
@@ -71,4 +71,4 @@ Separate **traversal** from **criterion**. The sweep-and-DFS that enumerates com
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/count-the-number-of-complete-components)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/count-the-number-of-complete-components)

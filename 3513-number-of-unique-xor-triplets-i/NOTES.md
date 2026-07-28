@@ -1,9 +1,9 @@
 # 3513. Number of Unique XOR Triplets I
-> **Medium** &nbsp;·&nbsp; Bit reasoning · closed form &nbsp;·&nbsp; family: **Bit manipulation**
+> **Medium** &nbsp;&middot;&nbsp; Bit reasoning · closed form &nbsp;&middot;&nbsp; family: **Bit manipulation**
 
 One line, O(1). The whole problem is the promise hidden in the statement: *nums is a permutation of 1..n*, which means the answer depends only on n.
 
-**▶ [Step through this solution line by line](../visualizations/3513-number-of-unique-xor-triplets-i.html)** — 5 steps, traced on `nums = a permutation of [1,2,3,4]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 5 steps, traced on `nums = a permutation of [1,2,3,4]`.
 
 | | |
 |---|---|
@@ -55,4 +55,4 @@ Read constraints as **information**, not just as size limits. "A permutation of 
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/number-of-unique-xor-triplets-i)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/number-of-unique-xor-triplets-i)

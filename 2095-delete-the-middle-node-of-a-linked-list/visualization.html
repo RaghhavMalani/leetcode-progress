@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2095 - Delete the Middle Node</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["# Definition for singly-linked list.", "# class ListNode:", "#     def __init__(self, val=0, next=None):", "#         self.val = val", "#         self.next = next", "class Solution:", "    def deleteMiddle(self, head: Optional[ListNode]) -> Optional[ListNode]:", "        if not head.next:", "            return None", "", "        slow = head", "        fast = head", "        prev = None", "", "        while fast and fast.next:", "            prev = slow", "            slow = slow.next", "            fast = fast.next.next", "", "        prev.next = slow.next", "", "        return head"];
+function build(){
+  var T=LV.trace();
+  var v=[1,3,4,7,1,2,6], slow=0, fast=0, prev=null, gone=null;
+  function marks(){ var m={}; if(gone!=null) m[gone]='bad'; m[slow]='hot'; if(fast<v.length) m[fast]='warn'; if(prev!=null) m[prev]='vio'; return m; }
+  function ptr(){ var t={}; function a(i,l){ if(i==null||i>=v.length) return; t[i]=(t[i]?t[i]+' ':'')+l; }
+    a(prev,'prev'); a(slow,'slow'); a(fast,'fast'); return t; }
+  function V(n){ return [ LV.ll('list', v.map(function(x,i){ return {v:x,id:'n'+i,cls: gone===i?'dim':(i===slow?'hot':'')}; }), ptr(), {note:n||''}),
+    LV.arr('index view', v, marks(), {ptrs:ptr()}) ]; }
+  function VA(){ return ['slow = <b>'+(slow<v.length?v[slow]:'None')+'</b>','fast = <i>'+(fast<v.length?v[fast]:'None')+'</i>','prev = <em>'+(prev==null?'None':v[prev])+'</em>']; }
+
+  T.step(8,'info','Guard first: a one-node list has no middle to keep, so return None. Handling the degenerate input before the machinery is a habit worth having.',VA(),V());
+  T.step(15,'info','Fast/slow again, but the goal is the MIDDLE, not a cycle. `prev` trails slow by one because deleting a node means rewiring its predecessor.',VA(),V());
+  while(fast<v.length && fast+1<v.length){
+    prev=slow; slow++; fast+=2;
+    T.step(18,'push','prev → '+v[prev]+', slow → '+v[slow]+', fast → '+(fast<v.length?v[fast]:'None')+'. Fast covers twice the ground, so when it reaches the end slow is exactly halfway.',VA(),V());
+  }
+  T.step(15,'info','fast has run off (or is on the last node), so slow = '+v[slow]+' is the middle — index '+slow+' of '+v.length+', which is ⌊n/2⌋ exactly as the problem defines it.',VA(),V());
+  gone=slow;
+  T.save('deleted '+v[slow]+' at index '+slow);
+  T.step(20,'found','`prev.next = slow.next` splices node '+v[slow]+' out. prev ('+v[prev]+') now points straight at '+(slow+1<v.length?v[slow+1]:'None')+'.',VA(),V('node 7 removed'));
+  T.step(22,'done','Return the original head: <b>[' + v.filter(function(_,i){return i!==gone;}).join(', ') + ']</b>. One pass, O(1) space, no length count.',VA(),V());
+  return T;
+}
+LV.render({
+  num:'2095', name:'Delete the Middle Node of a Linked List', slug:'2095-delete-the-middle-node-of-a-linked-list',
+  difficulty:'Medium', pattern:'Fast & slow pointers · find the middle',
+  url:'https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list',
+  blurb:'Fast/slow doing its second job: finding the midpoint. The extra wrinkle is <code>prev</code> — to delete a node you need its predecessor, and a singly linked list will not give you one.',
+  input:'head = [1,3,4,7,1,2,6]', runName:'deleteMiddle',
+  skipLabel:null, emptyResult:'nothing deleted yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n) — one pass', space:'O(1)'},
+  theory:{
+    idea:'Same two pointers as cycle detection, different question. When fast has covered 2k steps, slow has covered k — so when fast hits the end, slow is at the middle. The only real decision is <b>which</b> middle: <code>while fast and fast.next</code> lands slow on the upper middle (index ⌊n/2⌋), which is what this problem defines.',
+    recognize:[
+      '"Middle node", "split in half", "second half of the list" — including as a step inside LC 143 and LC 234.',
+      'Deleting in a singly linked list always means "find the predecessor", so you need either a trailing pointer or a dummy.',
+      'If you can afford two passes, counting the length and walking n//2 is simpler and completely acceptable — say so first.'
+    ],
+    pitfalls:[
+      '<b>Which middle.</b> <code>while fast and fast.next</code> vs <code>while fast.next and fast.next.next</code> give the upper and lower middle. On an even-length list they differ, and the problem statement decides which is right. Check with n = 4 on paper.',
+      '<b>Forgetting <code>prev</code>.</b> You end up at the node you want to delete with no way to unlink it.',
+      '<b>Not guarding the single-node case.</b> <code>prev</code> stays None and <code>prev.next</code> throws. Line 8 exists for exactly this.',
+      '<b>A dummy would remove <code>prev</code> entirely</b> — start <code>slow = dummy</code> and the trailing pointer is free. Worth mentioning as a cleanup.'
+    ],
+    template: "# Find the middle with fast & slow\nslow = fast = head\nwhile fast and fast.next:      # -> slow ends on the UPPER middle\n    slow = slow.next\n    fast = fast.next.next\n\n# lower middle instead? use:  while fast.next and fast.next.next\n# need the predecessor too?  start slow at a dummy in front of head\n",
+    variants:[
+      ['<b>Middle of the Linked List</b> (LC 876)','Return slow instead of deleting.'],
+      ['<b>Reorder List</b> (LC 143)','Find the middle, reverse the second half, interleave. Also in your repo.'],
+      ['<b>Palindrome Linked List</b> (LC 234)','Middle, reverse, compare.'],
+      ['<b>Sort List</b> (LC 148)','Middle to split, recurse, merge — merge sort on a list.']
+    ],
+    thinking:'"Find the middle" is a <b>primitive</b>, not a problem. Four different Mediums in your repo and beyond are "find the middle" composed with one other primitive (reverse, merge, compare). Build the habit of asking after each solve: <em>what one-line capability did I just implement, and what does it compose with?</em> That is how a hundred solved problems becomes twenty remembered techniques instead of a hundred forgotten solutions.'
+  }
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>837 / 867 - New 21 Game</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def new21Game(self, n, k, maxPts):", "        if k == 0 or n >= k + maxPts:", "            return 1.0", "", "        dp = [0.0] * (n + 1)", "        dp[0] = 1.0", "        window_sum = 1.0", "        result = 0.0", "", "        for i in range(1, n + 1):", "            dp[i] = window_sum / maxPts", "            ", "            if i < k:", "                window_sum += dp[i]", "            else:", "                result += dp[i]", "", "            if i >= maxPts:", "                window_sum -= dp[i - maxPts]", "                ", "        return result"];
+function build(){
+  var T=LV.trace(), n=6, k=4, mx=3;
+  var dp=new Array(n+1).fill(0); dp[0]=1; var ws=1, res=0;
+  function fmt(x){ return (Math.round(x*1000)/1000); }
+  function V(i,note){ var m={};
+    for(var x=0;x<=n;x++){
+      if(x>i) m[x]='dim';
+      else if(x===i) m[x]='hot';
+      else if(x>=Math.max(0,i-mx) && x<k) m[x]='win';
+      else if(x>=k) m[x]='good';
+    }
+    return [ LV.arr('dp[i] = probability of ending on exactly i points', dp.map(fmt), m,
+      {note:note||'blue = the window that feeds dp[i];  green = a terminal score (≥ k)'}),
+      LV.kv('state', [['window_sum',fmt(ws)],['result',fmt(res)],['k',k],['maxPts',mx],['n',n]], {'window_sum':'hot'}, {}) ]; }
+  function VA(i){ return ['i = <b>'+i+'</b>','window_sum = <em>'+fmt(ws)+'</em>','result = <u>'+fmt(res)+'</u>']; }
+
+  T.step(3,'info','Guard the trivial cases: if k = 0 you never draw, and if n ≥ k + maxPts you cannot possibly overshoot. Both give probability 1.',['k = 4','maxPts = 3','n = 6'],V(null));
+  T.step(7,'info','dp[i] = the probability of ever being on exactly i points. dp[0] = 1 because you start there. You draw only while your score is BELOW k, so points 0..k−1 are the "draw again" states and k..n are terminal.',VA(0),V(0));
+  T.step(8,'info','The recurrence is dp[i] = (dp[i−1] + … + dp[i−maxPts]) / maxPts — from any of the previous maxPts scores you could have drawn the right card. Summing that window naively is O(n·maxPts); a <b>rolling window sum</b> makes it O(n).',VA(0),V(0));
+  for(var i=1;i<=n;i++){
+    dp[i]=ws/mx;
+    T.step(12,'push','dp['+i+'] = window_sum / maxPts = '+fmt(ws)+' / '+mx+' = <b>'+fmt(dp[i])+'</b>.',VA(i),V(i));
+    if(i<k){
+      ws+=dp[i];
+      T.step(15,'ok',i+' &lt; k = '+k+', so this is a state you keep DRAWING from. Add dp['+i+'] to the window so it can feed later scores. window_sum → '+fmt(ws)+'.',VA(i),V(i));
+    } else {
+      res+=dp[i];
+      T.step(17,'found',i+' ≥ k = '+k+', so the game STOPS here. It is a valid final score ≤ n, so add it to the result: '+fmt(res)+'. Note it is deliberately NOT added to the window — you never draw from a terminal state.',VA(i),V(i));
+      T.save('P(end on '+i+') = '+fmt(dp[i]));
+    }
+    if(i>=mx){
+      ws-=dp[i-mx];
+      T.step(20,'pop','i ≥ maxPts, so dp['+(i-mx)+'] has slid out of the reachable window — subtract it. window_sum → '+fmt(ws)+'. This add-one/drop-one pair is what keeps the whole thing linear.',VA(i),V(i));
+    }
+  }
+  T.step(22,'done','Answer: <b>'+fmt(res)+'</b> — the probability of finishing with n = 6 or fewer points. O(n) time, and the sliding window over the dp array is the entire optimisation.',['answer = <u>'+fmt(res)+'</u>'],V(n,'finished'));
+  return T;
+}
+LV.render({
+  num:'867', name:'New 21 Game', slug:'0867-new-21-game',
+  difficulty:'Medium', pattern:'Probability DP · sliding window sum',
+  url:'https://leetcode.com/problems/new-21-game',
+  blurb:'A DP whose recurrence sums a fixed-width window of earlier states. Recomputing that sum is O(n·maxPts); maintaining it incrementally is O(n) — and that pattern generalises far beyond this problem.',
+  input:'n = 6, k = 4, maxPts = 3', runName:'new21Game',
+  skipLabel:'Skip to next terminal score', skipTypes:['found'], emptyResult:'no terminal scores yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n) — the window sum makes it linear', space:'O(n), reducible to O(maxPts)'},
+  theory:{
+    idea:'Two ideas. <b>Probability DP:</b> dp[i] is the probability of ever reaching exactly i, and it is the average of the previous maxPts states because each draw is uniform. <b>Rolling window sum:</b> when a recurrence sums a contiguous window of previous states, maintain the sum with one add and one subtract per step instead of re-summing.',
+    recognize:[
+      'A recurrence of the form <code>dp[i] = f(dp[i-1] … dp[i-w])</code> where w is fixed. Sum → rolling sum. Max → monotonic deque. Min → the same deque, flipped.',
+      'Probability questions where each step has uniformly random outcomes.',
+      'The two-region structure — states you continue from, states you stop at — is common in absorbing-state problems.'
+    ],
+    pitfalls:[
+      '<b>Adding terminal states to the window.</b> Once i ≥ k the game stops, so dp[i] must never feed a later dp. Getting this wrong is the conceptual error that makes the answer exceed 1.',
+      '<b>Forgetting to subtract the element that leaves the window.</b> Line 19–20. Without it the window keeps growing and every probability is wrong.',
+      '<b>Missing the early return.</b> When <code>n >= k + maxPts</code> you cannot bust, so the answer is exactly 1.0 — and without that guard the loop may not even be well defined.',
+      '<b>Float accumulation.</b> Fine at these sizes, but be aware you are summing thousands of small floats.'
+    ],
+    template: "# DP whose transition sums a fixed window -> keep the sum rolling\ndp = [0.0] * (n + 1); dp[0] = 1.0\nwindow = 1.0          # sum of dp[i-maxPts .. i-1], but only over DRAWING states\nres = 0.0\n\nfor i in range(1, n + 1):\n    dp[i] = window / maxPts\n    if i < k:  window += dp[i]     # still drawing -> it can feed later states\n    else:      res    += dp[i]     # terminal -> counts as an answer, NOT in window\n    if i >= maxPts:\n        window -= dp[i - maxPts]   # slid out of range\nreturn res\n\n# window is a MAX instead of a sum? use a monotonic deque.\n",
+    variants:[
+      ['<b>Climbing Stairs</b> (LC 70)','The same fixed-window recurrence with w = 2 and no division. Also in your repo.'],
+      ['Sliding window MAX in a DP','Monotonic deque instead of a running sum — e.g. LC 1696 Jump Game VI.'],
+      ['<b>Knight Probability in Chessboard</b> (LC 688)','Probability DP over a grid, no window trick needed.'],
+      ['<b>Number of Zigzag Arrays</b> (LC 3699)','Prefix sums inside a DP transition. Also in your repo.']
+    ],
+    thinking:'Whenever you write a DP, look at the transition and ask <b>"is this a sum or an extremum over a contiguous window of previous states?"</b> If yes, you can almost always drop a factor of w: running sum for sums, monotonic deque for max/min, prefix sums when the window varies. That single observation is the difference between an accepted solution and a TLE in a large fraction of medium DP problems.'
+  }
+});
+
+</script>
+</body>
+</html>

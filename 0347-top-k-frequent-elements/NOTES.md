@@ -1,9 +1,9 @@
 # 347. Top K Frequent Elements
-> **Medium** &nbsp;·&nbsp; Bucket sort · frequency &nbsp;·&nbsp; family: **Hashing**
+> **Medium** &nbsp;&middot;&nbsp; Bucket sort · frequency &nbsp;&middot;&nbsp; family: **Hashing**
 
 The O(n) answer that beats both sorting and the heap. It works because a frequency is bounded by n, which means you can use it directly as an array index.
 
-**▶ [Step through this solution line by line](../visualizations/0347-top-k-frequent-elements.html)** — 18 steps, traced on `nums = [1,1,1,2,2,3], k = 2`.
+**▶ [Step through this solution line by line](./visualization.html)** — 18 steps, traced on `nums = [1,1,1,2,2,3], k = 2`.
 
 | | |
 |---|---|
@@ -59,4 +59,4 @@ Add one question to your checklist whenever you are about to sort: **"is my sort
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/top-k-frequent-elements)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/top-k-frequent-elements)

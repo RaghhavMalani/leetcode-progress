@@ -1,9 +1,9 @@
 # 3689. Maximum Total Subarray Value I
-> **Medium** &nbsp;·&nbsp; Observation · the constraint that is not there &nbsp;·&nbsp; family: **Greedy**
+> **Medium** &nbsp;&middot;&nbsp; Observation · the constraint that is not there &nbsp;&middot;&nbsp; family: **Greedy**
 
 A one-line solution whose entire content is a reading-comprehension point: the k subarrays need not be *distinct*. Once you notice that, there is nothing left to compute.
 
-**▶ [Step through this solution line by line](../visualizations/3689-maximum-total-subarray-value-i.html)** — 4 steps, traced on `nums = [1,3,2], k = 3`.
+**▶ [Step through this solution line by line](./visualization.html)** — 4 steps, traced on `nums = [1,3,2], k = 3`.
 
 | | |
 |---|---|
@@ -51,4 +51,4 @@ Read the constraints as carefully as the question. Specifically hunt for **const
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/maximum-total-subarray-value-i)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/maximum-total-subarray-value-i)

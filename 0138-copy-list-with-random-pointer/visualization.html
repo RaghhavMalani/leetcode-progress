@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>138 - Copy List With Random Pointer</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["/*", "// Definition for a Node.", "class Node {", "public:", "    int val;", "    Node* next;", "    Node* random;", "    ", "    Node(int _val) {", "        val = _val;", "        next = NULL;", "        random = NULL;", "    }", "};", "*/", "", "class Solution {", "public:", "    Node* copyRandomList(Node* head) {", "        unordered_map<Node*,Node*> oldcopy;", "        oldcopy[nullptr] = nullptr;", "", "        Node* curr =  head;", "        while (curr != nullptr){", "            oldcopy[curr] = new Node(curr->val);", "            curr = curr->next;", "        }", "", "        curr = head;", "        while(curr != nullptr){", "            Node* copy = oldcopy[curr];", "            copy->next = oldcopy[curr->next];", "            copy->random = oldcopy[curr->random];", "            curr = curr->next;", "        }", "", "        return oldcopy[head];", "    }", "};"];
+function build(){
+  var T=LV.trace();
+  var vals=[7,13,11,10,1], rnd=[null,0,4,2,0];
+  var made={}, order=[];
+  function OV(hot){ return LV.ll('original list', vals.map(function(v,i){ return {v:v,id:'o'+i,cls:(i===hot)?'hot':''}; }), {}, {nullTail:false,
+    note:'random pointers: ' + vals.map(function(v,i){ return v+'→'+(rnd[i]===null?'null':vals[rnd[i]]); }).join(',  ')}); }
+  function CV(hot,phase){ return LV.ll('copies', order.map(function(i){ return {v:vals[i],id:'c'+i,cls:(i===hot)?'hot':'good'}; }), {}, {nullTail:false,
+    note: phase===2 ? 'now wiring next and random through the map' : 'nodes exist but all their pointers are still null'}); }
+  function MV(hot){ return LV.kv('oldcopy  (original node → its clone)',
+    [['nullptr','nullptr']].concat(order.map(function(i){ return ['node '+vals[i], 'copy '+vals[i]]; })),
+    (function(){ var m={}; if(hot!=null) m['node '+vals[hot]]='hot'; return m; })(), {}); }
+
+  T.step(21,'info','<code>oldcopy[nullptr] = nullptr</code> — the single cleverest line here. It means every later lookup, including ones on null pointers, can be done unconditionally. No <code>if (x) … else nullptr</code> anywhere.',['map size = <b>1</b>'],[OV(null),MV(null)]);
+  T.step(24,'info','<b>Pass 1:</b> create every clone, with no pointers set at all. You cannot wire pointers yet because the target of a random pointer may not have been created.',['pass <b>1</b> of 2'],[OV(0),CV(null,1),MV(null)]);
+  vals.forEach(function(v,i){
+    made[i]=1; order.push(i);
+    T.step(25,'push','Create a clone of node '+v+' and record oldcopy[node '+v+'] = copy '+v+'. Value only — next and random stay null.',['pass <b>1</b>'],[OV(i),CV(i,1),MV(i)]);
+    T.save('cloned '+v);
+  });
+  T.step(30,'info','<b>Pass 2:</b> now that every clone exists, wire the pointers. This is why two passes are unavoidable with this approach.',['pass <b>2</b> of 2'],[OV(0),CV(null,2),MV(null)]);
+  vals.forEach(function(v,i){
+    T.step(32,'ok','copy('+v+')->next = oldcopy[node '+v+'->next] = '+(i+1<vals.length?'copy '+vals[i+1]:'nullptr → and the map lookup handles that with no branch')+'.',['pass <b>2</b>'],[OV(i),CV(i,2),MV(i)]);
+    T.step(33,'ok','copy('+v+')->random = oldcopy[node '+v+'->random] = '+(rnd[i]===null?'nullptr':'copy '+vals[rnd[i]])+'. Note we look up the ORIGINAL target in the map and get its clone — that is the whole trick.',['pass <b>2</b>'],[OV(i),CV(i,2),MV(rnd[i])]);
+    T.save('wired '+v);
+  });
+  T.step(37,'done','Return <code>oldcopy[head]</code>. A perfect deep copy in O(n) time and O(n) space. The O(1)-space version interleaves clones into the original list — see below.',['done'],[OV(null),CV(null,2),MV(null)]);
+  return T;
+}
+LV.render({
+  num:'138', name:'Copy List With Random Pointer', slug:'0138-copy-list-with-random-pointer',
+  difficulty:'Medium', pattern:'Hash map old→new · two-pass clone',
+  url:'https://leetcode.com/problems/copy-list-with-random-pointer',
+  blurb:'The general recipe for deep-copying any linked structure: pass one creates the nodes, pass two wires them through an old→new map. And <code>map[null] = null</code> deletes every null check.',
+  input:'head = [[7,null],[13,0],[11,4],[10,2],[1,0]]', runName:'copyRandomList',
+  skipLabel:null, emptyResult:'nothing cloned yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n) — two passes', space:'O(n) for the map; O(1) achievable by interleaving'},
+  theory:{
+    idea:'Deep-copying a structure with <b>arbitrary internal references</b> is always two phases: <b>(1) create every node</b> so that a mapping old→new exists for all of them, then <b>(2) translate each pointer</b> by looking its target up in that map. One phase cannot work, because a pointer may target a node you have not reached yet.',
+    recognize:[
+      'Clone / deep copy of a graph, list, or tree with cross-links.',
+      'Any structure where <code>node.x</code> can point anywhere, not just forward.',
+      'Exactly the same recipe solves LC 133 Clone Graph and LC 1485 Clone Binary Tree with Random Pointer.'
+    ],
+    pitfalls:[
+      '<b>Wiring in pass one.</b> <code>copy->random</code> may refer to a node that does not exist yet.',
+      '<b>Forgetting the null entry.</b> Without <code>oldcopy[nullptr] = nullptr</code> every dereference needs a guard, and <code>map[nullptr]</code> on a missing key would default-construct a null anyway in C++ — but relying on that accidentally is worse than stating it.',
+      '<b>Shallow copying.</b> Returning the original head, or copying nodes but reusing the original pointers, passes trivial tests and fails the real ones.',
+      '<b>Not knowing the O(1)-space version.</b> Interleave each clone directly after its original, set randoms via <code>orig->next->random = orig->random->next</code>, then unweave. It is the standard follow-up.'
+    ],
+    template: "# deep copy ANY structure with arbitrary internal references\nold_to_new = {None: None}          # identity entry -> no null checks later\n\ncur = head                          # pass 1: CREATE every node, no pointers\nwhile cur:\n    old_to_new[cur] = Node(cur.val)\n    cur = cur.next\n\ncur = head                          # pass 2: TRANSLATE every pointer\nwhile cur:\n    c = old_to_new[cur]\n    c.next   = old_to_new[cur.next]\n    c.random = old_to_new[cur.random]\n    cur = cur.next\n\nreturn old_to_new[head]\n# O(1) space variant: interleave clone after each original, wire randoms via\n#   orig.next.random = orig.random.next, then unweave the two lists.\n",
+    variants:[
+      ['<b>Clone Graph</b> (LC 133)','Same map, but built during a DFS or BFS since there is no linear order.'],
+      ['<b>Clone Binary Tree with Random Pointer</b> (LC 1485)','Identical recipe on a tree.'],
+      ['O(1) space','Interleave, wire, unweave — three passes, no map.'],
+      ['Deep copy with cycles','The map also serves as the visited set, so cycles are handled for free.']
+    ],
+    thinking:'Memorise the recipe rather than the problem: <b>"map from old object to new object, create everything first, translate references second."</b> That sentence solves every deep-copy question you will ever be asked, in any language, for any structure. And notice the general trick of <code>map[null] = null</code> — inserting an identity entry for the degenerate case so the main loop needs no branches. That idea (like sentinel nodes and padded prefix arrays) turns special cases into ordinary ones.'
+  }
+});
+
+</script>
+</body>
+</html>

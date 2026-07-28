@@ -1,9 +1,9 @@
 # 90. Subsets II
-> **Medium** &nbsp;·&nbsp; Backtracking · duplicate suppression &nbsp;·&nbsp; family: **Backtracking**
+> **Medium** &nbsp;&middot;&nbsp; Backtracking · duplicate suppression &nbsp;&middot;&nbsp; family: **Backtracking**
 
 Problem 78 plus one while loop. Compare the tree here with the one on the Subsets page: two branches that would have been identical have been merged away.
 
-**▶ [Step through this solution line by line](../visualizations/0090-subsets-ii.html)** — 43 steps, traced on `nums = [1,2,2]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 43 steps, traced on `nums = [1,2,2]`.
 
 | | |
 |---|---|
@@ -52,4 +52,4 @@ Build yourself a two-axis grid: rows = {subsets, combinations with a target, per
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/subsets-ii)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/subsets-ii)

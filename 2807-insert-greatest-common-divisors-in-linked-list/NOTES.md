@@ -1,9 +1,9 @@
 # 2807. Insert Greatest Common Divisors in Linked List
-> **Medium** &nbsp;·&nbsp; Linked list · insert between pairs &nbsp;·&nbsp; family: **Linked lists**
+> **Medium** &nbsp;&middot;&nbsp; Linked list · insert between pairs &nbsp;&middot;&nbsp; family: **Linked lists**
 
 The only real trap is the advance step: after inserting, you must move forward **two** nodes, not one — otherwise you keep inserting between your own insertions.
 
-**▶ [Step through this solution line by line](../visualizations/2807-insert-greatest-common-divisors-in-linked-list.html)** — 14 steps, traced on `head = [18,6,10,3]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 14 steps, traced on `head = [18,6,10,3]`.
 
 | | |
 |---|---|
@@ -59,4 +59,4 @@ Whenever you mutate a container while iterating it, **write down where the curso
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/insert-greatest-common-divisors-in-linked-list)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/insert-greatest-common-divisors-in-linked-list)

@@ -1,9 +1,9 @@
 # 1071. Greatest Common Divisor of Strings
-> **Easy** &nbsp;·&nbsp; Number theory analogy · gcd on lengths &nbsp;·&nbsp; family: **Math & number theory**
+> **Easy** &nbsp;&middot;&nbsp; Number theory analogy · gcd on lengths &nbsp;&middot;&nbsp; family: **Math & number theory**
 
 Your solution scans candidate lengths downwards. There is a two-line version built on a lovely fact: a common divisor string exists *iff* `s1 + s2 == s2 + s1`, and its length is exactly `gcd(len(s1), len(s2))`.
 
-**▶ [Step through this solution line by line](../visualizations/1071-greatest-common-divisor-of-strings.html)** — 5 steps, traced on `str1 = "ABCABC", str2 = "ABC"`.
+**▶ [Step through this solution line by line](./visualization.html)** — 5 steps, traced on `str1 = "ABCABC", str2 = "ABC"`.
 
 | | |
 |---|---|
@@ -57,4 +57,4 @@ When a problem uses arithmetic vocabulary — divides, multiple, common, greates
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/greatest-common-divisor-of-strings)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/greatest-common-divisor-of-strings)

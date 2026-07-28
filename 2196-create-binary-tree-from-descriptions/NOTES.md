@@ -1,9 +1,9 @@
 # 2196. Create Binary Tree From Descriptions
-> **Medium** &nbsp;·&nbsp; Hash map · build a structure from edges &nbsp;·&nbsp; family: **Hashing**
+> **Medium** &nbsp;&middot;&nbsp; Hash map · build a structure from edges &nbsp;&middot;&nbsp; family: **Hashing**
 
 Building a tree from an unordered edge list. Two ideas: a value→node map so nodes are created once and shared, and finding the root by elimination — the only value that is never a child.
 
-**▶ [Step through this solution line by line](../visualizations/2196-create-binary-tree-from-descriptions.html)** — 25 steps, traced on `descriptions = [[20,15,1],[20,17,0],[50,20,1],[50,80,0],[80,19,1]]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 25 steps, traced on `descriptions = [[20,15,1],[20,17,0],[50,20,1],[50,80,0],[80,19,1]]`.
 
 | | |
 |---|---|
@@ -62,4 +62,4 @@ Whenever a structure is described by edges rather than by nesting, reach for **a
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/create-binary-tree-from-descriptions)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/create-binary-tree-from-descriptions)

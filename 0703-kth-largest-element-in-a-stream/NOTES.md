@@ -1,9 +1,9 @@
 # 703. Kth Largest Element in a Stream
-> **Easy** &nbsp;·&nbsp; Heap · bounded size-k min-heap &nbsp;·&nbsp; family: **Sorting & divide and conquer**
+> **Easy** &nbsp;&middot;&nbsp; Heap · bounded size-k min-heap &nbsp;&middot;&nbsp; family: **Sorting & divide and conquer**
 
 The inversion worth memorising: **k largest → min-heap of size k**. The root is the weakest survivor, which is exactly the kth largest, and it makes eviction O(1) to find.
 
-**▶ [Step through this solution line by line](../visualizations/0703-kth-largest-element-in-a-stream.html)** — 25 steps, traced on `k = 3, nums = [4,5,8,2], then add(3), add(5), add(10), add(9), add(4)`.
+**▶ [Step through this solution line by line](./visualization.html)** — 25 steps, traced on `k = 3, nums = [4,5,8,2], then add(3), add(5), add(10), add(9), add(4)`.
 
 | | |
 |---|---|
@@ -64,4 +64,4 @@ The reusable question is **"what is the smallest set of items that could still a
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/kth-largest-element-in-a-stream)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/kth-largest-element-in-a-stream)

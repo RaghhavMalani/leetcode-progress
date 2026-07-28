@@ -1,9 +1,9 @@
 # 2812. Find the Safest Path in a Grid
-> **Medium** &nbsp;·&nbsp; Multi-source BFS + maximin Dijkstra &nbsp;·&nbsp; family: **Graphs, BFS & DFS**
+> **Medium** &nbsp;&middot;&nbsp; Multi-source BFS + maximin Dijkstra &nbsp;&middot;&nbsp; family: **Graphs, BFS & DFS**
 
 Two classic techniques stacked. Multi-source BFS builds a distance field from all thieves at once; then a max-heap search finds the path whose weakest cell is as strong as possible.
 
-**▶ [Step through this solution line by line](../visualizations/2812-find-the-safest-path-in-a-grid.html)** — 36 steps, traced on `grid = [[0,0,1],[0,0,0],[0,0,0]]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 36 steps, traced on `grid = [[0,0,1],[0,0,0],[0,0,0]]`.
 
 | | |
 |---|---|
@@ -68,4 +68,4 @@ Two habits. First: when many sources need a "distance to nearest" field, **think
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/find-the-safest-path-in-a-grid)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/find-the-safest-path-in-a-grid)

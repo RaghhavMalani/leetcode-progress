@@ -1,9 +1,9 @@
 # 3699. Number of Zigzag Arrays I
-> **Hard** &nbsp;·&nbsp; DP with direction state + prefix-sum transitions &nbsp;·&nbsp; family: **Dynamic programming**
+> **Hard** &nbsp;&middot;&nbsp; DP with direction state + prefix-sum transitions &nbsp;&middot;&nbsp; family: **Dynamic programming**
 
 Two lessons: the state you need is "last value + last direction", and a transition that sums over a range collapses from O(m) to O(1) with a running prefix sum.
 
-**▶ [Step through this solution line by line](../visualizations/3699-number-of-zigzag-arrays-i.html)** — 13 steps, traced on `n = 3, l = 4, r = 5`.
+**▶ [Step through this solution line by line](./visualization.html)** — 13 steps, traced on `n = 3, l = 4, r = 5`.
 
 | | |
 |---|---|
@@ -69,4 +69,4 @@ Two questions to run on every DP. **First: what is the minimal state?** Here, "l
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/number-of-zigzag-arrays-i)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/number-of-zigzag-arrays-i)

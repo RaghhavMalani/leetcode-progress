@@ -1,9 +1,9 @@
 # 3620. Network Recovery Pathways
-> **Hard** &nbsp;·&nbsp; Binary search on the answer + DAG shortest path &nbsp;·&nbsp; family: **Binary search**
+> **Hard** &nbsp;&middot;&nbsp; Binary search on the answer + DAG shortest path &nbsp;&middot;&nbsp; family: **Binary search**
 
 The most transferable technique in competitive programming: when the answer is hard to compute but easy to *verify*, binary search it. Here each verification is a linear sweep over a topological order.
 
-**▶ [Step through this solution line by line](../visualizations/3620-network-recovery-pathways.html)** — 16 steps, traced on `n = 4, edges = [[0,1,5],[1,3,10],[0,2,4],[2,3,4]], k = 10`.
+**▶ [Step through this solution line by line](./visualization.html)** — 16 steps, traced on `n = 4, edges = [[0,1,5],[1,3,10],[0,2,4],[2,3,4]], k = 10`.
 
 | | |
 |---|---|
@@ -66,4 +66,4 @@ Whenever a problem asks for an optimum and you cannot see how to compute it, **f
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/network-recovery-pathways)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/network-recovery-pathways)

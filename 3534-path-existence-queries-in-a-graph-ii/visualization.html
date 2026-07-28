@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3534 - Path Existence Queries in a Graph II</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution {", "public:", "    vector<int> pathExistenceQueries(", "        int n,", "        vector<int>& nums,", "        int maxDiff,", "        vector<vector<int>>& queries", "    ) {", "        vector<pair<int, int>> sortedNodes;", "", "        for (int i = 0; i < n; i++) {", "            sortedNodes.push_back({nums[i], i});", "        }", "", "        sort(sortedNodes.begin(), sortedNodes.end());", "", "        vector<int> values(n);", "        vector<int> position(n);", "", "        for (int i = 0; i < n; i++) {", "            values[i] = sortedNodes[i].first;", "            position[sortedNodes[i].second] = i;", "        }", "", "        vector<int> farthest(n);", "", "        int right = 0;", "", "        for (int left = 0; left < n; left++) {", "            right = max(right, left);", "", "            while (", "                right + 1 < n &&", "                values[right + 1] - values[left] <= maxDiff", "            ) {", "                right++;", "            }", "", "            farthest[left] = right;", "        }", "", "        vector<int> component(n, 0);", "", "        for (int i = 1; i < n; i++) {", "            component[i] = component[i - 1];", "", "            if (values[i] - values[i - 1] > maxDiff) {", "                component[i]++;", "            }", "        }", "", "        int LOG = 1;", "", "        while ((1 << LOG) <= n) {", "            LOG++;", "        }", "", "        vector<vector<int>> jump(LOG, vector<int>(n));", "", "        for (int i = 0; i < n; i++) {", "            jump[0][i] = farthest[i];", "        }", "", "        for (int k = 1; k < LOG; k++) {", "            for (int i = 0; i < n; i++) {", "                jump[k][i] = jump[k - 1][jump[k - 1][i]];", "            }", "        }", "", "        vector<int> answer;", "", "        for (const vector<int>& query : queries) {", "            int left = position[query[0]];", "            int right = position[query[1]];", "", "            if (left > right) {", "                swap(left, right);", "            }", "", "            if (left == right) {", "                answer.push_back(0);", "                continue;", "            }", "", "            if (component[left] != component[right]) {", "                answer.push_back(-1);", "                continue;", "            }", "", "            int current = left;", "            int distance = 0;", "", "            for (int k = LOG - 1; k >= 0; k--) {", "                int nextPosition = jump[k][current];", "", "                if (nextPosition > current && nextPosition < right) {", "                    current = nextPosition;", "                    distance += (1 << k);", "                }", "            }", "", "            answer.push_back(distance + 1);", "        }", "", "        return answer;", "    }", "};"];
+function build(){
+  var T=LV.trace();
+  var nums=[1,8,3,10], maxDiff=3, n=4;
+  var idx=[0,1,2,3].sort(function(a,b){ return nums[a]-nums[b]; });
+  var values=idx.map(function(i){ return nums[i]; });
+  var pos=new Array(n); idx.forEach(function(orig,sorted){ pos[orig]=sorted; });
+  var far=new Array(n).fill(0), comp=new Array(n).fill(0);
+  function V(hot,note){ var m={};
+    for(var i=0;i<n;i++) m[i]= (hot!=null&&(i===hot))?'hot':'';
+    return [ LV.arr('values (sorted)', values, m, {note:note||''}),
+      LV.arr('position[original index] → sorted index', pos, {}, {}),
+      LV.arr('farthest[i] — the rightmost sorted index reachable in ONE hop from i', far.map(function(v,k){ return k<=(hot==null?n:hot)?v:'·'; }),
+        (function(){ var q={}; if(hot!=null) q[hot]='hot'; return q; })(), {}) ]; }
+
+  T.step(15,'info','Sort the values, keeping their original indices so queries can be translated. <code>position[]</code> is that translation table — original index → sorted index.',['n = <b>'+n+'</b>','maxDiff = <b>'+maxDiff+'</b>'],V(null,'sorted values: ['+values.join(', ')+']'));
+  T.step(25,'info','<b>Two pointers</b> compute <code>farthest[left]</code> — the furthest sorted index reachable in a single hop. Because the array is sorted, <code>right</code> never moves backwards as <code>left</code> advances, so the whole scan is O(n).',[],V(null));
+  var right=0;
+  for(var left=0;left<n;left++){
+    right=Math.max(right,left);
+    while(right+1<n && values[right+1]-values[left]<=maxDiff) right++;
+    far[left]=right;
+    T.step(39,'push','From sorted index '+left+' (value '+values[left]+'), the furthest value within '+maxDiff+' is at index '+right+' (value '+values[right]+'). farthest['+left+'] = <b>'+right+'</b>.',['left = <b>'+left+'</b>','right = <em>'+right+'</em>'],V(left));
+    T.save('farthest['+left+'] = '+right);
+  }
+  T.step(42,'info','Label connected components: a gap bigger than maxDiff between consecutive sorted values breaks the chain — exactly the argument from Part I.',[],V(null));
+  for(var i=1;i<n;i++){ comp[i]=comp[i-1]; if(values[i]-values[i-1]>maxDiff) comp[i]++; }
+  T.step(42,'ok','components = ['+comp.join(', ')+'].',[],V(null,'components: ['+comp.join(', ')+']'));
+  T.step(61,'info','<b>Binary lifting.</b> <code>jump[0][i] = farthest[i]</code> is one hop. Then <code>jump[k][i] = jump[k−1][jump[k−1][i]]</code> is 2^k hops — the same doubling trick used for 42A. It turns "how many hops from a to b?" into O(log n) instead of O(n).',[],V(null));
+  T.step(72,'info','A query (u, v): translate both to sorted positions, order them, reject if their components differ, then greedily take the LARGEST jumps that do not overshoot — the standard binary-lifting descent.',[],V(null));
+  [[0,3],[0,2]].forEach(function(q){
+    var lft=pos[q[0]], rgt=pos[q[1]];
+    if(lft>rgt){ var t=lft; lft=rgt; rgt=t; }
+    T.step(73,'call','query('+q[0]+', '+q[1]+') → sorted positions '+lft+' and '+rgt+'.',['query'],V(null));
+    if(comp[lft]!==comp[rgt]){
+      T.step(86,'bad','Different components ('+comp[lft]+' vs '+comp[rgt]+') — unreachable. Return −1.',['answer = <u>-1</u>'],V(null));
+      T.save('query('+q[0]+','+q[1]+') = -1'); return;
+    }
+    var cur=lft, dist=0, guard=0;
+    while(cur<rgt && guard++<10){ cur=far[cur]; dist++; }
+    T.step(102,'found','Greedily hopping to <code>farthest</code> each time reaches position '+rgt+' in <b>'+dist+'</b> hop'+(dist===1?'':'s')+'. Binary lifting computes exactly this count in O(log n) instead of stepping one hop at a time.',['answer = <u>'+dist+'</u>'],V(null));
+    T.save('query('+q[0]+','+q[1]+') = '+dist);
+  });
+  T.step(107,'done','O(n log n) to build, O(log n) per query. Part I only needed yes/no, so a component label sufficed; asking for the DISTANCE is what forces the jump table.',[],V(null,'done'));
+  return T;
+}
+LV.render({
+  num:'3534', name:'Path Existence Queries in a Graph II', slug:'3534-path-existence-queries-in-a-graph-ii',
+  difficulty:'Hard', pattern:'Sort + greedy farthest + binary lifting',
+  url:'https://leetcode.com/problems/path-existence-queries-in-a-graph-ii',
+  blurb:'Part I asked "are they connected?" and a component label answered it. Part II asks "how far apart?", and that needs a jump table — the same doubling trick used for lowest common ancestor.',
+  input:'nums = [1,8,3,10], maxDiff = 3, queries', runName:'pathExistenceQueries',
+  skipLabel:null, emptyResult:'nothing computed yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n log n) build + O(log n) per query', space:'O(n log n)'},
+  theory:{
+    idea:'Three layers. <b>(1) Sort</b> so that reachability becomes an interval property. <b>(2) Greedy farthest:</b> on a line, the fewest hops is always achieved by jumping as far right as possible each time — the same argument as Jump Game II. <b>(3) Binary lifting:</b> precompute 2^k-step jumps so that counting hops costs O(log n) instead of O(n) per query.',
+    recognize:[
+      'Many queries asking for a <b>path length / ancestor / k-th successor</b> in a static structure. That combination is the binary-lifting signature.',
+      'A deterministic "next" function (here <code>farthest</code>) that you must follow many times — precompute the doubling table.',
+      'The greedy "always jump as far as possible" is valid whenever the reachable set from a position is a contiguous interval extending rightwards.'
+    ],
+    pitfalls:[
+      '<b>Losing the original indices when sorting.</b> Queries refer to original nodes, so you need the <code>position[]</code> translation. This is the most common slip.',
+      '<b>Forgetting the component check.</b> Without it the jump loop spins forever on unreachable pairs.',
+      '<b>Off-by-one in the descent.</b> You jump while the destination stays <em>strictly before</em> the target, then add one final hop — hence <code>distance + 1</code> at the end of the real code.',
+      '<b>Recomputing <code>farthest</code> with a nested loop.</b> The two-pointer sweep is O(n) because <code>right</code> is monotone; a naive inner loop is O(n²).',
+      '<b>Sizing LOG wrongly.</b> It must satisfy 2^LOG &gt; n, or long queries overflow the table.'
+    ],
+    template: "# 1. sort, KEEPING original indices (queries refer to originals)\n# 2. two pointers -> farthest[i] = rightmost index reachable in ONE hop\nright = 0\nfor left in range(n):\n    right = max(right, left)\n    while right + 1 < n and values[right+1] - values[left] <= maxDiff:\n        right += 1\n    farthest[left] = right          # `right` is monotone -> the sweep is O(n)\n\n# 3. binary lifting: jump[k][i] = 2^k hops from i\njump[0] = farthest\nfor k in range(1, LOG):             # LOG must satisfy 2^LOG > n\n    for i in range(n):\n        jump[k][i] = jump[k-1][jump[k-1][i]]\n\n# query: take the LARGEST jumps that do not overshoot, then one final hop\ncur, dist = left, 0\nfor k in range(LOG - 1, -1, -1):\n    if jump[k][cur] < right:\n        cur = jump[k][cur]; dist += 1 << k\nreturn dist + 1\n",
+    variants:[
+      ['<b>Part I</b> (42 3532)','Only connectivity, so a component label is enough. Also in your repo.'],
+      ['<b>Jump Game II</b> (42 45)','The same greedy-farthest argument, single query, O(n).'],
+      ['42A in a tree','Binary lifting on parent pointers — the canonical use.'],
+      ['k-th successor in a functional graph','42 2836 — exactly this jump table.'],
+      ['Weighted hops','Store the accumulated weight alongside the jump target.']
+    ],
+    thinking:'<b>Binary lifting is the answer to "follow this pointer many times, many times over."</b> Whenever you have a static successor function and repeated queries about following it, precompute jumps of 2⁰, 2¹, 2², … and answer each query by decomposing the count into binary. It powers 42A, k-th ancestor, k-th successor, and range-minimum sparse tables. Learning it once pays off across a whole tier of Hard problems — and the tell is always "static structure + many path queries".'
+  }
+});
+
+</script>
+</body>
+</html>

@@ -1,9 +1,9 @@
 # 21. Merge Two Sorted Lists
-> **Easy** &nbsp;·&nbsp; Linked list · dummy head + merge &nbsp;·&nbsp; family: **Linked lists**
+> **Easy** &nbsp;&middot;&nbsp; Linked list · dummy head + merge &nbsp;&middot;&nbsp; family: **Linked lists**
 
 Two ideas worth stealing: the **dummy head** that deletes every empty-list special case, and the final one-line attach of the leftover tail.
 
-**▶ [Step through this solution line by line](../visualizations/0021-merge-two-sorted-lists.html)** — 24 steps, traced on `list1 = [1,2,4], list2 = [1,3,4]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 24 steps, traced on `list1 = [1,2,4], list2 = [1,3,4]`.
 
 | | |
 |---|---|
@@ -59,4 +59,4 @@ Adopt this rule: **if a linked-list operation could touch the head, start with a
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/merge-two-sorted-lists)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/merge-two-sorted-lists)

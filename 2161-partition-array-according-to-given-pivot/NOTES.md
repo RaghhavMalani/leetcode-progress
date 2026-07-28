@@ -1,9 +1,9 @@
 # 2161. Partition Array According to Given Pivot
-> **Medium** &nbsp;·&nbsp; Stable three-way partition &nbsp;·&nbsp; family: **Two pointers & sliding window**
+> **Medium** &nbsp;&middot;&nbsp; Stable three-way partition &nbsp;&middot;&nbsp; family: **Two pointers & sliding window**
 
 Compare this directly with Sort Colors (LC 75) in your repo. Same three-way split — but here **stability is required**, and that one word forbids the in-place swapping trick entirely.
 
-**▶ [Step through this solution line by line](../visualizations/2161-partition-array-according-to-given-pivot.html)** — 16 steps, traced on `nums = [9,12,5,10,14,3,10], pivot = 10`.
+**▶ [Step through this solution line by line](./visualization.html)** — 16 steps, traced on `nums = [9,12,5,10,14,3,10], pivot = 10`.
 
 | | |
 |---|---|
@@ -56,4 +56,4 @@ Build the habit of reading constraints for words that **change the algorithm cla
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/partition-array-according-to-given-pivot)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/partition-array-according-to-given-pivot)

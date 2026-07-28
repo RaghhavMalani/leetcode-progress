@@ -1,9 +1,9 @@
 # 1863. Sum of All Subset XOR Totals
-> **Easy** &nbsp;·&nbsp; Bit counting · contribution technique &nbsp;·&nbsp; family: **Bit manipulation**
+> **Easy** &nbsp;&middot;&nbsp; Bit counting · contribution technique &nbsp;&middot;&nbsp; family: **Bit manipulation**
 
 Marked Easy because backtracking passes. The real solution is one line, and it comes from asking a different question: not "what is each subset worth?" but "how often does each *bit* appear?"
 
-**▶ [Step through this solution line by line](../visualizations/1863-sum-of-all-subset-xor-totals.html)** — 6 steps, traced on `nums = [5,1,6]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 6 steps, traced on `nums = [5,1,6]`.
 
 | | |
 |---|---|
@@ -57,4 +57,4 @@ When you see "sum over all X", **flip the order of summation**. Instead of Σ ov
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/sum-of-all-subset-xor-totals)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/sum-of-all-subset-xor-totals)

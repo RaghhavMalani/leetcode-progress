@@ -1,9 +1,9 @@
 # 23. Merge k Sorted Lists
-> **Hard** &nbsp;·&nbsp; Divide and conquer · pairwise merge &nbsp;·&nbsp; family: **Sorting & divide and conquer**
+> **Hard** &nbsp;&middot;&nbsp; Divide and conquer · pairwise merge &nbsp;&middot;&nbsp; family: **Sorting & divide and conquer**
 
 Merging pairwise in rounds instead of one-at-a-time into an accumulator. Same total merges, but each element is copied log k times instead of k times — O(N log k) rather than O(N k).
 
-**▶ [Step through this solution line by line](../visualizations/0023-merge-k-sorted-lists.html)** — 31 steps, traced on `lists = [[1,4,5],[1,3,4],[2,6]]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 31 steps, traced on `lists = [[1,4,5],[1,3,4],[2,6]]`.
 
 | | |
 |---|---|
@@ -62,4 +62,4 @@ When you have k things to combine, always ask: **can I combine them in a tree in
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/merge-k-sorted-lists)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/merge-k-sorted-lists)

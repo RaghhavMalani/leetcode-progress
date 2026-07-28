@@ -1,9 +1,9 @@
 # 143. Reorder List
-> **Medium** &nbsp;·&nbsp; Linked list · compose three primitives &nbsp;·&nbsp; family: **Linked lists**
+> **Medium** &nbsp;&middot;&nbsp; Linked list · compose three primitives &nbsp;&middot;&nbsp; family: **Linked lists**
 
 Not one algorithm but three you already know, in sequence: find the middle, reverse the back half, interleave. The single most important line is `slow.next = None`.
 
-**▶ [Step through this solution line by line](../visualizations/0143-reorder-list.html)** — 21 steps, traced on `head = [1,2,3,4]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 21 steps, traced on `head = [1,2,3,4]`.
 
 | | |
 |---|---|
@@ -63,4 +63,4 @@ When a list problem looks intimidating, try to **write the solution as three sen
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/reorder-list)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/reorder-list)

@@ -1,9 +1,9 @@
 # 705. Design HashSet
-> **Easy** &nbsp;·&nbsp; Design · hash table internals &nbsp;·&nbsp; family: **Design**
+> **Easy** &nbsp;&middot;&nbsp; Design · hash table internals &nbsp;&middot;&nbsp; family: **Design**
 
 Your solution wraps a dict, which passes. The interesting version is the one the problem is actually asking for — buckets, a hash function, and a collision strategy — so that is what the theory below covers.
 
-**▶ [Step through this solution line by line](../visualizations/0705-design-hashset.html)** — 9 steps, traced on `add(1), add(2), contains(1), contains(3), add(2), remove(2), contains(2)`.
+**▶ [Step through this solution line by line](./visualization.html)** — 9 steps, traced on `add(1), add(2), contains(1), contains(3), add(2), remove(2), contains(2)`.
 
 | | |
 |---|---|
@@ -69,4 +69,4 @@ Design questions are graded on the **trade-offs you volunteer**, not on whether 
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/design-hashset)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/design-hashset)

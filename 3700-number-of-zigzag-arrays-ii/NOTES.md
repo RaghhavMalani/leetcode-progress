@@ -1,9 +1,9 @@
 # 3700. Number of Zigzag Arrays II
-> **Hard** &nbsp;·&nbsp; Matrix exponentiation of a linear recurrence &nbsp;·&nbsp; family: **Dynamic programming**
+> **Hard** &nbsp;&middot;&nbsp; Matrix exponentiation of a linear recurrence &nbsp;&middot;&nbsp; family: **Dynamic programming**
 
 Part I with n up to 10¹⁸. The DP transition is linear, so encode it as a matrix and apply it n times with binary exponentiation — O(log n) instead of O(n).
 
-**▶ [Step through this solution line by line](../visualizations/3700-number-of-zigzag-arrays-ii.html)** — 11 steps, traced on `n = 4, value range of size m = 2`.
+**▶ [Step through this solution line by line](./visualization.html)** — 11 steps, traced on `n = 4, value range of size m = 2`.
 
 | | |
 |---|---|
@@ -65,4 +65,4 @@ Build the habit of checking two things whenever you see an enormous n: **is the 
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/number-of-zigzag-arrays-ii)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/number-of-zigzag-arrays-ii)

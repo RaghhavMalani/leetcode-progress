@@ -1,9 +1,9 @@
 # 3221. Find the Peaks
-> **Easy** &nbsp;·&nbsp; Array scan · local property &nbsp;·&nbsp; family: **Math & number theory**
+> **Easy** &nbsp;&middot;&nbsp; Array scan · local property &nbsp;&middot;&nbsp; family: **Math & number theory**
 
 A local-property scan. The interesting design choice is that the loop bounds encode the "endpoints cannot be peaks" rule, so no guard is needed inside the body.
 
-**▶ [Step through this solution line by line](../visualizations/3221-find-the-peaks.html)** — 8 steps, traced on `mountain = [1,4,3,8,5]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 8 steps, traced on `mountain = [1,4,3,8,5]`.
 
 | | |
 |---|---|
@@ -59,4 +59,4 @@ Two questions for any array-scan problem. **(1) How wide is the neighbourhood I 
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/find-the-peaks)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/find-the-peaks)

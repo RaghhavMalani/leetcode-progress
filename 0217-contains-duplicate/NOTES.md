@@ -1,9 +1,9 @@
 # 217. Contains Duplicate
-> **Easy** &nbsp;·&nbsp; Hash set · membership &nbsp;·&nbsp; family: **Hashing**
+> **Easy** &nbsp;&middot;&nbsp; Hash set · membership &nbsp;&middot;&nbsp; family: **Hashing**
 
 Two lines, and worth a minute of thought: the set does the comparing, and the size difference does the reporting. Also worth knowing when this is *not* the best answer.
 
-**▶ [Step through this solution line by line](../visualizations/0217-contains-duplicate.html)** — 6 steps, traced on `nums = [1,2,3,1]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 6 steps, traced on `nums = [1,2,3,1]`.
 
 | | |
 |---|---|
@@ -54,4 +54,4 @@ Get in the habit of asking, for every easy problem, **"which constraint would ma
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/contains-duplicate)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/contains-duplicate)

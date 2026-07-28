@@ -1,0 +1,189 @@
+/* ============================================================
+   dojo.html — active-recall trainer.  Loads after _engine.css
+   and reuses its variables and code-pane styles.
+   ============================================================ */
+.dwrap{max-width:1120px;margin:0 auto;padding:22px 20px 90px}
+
+/* ---------- top bar ---------- */
+.dbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:18px}
+.dlogo{font-family:var(--mono);font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--cy)}
+.dlogo b{color:var(--ink);letter-spacing:-.01em;font-size:17px;display:block;text-transform:none;letter-spacing:0}
+.dstats{display:flex;gap:18px;margin-left:auto;flex-wrap:wrap}
+.dstat{text-align:right;font-family:var(--mono)}
+.dstat b{display:block;font-size:19px;color:var(--ink);line-height:1.15}
+.dstat span{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+.dstat.hot b{color:var(--am)}
+.dstat.good b{color:var(--gr)}
+
+/* ---------- nav ---------- */
+.dnav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:22px}
+.dnav button{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;padding:8px 14px;border-radius:8px;
+  background:#151b28;border:1px solid var(--line);color:var(--ink-3)}
+.dnav button:hover{color:var(--ink-2);border-color:var(--line-2);background:#1a2130}
+.dnav button.on{background:#0d3a4e;border-color:#2a7ea0;color:#cdeefc}
+
+/* ---------- home ---------- */
+.hero2{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px 24px;margin-bottom:16px}
+.hero2 h2{margin:0 0 6px;font-size:19px;font-weight:600}
+.hero2 p{margin:0 0 14px;color:var(--ink-2);font-size:13.5px;max-width:74ch}
+.bigbtn{font-size:14px;font-weight:600;padding:12px 22px;border-radius:9px;
+  background:#0d3a4e;border:1px solid #2a7ea0;color:#cdeefc}
+.bigbtn:hover{background:#125a78}
+.bigbtn.alt{background:#2a1b10;border-color:#7a5a1e;color:#f3cf8a}
+.bigbtn.alt:hover{background:#3a2614}
+
+/* ---------- mastery heatmap ---------- */
+.heat{display:flex;flex-wrap:wrap;gap:3px;margin-top:6px}
+.hcell{width:15px;height:15px;border-radius:3px;background:#151b28;border:1px solid #202838;cursor:pointer}
+.hcell.l1{background:#12303f;border-color:#1d4a60}
+.hcell.l2{background:#12475c;border-color:#2a7ea0}
+.hcell.l3{background:#125e46;border-color:#2c8a63}
+.hcell.l4{background:#157a52;border-color:#3cae7a}
+.hcell.l5{background:#2fc389;border-color:#7df0bd}
+.hcell.due{outline:1px solid var(--am);outline-offset:1px}
+.heatrow{display:flex;gap:12px;align-items:flex-start;margin-bottom:9px;flex-wrap:wrap}
+.heatrow .hname{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);width:190px;flex:none;padding-top:2px}
+.heatlegend{display:flex;gap:14px;font-family:var(--mono);font-size:10px;color:var(--ink-3);margin-top:12px;flex-wrap:wrap;align-items:center}
+
+/* ---------- family bars ---------- */
+.fbar{display:grid;grid-template-columns:200px 1fr 74px;gap:12px;align-items:center;margin-bottom:6px;
+  font-family:var(--mono);font-size:11.5px}
+.fbar .lab{color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fbar .track{height:9px;background:#141b28;border-radius:5px;overflow:hidden;border:1px solid var(--line)}
+.fbar .fill{height:100%;background:linear-gradient(90deg,#1d6f8f,#2fc389)}
+.fbar .val{color:var(--ink-3);text-align:right;font-size:10.5px}
+.fbar.weak .lab{color:var(--am)}
+
+/* ---------- question card ---------- */
+.qcard{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 24px;margin-bottom:14px}
+.qkicker{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);margin-bottom:12px;
+  display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.qkicker .pill{background:#151b28;border:1px solid var(--line-2);border-radius:20px;padding:3px 10px;letter-spacing:.06em}
+.qkicker .pill.easy{color:#6cc493}.qkicker .pill.medium{color:#d3ab63}.qkicker .pill.hard{color:#d1777c}
+.qkicker .timer{margin-left:auto;color:var(--am);font-size:12px;letter-spacing:.1em}
+.stmt{font-size:14.5px;line-height:1.7;color:var(--ink);white-space:pre-wrap;max-height:340px;overflow:auto}
+.stmt.small{font-size:13.5px}
+.cons{margin-top:12px;font-family:var(--mono);font-size:11.5px;color:var(--ink-3);white-space:pre-wrap;
+  border-left:2px solid var(--line-2);padding-left:12px}
+
+/* ---------- option grids ---------- */
+.opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:7px;margin-top:16px}
+.opt{text-align:left;padding:11px 14px;border-radius:9px;background:#151b28;border:1px solid var(--line-2);
+  color:var(--ink-2);font-size:13px;line-height:1.4;transition:.12s}
+.opt:hover:not(:disabled){background:#1e2637;border-color:#41506a;color:var(--ink)}
+.opt:disabled{cursor:default}
+.opt.right{background:#0f2a1d;border-color:var(--gr);color:#bdf0d4}
+.opt.wrong{background:#291317;border-color:var(--rd);color:#f4c3c6}
+.opt.muted{opacity:.4}
+.opt kbd{font-family:var(--mono);font-size:10px;color:var(--ink-4);margin-right:8px}
+.opts.wide{grid-template-columns:1fr}
+
+/* ---------- feedback ---------- */
+.fb{margin-top:14px;border-radius:10px;padding:14px 18px;font-size:13.5px;line-height:1.65;border:1px solid var(--line)}
+.fb.right{background:#0f1d17;border-color:#2c6a49;color:#b9ecd0}
+.fb.wrong{background:#1d1214;border-color:#7a3b40;color:#f0bfc2}
+.fb b{color:var(--ink)}
+.fb code{font-family:var(--mono);font-size:12.5px;background:#101722;padding:1px 5px;border-radius:4px;color:var(--cy)}
+.fb a{color:var(--cy)}
+.fb .why{margin-top:8px;color:var(--ink-2);font-size:13px}
+
+/* ---------- code pane inside the dojo ---------- */
+.dcode{background:var(--panel-2);border:1px solid var(--line);border-radius:10px;padding:9px 0;margin-top:12px;
+  max-height:330px;overflow:auto}
+.story{margin-top:12px;display:flex;flex-direction:column;gap:5px}
+.story div{font-size:12.5px;color:var(--ink-3);border-left:2px solid var(--line-2);padding-left:11px;line-height:1.55}
+.story div:last-child{color:var(--ink-2);border-left-color:var(--cy)}
+
+/* ---------- parsons ---------- */
+.parsons{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+@media(max-width:820px){.parsons{grid-template-columns:1fr}}
+.pcol{background:var(--panel-2);border:1px solid var(--line);border-radius:10px;padding:10px;min-height:150px}
+.pcol>h5{margin:0 0 9px;font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:500}
+.pline{font-family:var(--mono);font-size:11.5px;padding:5px 9px;border-radius:6px;background:#151b28;
+  border:1px solid var(--line-2);color:var(--ink-2);margin-bottom:4px;cursor:pointer;white-space:pre;overflow-x:auto}
+.pline:hover{border-color:#41506a;background:#1e2637}
+.pline.sel{border-color:var(--cy);background:#0d3a4e;color:#cdeefc}
+.pline.ok{border-color:#2c6a49;background:#102a1e}
+.pline.bad{border-color:#7a3b40;background:#241318}
+.pline .gut{color:var(--ink-4);user-select:none}
+.ptools{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.ptools button{font-size:11.5px;padding:6px 11px}
+
+/* ---------- session progress ---------- */
+.prog{display:flex;gap:3px;margin-bottom:14px}
+.prog i{flex:1;height:4px;border-radius:2px;background:#1a2130}
+.prog i.done{background:var(--gr)}
+.prog i.miss{background:var(--rd)}
+.prog i.cur{background:var(--cy)}
+
+/* ---------- summary ---------- */
+.summary{text-align:center;padding:26px 20px}
+.summary .score{font-family:var(--mono);font-size:52px;font-weight:700;color:var(--gr);line-height:1}
+.summary .rank{font-family:var(--mono);font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--am);margin-top:10px}
+.summary p{color:var(--ink-2);margin:14px auto 0;max-width:60ch;font-size:13.5px}
+.misslist{margin-top:18px;text-align:left;max-width:640px;margin-left:auto;margin-right:auto}
+.misslist a{display:block;padding:8px 12px;border-radius:8px;background:#1d1214;border:1px solid #4a2429;
+  color:#f0bfc2;text-decoration:none;font-size:13px;margin-bottom:5px}
+.misslist a:hover{border-color:#7a3b40}
+
+/* ---------- misc ---------- */
+.rowbtns{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;align-items:center}
+.muted{color:var(--ink-3);font-size:12.5px}
+.tiny{font-family:var(--mono);font-size:10.5px;color:var(--ink-4)}
+.warnbar{background:#2a2110;border:1px solid #7a5a1e;color:#f3cf8a;border-radius:9px;padding:10px 14px;
+  font-size:12.5px;margin-bottom:14px}
+.hide{display:none!important}
+
+/* ---------------- PHONE ---------------- */
+@media(max-width:700px){
+  .dwrap{padding:12px 11px 80px}
+  .dbar{gap:9px;padding-bottom:11px;margin-bottom:13px}
+  .dlogo{font-size:9px}
+  .dlogo b{font-size:15px}
+  .dstats{gap:12px;width:100%;margin-left:0;justify-content:space-between}
+  .dstat b{font-size:16px}
+  .dstat span{font-size:8.5px;letter-spacing:.1em}
+
+  .dnav{gap:5px;overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .dnav::-webkit-scrollbar{display:none}
+  .dnav button{white-space:nowrap;min-height:40px;font-size:11px;padding:8px 12px}
+
+  .hero2{padding:16px 15px}
+  .hero2 h2{font-size:16px}
+  .hero2 p{font-size:13px}
+  .bigbtn{width:100%;min-height:48px;font-size:14px}
+  .rowbtns{flex-direction:column;align-items:stretch}
+  .rowbtns .muted{text-align:center}
+
+  .qcard{padding:15px 14px}
+  .stmt{font-size:13.5px;max-height:none}
+  .opts{grid-template-columns:1fr;gap:6px}
+  .opt{min-height:46px;font-size:13px;padding:12px 13px}
+  .qkicker{font-size:9px;gap:7px}
+  .qkicker .timer{margin-left:0}
+
+  /* heatmap: label above the row, cells bigger to tap */
+  .heatrow{flex-direction:column;gap:4px;margin-bottom:12px}
+  .heatrow .hname{width:auto;padding-top:0}
+  .hcell{width:19px;height:19px}
+  .heatlegend{gap:9px;font-size:9px}
+  .heatlegend span:last-child{display:none}
+
+  .fbar{grid-template-columns:1fr 58px;grid-template-areas:"lab val" "track track";gap:5px 8px}
+  .fbar .lab{grid-area:lab;font-size:11px}
+  .fbar .val{grid-area:val}
+  .fbar .track{grid-area:track}
+
+  .parsons{grid-template-columns:1fr;gap:9px}
+  .pline{font-size:11px;padding:9px 9px;min-height:38px}
+  .ptools{gap:5px}
+  .ptools button{flex:1 1 30%;min-height:42px;font-size:11.5px}
+
+  .dcode{max-height:38vh}
+  .story div{font-size:12px}
+  .summary .score{font-size:40px}
+  .misslist a{font-size:12.5px}
+}

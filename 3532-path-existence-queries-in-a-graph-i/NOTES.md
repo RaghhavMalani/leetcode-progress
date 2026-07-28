@@ -1,9 +1,9 @@
 # 3532. Path Existence Queries in a Graph I
-> **Medium** &nbsp;·&nbsp; Sorted structure collapses a graph &nbsp;·&nbsp; family: **Graphs, BFS & DFS**
+> **Medium** &nbsp;&middot;&nbsp; Sorted structure collapses a graph &nbsp;&middot;&nbsp; family: **Graphs, BFS & DFS**
 
 Looks like a graph problem, is not one. Because `nums` is sorted, the graph is a chain that breaks at every gap larger than `maxDiff` — so components are just contiguous runs.
 
-**▶ [Step through this solution line by line](../visualizations/3532-path-existence-queries-in-a-graph-i.html)** — 16 steps, traced on `nums = [1,3,6,9], maxDiff = 2, then three queries`.
+**▶ [Step through this solution line by line](./visualization.html)** — 16 steps, traced on `nums = [1,3,6,9], maxDiff = 2, then three queries`.
 
 | | |
 |---|---|
@@ -57,4 +57,4 @@ Before reaching for a graph algorithm, ask **"does the structure of the edges le
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/path-existence-queries-in-a-graph-i)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/path-existence-queries-in-a-graph-i)

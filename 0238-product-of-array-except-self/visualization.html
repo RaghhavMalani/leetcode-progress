@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>238 - Product of Array Except Self</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution(object):", "", "    def productExceptSelf(self, nums):", "        \"\"\"", "        :type nums: List[int]", "        :rtype: List[int]", "        \"\"\"", "        res = [1] * len(nums)", "", "        prefix = 1", "        for i in range(len(nums)):", "            res[i] = prefix", "            prefix = prefix * nums[i]", "        ", "        postfix = 1 ", "        for j in range(len(nums)-1, -1, -1):", "            res[j] = res[j] * postfix", "            postfix = nums[j] * postfix", "", "        return res"];
+function build(){
+  var T=LV.trace(), a=[1,2,3,4];
+  var res=[1,1,1,1], pre=1, post=1;
+  function V(i,phase,note){ var m={};
+    for(var x=0;x<a.length;x++){
+      if(phase===1) m[x]= x<i?'good':(x===i?'hot':'dim');
+      else m[x]= x>i?'good':(x===i?'hot':'win');
+    }
+    return [ LV.arr('nums', a, (function(){ var q={}; if(i!=null) q[i]='hot'; return q; })(), {}),
+             LV.arr('res', res.slice(), m, {note:note||''}) ]; }
+  function VA(ph){ return ['pass <b>'+ph+'</b> of 2', ph===1?'prefix = <em>'+pre+'</em>':'postfix = <em>'+post+'</em>']; }
+
+  T.step(8,'info','No division allowed, O(n) time, O(1) extra space (the output does not count). The trick: answer[i] = (everything to the LEFT of i) × (everything to the RIGHT of i), and each of those can be accumulated in a single sweep.',['res = [1,1,1,1]'],V(null,1));
+  T.step(11,'info','<b>Pass 1 (left to right):</b> put the running product of everything strictly before i into res[i].',VA(1),V(null,1));
+  for(var i=0;i<a.length;i++){
+    res[i]=pre;
+    T.step(12,'push','res['+i+'] = prefix = <b>'+pre+'</b> — the product of nums[0..'+(i-1)+']'+(i===0?' which is the empty product, 1':'')+'.',VA(1),V(i,1));
+    pre=pre*a[i];
+    T.step(13,'ok','Now fold nums['+i+'] = '+a[i]+' in: prefix → '+pre+'. Note the ORDER — we wrote res[i] BEFORE multiplying, which is exactly what excludes nums[i] from its own answer.',VA(1),V(i,1));
+  }
+  T.step(15,'info','<b>Pass 2 (right to left):</b> multiply in the running product of everything strictly after i. res is reused as the accumulator, which is how the space stays O(1).',VA(2),V(null,2));
+  for(var j=a.length-1;j>=0;j--){
+    var before=res[j];
+    res[j]=res[j]*post;
+    T.step(17,'push','res['+j+'] = '+before+' × postfix ('+post+') = <b>'+res[j]+'</b> — left product × right product.',VA(2),V(j,2));
+    T.save('res['+j+'] = '+res[j]);
+    post=a[j]*post;
+    T.step(18,'ok','Fold nums['+j+'] = '+a[j]+' in: postfix → '+post+'. Again, after the write.',VA(2),V(j,2));
+  }
+  T.step(20,'done','Answer: <b>['+res.join(', ')+']</b>. Two passes, no division, and the only extra variables are two integers.',[],V(null,2,'finished'));
+  return T;
+}
+LV.render({
+  num:'238', name:'Product of Array Except Self', slug:'0238-product-of-array-except-self',
+  difficulty:'Medium', pattern:'Prefix / suffix accumulation',
+  url:'https://leetcode.com/problems/product-of-array-except-self',
+  blurb:'Prefix × suffix, with the output array doing double duty as scratch space. The load-bearing detail is writing to <code>res[i]</code> <em>before</em> folding <code>nums[i]</code> into the accumulator.',
+  input:'nums = [1,2,3,4]', runName:'productExceptSelf',
+  skipLabel:'Skip to next final value', skipTypes:['push'], emptyResult:'no final values yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n) — two passes', space:'O(1) extra, excluding the output'},
+  theory:{
+    idea:'Anything of the form "combine everything except position i" splits into <b>a prefix part and a suffix part</b>. Compute prefixes forwards, suffixes backwards, and combine. It works for any associative operation — product, sum, XOR, max, gcd, matrix multiply.',
+    recognize:[
+      '"For each i, some function of all the OTHER elements."',
+      'An explicit ban on division (which would be the trivial answer, and breaks on zeros anyway).',
+      'The O(1) space follow-up — the answer is "reuse the output array as the accumulator for one of the two passes".'
+    ],
+    pitfalls:[
+      '<b>Updating the accumulator before writing.</b> Then <code>nums[i]</code> is included in its own answer. Write, then accumulate — in both passes.',
+      '<b>Division.</b> <code>total // nums[i]</code> dies on a single zero, and gives garbage on two zeros. Even if allowed, mention this.',
+      '<b>Counting the output as extra space.</b> The problem explicitly excludes it. Say so, otherwise it looks like you missed the constraint.',
+      '<b>Two separate prefix and suffix arrays.</b> Correct, O(n) space, and a perfectly good first answer — then collapse one of them into a scalar.'
+    ],
+    template: "# Prefix x suffix, O(1) extra space\nres = [1] * n\n\nprefix = 1\nfor i in range(n):\n    res[i] = prefix          # WRITE first: excludes nums[i] from its own answer\n    prefix *= nums[i]        # then accumulate\n\npostfix = 1\nfor i in range(n - 1, -1, -1):\n    res[i] *= postfix        # write first...\n    postfix *= nums[i]       # ...then accumulate\n\n# same shape for sum / XOR / max / gcd - any associative operation\n",
+    variants:[
+      ['Sum except self','<code>total - nums[i]</code>, trivially. The product version is hard only because division is forbidden.'],
+      ['XOR except self','<code>total_xor ^ nums[i]</code> — XOR is its own inverse, so it collapses like sum.'],
+      ['Max except self','Prefix max and suffix max arrays; no inverse exists, so you cannot collapse to a scalar in one direction.'],
+      ['<b>Trapping Rain Water</b> (LC 42)','prefix-max × suffix-max in structure, then optimised further to two pointers. Also in your repo.'],
+      ['<b>Candy</b> (LC 135)','Two sweeps, left-to-right then right-to-left, taking a max. The same two-pass shape.']
+    ],
+    thinking:'"Two passes, one forward and one backward" is a pattern worth naming for yourself. It solves this, trapping rain water, candy, LC 1840 in your repo, and any problem where each position depends on both what came before and what comes after. Whenever you catch yourself wanting to look both ways from every index, stop writing the O(n²) loop and ask: <b>can I sweep once in each direction and combine?</b>'
+  }
+});
+
+</script>
+</body>
+</html>

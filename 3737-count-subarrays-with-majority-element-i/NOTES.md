@@ -1,9 +1,9 @@
 # 3737. Count Subarrays With Majority Element I
-> **Medium** &nbsp;·&nbsp; Brute force with incremental state &nbsp;·&nbsp; family: **Brute force done right**
+> **Medium** &nbsp;&middot;&nbsp; Brute force with incremental state &nbsp;&middot;&nbsp; family: **Brute force done right**
 
 The intended O(n²) solution — but note the one detail that makes it O(n²) and not O(n³): the count is carried forward as `j` advances instead of being recomputed.
 
-**▶ [Step through this solution line by line](../visualizations/3737-count-subarrays-with-majority-element-i.html)** — 26 steps, traced on `nums = [1,2,1,1], target = 1`.
+**▶ [Step through this solution line by line](./visualization.html)** — 26 steps, traced on `nums = [1,2,1,1], target = 1`.
 
 | | |
 |---|---|
@@ -60,4 +60,4 @@ Two lessons. First: **make brute force incremental** — carrying state as the w
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/count-subarrays-with-majority-element-i)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/count-subarrays-with-majority-element-i)

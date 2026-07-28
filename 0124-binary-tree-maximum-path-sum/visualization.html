@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>124 - Binary Tree Maximum Path Sum</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["# Definition for a binary tree node.", "# class TreeNode(object):", "#     def __init__(self, val=0, left=None, right=None):", "#         self.val = val", "#         self.left = left", "#         self.right = right", "class Solution(object):", "    def maxPathSum(self, root):", "        \"\"\"", "        :type root: Optional[TreeNode]", "        :rtype: int", "        \"\"\"", "        ", "        res = [root.val]", "", "        def dfs(root):", "            if not root:", "                return 0", "", "            leftmax = dfs(root.left)", "            rightmax = dfs(root.right)", "", "            leftmax = max(leftmax, 0)", "            rightmax = max(rightmax, 0)", "", "            res[0] = max(res[0], root.val + leftmax + rightmax)", "", "            return root.val + max(leftmax, rightmax)", "        ", "        dfs(root)", "        return res[0]"];
+function build(){
+  var T=LV.trace();
+  var N=[{id:'a',val:-10,l:'b',r:'c'},{id:'b',val:9},{id:'c',val:20,l:'d',r:'e'},{id:'d',val:15},{id:'e',val:7}];
+  var V_={a:-10,b:9,c:20,d:15,e:7}, L={a:'b',c:'d'}, R={a:'c',c:'e'};
+  var res=-10, done={};
+  var tb=LV.treeBuilder(60,26,72,50);
+  function marks(cur){ var m={};
+    Object.keys(V_).forEach(function(k){ m[k]= done[k]!==undefined?'good':'dim'; });
+    if(cur) m[cur]='hot';
+    return m; }
+  function labs(){ var m={}; Object.keys(done).forEach(function(k){ m[k]='↑'+done[k]; }); return m; }
+  function VV(cur,id,note){ return [
+    LV.btree('tree — green nodes have already returned a value (shown below them)', N, 'a', marks(cur), labs(), {}),
+    LV.frames('call stack', tb.chain(id).reverse().map(function(x){return tb.nodes[x].frame;})),
+    LV.tree(tb,id,{name:'recursion tree'}) ]; }
+  function VA(){ return ['res[0] = <u>'+res+'</u>  (best path anywhere)']; }
+
+  var root=tb.add(null,'dfs(-10)',null,'dfs(node -10)');
+  T.step(14,'info','`res = [root.val]` — a one-element LIST, not an int, so the nested function can mutate it. In Python 3 you could write `nonlocal res` instead; the list is the old trick that works everywhere.',VA(),VV(null,root));
+  T.step(30,'info','Every node answers TWO different questions, and confusing them is the whole difficulty. (1) What is the best path that <b>passes through</b> me, using both children? That updates the global answer. (2) What is the best path that <b>starts at me and goes down one side</b>? That is what I return to my parent, because a parent can only attach to one of my branches.',VA(),VV('a',root));
+
+  function dfs(k,id){
+    if(!k){
+      T.step(18,'prune','Null child — contributes 0. Returning 0 rather than −∞ is deliberate: it makes "skip this branch" free.',VA(),VV(null,id));
+      return 0;
+    }
+    T.step(16,'call','Enter dfs(node '+V_[k]+').',VA(),VV(k,id));
+    var lid=tb.add(id, L[k]?'dfs('+V_[L[k]]+')':'null', null, L[k]?'dfs(node '+V_[L[k]]+')':'dfs(None)');
+    T.step(20,'push','Recurse LEFT first. This is a POSTORDER solution — a node cannot answer anything until both children have reported.',VA(),VV(L[k]||null,lid));
+    var lm=dfs(L[k],lid);
+    var rid=tb.add(id, R[k]?'dfs('+V_[R[k]]+')':'null', null, R[k]?'dfs(node '+V_[R[k]]+')':'dfs(None)');
+    T.step(21,'push','Recurse RIGHT.',VA(),VV(R[k]||null,rid));
+    var rm=dfs(R[k],rid);
+    T.step(23,'info','Left child reported '+lm+'. `max(leftmax, 0)` → '+Math.max(lm,0)+'. Clamping at 0 means "if a branch would only hurt, do not take it" — this single line is what handles negative values.',VA(),VV(k,id));
+    lm=Math.max(lm,0); rm=Math.max(rm,0);
+    T.step(24,'info','Right child reported → clamped to '+rm+'.',VA(),VV(k,id));
+    var through=V_[k]+lm+rm; var old=res; res=Math.max(res,through);
+    T.step(26, res>old?'found':'info','Question 1 — best path THROUGH node '+V_[k]+': '+V_[k]+' + '+lm+' + '+rm+' = <b>'+through+'</b>. '+(res>old?'New global best: res = '+res+'.':'Global best stays '+res+'.'),VA(),VV(k,id));
+    if(res>old) T.save('through node '+V_[k]+' → '+res);
+    var up=V_[k]+Math.max(lm,rm);
+    done[k]=up;
+    tb.nodes[id].label='↑'+up;
+    T.step(28,'ok','Question 2 — what to RETURN: '+V_[k]+' + max('+lm+', '+rm+') = <b>'+up+'</b>. Only ONE branch, because the parent will extend this path and a path cannot fork.',VA(),VV(k,id));
+    return up;
+  }
+  dfs('a',root);
+  T.step(31,'done','Answer: <b>'+res+'</b> — the path 15 → 20 → 7. Note the root itself (−10) is not on the best path at all, which is exactly why the answer must be tracked globally rather than returned.',VA(),VV(null,root));
+  return T;
+}
+LV.render({
+  num:'124', name:'Binary Tree Maximum Path Sum', slug:'0124-binary-tree-maximum-path-sum',
+  difficulty:'Hard', pattern:'Tree DFS · return one thing, track another',
+  url:'https://leetcode.com/problems/binary-tree-maximum-path-sum',
+  blurb:'The problem that teaches the most important tree idea: <b>what a node returns to its parent is not the same as the answer it contributes.</b> Two quantities, computed at every node, and mixing them up is the entire failure mode.',
+  input:'root = [-10,9,20,null,null,15,7]', runName:'maxPathSum',
+  skipLabel:'Skip to next record', skipTypes:['found'], emptyResult:'no path recorded yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n) — each node visited once', space:'O(h) recursion depth'},
+  theory:{
+    idea:'At each node compute two different things. <b>The contribution:</b> best path through this node using both children — that is a candidate for the global answer but cannot be extended upward, because a path through a node cannot also continue to its parent. <b>The return value:</b> best downward path starting here, using at most one child — that is what the parent can attach to. Keep them separate and the problem dissolves.',
+    recognize:[
+      'A tree question whose answer might live <b>anywhere</b> in the tree, not necessarily at the root.',
+      'The phrase "path" without "from root" — that is the tell that you need a global variable plus a different return value.',
+      'The same shape solves LC 543 (diameter), LC 687 (longest univalue path), and LC 250. If you have seen one you have seen them all.'
+    ],
+    pitfalls:[
+      '<b>Returning <code>node.val + left + right</code>.</b> The single most common bug. That path already forks at this node; the parent cannot extend it.',
+      '<b>Not clamping negatives.</b> Without <code>max(x, 0)</code> a negative subtree drags the answer down instead of being skipped.',
+      '<b>Initialising <code>res = 0</code>.</b> Fails when every value is negative — the answer is then the least-bad single node. <code>res = [root.val]</code> is correct.',
+      '<b>Using a plain <code>res = ...</code> inside the nested function.</b> Python treats that as a new local. Use a list, or <code>nonlocal</code>.'
+    ],
+    template: "# Tree DFS: return one thing, track another\nres = [root.val]                       # or: nonlocal res\n\ndef dfs(node):\n    if not node:\n        return 0                       # a missing branch contributes 0\n    l = max(dfs(node.left),  0)        # clamp: never take a harmful branch\n    r = max(dfs(node.right), 0)\n\n    res[0] = max(res[0], node.val + l + r)   # TRACK: path THROUGH this node\n    return node.val + max(l, r)              # RETURN: one branch only\n\ndfs(root)\nreturn res[0]\n",
+    variants:[
+      ['<b>Diameter of a Binary Tree</b> (LC 543)','Identical structure with counts instead of sums: return <code>1 + max(l, r)</code>, track <code>l + r</code>.'],
+      ['Path must start at the root','No global needed — just return the max.'],
+      ['Path must go downward only (no turning)','Return and track become the same thing; much easier.'],
+      ['<b>Path Sum III</b> (LC 437)','Count paths summing to a target — prefix sums along the root-to-node path.']
+    ],
+    thinking:'Whenever a tree DFS feels confusing, write out two sentences before coding: <b>"dfs(node) returns ___"</b> and <b>"the answer is updated using ___"</b>. If those two sentences are the same, the problem is easy. If they differ — as here — you need a global, and knowing that in advance is most of the solve. This "return one thing, track another" shape is the highest-yield idea in the entire tree category.'
+  }
+});
+
+</script>
+</body>
+</html>

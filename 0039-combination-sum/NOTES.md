@@ -1,9 +1,9 @@
 # 39. Combination Sum
-> **Medium** &nbsp;·&nbsp; Backtracking · take / skip &nbsp;·&nbsp; family: **Backtracking**
+> **Medium** &nbsp;&middot;&nbsp; Backtracking · take / skip &nbsp;&middot;&nbsp; family: **Backtracking**
 
 The mirror image of problem 22. Here the guard fires only *after* the total has already overshot, so the algorithm discovers its mistakes instead of preventing them. Look at how much red is in that tree.
 
-**▶ [Step through this solution line by line](../visualizations/0039-combination-sum.html)** — 168 steps, traced on `nums = [2,3,6,7], target = 7`.
+**▶ [Step through this solution line by line](./visualization.html)** — 168 steps, traced on `nums = [2,3,6,7], target = 7`.
 
 | | |
 |---|---|
@@ -59,4 +59,4 @@ Put 22 and 39 side by side. Both are the same skeleton; the only difference is *
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/combination-sum)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/combination-sum)

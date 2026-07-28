@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2133 - Pairs of Strings With Concatenation Equal to Target</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution(object):", "    def numOfPairs(self, nums, target):", "        \"\"\"", "        :type nums: List[str]", "        :type target: str", "        :rtype: int", "        \"\"\"", "        count = 0", "        for i in range(len(nums)):", "            for j in range(len(nums)):", "                if i == j:", "                    continue", "                if nums[i]+nums[j] == target:", "                    count += 1", "", "        return count"];
+function build(){
+  var T=LV.trace(), nums=['777','7','77','77'], target='7777', count=0;
+  function V(i,j,hit){ var m={};
+    nums.forEach(function(_,k){ m[k]= (k===i)?'hot':((k===j)?'win':'dim'); });
+    if(hit!=null){ m[i]=hit?'good':'bad'; m[j]=hit?'good':'bad'; }
+    return [ LV.arr('nums', nums, m, {}),
+             LV.arr('target', target.split(''), {}, {idx:false}),
+             LV.kv('candidate', [[(i!=null?nums[i]:'')+' + '+(j!=null?nums[j]:''), (i!=null&&j!=null)?nums[i]+nums[j]:'']], {}, {emptyText:'—'}) ]; }
+  T.step(8,'info','Brute force over all ordered pairs (i, j) with i ≠ j. n ≤ 100 here, so 10,000 concatenations is nothing — and the problem is Easy precisely because it licenses this.',['count = <u>0</u>'],V(null,null,null));
+  for(var i=0;i<nums.length;i++){
+    for(var j=0;j<nums.length;j++){
+      if(i===j){
+        T.step(12,'bad','i == j == '+i+' — an element cannot pair with ITSELF (though it can pair with an equal element at a different index). Skip.',['i = <b>'+i+'</b>','j = <i>'+j+'</i>'],V(i,j,null));
+        continue;
+      }
+      var cat=nums[i]+nums[j], hit=cat===target;
+      T.step(13, hit?'found':'call','nums['+i+'] + nums['+j+'] = "'+nums[i]+'" + "'+nums[j]+'" = "'+cat+'"'+(hit?' == target ✓':' ≠ target'),['i = <b>'+i+'</b>','j = <i>'+j+'</i>','count = <u>'+(count+(hit?1:0))+'</u>'],V(i,j,hit));
+      if(hit){ count++; T.save('('+i+', '+j+'): "'+nums[i]+'"+"'+nums[j]+'"'); }
+    }
+  }
+  T.step(16,'done','Answer: <b>'+count+'</b> ordered pairs. Note ("77" at index 2, "77" at index 3) and ("77" at index 3, "77" at index 2) are BOTH counted — the pair is ordered and the indices differ.',['count = <u>'+count+'</u>'],V(null,null,null));
+  return T;
+}
+LV.render({
+  num:'2133', name:'Number of Pairs of Strings With Concatenation Equal to Target', slug:'2133-number-of-pairs-of-strings-with-concatenation-equal-to-target',
+  difficulty:'Medium', pattern:'Brute force · index vs value identity',
+  url:'https://leetcode.com/problems/number-of-pairs-of-strings-with-concatenation-equal-to-target',
+  blurb:'A double loop, deliberately. The subtlety is the <code>i == j</code> guard: two <em>equal strings at different indices</em> are a legal pair, but an element may not pair with itself.',
+  input:'nums = ["777","7","77","77"], target = "7777"', runName:'numOfPairs',
+  skipLabel:'Skip to next pair', skipTypes:['found'], emptyResult:'count is 0',
+  src:SRC, build:build,
+  complexity:{time:'O(n² · L)', space:'O(1)'},
+  theory:{
+    idea:'The lesson here is about <b>identity</b>. "Distinct elements" almost always means distinct <em>indices</em>, not distinct <em>values</em>. Skipping on <code>nums[i] == nums[j]</code> instead of <code>i == j</code> silently drops the duplicate pairs this problem is built around.',
+    recognize:[
+      'Small n (≤ 100) with a pairwise condition — the constraints are telling you O(n²) is intended.',
+      '"Pairs (i, j) where i ≠ j" and the pair is ORDERED, so (a,b) and (b,a) both count.',
+      'The O(n) version exists: for each valid split of target into prefix + suffix, multiply the counts. Worth mentioning even when not required.'
+    ],
+    pitfalls:[
+      '<b>Skipping when the values are equal.</b> ["77","77"] with target "7777" has TWO valid pairs, and this bug reports zero.',
+      '<b>Counting unordered pairs.</b> The problem asks for ordered (i, j), so do not halve.',
+      '<b>Length pre-check as an optimisation.</b> <code>len(a) + len(b) != len(target)</code> rejects most pairs in O(1) — a free speedup worth adding.',
+      '<b>Believing O(n²) is a weakness.</b> Here it is the intended answer; say the O(n·L) alternative exists and move on.'
+    ],
+    template: "# ORDERED pairs of distinct INDICES (not distinct values)\ncount = 0\nfor i in range(n):\n    for j in range(n):\n        if i == j:                      # index identity, NOT nums[i] == nums[j]\n            continue\n        if len(nums[i]) + len(nums[j]) != len(target):   # free O(1) reject\n            continue\n        if nums[i] + nums[j] == target:\n            count += 1\n\n# O(n*L) version: for each split of target, multiply the two counts\n#   (subtract the self-pair when prefix == suffix)\n",
+    variants:[
+      ['O(n·L) counting version','Split target at every position; multiply <code>count[prefix] × count[suffix]</code>, subtracting the self-pairs when prefix == suffix.'],
+      ['<b>Two Sum</b> (LC 1)','The same index-vs-value distinction, solved with a hash map. Also in your repo.'],
+      ['Count pairs with a given sum','<code>ans += seen[target - x]</code> before inserting x — order matters, exactly as in Two Sum.'],
+      ['Unordered pairs','Loop <code>j</code> from <code>i+1</code>, and the count halves.']
+    ],
+    thinking:'Whenever a problem says "two elements", stop and decide whether it means <b>two positions</b> or <b>two values</b>. That single distinction is behind a large share of wrong answers on pair-counting problems — including the classic Two Sum edge case with <code>[3,3]</code>. Write the guard as <code>i != j</code> by default, and only switch to a value comparison if the statement explicitly asks for distinct values.'
+  }
+});
+
+</script>
+</body>
+</html>

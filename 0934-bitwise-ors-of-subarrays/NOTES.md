@@ -1,9 +1,9 @@
 # 934. Bitwise ORs of Subarrays
-> **Medium** &nbsp;·&nbsp; Monotone bit operation · bounded frontier &nbsp;·&nbsp; family: **Bit manipulation**
+> **Medium** &nbsp;&middot;&nbsp; Monotone bit operation · bounded frontier &nbsp;&middot;&nbsp; family: **Bit manipulation**
 
 The complement of LC 2503 in your repo. There, AND only clears bits so runs matter. Here, OR only sets bits — which bounds the set of distinct values ending at each index to about 30.
 
-**▶ [Step through this solution line by line](../visualizations/0934-bitwise-ors-of-subarrays.html)** — 14 steps, traced on `arr = [1,2,4]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 14 steps, traced on `arr = [1,2,4]`.
 
 | | |
 |---|---|
@@ -56,4 +56,4 @@ The generalisable question is: **"as I extend a subarray, how many distinct valu
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/bitwise-ors-of-subarrays)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/bitwise-ors-of-subarrays)

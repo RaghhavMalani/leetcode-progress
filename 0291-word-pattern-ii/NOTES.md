@@ -1,9 +1,9 @@
 # 291. Word Pattern II
-> **Medium** &nbsp;·&nbsp; Backtracking · bijection search &nbsp;·&nbsp; family: **Backtracking**
+> **Medium** &nbsp;&middot;&nbsp; Backtracking · bijection search &nbsp;&middot;&nbsp; family: **Backtracking**
 
 Backtracking where the mutable state is a *dictionary*, not a list. Same three beats — bind, explore, unbind — but there are two structures to undo and both matter.
 
-**▶ [Step through this solution line by line](../visualizations/0291-word-pattern-ii.html)** — 27 steps, traced on `pattern = "aba", s = "aabba"`.
+**▶ [Step through this solution line by line](./visualization.html)** — 27 steps, traced on `pattern = "aba", s = "aabba"`.
 
 | | |
 |---|---|
@@ -62,4 +62,4 @@ Two transferable ideas live in this problem. First: **"try every cut point" is a
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/word-pattern-ii)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/word-pattern-ii)

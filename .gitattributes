@@ -1,0 +1,13 @@
+# Normalise line endings. The repo stores LF; Windows checkouts get CRLF.
+# Without this every file looks modified on Windows and `git pull` refuses to run.
+* text=auto
+
+*.py   text diff=python
+*.java text diff=java
+*.cpp  text diff=cpp
+*.c    text diff=cpp
+*.md   text
+*.json text
+*.html text
+*.css  text
+*.js   text

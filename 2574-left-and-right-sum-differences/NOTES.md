@@ -1,9 +1,9 @@
 # 2574. Left and Right Sum Differences
-> **Easy** &nbsp;·&nbsp; Prefix sum · total minus prefix &nbsp;·&nbsp; family: **Prefix sums & intervals**
+> **Easy** &nbsp;&middot;&nbsp; Prefix sum · total minus prefix &nbsp;&middot;&nbsp; family: **Prefix sums & intervals**
 
 The suffix sum for free: `right = total - left - nums[i]`. No second array, no backward pass — worth internalising because it applies whenever the operation has an inverse.
 
-**▶ [Step through this solution line by line](../visualizations/2574-left-and-right-sum-differences.html)** — 14 steps, traced on `nums = [10,4,8,3]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 14 steps, traced on `nums = [10,4,8,3]`.
 
 | | |
 |---|---|
@@ -55,4 +55,4 @@ Whenever you need both sides of every index, ask one question: **is my operation
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/left-and-right-sum-differences)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/left-and-right-sum-differences)

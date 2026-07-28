@@ -1,9 +1,9 @@
 # 136. Single Number
-> **Easy** &nbsp;·&nbsp; Bit manipulation · XOR cancellation &nbsp;·&nbsp; family: **Bit manipulation**
+> **Easy** &nbsp;&middot;&nbsp; Bit manipulation · XOR cancellation &nbsp;&middot;&nbsp; family: **Bit manipulation**
 
 The cleanest use of XOR there is. Because `x ^ x = 0` and order does not matter, folding XOR across the array annihilates every pair and leaves the singleton.
 
-**▶ [Step through this solution line by line](../visualizations/0136-single-number.html)** — 7 steps, traced on `nums = [4,1,2,1,2]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 7 steps, traced on `nums = [4,1,2,1,2]`.
 
 | | |
 |---|---|
@@ -59,4 +59,4 @@ Keep a short list of bit identities in working memory: `x ^ x = 0`, `x ^ 0 = x`,
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/single-number)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/single-number)

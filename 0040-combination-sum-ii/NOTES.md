@@ -1,9 +1,9 @@
 # 40. Combination Sum II
-> **Medium** &nbsp;·&nbsp; Backtracking · duplicate suppression &nbsp;·&nbsp; family: **Backtracking**
+> **Medium** &nbsp;&middot;&nbsp; Backtracking · duplicate suppression &nbsp;&middot;&nbsp; family: **Backtracking**
 
 One while loop is the entire problem. Watch the step where `i` jumps from 0 to 1 — that is the line separating a correct answer from one with duplicate rows.
 
-**▶ [Step through this solution line by line](../visualizations/0040-combination-sum-ii.html)** — 37 steps, traced on `candidates = [1,1,2], target = 3`.
+**▶ [Step through this solution line by line](./visualization.html)** — 37 steps, traced on `candidates = [1,1,2], target = 3`.
 
 | | |
 |---|---|
@@ -62,4 +62,4 @@ When an input has duplicates, ask: **what makes two branches produce the same an
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/combination-sum-ii)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/combination-sum-ii)

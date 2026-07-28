@@ -1,9 +1,9 @@
 # 81. Search in Rotated Sorted Array II
-> **Medium** &nbsp;·&nbsp; Binary search · rotated + duplicates &nbsp;·&nbsp; family: **Binary search**
+> **Medium** &nbsp;&middot;&nbsp; Binary search · rotated + duplicates &nbsp;&middot;&nbsp; family: **Binary search**
 
 Binary search when the array is rotated AND has duplicates. The duplicate case is the interesting one: when `nums[left] == nums[mid]` you genuinely cannot tell which half is sorted, and the algorithm degrades to O(n).
 
-**▶ [Step through this solution line by line](../visualizations/0081-search-in-rotated-sorted-array-ii.html)** — 4 steps, traced on `nums = [2,5,6,0,0,1,2], target = 0`.
+**▶ [Step through this solution line by line](./visualization.html)** — 4 steps, traced on `nums = [2,5,6,0,0,1,2], target = 0`.
 
 | | |
 |---|---|
@@ -61,4 +61,4 @@ The reusable idea: **when a structure is not globally ordered, look for a piece 
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/search-in-rotated-sorted-array-ii)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/search-in-rotated-sorted-array-ii)

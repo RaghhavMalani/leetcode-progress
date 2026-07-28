@@ -1,9 +1,9 @@
 # 1846. Maximum Element After Decreasing and Rearranging
-> **Medium** &nbsp;·&nbsp; Greedy · sort then climb &nbsp;·&nbsp; family: **Greedy**
+> **Medium** &nbsp;&middot;&nbsp; Greedy · sort then climb &nbsp;&middot;&nbsp; family: **Greedy**
 
 Three lines that look too simple to be right. The argument: the optimal array is always 1, 2, 3, …, so sort and let each element climb one step if it can.
 
-**▶ [Step through this solution line by line](../visualizations/1846-maximum-element-after-decreasing-and-rearranging.html)** — 11 steps, traced on `arr = [100,1,1000,1]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 11 steps, traced on `arr = [100,1,1000,1]`.
 
 | | |
 |---|---|
@@ -54,4 +54,4 @@ When a problem allows an operation in **only one direction**, that asymmetry is 
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/maximum-element-after-decreasing-and-rearranging)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/maximum-element-after-decreasing-and-rearranging)

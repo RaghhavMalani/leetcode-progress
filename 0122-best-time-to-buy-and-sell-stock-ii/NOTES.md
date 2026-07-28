@@ -1,9 +1,9 @@
 # 122. Best Time to Buy and Sell Stock II
-> **Medium** &nbsp;·&nbsp; Greedy · decompose into local gains &nbsp;·&nbsp; family: **Greedy**
+> **Medium** &nbsp;&middot;&nbsp; Greedy · decompose into local gains &nbsp;&middot;&nbsp; family: **Greedy**
 
 Four lines, and the whole difficulty is proving they are right. The argument: a hold from day a to day b earns exactly the sum of the daily changes between them, so taking every positive change is optimal and no worse.
 
-**▶ [Step through this solution line by line](../visualizations/0122-best-time-to-buy-and-sell-stock-ii.html)** — 12 steps, traced on `prices = [7,1,5,3,6,4]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 12 steps, traced on `prices = [7,1,5,3,6,4]`.
 
 | | |
 |---|---|
@@ -58,4 +58,4 @@ The habit worth building is: **when a greedy solution occurs to you, spend thirt
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii)

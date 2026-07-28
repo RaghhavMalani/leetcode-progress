@@ -1,9 +1,9 @@
 # 304. Range Sum Query 2D — Immutable
-> **Medium** &nbsp;·&nbsp; 2D prefix sum · inclusion–exclusion &nbsp;·&nbsp; family: **Prefix sums & intervals**
+> **Medium** &nbsp;&middot;&nbsp; 2D prefix sum · inclusion–exclusion &nbsp;&middot;&nbsp; family: **Prefix sums & intervals**
 
 Prefix sums in two dimensions. Both the build and the query are inclusion–exclusion — add two overlapping regions, subtract the double-counted overlap — and the padded border makes every index safe.
 
-**▶ [Step through this solution line by line](../visualizations/0304-range-sum-query-2d-immutable.html)** — 25 steps, traced on `a 4×4 matrix, then three sumRegion queries`.
+**▶ [Step through this solution line by line](./visualization.html)** — 25 steps, traced on `a 4×4 matrix, then three sumRegion queries`.
 
 | | |
 |---|---|
@@ -64,4 +64,4 @@ Prefix sums are the answer to "**many range queries over static data**", and the
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/range-sum-query-2d-immutable)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/range-sum-query-2d-immutable)

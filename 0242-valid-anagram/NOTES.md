@@ -1,9 +1,9 @@
 # 242. Valid Anagram
-> **Easy** &nbsp;·&nbsp; Hash map · frequency count &nbsp;·&nbsp; family: **Hashing**
+> **Easy** &nbsp;&middot;&nbsp; Hash map · frequency count &nbsp;&middot;&nbsp; family: **Hashing**
 
 Frequency counting in its simplest form. Two things worth stealing: the O(1) length rejection first, and `dict.get(k, 0)` as the idiom for "increment a possibly-missing key".
 
-**▶ [Step through this solution line by line](../visualizations/0242-valid-anagram.html)** — 17 steps, traced on `s = "anagram", t = "nagaram"`.
+**▶ [Step through this solution line by line](./visualization.html)** — 17 steps, traced on `s = "anagram", t = "nagaram"`.
 
 | | |
 |---|---|
@@ -58,4 +58,4 @@ Easy problems are where you build **idiom fluency**. `d[k] = 1 + d.get(k, 0)`, `
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/valid-anagram)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/valid-anagram)

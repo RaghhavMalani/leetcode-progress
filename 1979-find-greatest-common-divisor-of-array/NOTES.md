@@ -1,9 +1,9 @@
 # 1979. Find Greatest Common Divisor of Array
-> **Easy** &nbsp;·&nbsp; Number theory · Euclidean algorithm &nbsp;·&nbsp; family: **Math & number theory**
+> **Easy** &nbsp;&middot;&nbsp; Number theory · Euclidean algorithm &nbsp;&middot;&nbsp; family: **Math & number theory**
 
 One line if you know your library. Worth the visit for the Euclidean algorithm itself, which is the engine behind gcd, lcm, modular inverses and Diophantine equations.
 
-**▶ [Step through this solution line by line](../visualizations/1979-find-greatest-common-divisor-of-array.html)** — 7 steps, traced on `nums = [2,5,6,9,10]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 7 steps, traced on `nums = [2,5,6,9,10]`.
 
 | | |
 |---|---|
@@ -58,4 +58,4 @@ Keep a small number-theory toolkit ready: **Euclid** for gcd, **lcm via gcd**, *
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/find-greatest-common-divisor-of-array)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/find-greatest-common-divisor-of-array)

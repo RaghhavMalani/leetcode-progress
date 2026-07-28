@@ -1,9 +1,9 @@
 # 19. Remove Nth Node From End of List
-> **Medium** &nbsp;·&nbsp; Linked list · two pointers with a gap &nbsp;·&nbsp; family: **Two pointers & sliding window**
+> **Medium** &nbsp;&middot;&nbsp; Linked list · two pointers with a gap &nbsp;&middot;&nbsp; family: **Two pointers & sliding window**
 
 "From the end" in a singly linked list, in one pass. The trick is a fixed gap: give one pointer an n-step head start and they stay n apart forever.
 
-**▶ [Step through this solution line by line](../visualizations/0019-remove-nth-node-from-end-of-list.html)** — 11 steps, traced on `head = [1,2,3,4,5], n = 2`.
+**▶ [Step through this solution line by line](./visualization.html)** — 11 steps, traced on `head = [1,2,3,4,5], n = 2`.
 
 | | |
 |---|---|
@@ -60,4 +60,4 @@ Two pointer separations, two different jobs. **Fixed position gap** (this proble
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/remove-nth-node-from-end-of-list)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/remove-nth-node-from-end-of-list)

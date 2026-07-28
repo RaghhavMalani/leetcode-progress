@@ -1,9 +1,9 @@
 # 2133. Number of Pairs of Strings With Concatenation Equal to Target
-> **Medium** &nbsp;·&nbsp; Brute force · index vs value identity &nbsp;·&nbsp; family: **Brute force done right**
+> **Medium** &nbsp;&middot;&nbsp; Brute force · index vs value identity &nbsp;&middot;&nbsp; family: **Brute force done right**
 
 A double loop, deliberately. The subtlety is the `i == j` guard: two *equal strings at different indices* are a legal pair, but an element may not pair with itself.
 
-**▶ [Step through this solution line by line](../visualizations/2133-number-of-pairs-of-strings-with-concatenation-equal-to-target.html)** — 18 steps, traced on `nums = ["777","7","77","77"], target = "7777"`.
+**▶ [Step through this solution line by line](./visualization.html)** — 18 steps, traced on `nums = ["777","7","77","77"], target = "7777"`.
 
 | | |
 |---|---|
@@ -60,4 +60,4 @@ Whenever a problem says "two elements", stop and decide whether it means **two p
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/number-of-pairs-of-strings-with-concatenation-equal-to-target)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/number-of-pairs-of-strings-with-concatenation-equal-to-target)

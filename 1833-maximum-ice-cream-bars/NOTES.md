@@ -1,9 +1,9 @@
 # 1833. Maximum Ice Cream Bars
-> **Medium** &nbsp;·&nbsp; Greedy · counting sort &nbsp;·&nbsp; family: **Greedy**
+> **Medium** &nbsp;&middot;&nbsp; Greedy · counting sort &nbsp;&middot;&nbsp; family: **Greedy**
 
 Buy cheapest first — but the interesting choice here is counting sort instead of `sort()`, which turns O(n log n) into O(n + maxPrice).
 
-**▶ [Step through this solution line by line](../visualizations/1833-maximum-ice-cream-bars.html)** — 16 steps, traced on `costs = [1,3,2,4,1], coins = 7`.
+**▶ [Step through this solution line by line](./visualization.html)** — 16 steps, traced on `costs = [1,3,2,4,1], coins = 7`.
 
 | | |
 |---|---|
@@ -62,4 +62,4 @@ Two questions to keep separate. **(1) Is the greedy correct?** Answer it with an
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/maximum-ice-cream-bars)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/maximum-ice-cream-bars)

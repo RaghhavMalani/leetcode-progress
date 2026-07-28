@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>128 - Longest Consecutive Sequence</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution(object):", "    def longestConsecutive(self, nums):", "        \"\"\"", "        :type nums: List[int]", "        :rtype: int", "        \"\"\"", "", "        s = set(nums)", "        longest = 0", "", "        for num in s:", "            if (num-1) not in s:", "                length = 0", "                while (length + num) in s:", "                    length += 1", "                longest = max(longest, length)", "", "        return longest"];
+function build(){
+  var T=LV.trace(), nums=[100,4,200,1,3,2];
+  var S=[100,4,200,1,3,2], set={}; S.forEach(function(x){ set[x]=1; });
+  var order=[100,4,200,1,3,2], longest=0;
+  function items(cur,run){ return order.map(function(x){ return String(x); }); }
+  function marks(cur,run){ var m={};
+    order.forEach(function(x,i){ if(run && run.indexOf(x)>=0) m[i]='good'; });
+    var ci=order.indexOf(cur); if(ci>=0) m[ci]='hot';
+    return m; }
+  function V(cur,run,note){ return [
+    LV.seq('s = set(nums) — the whole point is O(1) membership tests', items(), marks(cur,run), {note:note||''}),
+    LV.arr('current run', (run||[]).slice(), {}, {idx:false}) ]; }
+  function VA(cur,len){ return ['num = <b>'+cur+'</b>','length = <em>'+len+'</em>','longest = <u>'+longest+'</u>']; }
+
+  T.step(8,'info','Dump everything into a set. Sorting would also work in O(n log n) — the set is what buys the linear bound.',['longest = <u>0</u>'],V(null,null,''));
+  order.forEach(function(num){
+    T.step(11,'call','Consider '+num+'.',VA(num,0),V(num,null));
+    if(set[num-1]){
+      T.step(12,'prune',(num-1)+' is also in the set, so '+num+' is in the MIDDLE of some run, not its start. Skip it entirely — the run will be counted from its true beginning. This one check is what keeps the algorithm O(n) instead of O(n²).',VA(num,0),V(num,null));
+      return;
+    }
+    T.step(12,'ok',(num-1)+' is NOT in the set, so '+num+' is the smallest element of its run. Walk forward from here.',VA(num,0),V(num,[num]));
+    var len=0, run=[];
+    while(set[len+num]){
+      run.push(len+num); len++;
+      T.step(15,'push','Found '+(num+len-1)+' — the run is now '+run.join(', ')+' (length '+len+').',VA(num,len),V(num,run));
+    }
+    T.step(14,'info',(num+len)+' is not in the set, so the run ends. Its length is '+len+'.',VA(num,len),V(num,run));
+    var old=longest; longest=Math.max(longest,len);
+    T.step(16, longest>old?'found':'info','longest = max('+old+', '+len+') = '+longest+'.',VA(num,len),V(num,run));
+    if(longest>old) T.save(run.join('→')+' (len '+len+')');
+  });
+  T.step(18,'done','Answer: <b>'+longest+'</b>. Every number is visited by the outer loop once and by an inner while loop at most once, so the total is O(n) even though it looks nested.',['longest = <u>'+longest+'</u>'],V(null,[1,2,3,4]));
+  return T;
+}
+LV.render({
+  num:'128', name:'Longest Consecutive Sequence', slug:'0128-longest-consecutive-sequence',
+  difficulty:'Medium', pattern:'Hash set · amortised scan',
+  url:'https://leetcode.com/problems/longest-consecutive-sequence',
+  blurb:'A nested loop that is nevertheless O(n). The guard <code>if (num-1) not in s</code> is what makes it so: each run is walked from its start exactly once, so the inner loop does n total work across the whole run of the outer loop.',
+  input:'nums = [100,4,200,1,3,2]', runName:'longestConsecutive',
+  skipLabel:'Skip to next record', skipTypes:['found'], emptyResult:'no run measured yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n) — amortised; each value is the inner-loop subject at most once', space:'O(n) for the set'},
+  theory:{
+    idea:'<b>Amortised analysis</b>: a loop nested inside a loop is not automatically O(n²). What matters is the total number of inner iterations across the entire run. Here the guard ensures each value is stepped over by exactly one inner walk, so the inner loop contributes n steps in total, not n per outer iteration.',
+    recognize:[
+      '"Consecutive", "sequence of adjacent values", "gap of exactly 1" — and an explicit O(n) requirement that rules out sorting.',
+      'Order in the input does not matter, only membership. That is the signal to build a set and stop thinking about positions.',
+      'If sorting were allowed, the O(n log n) sort-and-scan is far easier to write; say that first, then give this.'
+    ],
+    pitfalls:[
+      '<b>Dropping the <code>num-1</code> guard.</b> Without it you re-walk each run from every one of its members and the solution really is O(n²).',
+      '<b>Iterating over <code>nums</code> instead of <code>s</code>.</b> Correct, but duplicates make you redo work. Iterating the set is free deduplication.',
+      '<b>Off-by-one in the walk.</b> <code>while (length + num) in s</code> starts with length 0, so it first tests <code>num</code> itself — that is why the final length is the count, not the count minus one.',
+      '<b>Forgetting the empty input.</b> <code>longest = 0</code> handles it; initialising to 1 does not.'
+    ],
+    template: "# Amortised scan - only start work where work has not been done\ns = set(nums)\nbest = 0\nfor x in s:\n    if x - 1 in s:        # not the start of a run -> someone else handles it\n        continue\n    n = 0\n    while x + n in s:     # walk the run exactly once, ever\n        n += 1\n    best = max(best, n)\n",
+    variants:[
+      ['Return the sequence itself, not its length','Track the start value alongside the max length.'],
+      ['Consecutive with gaps of at most g','The set trick breaks down — sort and scan instead.'],
+      ['Streaming input','Union-find, merging a new value with its neighbours as it arrives.'],
+      ['<b>Binary Tree Longest Consecutive</b> (LC 298)','Same word, completely different machinery — DFS carrying the current run length.']
+    ],
+    thinking:'When you see a nested loop and instinctively think "that is O(n²)", stop and ask <b>how many times can the inner loop body run across the entire execution?</b> If each element can only be the subject of the inner loop once, the answer is n and you have a linear algorithm. This same reasoning is what makes the sliding window O(n), and what makes the monotonic stack in LC 739 O(n). It is one idea in three costumes.'
+  }
+});
+
+</script>
+</body>
+</html>

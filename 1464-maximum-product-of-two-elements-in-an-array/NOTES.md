@@ -1,9 +1,9 @@
 # 1464. Maximum Product of Two Elements in an Array
-> **Easy** &nbsp;·&nbsp; Single pass · top-k tracking &nbsp;·&nbsp; family: **Math & number theory**
+> **Easy** &nbsp;&middot;&nbsp; Single pass · top-k tracking &nbsp;&middot;&nbsp; family: **Math & number theory**
 
 Track the top two in one pass, no sort. The detail that matters is the demotion order — `max2 = max1` must happen before `max1 = num`.
 
-**▶ [Step through this solution line by line](../visualizations/1464-maximum-product-of-two-elements-in-an-array.html)** — 13 steps, traced on `nums = [3,4,5,2]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 13 steps, traced on `nums = [3,4,5,2]`.
 
 | | |
 |---|---|
@@ -55,4 +55,4 @@ Before writing `sort()`, ask **"how much of the order do I actually need?"** If 
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/maximum-product-of-two-elements-in-an-array)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/maximum-product-of-two-elements-in-an-array)

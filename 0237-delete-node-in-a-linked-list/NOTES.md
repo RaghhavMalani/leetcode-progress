@@ -1,9 +1,9 @@
 # 237. Delete Node in a Linked List
-> **Medium** &nbsp;·&nbsp; Linked list · impersonation trick &nbsp;·&nbsp; family: **Linked lists**
+> **Medium** &nbsp;&middot;&nbsp; Linked list · impersonation trick &nbsp;&middot;&nbsp; family: **Linked lists**
 
 A lateral-thinking problem. You cannot delete the node you were given, so you make it pretend to be the next one and delete that instead. Note the restriction this creates: it cannot work on the tail.
 
-**▶ [Step through this solution line by line](../visualizations/0237-delete-node-in-a-linked-list.html)** — 4 steps, traced on `head = [4,5,1,9], node = the node with value 1`.
+**▶ [Step through this solution line by line](./visualization.html)** — 4 steps, traced on `head = [4,5,1,9], node = the node with value 1`.
 
 | | |
 |---|---|
@@ -54,4 +54,4 @@ Cheap but real lesson: **separate the structure from its contents.** Interviewer
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/delete-node-in-a-linked-list)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/delete-node-in-a-linked-list)

@@ -1,9 +1,9 @@
 # 168. Excel Sheet Column Title
-> **Easy** &nbsp;·&nbsp; Math · bijective base conversion &nbsp;·&nbsp; family: **Math & number theory**
+> **Easy** &nbsp;&middot;&nbsp; Math · bijective base conversion &nbsp;&middot;&nbsp; family: **Math & number theory**
 
 Base-26 with no zero digit. Every `-1` in these five lines is doing the same job: shifting a 1-based alphabet into the 0-based arithmetic that `%` and `//` expect.
 
-**▶ [Step through this solution line by line](../visualizations/0168-excel-sheet-column-title.html)** — 10 steps, traced on `columnNumber = 701`.
+**▶ [Step through this solution line by line](./visualization.html)** — 10 steps, traced on `columnNumber = 701`.
 
 | | |
 |---|---|
@@ -57,4 +57,4 @@ When a problem involves 1-based indexing and modular arithmetic, **convert to 0-
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/excel-sheet-column-title)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/excel-sheet-column-title)

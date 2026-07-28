@@ -1,9 +1,9 @@
 # 75. Sort Colors
-> **Medium** &nbsp;·&nbsp; Three pointers · Dutch national flag &nbsp;·&nbsp; family: **Two pointers & sliding window**
+> **Medium** &nbsp;&middot;&nbsp; Three pointers · Dutch national flag &nbsp;&middot;&nbsp; family: **Two pointers & sliding window**
 
 Dijkstra’s Dutch national flag partition. The only subtle line is the last one: after swapping with `high` you must NOT advance `mid`, because the incoming value is unexamined.
 
-**▶ [Step through this solution line by line](../visualizations/0075-sort-colors.html)** — 20 steps, traced on `nums = [2,0,2,1,1,0]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 20 steps, traced on `nums = [2,0,2,1,1,0]`.
 
 | | |
 |---|---|
@@ -58,4 +58,4 @@ This problem is really a lesson in **loop invariants**. Before writing the loop,
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/sort-colors)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/sort-colors)

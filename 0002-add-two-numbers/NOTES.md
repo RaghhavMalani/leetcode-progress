@@ -1,9 +1,9 @@
 # 2. Add Two Numbers
-> **Medium** &nbsp;·&nbsp; Linked list · digit-by-digit carry &nbsp;·&nbsp; family: **Linked lists**
+> **Medium** &nbsp;&middot;&nbsp; Linked list · digit-by-digit carry &nbsp;&middot;&nbsp; family: **Linked lists**
 
 Long addition on a list. The whole problem is the loop condition: `while l1 or l2 or carry` — three reasons to keep going, and forgetting the third is the classic failure.
 
-**▶ [Step through this solution line by line](../visualizations/0002-add-two-numbers.html)** — 26 steps, traced on `l1 = [2,4,3], l2 = [5,6,4]   (342 + 465)`.
+**▶ [Step through this solution line by line](./visualization.html)** — 26 steps, traced on `l1 = [2,4,3], l2 = [5,6,4]   (342 + 465)`.
 
 | | |
 |---|---|
@@ -57,4 +57,4 @@ Notice how much complexity the loop condition absorbed. When you write a simulat
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/add-two-numbers)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/add-two-numbers)

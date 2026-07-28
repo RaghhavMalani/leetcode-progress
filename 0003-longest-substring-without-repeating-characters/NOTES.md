@@ -1,9 +1,9 @@
 # 3. Longest Substring Without Repeating Characters
-> **Medium** &nbsp;·&nbsp; Sliding window · variable size &nbsp;·&nbsp; family: **Two pointers & sliding window**
+> **Medium** &nbsp;&middot;&nbsp; Sliding window · variable size &nbsp;&middot;&nbsp; family: **Two pointers & sliding window**
 
 The reference implementation for variable-size sliding windows. Grow on the right, shrink on the left until the window is legal again, record. Neither pointer ever goes backwards.
 
-**▶ [Step through this solution line by line](../visualizations/0003-longest-substring-without-repeating-characters.html)** — 40 steps, traced on `s = "abcabcbb"`.
+**▶ [Step through this solution line by line](./visualization.html)** — 40 steps, traced on `s = "abcabcbb"`.
 
 | | |
 |---|---|
@@ -63,4 +63,4 @@ Every sliding-window problem is three questions. **(1) What makes a window inval
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/longest-substring-without-repeating-characters)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/longest-substring-without-repeating-characters)

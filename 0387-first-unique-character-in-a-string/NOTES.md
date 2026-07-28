@@ -1,9 +1,9 @@
 # 387. First Unique Character in a String
-> **Easy** &nbsp;·&nbsp; Hash map · two-pass frequency &nbsp;·&nbsp; family: **Hashing**
+> **Easy** &nbsp;&middot;&nbsp; Hash map · two-pass frequency &nbsp;&middot;&nbsp; family: **Hashing**
 
 The "two passes are fine" lesson. You cannot answer this in one pass because uniqueness is only known after seeing the whole string — and iterating the *string* in pass two, not the dictionary, is what makes "first" correct.
 
-**▶ [Step through this solution line by line](../visualizations/0387-first-unique-character-in-a-string.html)** — 18 steps, traced on `s = "loveleetcode"`.
+**▶ [Step through this solution line by line](./visualization.html)** — 18 steps, traced on `s = "loveleetcode"`.
 
 | | |
 |---|---|
@@ -53,4 +53,4 @@ When a one-pass solution feels impossible, ask **"is this property decidable fro
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/first-unique-character-in-a-string)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/first-unique-character-in-a-string)

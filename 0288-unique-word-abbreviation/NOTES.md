@@ -1,9 +1,9 @@
 # 288. Unique Word Abbreviation
-> **Medium** &nbsp;·&nbsp; Design · precompute a canonical key &nbsp;·&nbsp; family: **Hashing**
+> **Medium** &nbsp;&middot;&nbsp; Design · precompute a canonical key &nbsp;&middot;&nbsp; family: **Hashing**
 
 A canonical-key problem (like LC 49) turned into a data structure. The neat move is the `""` sentinel: instead of storing a set of words per abbreviation, one poisoned entry says "contested".
 
-**▶ [Step through this solution line by line](../visualizations/0288-unique-word-abbreviation.html)** — 15 steps, traced on `dictionary = ["deer","door","cake","card"], then four isUnique queries`.
+**▶ [Step through this solution line by line](./visualization.html)** — 15 steps, traced on `dictionary = ["deer","door","cake","card"], then four isUnique queries`.
 
 | | |
 |---|---|
@@ -62,4 +62,4 @@ Two habits from this problem. First: when a structure is **built once and querie
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/unique-word-abbreviation)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/unique-word-abbreviation)

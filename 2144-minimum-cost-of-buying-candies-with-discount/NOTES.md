@@ -1,9 +1,9 @@
 # 2144. Minimum Cost of Buying Candies With Discount
-> **Easy** &nbsp;·&nbsp; Greedy · sort descending, take every third &nbsp;·&nbsp; family: **Greedy**
+> **Easy** &nbsp;&middot;&nbsp; Greedy · sort descending, take every third &nbsp;&middot;&nbsp; family: **Greedy**
 
 Two lines once you see it: sort descending and skip index 2, 5, 8, …. The direction of the sort is the whole decision, and it follows from wanting the *free* items to be expensive.
 
-**▶ [Step through this solution line by line](../visualizations/2144-minimum-cost-of-buying-candies-with-discount.html)** — 9 steps, traced on `cost = [6,5,7,9,2,2]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 9 steps, traced on `cost = [6,5,7,9,2,2]`.
 
 | | |
 |---|---|
@@ -53,4 +53,4 @@ For any discount or skip-based greedy, write down the objective as "**maximise t
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/minimum-cost-of-buying-candies-with-discount)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/minimum-cost-of-buying-candies-with-discount)

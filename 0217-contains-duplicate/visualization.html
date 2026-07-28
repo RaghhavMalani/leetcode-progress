@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>217 - Contains Duplicate</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution(object):", "    def containsDuplicate(self, nums):", "        \"\"\"", "        :type nums: List[int]", "        :rtype: bool", "        \"\"\"", "        s1 = set(nums)", "        return len(s1) != len(nums)"];
+function build(){
+  var T=LV.trace(), a=[1,2,3,1];
+  var seen=[], dup=null;
+  T.step(7,'info','`set(nums)` walks the list once and drops repeats. Everything after that is arithmetic.',['nums has <b>4</b> items'],[LV.arr('nums',a,{},{}),LV.seq('set(nums)',[],{},{emptyText:'empty'})]);
+  a.forEach(function(x,i){
+    var m={}; for(var j=0;j<a.length;j++) m[j]= j<i?'good':(j===i?'hot':'dim');
+    var isnew = seen.indexOf(x)<0;
+    if(isnew) seen.push(x); else dup=x;
+    var sm={}; if(!isnew) sm[seen.indexOf(x)]='bad';
+    T.step(7, isnew?'push':'found','Add '+x+' to the set. '+(isnew?'It is new — the set grows to '+seen.length+'.':'<b>Already present.</b> The set does NOT grow, and that silent non-growth is the whole algorithm.'),
+      ['i = <b>'+i+'</b>','set size = <em>'+seen.length+'</em>'],
+      [LV.arr('nums',a,m,{}),LV.seq('set(nums)',seen,sm,{})]);
+  });
+  var ans = seen.length!==a.length;
+  T.save(ans?'True (set has '+seen.length+', list has '+a.length+')':'False');
+  T.step(8,'done','len(set) = '+seen.length+', len(nums) = '+a.length+'. They differ, so a duplicate existed → return <b>'+ans+'</b>. Two lines, O(n), and no explicit comparison anywhere.',['result = <u>'+ans+'</u>'],[LV.arr('nums',a,{},{}),LV.seq('set(nums)',seen,{},{})]);
+  return T;
+}
+LV.render({
+  num:'217', name:'Contains Duplicate', slug:'0217-contains-duplicate',
+  difficulty:'Easy', pattern:'Hash set · membership',
+  url:'https://leetcode.com/problems/contains-duplicate',
+  blurb:'Two lines, and worth a minute of thought: the set does the comparing, and the size difference does the reporting. Also worth knowing when this is <em>not</em> the best answer.',
+  input:'nums = [1,2,3,1]', runName:'containsDuplicate',
+  skipLabel:null, emptyResult:'no verdict yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n)', space:'O(n) — the trade being made'},
+  theory:{
+    idea:'A set answers "have I seen this?" in O(1). Almost every duplicate/uniqueness question reduces to that one operation, and the only real decision is whether you can afford the O(n) memory.',
+    recognize:[
+      '"Any duplicates", "all unique", "seen before" with no constraint on space.',
+      'If the problem adds "within k indices" it becomes a sliding window (LC 219). If it adds "O(1) space, do not modify" it becomes Floyd (LC 287). Same question, three completely different answers depending on the constraints — read them first.'
+    ],
+    pitfalls:[
+      '<b>Building the set when you could exit early.</b> The explicit loop with <code>if x in seen: return True</code> stops at the first duplicate; <code>set(nums)</code> always consumes the whole list. Identical big-O, different real-world behaviour on a huge array whose duplicate is at index 2.',
+      '<b>Offering the O(n²) double loop.</b> It passes small tests and times out on the real ones.',
+      '<b>Sorting first.</b> O(n log n) but O(1) extra space if sorting in place — a legitimate answer when memory is the binding constraint. Knowing when to prefer it is the actual skill.'
+    ],
+    template: "# Membership in O(1)\nreturn len(set(nums)) != len(nums)          # shortest\n\nseen = set()                                 # early-exit version\nfor x in nums:\n    if x in seen:\n        return True\n    seen.add(x)\nreturn False\n",
+    variants:[
+      ['Duplicates within k indices','LC 219 — fixed-size sliding window.'],
+      ['n+1 values in 1..n, O(1) space, no modification','LC 287 — Floyd cycle detection.'],
+      ['Find <b>all</b> duplicates in O(1) space','LC 442 — negate <code>nums[abs(x)-1]</code> as a visited marker.'],
+      ['Streaming / unbounded input','A Bloom filter if false positives are tolerable; otherwise you genuinely need the memory.']
+    ],
+    thinking:'Get in the habit of asking, for every easy problem, <b>"which constraint would make my answer wrong?"</b> Here: remove the memory allowance and the set dies; forbid modification too and you need Floyd. Problems 217, 219 and 287 in your repo are the same question under three constraint sets, and seeing them as a family is worth more than solving each in isolation.'
+  }
+});
+
+</script>
+</body>
+</html>

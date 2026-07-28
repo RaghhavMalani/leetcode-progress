@@ -1,9 +1,9 @@
 # 3559. Number of Ways to Assign Edge Weights II
-> **Hard** &nbsp;·&nbsp; Binary lifting LCA + parity counting &nbsp;·&nbsp; family: **Trees**
+> **Hard** &nbsp;&middot;&nbsp; Binary lifting LCA + parity counting &nbsp;&middot;&nbsp; family: **Trees**
 
 Part I needed one tree height; Part II needs the distance between arbitrary pairs. That single change forces the whole LCA machinery — and the counting argument stays identical.
 
-**▶ [Step through this solution line by line](../visualizations/3559-number-of-ways-to-assign-edge-weights-ii.html)** — 17 steps, traced on `a 5-node tree, then three queries`.
+**▶ [Step through this solution line by line](./visualization.html)** — 17 steps, traced on `a 5-node tree, then three queries`.
 
 | | |
 |---|---|
@@ -70,4 +70,4 @@ The general move here is **trade preprocessing for query time**. One query? Do t
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/number-of-ways-to-assign-edge-weights-ii)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/number-of-ways-to-assign-edge-weights-ii)

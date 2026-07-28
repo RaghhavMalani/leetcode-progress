@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>42 - Trapping Rain Water</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution(object):", "    def trap(self, height):", "        # Two pointers approach", "        left, right = 0, len(height) - 1", "        left_max, right_max = 0, 0", "        water = 0", "        ", "        while left < right:", "            if height[left] < height[right]:", "                if height[left] >= left_max:", "                    left_max = height[left]", "                else:", "                    water += left_max - height[left]", "                left += 1", "            else:", "                if height[right] >= right_max:", "                    right_max = height[right]", "                else:", "                    water += right_max - height[right]", "                right -= 1", "        return water"];
+function build(){
+  var T=LV.trace(), h=[0,1,0,2,1,0,1,3,2,1,2,1];
+  var L=0,R=h.length-1,lm=0,rm=0,water=0, fill={};
+  function marks(){ var m={}; m[L]='hot'; m[R]='hot'; return m; }
+  function ptr(){ var p={}; p[L]=(L===R?'L R':'L'); if(R!==L) p[R]='R'; return p; }
+  function V(note){ var m=marks(); return [
+    LV.bars('height — dashed blue is trapped water', h, m, fill, {note:note||''}) ]; }
+  function VA(){ return ['left = <b>'+L+'</b>','right = <i>'+R+'</i>','left_max = <em>'+lm+'</em>','right_max = <em>'+rm+'</em>','water = <u>'+water+'</u>']; }
+
+  T.step(4,'info','Two pointers at the ends, and a running maximum behind each of them. The insight: water above column i is <code>min(maxLeft, maxRight) - height[i]</code>, and you can always know which of those two is the smaller one WITHOUT having computed both.',VA(),V());
+  while(L<R){
+    T.step(8,'call','Loop: left='+L+' (h='+h[L]+'), right='+R+' (h='+h[R]+').',VA(),V());
+    if(h[L]<h[R]){
+      T.step(9,'info','height[left] ('+h[L]+') &lt; height[right] ('+h[R]+'). So SOME wall on the right is at least '+h[R]+' — taller than anything limiting us on the left. That means left_max alone decides the water here; we never need the actual right maximum.',VA(),V());
+      if(h[L]>=lm){
+        lm=h[L];
+        T.step(11,'ok','height[left] ('+h[L]+') is a new left_max. This column is a wall, not a basin — it holds no water itself.',VA(),V());
+      } else {
+        var add=lm-h[L]; water+=add; fill[L]=add;
+        T.step(13,'found','height[left] ('+h[L]+') sits below left_max ('+lm+'), so it is a dip. It traps '+lm+' − '+h[L]+' = <b>'+add+'</b> units. water → '+water+'.',VA(),V());
+        T.save('col '+L+': +'+add);
+      }
+      L++;
+      T.step(14,'pop','Advance left to '+L+'.',VA(),V());
+    } else {
+      T.step(15,'info','height[right] ('+h[R]+') &le; height[left] ('+h[L]+'). Symmetric argument: the left side is guaranteed tall enough, so right_max decides the water at this column.',VA(),V());
+      if(h[R]>=rm){
+        rm=h[R];
+        T.step(17,'ok','height[right] ('+h[R]+') is a new right_max. A wall, not a basin.',VA(),V());
+      } else {
+        var a2=rm-h[R]; water+=a2; fill[R]=a2;
+        T.step(19,'found','height[right] ('+h[R]+') is below right_max ('+rm+'), so it traps '+rm+' − '+h[R]+' = <b>'+a2+'</b> units. water → '+water+'.',VA(),V());
+        T.save('col '+R+': +'+a2);
+      }
+      R--;
+      T.step(20,'pop','Retreat right to '+R+'.',VA(),V());
+    }
+  }
+  T.step(21,'done','The pointers met. Total trapped water = <b>'+water+'</b>, in one pass with O(1) extra memory.',VA(),V());
+  return T;
+}
+LV.render({
+  num:'42', name:'Trapping Rain Water', slug:'0042-trapping-rain-water',
+  difficulty:'Hard', pattern:'Two pointers · converging',
+  url:'https://leetcode.com/problems/trapping-rain-water',
+  blurb:'The classic argument for why two pointers work: you do not need both maxima, only to know which one is smaller — and comparing the two heights tells you that for free.',
+  input:'height = [0,1,0,2,1,0,1,3,2,1,2,1]', runName:'trap',
+  skipLabel:'Skip to next water', skipTypes:['found'], emptyResult:'no water collected yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n) — single pass', space:'O(1) — beats the prefix-max arrays and the stack solution'},
+  theory:{
+    idea:'Water above column i is <code>min(maxLeft[i], maxRight[i]) - height[i]</code>. The naive route precomputes both arrays in O(n) space. The two-pointer trick: whichever of <code>height[left]</code> and <code>height[right]</code> is <b>smaller</b> is the side whose maximum is binding, and you can settle that column immediately — you never need the far side’s exact value, only the guarantee that it is at least as big.',
+    recognize:[
+      'An array where the answer at each index depends on something to the <b>left and to the right</b> of it.',
+      'You have a formula involving <code>min(prefix_max, suffix_max)</code>. That shape is almost always convertible from two arrays to two pointers.',
+      'The interviewer asks for O(1) space after you give the O(n) prefix/suffix answer — this is that follow-up.'
+    ],
+    pitfalls:[
+      '<b>Comparing <code>left_max</code> with <code>right_max</code> instead of <code>height[left]</code> with <code>height[right]</code>.</b> Both are workable formulations, but mixing them breaks the invariant. Pick one and be consistent.',
+      '<b>Updating the max after computing the water.</b> Then a wall column reports negative water. The <code>&gt;=</code> branch must come first.',
+      '<b><code>while left &lt;= right</code>.</b> When they meet, that column is the global maximum and traps nothing; including it is harmless here but the strict <code>&lt;</code> is the honest invariant.',
+      '<b>Reaching for the monotonic stack</b> because you have seen it done that way. The stack solution is O(n) time and O(n) space and considerably harder to get right under pressure. Give this one first, mention the stack as an alternative.'
+    ],
+    template: "# Converging two pointers - the general shape\nleft, right = 0, len(a) - 1\nwhile left < right:\n    if <the left side is currently the binding constraint>:\n        ...settle index `left`...\n        left += 1\n    else:\n        ...settle index `right`...\n        right -= 1\n\n# The pattern is valid only when you can PROVE that the side you move\n# can be finalised now and never needs revisiting. Say that proof out\n# loud in an interview - it is what is actually being tested.\n",
+    variants:[
+      ['<b>Container With Most Water</b> (LC 11)','Same converging pointers, different rule: move whichever wall is shorter, because only it limits the area.'],
+      ['Trapping Rain Water <b>II</b> (LC 407)','2D. Pointers do not generalise — you need a min-heap flooding from the border inwards.'],
+      ['Prefix/suffix max arrays','The O(n)-space version. Simpler to derive, and the right first answer to state before optimising.'],
+      ['Monotonic stack','Computes water layer by horizontal layer. Worth knowing because that same stack solves LC 84 and LC 739.']
+    ],
+    thinking:'The generalisable move here is: <b>when the answer needs two pieces of information and you only need to know which is smaller, you can often replace precomputation with a moving pointer.</b> Ask yourself, at each step, "which side is currently the bottleneck, and can I finalise it right now?" If the answer is yes, converging pointers apply. Container With Most Water is the same question with a different bottleneck, which is why the two problems feel identical once you have seen this argument.'
+  }
+});
+
+</script>
+</body>
+</html>

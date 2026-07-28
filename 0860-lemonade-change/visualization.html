@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>860 - Lemonade Change</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution {", "public:", "    bool lemonadeChange(vector<int>& bills) {", "        int five = 0;", "        int ten = 0;", "", "        for (int bill: bills){", "            if (bill == (5)){", "                five += 1;", "            }", "            else if (bill == (10)){", "                ten += 1;", "            }", "", "            int change = bill - 5;", "            if (change == (5)){", "                if(five > 0){", "                    five -= 1;", "                }", "                else{", "                    return false;", "                }", "            }", "            if (change == (15)){", "                if(five > 0 && ten > 0){", "                    five -= 1;", "                    ten -= 1;", "                }", "                else if(five >= 3){", "                    five -= 3;", "                }", "                else{", "                    return false;", "                }", "            }", "", "        }", "        return true;", "    }", "};"];
+function build(){
+  var T=LV.trace(), bills=[5,5,10,10,20], five=0, ten=0;
+  function V(i,fail){ var m={}; bills.forEach(function(_,k){ m[k]= k<i?'good':(k===i?(fail?'bad':'hot'):'dim'); });
+    return [ LV.arr('bills', bills, m, {}),
+             LV.kv('till', [['$5 notes',five],['$10 notes',ten]], {'$5 notes':'hot'}, {}) ]; }
+  function VA(i){ return ['bill = <b>$'+(i<bills.length?bills[i]:'—')+'</b>','five = <em>'+five+'</em>','ten = <em>'+ten+'</em>']; }
+  T.step(4,'info','Lemonade costs $5. You start with no change, so every note you receive is also your only source of change. There are just three cases, and only ONE of them involves a real decision.',VA(0),V(null,false));
+  for(var i=0;i<bills.length;i++){
+    var b=bills[i];
+    T.step(7,'call','Customer pays with $'+b+'.',VA(i),V(i,false));
+    if(b===5){ five++; T.step(9,'ok','$5 — no change owed. Bank the note: five = '+five+'.',VA(i),V(i,false)); T.save('$5 → no change'); continue; }
+    if(b===10){ ten++; T.step(12,'ok','$10 — bank it: ten = '+ten+'.',VA(i),V(i,false)); }
+    var change=b-5;
+    T.step(15,'info','Change owed = $'+b+' − $5 = <b>$'+change+'</b>.',VA(i),V(i,false));
+    if(change===5){
+      if(five>0){ five--; T.step(18,'found','Give one $5. five → '+five+'.',VA(i),V(i,false)); T.save('$10 → gave $5'); }
+      else { T.step(21,'bad','No $5 notes left — cannot make change. Return <b>false</b>.',VA(i),V(i,true)); T.save('FAILED at bill '+i); break; }
+    }
+    if(change===15){
+      T.step(25,'call','$15 owed. Two ways to pay it: one $10 + one $5, or three $5. <b>Always prefer $10 + $5.</b>',VA(i),V(i,false));
+      if(five>0&&ten>0){ five--; ten--; T.step(27,'found','Give $10 + $5. This is the greedy choice: $5 notes are strictly more flexible than $10 notes (a $10 can only ever be used for a $20 customer), so spend the rigid note first. five → '+five+', ten → '+ten+'.',VA(i),V(i,false)); T.save('$20 → gave $10+$5'); }
+      else if(five>=3){ five-=3; T.step(30,'ok','No $10 available, but three $5 will do. five → '+five+'.',VA(i),V(i,false)); T.save('$20 → gave $5+$5+$5'); }
+      else { T.step(33,'bad','Neither combination is possible — return <b>false</b>.',VA(i),V(i,true)); T.save('FAILED at bill '+i); break; }
+    }
+  }
+  T.step(38,'done','All customers served — return <b>true</b>. One pass, two counters, O(1) space.',VA(bills.length),V(null,false));
+  return T;
+}
+LV.render({
+  num:'860', name:'Lemonade Change', slug:'0860-lemonade-change',
+  difficulty:'Easy', pattern:'Greedy · spend the least flexible resource first',
+  url:'https://leetcode.com/problems/lemonade-change',
+  blurb:'Only one line in this problem is a real decision: paying $15 with a $10 + $5 rather than three $5s. The reason is that $5 notes are more flexible, so you hoard them.',
+  input:'bills = [5,5,10,10,20]', runName:'lemonadeChange',
+  skipLabel:null, emptyResult:'no transactions yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n)', space:'O(1)'},
+  theory:{
+    idea:'The greedy rule is <b>spend your least flexible resource first</b>. A $10 note can only ever be used as change for a $20; a $5 can be used for a $10 <em>or</em> a $20. So whenever both options exist, use the $10 and keep the $5s. An exchange argument proves it: any successful strategy that used three $5s where a $10 was available can be rewritten to use the $10, and it remains successful.',
+    recognize:[
+      'Resource allocation where the resources have different <b>usefulness ranges</b>.',
+      'The word "greedy" is justified only when you can name the exchange argument. Here you can, in one sentence.',
+      'Similar: assigning tasks to machines, giving change with coins, allocating rooms — always ask which resource is the constrained one.'
+    ],
+    pitfalls:[
+      '<b>Preferring three $5s for a $20.</b> It passes many tests and fails on inputs where a later $10 customer needs a $5.',
+      '<b>Tracking $20 notes.</b> They are never useful as change — you never give change larger than $15 — so counting them is pointless.',
+      '<b>Assuming you can start with change.</b> You cannot; the first customer must pay $5.',
+      '<b>Not justifying the greedy.</b> The exchange argument takes ten seconds and is what the problem is actually testing.'
+    ],
+    template: "# spend the LEAST FLEXIBLE resource first\nfive = ten = 0\nfor bill in bills:\n    if bill == 5:\n        five += 1\n    elif bill == 10:\n        if not five: return False\n        five -= 1; ten += 1\n    else:                          # 20 -> owe 15\n        if ten and five:           # PREFER 10+5: a $10 is useless elsewhere\n            ten -= 1; five -= 1\n        elif five >= 3:\n            five -= 3\n        else:\n            return False\nreturn True\n",
+    variants:[
+      ['Arbitrary coin denominations','Greedy fails in general — the classic counterexample is coins {1, 3, 4} making 6. You need DP.'],
+      ['Minimise the number of notes given','Coin change DP.'],
+      ['<b>Maximum Ice Cream Bars</b> (LC 1833)','Greedy by cheapest first. Also in your repo.'],
+      ['Unlimited change available','Trivially always true — the whole problem is the scarcity.']
+    ],
+    thinking:'When several resources can satisfy a demand, rank them by <b>how many future demands each could serve</b> and spend the most specialised one first. That is the same principle behind "assign the tightest-deadline job first" and "use the largest coin that still fits". And always pair a greedy with its exchange argument — "swapping to the greedy choice never makes the outcome worse" — because a greedy you cannot justify is a greedy you will apply in the wrong place.'
+  }
+});
+
+</script>
+</body>
+</html>

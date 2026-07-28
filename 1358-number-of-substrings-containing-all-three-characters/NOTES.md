@@ -1,9 +1,9 @@
 # 1358. Number of Substrings Containing All Three Characters
-> **Medium** &nbsp;·&nbsp; Sliding window · counting &nbsp;·&nbsp; family: **Two pointers & sliding window**
+> **Medium** &nbsp;&middot;&nbsp; Sliding window · counting &nbsp;&middot;&nbsp; family: **Two pointers & sliding window**
 
 The counting variant of the sliding window. The whole problem is one line: `ans += n - right`. Understanding *why* that counts each substring exactly once is the skill being tested.
 
-**▶ [Step through this solution line by line](../visualizations/1358-number-of-substrings-containing-all-three-characters.html)** — 26 steps, traced on `s = "abcabc"`.
+**▶ [Step through this solution line by line](./visualization.html)** — 26 steps, traced on `s = "abcabc"`.
 
 | | |
 |---|---|
@@ -57,4 +57,4 @@ Train yourself to spot the sentence **"if this window works, every bigger one wo
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/number-of-substrings-containing-all-three-characters)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/number-of-substrings-containing-all-three-characters)

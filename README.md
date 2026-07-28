@@ -7,9 +7,26 @@ the heap reordering.
 
 | | |
 |---|---|
-| **[▶ Open the index](visualizations/index.html)** | all 109 traced solutions, grouped by pattern, with a live filter |
-| **[📖 Pattern handbook](PATTERNS.md)** | 16 pattern families: how to recognise each one, the reusable template, the mistakes that cost people the problem, and how to think about the family next time |
-| **`NOTES.md` in each problem folder** | the same theory, scoped to that one problem |
+| **[Open the Dojo](visualizations/dojo.html)** | active recall: name the pattern from a cold statement, predict the next step, rebuild your code from shuffled lines, rebuild the 16 skeletons, or sit a timed 45-minute interview. Spaced repetition, mastery map, and it tracks *which kind* of mistake you keep making. |
+| **[Traced solutions](visualizations/index.html)** | every solution replayed line by line, with the data structures drawn as they change |
+| **[Pattern handbook](PATTERNS.md)** | 16 families: recognition signals, templates, pitfalls, how to think about each |
+| **[Study plan](STUDY-PLAN.md)** | the next 30 problems, aimed at the families that are measurably thin |
+| **[Refactor queue](REFACTOR.md)** | 12 accepted solutions worth rewriting, ranked, with the reason |
+| `NOTES.md` + `visualization.html` in each problem folder | the trace and the theory, right next to the code |
+
+### Keeping it up to date
+
+Solve something new on LeetCode, then **double-click `sync.bat`** (or run `python sync.py`). It pulls your new
+commits, runs each new solution under `sys.settrace` to build its trace automatically, writes its notes, and
+rebuilds the index and the Dojo. No configuration — inputs come from the problem's own README.
+
+```
+python sync.py            # pull, trace anything new, rebuild
+python sync.py --dry      # show what it would do
+python visualizations/trace.py 0078-subsets --input "nums=[1,2,3,4]"   # trace any input you like
+```
+
+Works on a phone. Everything is static HTML — no server, no build step, no network.
 
 Open a page and use **← →** to step, **space** to play, or drag the scrubber. Each page ends with recognition
 signals, a template, pitfalls, interviewer variants, and complexity.

@@ -249,3 +249,92 @@ table.var tr:last-child td{border-bottom:none}
 .search:focus{outline:none;border-color:#2a7ea0}
 
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* ---------- opt-in quiz mode on a trace page ---------- */
+.qz{margin-top:12px;background:var(--panel);border:1px solid #7a5a1e;border-left:3px solid var(--am);
+  border-radius:9px;padding:14px 18px}
+.qz h6{margin:0 0 10px;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--am);font-weight:500}
+.qz .qzopts{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:6px}
+.qz button{text-align:left;font-size:12.5px;padding:9px 13px;line-height:1.4}
+.qz button kbd{font-family:var(--mono);font-size:10px;color:var(--ink-4);margin-right:8px}
+.qz button.right{background:#0f2a1d;border-color:var(--gr);color:#bdf0d4}
+.qz button.wrong{background:#291317;border-color:var(--rd);color:#f4c3c6}
+.qz button.muted{opacity:.4}
+.qz .qzfb{margin-top:11px;font-size:13px;color:var(--ink-2);line-height:1.6}
+.qz .qzfb b{color:var(--ink)}
+.qz .qzscore{float:right;font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.08em}
+button#lv-quiz.on{background:#2a1b10;border-color:#7a5a1e;color:#f3cf8a}
+
+/* ============================================================
+   PHONE.  Everything below 700px: one column, bigger tap targets,
+   a control bar that sticks to the bottom so you can step with a thumb.
+   ============================================================ */
+@media(max-width:700px){
+  .wrap{padding:14px 12px 96px}
+  h1{font-size:19px}
+  .mast{padding-bottom:12px;margin-bottom:14px}
+  .mast p{font-size:13px}
+  .tagrow{gap:5px}
+  .tag{font-size:10px;padding:2px 8px}
+
+  /* the player controls dock to the bottom of the screen */
+  .bar{position:fixed;left:0;right:0;bottom:0;z-index:40;margin:0;
+    background:rgba(13,16,23,.97);border-top:1px solid var(--line-2);
+    padding:9px 10px calc(9px + env(safe-area-inset-bottom));
+    gap:6px;justify-content:center;backdrop-filter:blur(8px)}
+  .bar button{flex:1 1 auto;min-height:42px;font-size:13px;padding:9px 8px}
+  .bar #lv-reset{display:none}                        /* the scrubber does this job */
+  .bar #lv-skip,.bar #lv-quiz{flex:1 1 44%}           /* second row, still reachable */
+  .count{width:100%;text-align:center;margin:2px 0 0;order:9}
+  .scrub{height:22px;margin-bottom:10px}              /* fat enough to drag */
+
+  /* one column everywhere */
+  .grid2{grid-template-columns:1fr;gap:9px}
+  .pane .body{max-height:44vh;overflow:auto}
+  .state{padding:10px 11px;gap:9px}
+  .ln{font-size:11px;padding-left:6px}
+  .ln .no{width:20px}
+
+  .vars{gap:9px 14px;padding:9px 12px;font-size:12px}
+  .msg{font-size:13px;padding:11px 13px}
+  .legend{gap:9px;font-size:9.5px}
+
+  /* views shrink so a 12-element array still fits */
+  .cell{min-width:25px;height:25px;font-size:11.5px;padding:0 4px}
+  .cells{gap:2px}
+  .idx{font-size:8px}
+  .ptr{font-size:8.5px}
+  .item,.pair{font-size:11px;padding:4px 8px}
+  .nbox{min-width:30px;height:27px;font-size:11.5px}
+  table.mx td{width:27px;height:25px;font-size:11px}
+  .bars{min-height:78px}
+  .barcol{width:19px}
+
+  /* theory */
+  .theory{margin-top:26px}
+  .tgrid{grid-template-columns:1fr;gap:10px}
+  .card{padding:13px 15px}
+  .card p,.card ul{font-size:13px}
+  pre.tmpl{font-size:10.5px;padding:10px 11px}
+  table.var{font-size:12.5px;display:block;overflow-x:auto}
+  .big{font-size:13px;padding:13px 15px}
+  .cx{gap:12px;font-size:12px}
+
+  /* index page */
+  .cardgrid{grid-template-columns:1fr 1fr;gap:6px}
+  .pcard{padding:9px 10px}
+  .pcard .t{font-size:12.5px}
+  .search{font-size:16px}          /* 16px stops iOS zooming on focus */
+
+  .qz .qzopts{grid-template-columns:1fr}
+  .qz button{min-height:44px}
+}
+@media(max-width:380px){
+  .cardgrid{grid-template-columns:1fr}
+  .cell{min-width:22px;height:22px;font-size:10.5px}
+}
+/* landscape phone: give the code pane back some height */
+@media(max-width:900px) and (orientation:landscape){
+  .pane .body{max-height:60vh}
+}

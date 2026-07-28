@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>288 - Unique Word Abbreviation</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class ValidWordAbbr:", "", "    def __init__(self, dictionary: List[str]):", "        self.abbr_map = {}", "", "        for word in dictionary:", "            abbr = self.get_abbr(word)", "", "            if abbr not in self.abbr_map:", "                self.abbr_map[abbr] = word", "            else:", "                if self.abbr_map[abbr] != word:", "                    self.abbr_map[abbr] = \"\"", "", "    def get_abbr(self, word: str) -> str:", "        n = len(word)", "        if n <= 2:", "            return word", "", "        return word[0] + str(n - 2) + word[-1]", "", "    def isUnique(self, word: str) -> bool:", "        abbr = self.get_abbr(word)", "", "        if abbr not in self.abbr_map:", "            return True", "        return self.abbr_map[abbr] == word", "", "", "# Your ValidWordAbbr object will be instantiated and called as such:", "# obj = ValidWordAbbr(dictionary)", "# param_1 = obj.isUnique(word)"];
+function build(){
+  var T=LV.trace();
+  var dict=['deer','door','cake','card'], M={}, ord=[];
+  function abbr(w){ return w.length<=2 ? w : w[0]+(w.length-2)+w[w.length-1]; }
+  function P(){ return ord.map(function(k){ return [k, M[k]===''?'"" (ambiguous)':'"'+M[k]+'"']; }); }
+  function V(hot,cls,wi){ var m={}; if(hot) m[hot]=cls||'hot';
+    var dm={}; if(wi!=null) dm[wi]='hot';
+    return [ LV.arr('dictionary', dict, dm, {}),
+             LV.kv('abbr_map  (abbreviation → the ONE word that owns it, or "" if contested)', P(), m, {emptyText:'empty'}) ]; }
+
+  T.step(4,'info','The abbreviation of a word is first-letter + middle-length + last-letter, so "deer" → "d2r". Words of length ≤ 2 are their own abbreviation. Many words can share one abbreviation, and that collision is the whole problem.',['building abbr_map'],V(null,null,null));
+  dict.forEach(function(w,wi){
+    var a=abbr(w);
+    T.step(7,'call','word = "'+w+'" → abbreviation <b>"'+a+'"</b>.',['word = <b>"'+w+'"</b>','abbr = <em>"'+a+'"</em>'],V(null,null,wi));
+    if(M[a]===undefined){
+      M[a]=w; ord.push(a);
+      T.step(10,'push','"'+a+'" is unseen — record it as owned by "'+w+'".',['abbr = <em>"'+a+'"</em>'],V(a,'good',wi));
+    } else if(M[a]!==w){
+      M[a]='';
+      T.step(13,'bad','"'+a+'" is already owned by a DIFFERENT word. Two distinct words share this abbreviation, so it can never be unique for anyone. Poison it with "" — a sentinel no real word can equal.',['abbr = <em>"'+a+'"</em>','now <u>contested</u>'],V(a,'bad',wi));
+      T.save('"'+a+'" contested');
+    } else {
+      T.step(12,'info','"'+a+'" is already owned by "'+w+'" itself (a duplicate entry in the dictionary). Leave it alone — a word never conflicts with itself.',['abbr = <em>"'+a+'"</em>'],V(a,'good',wi));
+    }
+  });
+  T.step(22,'info','Construction is done. Now the queries — each is O(1).',['abbr_map built'],V(null,null,null));
+  [['dear',true],['cart',false],['cane',true],['make',true]].forEach(function(q){
+    var w=q[0], a=abbr(w);
+    var ans = M[a]===undefined ? true : M[a]===w;
+    T.step(ans && M[a]===undefined ? 26 : 27, ans?'found':'bad','<b>isUnique("'+w+'")</b> → abbr "'+a+'". '+
+      (M[a]===undefined ? 'No dictionary word has this abbreviation at all, so it is trivially unique → <b>True</b>.'
+       : (M[a]===w ? 'The map says "'+a+'" is owned by "'+w+'" — the same word — so it is unique → <b>True</b>.'
+                   : 'The map says "'+a+'" is owned by '+(M[a]===''?'more than one word':'"'+M[a]+'"')+', which is not "'+w+'" → <b>False</b>.')),
+      ['query = <b>"'+w+'"</b>','returns <u>'+ans+'</u>'],V(a, ans?'good':'bad', null));
+    T.save('isUnique("'+w+'") = '+ans);
+  });
+  T.step(27,'done','Build once in O(total characters), then answer every query in O(1). The "" sentinel is what compresses "contested by several words" into a single map entry.',[],V(null,null,null));
+  return T;
+}
+LV.render({
+  num:'288', name:'Unique Word Abbreviation', slug:'0288-unique-word-abbreviation',
+  difficulty:'Medium', pattern:'Design · precompute a canonical key',
+  url:'https://leetcode.com/problems/unique-word-abbreviation',
+  blurb:'A canonical-key problem (like LC 49) turned into a data structure. The neat move is the <code>""</code> sentinel: instead of storing a set of words per abbreviation, one poisoned entry says "contested".',
+  input:'dictionary = ["deer","door","cake","card"], then four isUnique queries', runName:'ValidWordAbbr',
+  skipLabel:null, emptyResult:'nothing built yet',
+  src:SRC, build:build,
+  complexity:{time:'O(total characters) to build, O(1) per query', space:'O(number of distinct abbreviations)'},
+  theory:{
+    idea:'Precompute so that queries are trivial. And note the space optimisation: you do not need the <em>set</em> of words behind each abbreviation — only "exactly one word, and here it is" or "more than one". Collapsing a set into a two-state value is a small idea that shows up constantly in real systems.',
+    recognize:[
+      'A structure built once and queried many times — the cost model rewards precomputation heavily.',
+      '"Unique" defined against a fixed reference collection.',
+      'The abbreviation function is a canonical key, exactly as in LC 49 group anagrams.'
+    ],
+    pitfalls:[
+      '<b>Missing the "same word" case.</b> If the dictionary contains "deer" twice, "deer" is still unique. Line 12 exists for this and it is the case that fails most submissions.',
+      '<b>Words of length ≤ 2.</b> "it" abbreviated by the formula would be "i0t", which is longer than the word. The guard returns the word itself.',
+      '<b>Storing full sets of words.</b> Correct but wasteful; the "" sentinel captures everything you need.',
+      '<b>Using <code>None</code> as the sentinel instead of <code>""</code>.</b> Also fine — just make sure the sentinel can never be a real word.'
+    ],
+    template: "# Precompute a canonical key; collapse \"a set of things\" into a flag\nabbr_map = {}\nfor word in dictionary:\n    a = abbr(word)\n    if a not in abbr_map:\n        abbr_map[a] = word        # exactly one owner so far\n    elif abbr_map[a] != word:\n        abbr_map[a] = \"\"          # contested - sentinel no real word can equal\n\ndef isUnique(word):\n    a = abbr(word)\n    return a not in abbr_map or abbr_map[a] == word\n\ndef abbr(w):\n    return w if len(w) <= 2 else w[0] + str(len(w) - 2) + w[-1]\n",
+    variants:[
+      ['<b>Generalized Abbreviation</b> (LC 320)','Generate all abbreviations of a word — backtracking, take/skip per character.'],
+      ['<b>Valid Word Abbreviation</b> (LC 408)','Verify one abbreviation against one word — a two-pointer parse.'],
+      ['<b>Word Abbreviation</b> (LC 527)','Find the shortest unambiguous abbreviation for every word. This problem, escalated.'],
+      ['Queries can add words','You would need the real set per abbreviation, since removals could un-contest one.']
+    ],
+    thinking:'Two habits from this problem. First: when a structure is <b>built once and queried many times</b>, push all the work into construction — that asymmetry is usually the point. Second: before storing a collection per key, ask <b>what you actually need to know about it</b>. Here it is only "one or many", which is two states, not a set. That kind of compression is what separates a solution that fits in memory from one that does not.'
+  }
+});
+
+</script>
+</body>
+</html>

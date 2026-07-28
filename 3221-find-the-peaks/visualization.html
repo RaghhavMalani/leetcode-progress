@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3221 - Find the Peaks</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution(object):", "    def findPeaks(self, mountain):", "        \"\"\"", "        :type mountain: List[int]", "        :rtype: List[int]", "        \"\"\"", "        l = []", "        for i in range(1,len(mountain)-1):", "            if mountain[i] > mountain[i - 1] and mountain[i] > mountain[i + 1]:", "                l.append(i)", "            else:", "                continue", "", "        return l"];
+function build(){
+  var T=LV.trace(), a=[1,4,3,8,5], out=[];
+  function V(i,hit){ var m={};
+    for(var x=0;x<a.length;x++) m[x]= out.indexOf(x)>=0?'good':'dim';
+    if(i!=null){ m[i]= hit?'good':'hot'; if(i>0) m[i-1]='win'; if(i+1<a.length) m[i+1]='win'; }
+    m[0]=m[0]==='good'?'good':'bad'; m[a.length-1]=m[a.length-1]==='good'?'good':'bad';
+    return [ LV.arr('mountain — red ends can never be peaks', a, m, {note:'a peak must be strictly greater than BOTH neighbours'}),
+             LV.seq('result (indices)', out.slice(), {}, {emptyText:'empty'}) ]; }
+  T.step(8,'info','The loop deliberately runs from 1 to len−2. The first and last elements have only one neighbour each, so by definition they cannot be peaks — the range bounds encode that rule instead of an <code>if</code>.',['range(1, '+(a.length-1)+')'],V(null));
+  for(var i=1;i<a.length-1;i++){
+    var hit=a[i]>a[i-1]&&a[i]>a[i+1];
+    T.step(9,'call','i = '+i+': is '+a[i]+' &gt; '+a[i-1]+' AND '+a[i]+' &gt; '+a[i+1]+'?',['i = <b>'+i+'</b>'],V(i,false));
+    if(hit){
+      out.push(i);
+      T.step(10,'found','Yes — index '+i+' is a peak. Append it.',['i = <b>'+i+'</b>','peaks = <u>'+out.length+'</u>'],V(i,true));
+      T.save('peak at index '+i+' (value '+a[i]+')');
+    } else {
+      T.step(12,'bad','No'+(a[i]<=a[i-1]?' — it is not above its left neighbour.':' — it is not above its right neighbour.'),['i = <b>'+i+'</b>'],V(i,false));
+    }
+  }
+  T.step(14,'done','Answer: <b>['+out.join(', ')+']</b>. One linear scan.',[],V(null));
+  return T;
+}
+LV.render({
+  num:'3221', name:'Find the Peaks', slug:'3221-find-the-peaks',
+  difficulty:'Easy', pattern:'Array scan · local property',
+  url:'https://leetcode.com/problems/find-the-peaks',
+  blurb:'A local-property scan. The interesting design choice is that the loop bounds encode the "endpoints cannot be peaks" rule, so no guard is needed inside the body.',
+  input:'mountain = [1,4,3,8,5]', runName:'findPeaks',
+  skipLabel:'Skip to next peak', skipTypes:['found'], emptyResult:'no peaks yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n)', space:'O(1) excluding the output'},
+  theory:{
+    idea:'A <b>local property</b> is one you can verify by looking at a fixed-size neighbourhood. Peaks, valleys, plateau edges, "adjacent duplicates" — all decidable from a window of two or three, so a single scan suffices. Contrast with global properties (is this the maximum? is the array sorted?) which need the whole array before you can answer.',
+    recognize:[
+      'The definition mentions only i−1, i, i+1 — that is the fingerprint.',
+      'Boundary handling is the only real decision: either shrink the loop range (as here) or add guards inside.',
+      '<b>But note:</b> if the question is "find ANY one peak" rather than all of them, binary search solves it in O(log n) — see LC 162. Same word, very different algorithm.'
+    ],
+    pitfalls:[
+      '<b>Including index 0 and n−1.</b> They have one neighbour, so the comparison would index out of range or wrap negatively (Python’s <code>a[-1]</code> silently gives the last element — a wrong answer, not a crash).',
+      '<b>Using <code>&gt;=</code>.</b> A plateau [1,3,3,1] has no peak under a strict definition. Read the problem statement carefully.',
+      '<b>The redundant <code>else: continue</code>.</b> Harmless, but it is noise — the loop continues anyway.',
+      '<b>Confusing this with LC 162.</b> "Find a peak" in O(log n) is binary search on the slope; "find all peaks" cannot beat O(n).'
+    ],
+    template: "# local property -> bounds encode the boundary rule, no guard needed\nres = []\nfor i in range(1, len(a) - 1):        # endpoints excluded BY THE RANGE\n    if a[i] > a[i-1] and a[i] > a[i+1]:\n        res.append(i)\nreturn res\n\n# want ANY ONE peak instead of all? binary search on the slope, O(log n):\n#   while lo < hi:\n#       mid = (lo + hi) // 2\n#       if a[mid] < a[mid+1]: lo = mid + 1     # rising -> a peak is right\n#       else:                 hi = mid\n",
+    variants:[
+      ['<b>Find Peak Element</b> (LC 162)','Any one peak, O(log n) — binary search moving towards the rising side.'],
+      ['<b>Longest Mountain</b> (LC 845)','Expand outward from each peak.'],
+      ['<b>Valid Mountain Array</b> (LC 941)','Walk up, then walk down, and check you consumed everything.'],
+      ['<b>Total Waviness</b> (LC 3751 / 3753)','Peaks and valleys inside digit strings — digit DP. Also in your repo.']
+    ],
+    thinking:'Two questions for any array-scan problem. <b>(1) How wide is the neighbourhood I need?</b> That determines the loop bounds and whether one pass is enough. <b>(2) Am I asked for ALL of them or just ONE?</b> "All" forces O(n); "any one" often opens the door to binary search on a local slope condition. Missing that second distinction is why people write O(n) for LC 162 and never notice.'
+  }
+});
+
+</script>
+</body>
+</html>

@@ -1,9 +1,9 @@
 # 206. Reverse Linked List
-> **Easy** &nbsp;·&nbsp; Linked list · pointer rewiring &nbsp;·&nbsp; family: **Linked lists**
+> **Easy** &nbsp;&middot;&nbsp; Linked list · pointer rewiring &nbsp;&middot;&nbsp; family: **Linked lists**
 
 The single most reused linked-list primitive. Four lines in a fixed order — save, flip, advance, advance — and getting the order wrong loses the rest of the list forever.
 
-**▶ [Step through this solution line by line](../visualizations/0206-reverse-linked-list.html)** — 17 steps, traced on `head = [1,2,3]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 17 steps, traced on `head = [1,2,3]`.
 
 | | |
 |---|---|
@@ -56,4 +56,4 @@ Drill this until it is muscle memory, because it shows up as a *step* inside har
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/reverse-linked-list)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/reverse-linked-list)

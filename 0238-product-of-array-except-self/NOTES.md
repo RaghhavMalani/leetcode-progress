@@ -1,9 +1,9 @@
 # 238. Product of Array Except Self
-> **Medium** &nbsp;·&nbsp; Prefix / suffix accumulation &nbsp;·&nbsp; family: **Prefix sums & intervals**
+> **Medium** &nbsp;&middot;&nbsp; Prefix / suffix accumulation &nbsp;&middot;&nbsp; family: **Prefix sums & intervals**
 
 Prefix × suffix, with the output array doing double duty as scratch space. The load-bearing detail is writing to `res[i]` *before* folding `nums[i]` into the accumulator.
 
-**▶ [Step through this solution line by line](../visualizations/0238-product-of-array-except-self.html)** — 20 steps, traced on `nums = [1,2,3,4]`.
+**▶ [Step through this solution line by line](./visualization.html)** — 20 steps, traced on `nums = [1,2,3,4]`.
 
 | | |
 |---|---|
@@ -62,4 +62,4 @@ for i in range(n - 1, -1, -1):
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/product-of-array-except-self)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/product-of-array-except-self)

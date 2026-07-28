@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>316 / 1081 - Smallest Subsequence of Distinct Characters</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution {", "public:", "    string smallestSubsequence(string s) {", "        vector<int> last(26);", "        vector<bool> used(26, false);", "", "        for (int i = 0; i < s.size(); i++) {", "            last[s[i] - 'a'] = i;", "        }", "", "        string result;", "", "        for (int i = 0; i < s.size(); i++) {", "            int current = s[i] - 'a';", "", "            if (used[current]) {", "                continue;", "            }", "", "            while (!result.empty() &&", "                   result.back() > s[i] &&", "                   last[result.back() - 'a'] > i) {", "                used[result.back() - 'a'] = false;", "                result.pop_back();", "            }", "", "            result.push_back(s[i]);", "            used[current] = true;", "        }", "", "        return result;", "    }", "};"];
+function build(){
+  var T=LV.trace(), s='cbacdcbc';
+  var last={}; s.split('').forEach(function(c,i){ last[c]=i; });
+  var res=[], used={};
+  function V(i,note){ var m={};
+    s.split('').forEach(function(c,k){ m[k]= k<i?'dim':(k===i?'hot':''); });
+    return [ LV.arr('s', s.split(''), m, {}),
+      LV.kv('last occurrence of each letter', Object.keys(last).map(function(k){ return [k,last[k]]; }), {}, {}),
+      LV.arr('result (a monotonic stack)', res.slice(), {}, {idx:false, emptyText:'empty', note:note||''}) ]; }
+  T.step(7,'info','First record the LAST index of every character. That is what lets you answer "if I drop this letter now, will I get another chance at it?"',['n = <b>8</b>'],V(null));
+  for(var i=0;i<s.length;i++){
+    var c=s[i];
+    T.step(13,'call','i = '+i+', character "'+c+'".',['i = <b>'+i+'</b>','char = <em>'+c+'</em>'],V(i));
+    if(used[c]){
+      T.step(17,'bad','"'+c+'" is already in the result. Each letter appears exactly once in the answer, so skip it — and note we do NOT try to move it, because the copy already placed is at least as good.',[],V(i));
+      continue;
+    }
+    while(res.length && res[res.length-1]>c && last[res[res.length-1]]>i){
+      var g=res.pop(); used[g]=false;
+      T.step(24,'pop','The last character in the result is "'+g+'", which is LARGER than "'+c+'" AND reappears later (last["'+g+'"] = '+last[g]+' &gt; '+i+'). So dropping it now strictly improves the answer and costs nothing — pop it and un-mark it.',['popped <em>'+g+'</em>'],V(i,'popping to make room for a smaller letter'));
+      T.save('popped '+g+' for '+c);
+    }
+    res.push(c); used[c]=true;
+    T.step(27,'push','Append "'+c+'". Result is now "'+res.join('')+'".',['result = <u>"'+res.join('')+'"</u>'],V(i));
+  }
+  T.save('"'+res.join('')+'"');
+  T.step(31,'done','Answer: <b>"'+res.join('')+'"</b>. Each character is pushed at most once and popped at most once, so this is O(n) despite the inner while.',['answer = <u>"'+res.join('')+'"</u>'],V(s.length));
+  return T;
+}
+LV.render({
+  num:'1081', name:'Smallest Subsequence of Distinct Characters', slug:'1081-smallest-subsequence-of-distinct-characters',
+  difficulty:'Medium', pattern:'Monotonic stack · greedy with a safety check',
+  url:'https://leetcode.com/problems/smallest-subsequence-of-distinct-characters',
+  blurb:'A monotonic stack with one extra condition. Popping a bigger character is only safe if it <em>reappears later</em> — the <code>last</code> array is what makes the greedy legal.',
+  input:'s = "cbacdcbc"', runName:'smallestSubsequence',
+  skipLabel:'Skip to next pop', skipTypes:['pop'], emptyResult:'result is empty',
+  src:SRC, build:build,
+  complexity:{time:'O(n) amortised — each character pushed once, popped once', space:'O(alphabet)'},
+  theory:{
+    idea:'Lexicographic minimisation with a monotonic stack. The greedy rule is: <b>if the character on top of the stack is larger than the incoming one, drop it</b> — but only when you can afford to, meaning it occurs again later. That safety condition is the difference between this and the plain "next smaller element" stack.',
+    recognize:[
+      '"Lexicographically smallest / largest result after removing or reordering characters."',
+      'The pair of conditions "top &gt; current" (greedy improvement) and "top occurs again" (feasibility) is the fingerprint of this family.',
+      'Same skeleton as LC 402 Remove K Digits, where the feasibility condition is a removal budget instead of a future occurrence.'
+    ],
+    pitfalls:[
+      '<b>Dropping the <code>last[...] &gt; i</code> check.</b> You lose characters permanently and the result is missing letters.',
+      '<b>Forgetting to un-mark <code>used</code> when popping.</b> The character can never be re-added and the answer is short.',
+      '<b>Not skipping characters already in the result.</b> Duplicates appear.',
+      '<b>Believing the while loop makes it O(n²).</b> It does not — the standard amortised argument, same as LC 739 in your repo.',
+      '<b>Using a count-remaining array instead of last-index.</b> Both work; be consistent, because mixing them breaks the condition.'
+    ],
+    template: "# monotonic stack + FEASIBILITY check\nlast = {c: i for i, c in enumerate(s)}     # last occurrence of each character\nstack, used = [], set()\n\nfor i, c in enumerate(s):\n    if c in used:                           # each letter appears exactly once\n        continue\n    while stack and stack[-1] > c and last[stack[-1]] > i:\n        #        greedy improvement ^^^        ^^^ safe: it comes again\n        used.discard(stack.pop())\n    stack.append(c); used.add(c)\n\nreturn \"\".join(stack)\n# LC 402 is the same loop with \"while k > 0\" as the feasibility condition.\n",
+    variants:[
+      ['<b>Remove K Digits</b> (LC 402)','Pop while the top is larger AND you still have removals left. Same stack, budget instead of last-index.'],
+      ['<b>Remove Duplicate Letters</b> (LC 316)','Literally the same problem under a different number.'],
+      ['Lexicographically LARGEST','Flip the comparison to <code>top &lt; current</code>.'],
+      ['<b>Create Maximum Number</b> (LC 321)','This greedy applied twice, plus a merge. Genuinely hard.']
+    ],
+    thinking:'Greedy plus a feasibility check is a recurring shape: <b>"take the locally best action, but only if it does not make the goal unreachable."</b> Here the goal is "every distinct letter must appear", and the check is "this letter comes again". In Remove K Digits the goal is "remove exactly k" and the check is the remaining budget. When you meet a lexicographic-optimisation problem, ask those two questions separately — what is the greedy improvement, and what makes it safe — and the code writes itself.'
+  }
+});
+
+</script>
+</body>
+</html>

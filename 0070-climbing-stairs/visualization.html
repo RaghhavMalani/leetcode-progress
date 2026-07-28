@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>70 - Climbing Stairs</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def climbStairs(self, n: int) -> int:", "        one , two  = 1,1", "", "        for i in range(n-1):", "            temp = one ", "            one = one + two", "            two = temp", "", "        return one"];
+function build(){
+  var T=LV.trace(), n=6, one=1, two=1, hist=[1,1];
+  function V(step){ return [
+    LV.arr('ways to reach each step  (only the last two are ever needed)', hist.slice(),
+      (function(){ var m={}; hist.forEach(function(_,i){ m[i]= i>=hist.length-2?'hot':'good'; }); return m; })(),
+      {note:'this whole array is drawn for intuition — the code only ever keeps two integers'}),
+    LV.kv('the two live variables', [['two (n−2)',two],['one (n−1)',one]], {'one (n−1)':'hot'}, {}) ]; }
+  function VA(i){ return ['iteration <b>'+i+'</b> of '+(n-1),'one = <em>'+one+'</em>','two = <em>'+two+'</em>']; }
+
+  T.step(3,'info','The recurrence is Fibonacci: to reach step k you either took a single step from k−1 or a double from k−2, so ways(k) = ways(k−1) + ways(k−2). Both `one` and `two` start at 1 — there is exactly one way to be standing at step 0 and one way to reach step 1.',['one = <b>1</b>','two = <b>1</b>'],V(0));
+  for(var i=0;i<n-1;i++){
+    T.step(6,'call','Iteration '+i+'. `temp = one` saves the current value before it is overwritten — the same save-before-you-clobber discipline as reversing a linked list.',VA(i),V(i));
+    var t=one; one=one+two; two=t; hist.push(one);
+    T.step(7,'push','one = one + two = <b>'+one+'</b> — the number of ways to reach step '+(i+2)+'.',VA(i),V(i));
+    T.save('step '+(i+2)+': '+one+' ways');
+    T.step(8,'ok','two = temp = '+two+'. The window of two values has slid one place forward.',VA(i),V(i));
+  }
+  T.step(10,'done','Answer: <b>'+one+'</b> ways to climb '+n+' stairs. O(n) time and — the point of this version — <b>O(1) space</b>, because a full dp array was never needed.',['answer = <u>'+one+'</u>'],V(n));
+  return T;
+}
+LV.render({
+  num:'70', name:'Climbing Stairs', slug:'0070-climbing-stairs',
+  difficulty:'Easy', pattern:'DP · Fibonacci with rolling variables',
+  url:'https://leetcode.com/problems/climbing-stairs',
+  blurb:'Every dynamic programming problem starts here. Two things to take away: how to <em>find</em> the recurrence, and how to notice that a dp array of size n can collapse to two integers.',
+  input:'n = 6', runName:'climbStairs',
+  skipLabel:'Skip to next step count', skipTypes:['push'], emptyResult:'no counts yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n)', space:'O(1) — down from the O(n) of the obvious dp array'},
+  theory:{
+    idea:'Find the recurrence by asking <b>"what was the last decision?"</b>. To be standing on step n you either just took a 1-step (from n−1) or a 2-step (from n−2). Those cases are disjoint and cover everything, so ways(n) = ways(n−1) + ways(n−2). That question — what was the last move? — generates the recurrence for most counting DPs.',
+    recognize:[
+      '"How many ways to…" with a small set of moves. Counting → DP; listing them all → backtracking.',
+      'The answer at n depends on a <b>fixed number of earlier answers</b>. That is what makes the space collapse possible.',
+      'Overlapping subproblems: naive recursion recomputes ways(4) many times, which is the signal to memoise or go bottom-up.'
+    ],
+    pitfalls:[
+      '<b>Plain recursion with no memo.</b> O(2ⁿ). It is the honest first answer, but say "and this recomputes, so I will memoise".',
+      '<b>Base cases.</b> ways(0) = 1 (the empty climb) and ways(1) = 1. Setting ways(0) = 0 is the classic off-by-one that breaks everything downstream.',
+      '<b>Overwriting <code>one</code> before saving it.</b> Hence the <code>temp</code>. Python lets you write <code>one, two = one + two, one</code> and skip it.',
+      '<b>Keeping the whole dp array out of habit.</b> If the recurrence only reaches back k places, you only need k variables. Interviewers ask for this improvement almost every time.'
+    ],
+    template: "# Fibonacci-shaped DP, rolled down to O(1) space\none, two = 1, 1                 # ways(1), ways(0)\nfor _ in range(n - 1):\n    one, two = one + two, one   # slide the window forward\nreturn one\n\n# the array version you should write FIRST, then collapse:\n#   dp = [0] * (n + 1); dp[0] = dp[1] = 1\n#   for i in range(2, n + 1):\n#       dp[i] = dp[i-1] + dp[i-2]\n#   return dp[n]\n",
+    variants:[
+      ['Steps of 1, 2 or 3','Tribonacci — keep three variables.'],
+      ['<b>Min Cost Climbing Stairs</b> (LC 746)','Same recurrence with a min and a cost term instead of a sum.'],
+      ['<b>House Robber</b> (LC 198)','ways → max, and you skip the adjacent element. Structurally identical.'],
+      ['<b>Decode Ways</b> (LC 91)','Fibonacci-shaped, with validity conditions on each transition.'],
+      ['n up to 10¹⁸','Matrix exponentiation, O(log n). LC 3700 in your repo uses exactly this technique.']
+    ],
+    thinking:'Build every DP in four steps, out loud, before coding. <b>(1) What is the state?</b> "the step I am on". <b>(2) What is the recurrence?</b> — ask what the last decision was. <b>(3) What are the base cases?</b> <b>(4) In what order do I fill it?</b> Then, as a fifth step, ask <b>"how far back does the recurrence reach?"</b> — if the answer is a small constant, drop the array and use that many variables. Those five questions cover the overwhelming majority of DP problems you will be asked.'
+  }
+});
+
+</script>
+</body>
+</html>

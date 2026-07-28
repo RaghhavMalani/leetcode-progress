@@ -1,9 +1,9 @@
 # 22. Generate Parentheses
-> **Medium** &nbsp;·&nbsp; Backtracking · build-and-undo &nbsp;·&nbsp; family: **Backtracking**
+> **Medium** &nbsp;&middot;&nbsp; Backtracking · build-and-undo &nbsp;&middot;&nbsp; family: **Backtracking**
 
 The cleanest example of *perfect pruning* you will meet. The two guards make an invalid string impossible to construct, so every leaf of the recursion tree is an answer and no work is ever wasted.
 
-**▶ [Step through this solution line by line](../visualizations/0022-generate-parentheses.html)** — 76 steps, traced on `n = 3`.
+**▶ [Step through this solution line by line](./visualization.html)** — 76 steps, traced on `n = 3`.
 
 | | |
 |---|---|
@@ -63,4 +63,4 @@ Before writing any backtracking code, answer three questions out loud: **(1) Wha
 
 ---
 
-[← all traced solutions](../visualizations/index.html) &nbsp;·&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;·&nbsp; [problem on LeetCode](https://leetcode.com/problems/generate-parentheses)
+[← all traced solutions](../visualizations/index.html) &nbsp;&middot;&nbsp; [pattern handbook](../PATTERNS.md) &nbsp;&middot;&nbsp; [on LeetCode](https://leetcode.com/problems/generate-parentheses)

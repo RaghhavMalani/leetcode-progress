@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>898 / 934 - Bitwise ORs of Subarrays</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def subarrayBitwiseORs(self, arr):", "       ", "        result_ors = set()", "        ", "        current_ors = set()", "", "    ", "        for x in arr:", "            next_ors = {x | y for y in current_ors}", "            next_ors.add(x)", "            ", "", "            result_ors.update(next_ors)", "            ", "  ", "            current_ors = next_ors", "            ", "        return len(result_ors)"];
+function build(){
+  var T=LV.trace(), a=[1,2,4];
+  var cur=[], all=[];
+  function V(i,nxt){ var m={}; a.forEach(function(_,k){ m[k]= k<i?'good':(k===i?'hot':'dim'); });
+    return [ LV.arr('arr', a, m, {}),
+      LV.seq('current_ors — every OR of a subarray ENDING at i', (nxt||cur).slice(), {}, {emptyText:'empty', note:'at most ~30 entries ever, because each new element can only ADD bits'}),
+      LV.seq('result_ors — every distinct OR seen anywhere', all.slice(), {}, {emptyText:'empty'}) ]; }
+  T.step(4,'info','The brute force enumerates all n² subarrays. The trick: keep only the set of ORs of subarrays <b>ending at the current index</b>. That set is tiny — at most about 30 values — because OR only ever sets bits, so extending a subarray leftwards can change the value at most 30 times.',['|current| = <b>0</b>'],V(null,null));
+  a.forEach(function(x,i){
+    T.step(9,'call','x = '+x+'.',['x = <b>'+x+'</b>'],V(i,null));
+    var nxt=[]; cur.forEach(function(y){ var v=x|y; if(nxt.indexOf(v)<0) nxt.push(v); });
+    T.step(10,'push','Extend every subarray that ended at '+(i-1)+' by one element: {'+cur.join(', ')+'} each OR-ed with '+x+' gives {'+(nxt.join(', ')||'∅')+'}. Duplicates collapse automatically because it is a SET — that collapsing is what keeps the size bounded.',['|current| = <b>'+nxt.length+'</b>'],V(i,nxt));
+    if(nxt.indexOf(x)<0) nxt.push(x);
+    T.step(11,'push','Also add the single-element subarray ['+x+'] itself → {'+nxt.join(', ')+'}.',['|current| = <b>'+nxt.length+'</b>'],V(i,nxt));
+    nxt.forEach(function(v){ if(all.indexOf(v)<0){ all.push(v); T.save('new OR value: '+v); } });
+    cur=nxt;
+    T.step(14,'found','Fold them into the global result set → {'+all.join(', ')+'}.',['|result| = <u>'+all.length+'</u>'],V(i,null));
+  });
+  T.step(19,'done','Answer: <b>'+all.length+'</b> distinct values. O(n · 30) instead of O(n²) — and the 30 comes from the number of bits in an integer, which bounds how many times an OR can strictly increase.',['answer = <u>'+all.length+'</u>'],V(a.length,null));
+  return T;
+}
+LV.render({
+  num:'934', name:'Bitwise ORs of Subarrays', slug:'0934-bitwise-ors-of-subarrays',
+  difficulty:'Medium', pattern:'Monotone bit operation · bounded frontier',
+  url:'https://leetcode.com/problems/bitwise-ors-of-subarrays',
+  blurb:'The complement of LC 2503 in your repo. There, AND only clears bits so runs matter. Here, OR only sets bits — which bounds the set of distinct values ending at each index to about 30.',
+  input:'arr = [1,2,4]', runName:'subarrayBitwiseORs',
+  skipLabel:'Skip to next new value', skipTypes:['found'], emptyResult:'no values yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n · 32)', space:'O(n · 32) for the result set'},
+  theory:{
+    idea:'Fix the right endpoint at i and consider all subarrays ending there. As you extend leftwards the OR is <b>non-decreasing and can only gain bits</b>, so it takes at most 32 distinct values. Carrying that small frontier from index to index turns an O(n²) enumeration into O(32n).',
+    recognize:[
+      'OR / AND / GCD over all subarrays. All three are monotone under extension, and all three admit exactly this "small set of values ending here" trick.',
+      'GCD is the other big one: extending a subarray can only divide the GCD down, so it changes at most log(max) times.',
+      'If the operation is a plain sum, this does NOT apply — sums take n distinct values, and you need prefix sums instead.'
+    ],
+    pitfalls:[
+      '<b>Forgetting to add the single-element subarray.</b> Line 11. On the first iteration <code>current_ors</code> is empty, so without it nothing is ever produced.',
+      '<b>Using a list instead of a set.</b> The bound depends entirely on duplicates collapsing; a list grows to O(n) and you are back to O(n²).',
+      '<b>Reusing the same set object</b> instead of building a fresh <code>next_ors</code>. Mutating while iterating gives wrong answers.',
+      '<b>Assuming the O(n²) solution passes.</b> With n up to 5×10⁴ it does not.'
+    ],
+    template: "# carry the set of ORs of subarrays ENDING at i - it stays tiny (<= 32)\nresult, cur = set(), set()\nfor x in arr:\n    cur = {x | y for y in cur} | {x}    # extend all, plus the singleton\n    result |= cur\nreturn len(result)\n\n# same trick works for GCD (bounded by log(max)) and AND.\n# NOT for sums - those take O(n) distinct values, use prefix sums.\n",
+    variants:[
+      ['<b>Longest Subarray With Maximum AND</b> (LC 2503)','AND only clears bits, so the max AND is max(nums) and you just find the longest run. Also in your repo.'],
+      ['Distinct GCDs of all subarrays','Same frontier trick, GCD instead of OR, bounded by log(max).'],
+      ['Count subarrays with OR ≥ k','Same frontier, and each entry also carries how many subarrays produce it.'],
+      ['Subarray SUMS','Prefix sums plus a hash map — a completely different technique.']
+    ],
+    thinking:'The generalisable question is: <b>"as I extend a subarray, how many distinct values can this aggregate take?"</b> For OR and AND it is bounded by the bit width; for GCD by log of the maximum; for min and max by the number of distinct elements; for sum it is unbounded. When that count is small, you can carry the whole frontier and get a near-linear algorithm for free. That single question turns several intimidating "all subarrays" problems into short loops.'
+  }
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>146 - LRU Cache</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Node:", "    def __init__(self, key , value):", "        self.value = value", "        self.key = key", "        self.prev = None", "        self.next = None", "", "class LRUCache:", "", "    def __init__(self, capacity: int):", "        self.cap = capacity", "        self.LRU = Node(0,0) #LEAST RECENTLY USED", "        self.MRU = Node(0,0) # MOST RECENTLY USED", "        self.LRU.next =  self.MRU", "        self.MRU.prev = self.LRU", "        self.cache = {}", "", "    def insert(self, node):", "        prv = self.MRU.prev", "        nxt = self.MRU", "        prv.next = node", "        nxt.prev = node", "        node.prev = prv", "        node.next = nxt", "", "    def delete(self,node):", "        prv = node.prev", "        nxt = node.next", "", "        prv.next = nxt", "        nxt.prev = prv", "", "    ", "    def get(self, key: int) -> int:", "        if key in self.cache:", "            self.delete(self.cache[key])", "            self.insert(self.cache[key])", "            return self.cache[key].value", "        return -1", "        ", "", "    def put(self, key: int, value: int) -> None:", "        if key in self.cache:", "            self.delete(self.cache[key])", "        self.cache[key] = Node(key, value)", "        self.insert(self.cache[key])", "", "        if len(self.cache) > self.cap:", "            lru = self.LRU.next", "            self.delete(lru)", "            del self.cache[lru.key]"];
+function build(){
+  var T=LV.trace(), cap=2;
+  var chain=[], cache={};   // chain: array of {k,v} between LRU and MRU sentinels
+  function LLV(hot,cls){
+    var ns=[{v:'LRU',id:'s0',dummy:true}].concat(chain.map(function(n){ return {v:n.k+':'+n.v,id:'n'+n.k,cls:(hot===n.k?(cls||'hot'):'')}; })).concat([{v:'MRU',id:'s1',dummy:true}]);
+    return LV.ll('doubly linked list — LRU end is left, MRU end is right', ns, {}, {nullTail:false, note:'position in this list = recency. the two sentinels mean insert and delete never need a null check.'}); }
+  function KV(hot,cls){ var m={}; if(hot!=null) m[hot]=cls||'hot';
+    return LV.kv('cache  (key → node reference)', chain.map(function(n){ return [n.k,'node']; }), m, {emptyText:'empty'}); }
+  function V(hot,cls){ return [LLV(hot,cls),KV(hot,cls)]; }
+  function VA(){ return ['capacity = <b>2</b>','size = <em>'+chain.length+'</em>','order (LRU→MRU) = <u>'+(chain.map(function(n){return n.k;}).join(' → ')||'∅')+'</u>']; }
+
+  T.step(12,'info','Two dummy sentinels, LRU and MRU, permanently bracket the list. Every real node has a predecessor and a successor, so insert and delete are four unconditional pointer assignments — no null checks, no "is this the head" branches.',VA(),V(null));
+  T.step(16,'info','The hash map goes key → NODE, not key → value. That is the crux: it lets you jump straight to a node and unlink it in O(1), which a plain map could never do.',VA(),V(null));
+
+  function put(k,v){
+    T.step(42,'call','<b>put('+k+', '+v+')</b>',VA(),V(null));
+    if(cache[k]!==undefined){
+      chain=chain.filter(function(n){ return n.k!==k; });
+      T.step(44,'pop','Key '+k+' already exists — delete its old node from the list first, so we do not end up with two nodes for one key.',VA(),V(null));
+    }
+    cache[k]=1; chain.push({k:k,v:v});
+    T.step(46,'push','Create the node and insert it just before MRU — the most-recently-used end.',VA(),V(k,'good'));
+    T.save('put('+k+','+v+') → ['+chain.map(function(n){return n.k+':'+n.v;}).join(', ')+']');
+    if(chain.length>cap){
+      var ev=chain[0];
+      T.step(48,'bad','size ('+chain.length+') exceeds capacity ('+cap+'). The node right after the LRU sentinel is by definition the least recently used: key '+ev.k+'.',VA(),V(ev.k,'bad'));
+      chain.shift(); delete cache[ev.k];
+      T.step(51,'pop','Unlink it AND delete it from the map. Forgetting the second line is the classic leak — the list shrinks but the dictionary grows forever.',VA(),V(null));
+      T.save('evicted key '+ev.k);
+    }
+  }
+  function get(k){
+    T.step(34,'call','<b>get('+k+')</b>',VA(),V(k));
+    if(cache[k]===undefined){
+      T.step(39,'bad','Key '+k+' is not in the cache — return −1.',VA(),V(null));
+      T.save('get('+k+') = -1');
+      return;
+    }
+    var node=chain.filter(function(n){ return n.k===k; })[0];
+    chain=chain.filter(function(n){ return n.k!==k; });
+    T.step(36,'pop','Found it. `delete` unlinks the node from wherever it currently sits.',VA(),V(null));
+    chain.push(node);
+    T.step(37,'push','`insert` re-attaches it at the MRU end. Delete-then-insert IS the "mark as recently used" operation — two O(1) pointer updates, no shifting.',VA(),V(k,'good'));
+    T.save('get('+k+') = '+node.v);
+    T.step(38,'found','Return its value: <b>'+node.v+'</b>.',VA(),V(k,'good'));
+  }
+
+  put(1,1); put(2,2); get(1); put(3,3); get(2); put(4,4); get(1); get(3); get(4);
+  T.step(51,'done','Every operation was O(1). The hash map gave constant-time lookup; the doubly linked list gave constant-time reordering and eviction. Neither alone can do both.',VA(),V(null));
+  return T;
+}
+LV.render({
+  num:'146', name:'LRU Cache', slug:'0146-lru-cache',
+  difficulty:'Medium', pattern:'Design · hash map + doubly linked list',
+  url:'https://leetcode.com/problems/lru-cache',
+  blurb:'The archetypal composition question. A hash map alone cannot track recency; a linked list alone cannot look up in O(1). Together they do both — and the two sentinel nodes remove every edge case.',
+  input:'capacity = 2, then put/get operations', runName:'LRUCache',
+  skipLabel:null, emptyResult:'no operations yet',
+  src:SRC, build:build,
+  complexity:{time:'O(1) for both get and put', space:'O(capacity)'},
+  theory:{
+    idea:'Two requirements pull in different directions. <b>O(1) lookup by key</b> needs a hash map. <b>O(1) "move to most recent" and O(1) "evict the oldest"</b> need a doubly linked list, because unlinking a node you already have a pointer to is four assignments. The map stores <em>node references</em>, which is the bridge between them.',
+    recognize:[
+      '"Design a cache", "evict the least recently used", "O(1) for all operations".',
+      'Generally: whenever you need both key-lookup AND ordering, the answer is a map plus an ordered structure, with the map storing handles into it.',
+      'The follow-up "why not a singly linked list?" has a specific answer — you would need the predecessor to unlink, which costs O(n) to find.'
+    ],
+    pitfalls:[
+      '<b>Deleting from the list but not the map</b> (or vice versa). The two must stay in lockstep. This is the bug that passes small tests and fails at scale.',
+      '<b>No sentinels.</b> Then insert/delete need null checks at both ends and the code triples in length. Two dummy nodes cost nothing.',
+      '<b>Forgetting that <code>get</code> counts as a use.</b> A read must move the node to the MRU end, not just return the value.',
+      '<b>In <code>put</code>, not deleting the old node when the key already exists.</b> You get two nodes for one key and the eviction order goes wrong.',
+      '<b>Using <code>OrderedDict</code>.</b> <code>move_to_end</code> and <code>popitem(last=False)</code> solve this in ten lines — a great answer to give <em>after</em> showing you can build it, never instead.'
+    ],
+    template: "# hash map (key -> NODE) + doubly linked list with two sentinels\nclass LRUCache:\n    def __init__(self, cap):\n        self.cap, self.cache = cap, {}\n        self.lru, self.mru = Node(0,0), Node(0,0)      # sentinels\n        self.lru.next, self.mru.prev = self.mru, self.lru\n\n    def _remove(self, n):                  # 4 assignments, no null checks\n        n.prev.next, n.next.prev = n.next, n.prev\n\n    def _insert(self, n):                  # attach at the MRU end\n        p = self.mru.prev\n        p.next = n; self.mru.prev = n\n        n.prev = p;  n.next = self.mru\n\n    def get(self, key):\n        if key not in self.cache: return -1\n        n = self.cache[key]\n        self._remove(n); self._insert(n)   # a READ counts as a use\n        return n.value\n\n    def put(self, key, value):\n        if key in self.cache: self._remove(self.cache[key])\n        self.cache[key] = Node(key, value)\n        self._insert(self.cache[key])\n        if len(self.cache) > self.cap:\n            lru = self.lru.next\n            self._remove(lru)\n            del self.cache[lru.key]        # BOTH structures. always.\n",
+    variants:[
+      ['<b>LFU Cache</b> (LC 460)','Evict by frequency, tie-broken by recency. Needs a map of frequency → list. Also in your repo, and genuinely harder.'],
+      ['TTL / expiring cache','Add a heap or a timing wheel keyed by expiry.'],
+      ['<b>All O(1) Data Structure</b> (LC 432)','The same map + doubly-linked-list-of-buckets idea, escalated.'],
+      ['Thread-safe LRU','A lock, or sharding by key hash. The right thing to raise in a systems interview.']
+    ],
+    thinking:'Whenever a design problem demands O(1) for two operations that seem to conflict, the answer is almost always <b>two structures, cross-referenced</b>. Write the two requirements in a column, pick the structure that makes each one O(1), then ask what pointer has to connect them. Here: map → node. In LC 380 it is map → array index. In LFU it is map → node plus frequency → list. Once you see that shape, these problems stop being memorisation.'
+  }
+});
+
+</script>
+</body>
+</html>

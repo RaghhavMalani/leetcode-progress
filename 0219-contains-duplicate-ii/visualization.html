@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>219 - Contains Duplicate II</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:", "        window = set()", "        L = 0", "", "        for R in range(len(nums)):", "            if R - L > k:", "                window.remove(nums[L])", "                L += 1", "", "            if nums[R] in window:", "                return True", "            window.add(nums[R])", "", "        return False"];
+function build(){
+  var T=LV.trace(), a=[1,2,3,1,2,3], k=2, win={}, L=0, ans=false;
+  function keys(){ return Object.keys(win).map(Number); }
+  function marks(R,hot){ var m={};
+    for(var x=0;x<a.length;x++){ if(x>R) m[x]='dim'; else if(x>=L&&x<=R) m[x]=(x===R&&hot)?'hot':'win'; else m[x]=''; }
+    return m; }
+  function ptr(R){ var p={}; p[L]=(L===R?'L R':'L'); if(R!==L) p[R]='R'; return p; }
+  function V(R,hot){ return [
+    LV.arr('nums — blue block is the last k+1 = 3 elements', a, marks(R,hot), {ptrs:ptr(R)}),
+    LV.kv('window (a set)', keys(), {}, {emptyText:'empty'}) ]; }
+  function VA(R){ return ['L = <b>'+L+'</b>','R = <i>'+R+'</i>','k = 2','window size = <em>'+Object.keys(win).length+'</em>']; }
+
+  T.step(3,'info','A FIXED-size sliding window of at most k+1 = 3 indices. If a value ever appears twice inside a window that small, the two occurrences are at most k apart — which is exactly what the question asks.',['k = 2','window = <b>{}</b>'],[LV.arr('nums',a,{},{}),LV.kv('window',[],{},{emptyText:'empty'})]);
+  for(var R=0;R<a.length && !ans;R++){
+    T.step(6,'call','R = '+R+', incoming value '+a[R]+'.',VA(R),V(R,true));
+    if(R-L>k){
+      var gone=a[L]; delete win[gone]; L++;
+      T.step(8,'pop','R − L = '+(R-L+1-1)+' exceeded k = 2, so the window is too wide. Evict nums['+(L-1)+'] = '+gone+' and slide L to '+L+'.',VA(R),V(R,true));
+    } else {
+      T.step(7,'info','R − L = '+(R-L)+' &le; k, so the window is still small enough. Nothing to evict yet.',VA(R),V(R,true));
+    }
+    if(win[a[R]]){
+      ans=true;
+      T.step(12,'found','<b>'+a[R]+' is already in the window!</b> It appears at index '+a.indexOf(a[R])+' and again at '+R+', which are '+(R-a.indexOf(a[R]))+' apart — within k. Return True.',VA(R),V(R,true));
+      T.save('nums['+a.indexOf(a[R])+'] == nums['+R+'] == '+a[R]);
+      break;
+    }
+    win[a[R]]=1;
+    T.step(13,'push',a[R]+' was not in the window. Add it and move on.',VA(R),V(R,false));
+  }
+  if(!ans) T.step(15,'done','Loop finished with no hit — return False.',VA(a.length-1),V(a.length-1,false));
+  else T.step(12,'done','Answer: <b>True</b>. One pass, and the set never held more than k+1 items.',VA(3),V(3,true));
+  return T;
+}
+LV.render({
+  num:'219', name:'Contains Duplicate II', slug:'0219-contains-duplicate-ii',
+  difficulty:'Easy', pattern:'Sliding window · fixed size',
+  url:'https://leetcode.com/problems/contains-duplicate-ii',
+  blurb:'A fixed-size window instead of a variable one — no <code>while</code> loop, just "add one, drop one". The trick is realising that "indices at most k apart" IS a window of size k+1.',
+  input:'nums = [1,2,3,1,2,3], k = 2', runName:'containsNearbyDuplicate',
+  skipLabel:null, emptyResult:'no duplicate found yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n)', space:'O(min(n, k))'},
+  theory:{
+    idea:'Two window flavours. <b>Variable size</b> (LC 3, 1358): grow right, shrink left with a <code>while</code> until legal. <b>Fixed size</b> (this one): the window is always the same width, so eviction is a single <code>if</code>, not a loop. Recognising which flavour you need before you start saves you from writing a while loop that never runs.',
+    recognize:[
+      'A constraint on the <b>distance between indices</b> — "at most k apart", "within k positions" — is a fixed window in disguise.',
+      'Any "last k elements" phrasing: running average of the last k, max of the last k, and so on.',
+      'If the width depends on the data rather than a given constant, you need the variable-size version instead.'
+    ],
+    pitfalls:[
+      '<b>Window of size k instead of k+1.</b> Indices i and j with <code>|i-j| &le; k</code> means k+1 slots. The condition <code>R - L &gt; k</code> encodes that correctly; <code>&gt;= k</code> would be off by one and miss the boundary case.',
+      '<b>Checking membership before evicting.</b> A stale element still in the set produces a false positive. Evict first, then test.',
+      '<b>Using a dict of last-seen index instead of a set.</b> Also correct (<code>if x in last and R - last[x] &lt;= k</code>) and arguably clearer — but then you must not evict, since the dict holds the whole history.',
+      '<b>The O(n·k) double loop.</b> Passes the easy tests, times out on the real constraints.'
+    ],
+    template: "# Fixed-size window - add one, drop one, no while loop\nwindow = set()          # or a deque / counter / running sum\nleft = 0\nfor right in range(len(a)):\n    if right - left > k:            # too wide by exactly one\n        window.remove(a[left]); left += 1\n    if a[right] in window:\n        return True\n    window.add(a[right])\n",
+    variants:[
+      ['Values within t AND indices within k','LC 220 — needs a sorted window (bucketing or a balanced BST), not a plain set.'],
+      ['Any duplicate anywhere','LC 217 — <code>len(set(nums)) != len(nums)</code>, no window at all.'],
+      ['Max of every window of size k','LC 239 — a monotonic deque, the classic upgrade from set to deque.'],
+      ['Longest window with a property','Variable size — see LC 3.']
+    ],
+    thinking:'When a problem constrains <b>index distance</b>, translate it immediately into a window width and write that width down. "At most k apart" → width k+1. "Exactly k apart" → not a window, just direct indexing. Getting this translation on paper first eliminates the entire class of off-by-one bugs that make these easy problems embarrassing.'
+  }
+});
+
+</script>
+</body>
+</html>

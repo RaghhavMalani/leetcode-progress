@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1732 - Find the Highest Altitude</title>
+<link rel="stylesheet" href="../visualizations/_engine.css">
+</head>
+<body>
+<script src="../visualizations/_engine.js"></script>
+<script>
+
+var SRC = ["class Solution:", "    def largestAltitude(self, gain: List[int]) -> int:", "        altitude = 0", "        max_altitude = 0", "", "        for g in gain:", "            altitude += g", "            max_altitude = max(max_altitude, altitude)", "", "        return max_altitude"];
+function build(){
+  var T=LV.trace(), g=[-5,1,5,0,-7], alt=0, best=0, hist=[0];
+  function V(i){ var m={}; for(var x=0;x<g.length;x++) m[x]= x<i?'good':(x===i?'hot':'dim');
+    var hm={}; hist.forEach(function(v,k){ if(v===best) hm[k]='good'; }); if(i!=null) hm[i+1]='hot';
+    return [ LV.arr('gain — the CHANGE at each step, not the altitude', g, m, {}),
+             LV.arr('altitude (the prefix sums, starting at 0)', hist.slice(), hm, {}) ]; }
+  function VA(i){ return ['altitude = <b>'+alt+'</b>','max_altitude = <u>'+best+'</u>']; }
+  T.step(4,'info','The input is a list of <b>differences</b>, not positions. The altitudes are its running total — a prefix sum — and the biker starts at 0, which is why max_altitude also starts at 0.',VA(),V(null));
+  g.forEach(function(x,i){
+    alt+=x; hist.push(alt);
+    T.step(7,'push','Point '+(i+1)+': altitude += '+x+' → <b>'+alt+'</b>.',VA(i),V(i));
+    var old=best; best=Math.max(best,alt);
+    T.step(8, best>old?'found':'info','max_altitude = max('+old+', '+alt+') = <b>'+best+'</b>.',VA(i),V(i));
+    if(best>old) T.save('new high: '+best+' at point '+(i+1));
+  });
+  T.step(10,'done','Answer: <b>'+best+'</b>. One pass, O(1) space — no need to materialise the altitude array at all.',VA(),V(g.length-1));
+  return T;
+}
+LV.render({
+  num:'1732', name:'Find the Highest Altitude', slug:'1732-find-the-highest-altitude',
+  difficulty:'Easy', pattern:'Prefix sum · running maximum',
+  url:'https://leetcode.com/problems/find-the-highest-altitude',
+  blurb:'A prefix sum with a running max, in four lines. The one thing to notice is that <code>max_altitude</code> must start at 0 — the starting point counts as a candidate.',
+  input:'gain = [-5,1,5,0,-7]', runName:'largestAltitude',
+  skipLabel:'Skip to next high point', skipTypes:['found'], emptyResult:'no high point yet',
+  src:SRC, build:build,
+  complexity:{time:'O(n)', space:'O(1)'},
+  theory:{
+    idea:'When you are given <b>differences</b>, the positions are the prefix sums; when you are given positions, the differences are the deltas. Recognising which one you have been handed, and converting, is a tiny skill that unlocks a surprising number of problems.',
+    recognize:[
+      '"gain", "change", "delta", "difference array" in the input description.',
+      'Any question about the running total, or the max/min of the running total.',
+      'The inverse trick — a <b>difference array</b> — turns "add x to every element in range [l,r]" into two O(1) updates plus one prefix pass at the end.'
+    ],
+    pitfalls:[
+      '<b>Starting <code>max_altitude</code> at <code>gain[0]</code> or at −∞.</b> The biker starts at altitude 0, which may well be the highest point (all gains negative). Initialising to 0 is a correctness requirement, not a style choice.',
+      '<b>Building the full altitude list.</b> Fine, but O(n) space for nothing.',
+      '<b>Confusing gain[i] with altitude[i].</b> There are n gains and n+1 altitudes.'
+    ],
+    template: "# differences -> positions is a prefix sum\nalt = best = 0\nfor g in gain:\n    alt += g\n    best = max(best, alt)      # best starts at 0: the origin counts\nreturn best\n\n# the inverse: RANGE update, point query -> difference array\n#   d[l] += x; d[r+1] -= x     then one prefix pass gives the final array\n",
+    variants:[
+      ['<b>Running Sum of 1d Array</b> (LC 1480)','Just emit the prefix sums.'],
+      ['<b>Maximum Subarray</b> (LC 53)','Kadane — running sum with a reset at 0. A cousin, not the same.'],
+      ['Range update, single query','<b>Difference array</b>: <code>d[l] += x; d[r+1] -= x</code>, prefix-sum once at the end.'],
+      ['<b>Range Sum Query</b> (LC 303 / 304)','Prefix sums answering many range queries. LC 304 is in your repo.']
+    ],
+    thinking:'Add "prefix sum ↔ difference array" to your list of <b>reversible transforms</b>. Point updates + range queries → prefix sums. Range updates + point queries → difference array. Both → Fenwick tree (your LC 3739 uses one). Knowing which of those three you need takes five seconds and determines the whole solution.'
+  }
+});
+
+</script>
+</body>
+</html>
