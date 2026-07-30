@@ -84,6 +84,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [1833-maximum-ice-cream-bars](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1833-maximum-ice-cream-bars) |
 | [1840-maximum-building-height](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1840-maximum-building-height) |
 | [1846-maximum-element-after-decreasing-and-rearranging](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1846-maximum-element-after-decreasing-and-rearranging) |
+| [1858-longest-word-with-all-prefixes](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1858-longest-word-with-all-prefixes) |
 | [1863-sum-of-all-subset-xor-totals](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1863-sum-of-all-subset-xor-totals) |
 | [1929-concatenation-of-array](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1929-concatenation-of-array) |
 | [1967-number-of-strings-that-appear-as-substrings-in-word](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1967-number-of-strings-that-appear-as-substrings-in-word) |
@@ -183,6 +184,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [1079-letter-tile-possibilities](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1079-letter-tile-possibilities) |
 | [1081-smallest-subsequence-of-distinct-characters](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1081-smallest-subsequence-of-distinct-characters) |
 | [1358-number-of-substrings-containing-all-three-characters](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1358-number-of-substrings-containing-all-three-characters) |
+| [1858-longest-word-with-all-prefixes](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1858-longest-word-with-all-prefixes) |
 | [1967-number-of-strings-that-appear-as-substrings-in-word](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1967-number-of-strings-that-appear-as-substrings-in-word) |
 | [2133-number-of-pairs-of-strings-with-concatenation-equal-to-target](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2133-number-of-pairs-of-strings-with-concatenation-equal-to-target) |
 | [3014-minimum-number-of-pushes-to-type-word-i](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3014-minimum-number-of-pushes-to-type-word-i) |
@@ -334,6 +336,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0124-binary-tree-maximum-path-sum](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0124-binary-tree-maximum-path-sum) |
 | [0463-island-perimeter](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0463-island-perimeter) |
 | [1631-path-with-minimum-effort](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1631-path-with-minimum-effort) |
+| [1858-longest-word-with-all-prefixes](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1858-longest-word-with-all-prefixes) |
 | [2685-count-the-number-of-complete-components](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2685-count-the-number-of-complete-components) |
 | [3558-number-of-ways-to-assign-edge-weights-i](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3558-number-of-ways-to-assign-edge-weights-i) |
 | [3559-number-of-ways-to-assign-edge-weights-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3559-number-of-ways-to-assign-edge-weights-ii) |
@@ -399,6 +402,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0014-longest-common-prefix](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0014-longest-common-prefix) |
+| [1858-longest-word-with-all-prefixes](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1858-longest-word-with-all-prefixes) |
 ## Queue
 |  |
 | ------- |
