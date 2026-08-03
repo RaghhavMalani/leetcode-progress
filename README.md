@@ -80,6 +80,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0877-stone-game](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0877-stone-game) |
 | [0912-sort-an-array](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0912-sort-an-array) |
 | [0934-bitwise-ors-of-subarrays](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0934-bitwise-ors-of-subarrays) |
+| [0994-rotting-oranges](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0994-rotting-oranges) |
 | [1288-remove-covered-intervals](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1288-remove-covered-intervals) |
 | [1406-stone-game-iii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1406-stone-game-iii) |
 | [1464-maximum-product-of-two-elements-in-an-array](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1464-maximum-product-of-two-elements-in-an-array) |
@@ -151,6 +152,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0463-island-perimeter](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0463-island-perimeter) |
 | [0733-flood-fill](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0733-flood-fill) |
 | [0773-sliding-puzzle](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0773-sliding-puzzle) |
+| [0994-rotting-oranges](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0994-rotting-oranges) |
 | [1631-path-with-minimum-effort](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1631-path-with-minimum-effort) |
 | [2812-find-the-safest-path-in-a-grid](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2812-find-the-safest-path-in-a-grid) |
 ## Sorting
@@ -513,6 +515,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0547-number-of-provinces](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0547-number-of-provinces) |
 | [0733-flood-fill](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0733-flood-fill) |
 | [0773-sliding-puzzle](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0773-sliding-puzzle) |
+| [0994-rotting-oranges](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0994-rotting-oranges) |
 | [1631-path-with-minimum-effort](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1631-path-with-minimum-effort) |
 | [2685-count-the-number-of-complete-components](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2685-count-the-number-of-complete-components) |
 | [2812-find-the-safest-path-in-a-grid](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2812-find-the-safest-path-in-a-grid) |
