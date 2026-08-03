@@ -17,9 +17,10 @@ class Solution:
         n = len(image)
         m = len(image[0])
         scolor = image[sr][sc]
+        copy = image
         vis = [[0 for _ in range(m)] for _ in range(n)]
-        self.dfs(sr, sc, image, vis, color, scolor)
-        return image
+        self.dfs(sr, sc, copy, vis, color, scolor)
+        return copy
 
         
         
