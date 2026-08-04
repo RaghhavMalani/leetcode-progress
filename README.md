@@ -67,6 +67,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0304-range-sum-query-2d-immutable](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0304-range-sum-query-2d-immutable) |
 | [0347-top-k-frequent-elements](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0347-top-k-frequent-elements) |
 | [0463-island-perimeter](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0463-island-perimeter) |
+| [0542-01-matrix](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0542-01-matrix) |
 | [0622-design-circular-queue](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0622-design-circular-queue) |
 | [0628-maximum-product-of-three-numbers](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0628-maximum-product-of-three-numbers) |
 | [0682-baseball-game](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0682-baseball-game) |
@@ -152,6 +153,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0200-number-of-islands](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0200-number-of-islands) |
 | [0304-range-sum-query-2d-immutable](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0304-range-sum-query-2d-immutable) |
 | [0463-island-perimeter](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0463-island-perimeter) |
+| [0542-01-matrix](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0542-01-matrix) |
 | [0733-flood-fill](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0733-flood-fill) |
 | [0773-sliding-puzzle](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0773-sliding-puzzle) |
 | [0994-rotting-oranges](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0994-rotting-oranges) |
@@ -326,6 +328,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0122-best-time-to-buy-and-sell-stock-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0122-best-time-to-buy-and-sell-stock-ii) |
 | [0124-binary-tree-maximum-path-sum](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0124-binary-tree-maximum-path-sum) |
 | [0131-palindrome-partitioning](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0131-palindrome-partitioning) |
+| [0542-01-matrix](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0542-01-matrix) |
 | [0773-sliding-puzzle](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0773-sliding-puzzle) |
 | [0867-new-21-game](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0867-new-21-game) |
 | [0877-stone-game](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0877-stone-game) |
@@ -517,6 +520,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0200-number-of-islands](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0200-number-of-islands) |
 | [0207-course-schedule](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0207-course-schedule) |
 | [0463-island-perimeter](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0463-island-perimeter) |
+| [0542-01-matrix](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0542-01-matrix) |
 | [0547-number-of-provinces](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0547-number-of-provinces) |
 | [0733-flood-fill](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0733-flood-fill) |
 | [0773-sliding-puzzle](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0773-sliding-puzzle) |
