@@ -1,33 +1,31 @@
-from typing import List
-
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         adj = [[] for _ in range(numCourses)]
 
         for course, prerequisite in prerequisites:
-            adj[course].append(prerequisite)
+            adj[prerequisite].append(course)
 
-        state = [0] * numCourses
+        visited = [False] * numCourses
+        path_visited = [False] * numCourses
 
         def dfs(course):
-            if state[course] == 1:
-                return False
+            visited[course] = True
+            path_visited[course] = True
 
-            if state[course] == 2:
-                return True
+            for next_course in adj[course]:
+                if not visited[next_course]:
+                    if dfs(next_course):
+                        return True
 
-            state[course] = 1
+                elif path_visited[next_course]:
+                    return True
 
-            for prerequisite in adj[course]:
-                if not dfs(prerequisite):
-                    return False
-
-            state[course] = 2
-            return True
+            path_visited[course] = False
+            return False
 
         for course in range(numCourses):
-            if state[course] == 0:
-                if not dfs(course):
+            if not visited[course]:
+                if dfs(course):
                     return False
 
         return True
