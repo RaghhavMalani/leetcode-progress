@@ -125,6 +125,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0017-letter-combinations-of-a-phone-number](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0017-letter-combinations-of-a-phone-number) |
 | [0036-valid-sudoku](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0036-valid-sudoku) |
 | [0049-group-anagrams](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0049-group-anagrams) |
+| [0127-word-ladder](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0127-word-ladder) |
 | [0128-longest-consecutive-sequence](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0128-longest-consecutive-sequence) |
 | [0138-copy-list-with-random-pointer](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0138-copy-list-with-random-pointer) |
 | [0141-linked-list-cycle](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0141-linked-list-cycle) |
@@ -197,6 +198,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0049-group-anagrams](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0049-group-anagrams) |
 | [0079-word-search](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0079-word-search) |
 | [0093-restore-ip-addresses](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0093-restore-ip-addresses) |
+| [0127-word-ladder](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0127-word-ladder) |
 | [0131-palindrome-partitioning](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0131-palindrome-partitioning) |
 | [0168-excel-sheet-column-title](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0168-excel-sheet-column-title) |
 | [0242-valid-anagram](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0242-valid-anagram) |
@@ -532,6 +534,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 ## Breadth-First Search
 |  |
 | ------- |
+| [0127-word-ladder](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0127-word-ladder) |
 | [0130-surrounded-regions](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0130-surrounded-regions) |
 | [0200-number-of-islands](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0200-number-of-islands) |
 | [0207-course-schedule](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0207-course-schedule) |
@@ -641,4 +644,8 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0785-is-graph-bipartite](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0785-is-graph-bipartite) |
+## Bidirectional Search
+|  |
+| ------- |
+| [0127-word-ladder](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0127-word-ladder) |
 <!---LeetCode Topics End-->
