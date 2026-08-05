@@ -370,6 +370,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [1631-path-with-minimum-effort](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1631-path-with-minimum-effort) |
 | [1858-longest-word-with-all-prefixes](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1858-longest-word-with-all-prefixes) |
 | [2685-count-the-number-of-complete-components](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2685-count-the-number-of-complete-components) |
+| [3310-remove-methods-from-project](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3310-remove-methods-from-project) |
 | [3558-number-of-ways-to-assign-edge-weights-i](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3558-number-of-ways-to-assign-edge-weights-i) |
 | [3559-number-of-ways-to-assign-edge-weights-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3559-number-of-ways-to-assign-edge-weights-ii) |
 ## Binary Tree
@@ -536,6 +537,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [1631-path-with-minimum-effort](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1631-path-with-minimum-effort) |
 | [2685-count-the-number-of-complete-components](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2685-count-the-number-of-complete-components) |
 | [2812-find-the-safest-path-in-a-grid](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2812-find-the-safest-path-in-a-grid) |
+| [3310-remove-methods-from-project](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3310-remove-methods-from-project) |
 ## Memoization
 |  |
 | ------- |
@@ -574,6 +576,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0207-course-schedule](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0207-course-schedule) |
 | [0547-number-of-provinces](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0547-number-of-provinces) |
 | [2685-count-the-number-of-complete-components](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2685-count-the-number-of-complete-components) |
+| [3310-remove-methods-from-project](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3310-remove-methods-from-project) |
 | [3532-path-existence-queries-in-a-graph-i](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3532-path-existence-queries-in-a-graph-i) |
 | [3534-path-existence-queries-in-a-graph-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3534-path-existence-queries-in-a-graph-ii) |
 | [3620-network-recovery-pathways](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3620-network-recovery-pathways) |
