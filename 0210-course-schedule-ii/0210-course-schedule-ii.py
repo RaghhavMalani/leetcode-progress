@@ -1,33 +1,31 @@
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
         adj = [[] for _ in range(numCourses)]
+        indegree = [0] * numCourses
 
         for course, prerequisite in prerequisites:
             adj[prerequisite].append(course)
+            indegree[course] += 1
 
-        state = [0] * numCourses
-        order = []
-
-        def dfs(course):
-            if state[course] == 1:
-                return False
-
-            if state[course] == 2:
-                return True
-
-            state[course] = 1
-
-            for next_course in adj[course]:
-                if not dfs(next_course):
-                    return False
-
-            state[course] = 2
-            order.append(course)
-            return True
+        queue = deque()
 
         for course in range(numCourses):
-            if state[course] == 0:
-                if not dfs(course):
-                    return []
+            if indegree[course] == 0:
+                queue.append(course)
 
-        return order[::-1]
+        order = []
+
+        while queue:
+            course = queue.popleft()
+            order.append(course)
+
+            for next_course in adj[course]:
+                indegree[next_course] -= 1
+
+                if indegree[next_course] == 0:
+                    queue.append(next_course)
+
+        if len(order) != numCourses:
+            return []
+
+        return order
