@@ -9,11 +9,9 @@ class Solution:
         order = []
 
         def dfs(course):
-            # Currently in DFS path: cycle detected
             if state[course] == 1:
                 return False
 
-            # Already fully processed
             if state[course] == 2:
                 return True
 
