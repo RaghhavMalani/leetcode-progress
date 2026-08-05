@@ -72,6 +72,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0622-design-circular-queue](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0622-design-circular-queue) |
 | [0628-maximum-product-of-three-numbers](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0628-maximum-product-of-three-numbers) |
 | [0682-baseball-game](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0682-baseball-game) |
+| [0694-number-of-distinct-islands](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0694-number-of-distinct-islands) |
 | [0704-binary-search](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0704-binary-search) |
 | [0705-design-hashset](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0705-design-hashset) |
 | [0706-design-hashmap](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0706-design-hashmap) |
@@ -135,6 +136,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0347-top-k-frequent-elements](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0347-top-k-frequent-elements) |
 | [0387-first-unique-character-in-a-string](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0387-first-unique-character-in-a-string) |
 | [0460-lfu-cache](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0460-lfu-cache) |
+| [0694-number-of-distinct-islands](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0694-number-of-distinct-islands) |
 | [0705-design-hashset](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0705-design-hashset) |
 | [0706-design-hashmap](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0706-design-hashmap) |
 | [1079-letter-tile-possibilities](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1079-letter-tile-possibilities) |
@@ -157,6 +159,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0304-range-sum-query-2d-immutable](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0304-range-sum-query-2d-immutable) |
 | [0463-island-perimeter](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0463-island-perimeter) |
 | [0542-01-matrix](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0542-01-matrix) |
+| [0694-number-of-distinct-islands](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0694-number-of-distinct-islands) |
 | [0733-flood-fill](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0733-flood-fill) |
 | [0773-sliding-puzzle](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0773-sliding-puzzle) |
 | [0994-rotting-oranges](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0994-rotting-oranges) |
@@ -173,6 +176,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0242-valid-anagram](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0242-valid-anagram) |
 | [0347-top-k-frequent-elements](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0347-top-k-frequent-elements) |
 | [0628-maximum-product-of-three-numbers](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0628-maximum-product-of-three-numbers) |
+| [0694-number-of-distinct-islands](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0694-number-of-distinct-islands) |
 | [0912-sort-an-array](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0912-sort-an-array) |
 | [1288-remove-covered-intervals](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1288-remove-covered-intervals) |
 | [1464-maximum-product-of-two-elements-in-an-array](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1464-maximum-product-of-two-elements-in-an-array) |
@@ -365,6 +369,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0207-course-schedule](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0207-course-schedule) |
 | [0463-island-perimeter](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0463-island-perimeter) |
 | [0547-number-of-provinces](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0547-number-of-provinces) |
+| [0694-number-of-distinct-islands](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0694-number-of-distinct-islands) |
 | [0733-flood-fill](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0733-flood-fill) |
 | [1020-number-of-enclaves](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1020-number-of-enclaves) |
 | [1631-path-with-minimum-effort](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1631-path-with-minimum-effort) |
@@ -484,6 +489,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 ## Hash Function
 |  |
 | ------- |
+| [0694-number-of-distinct-islands](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0694-number-of-distinct-islands) |
 | [0705-design-hashset](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0705-design-hashset) |
 | [0706-design-hashmap](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0706-design-hashmap) |
 ## Merge Sort
@@ -530,6 +536,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0463-island-perimeter](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0463-island-perimeter) |
 | [0542-01-matrix](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0542-01-matrix) |
 | [0547-number-of-provinces](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0547-number-of-provinces) |
+| [0694-number-of-distinct-islands](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0694-number-of-distinct-islands) |
 | [0733-flood-fill](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0733-flood-fill) |
 | [0773-sliding-puzzle](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0773-sliding-puzzle) |
 | [0994-rotting-oranges](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0994-rotting-oranges) |
@@ -565,6 +572,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0130-surrounded-regions](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0130-surrounded-regions) |
 | [0200-number-of-islands](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0200-number-of-islands) |
 | [0547-number-of-provinces](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0547-number-of-provinces) |
+| [0694-number-of-distinct-islands](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0694-number-of-distinct-islands) |
 | [1020-number-of-enclaves](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1020-number-of-enclaves) |
 | [1631-path-with-minimum-effort](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1631-path-with-minimum-effort) |
 | [2685-count-the-number-of-complete-components](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2685-count-the-number-of-complete-components) |
