@@ -216,6 +216,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [2133-number-of-pairs-of-strings-with-concatenation-equal-to-target](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2133-number-of-pairs-of-strings-with-concatenation-equal-to-target) |
 | [3014-minimum-number-of-pushes-to-type-word-i](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3014-minimum-number-of-pushes-to-type-word-i) |
 | [3016-minimum-number-of-pushes-to-type-word-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3016-minimum-number-of-pushes-to-type-word-ii) |
+| [3348-smallest-divisible-digit-product-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3348-smallest-divisible-digit-product-ii) |
 | [3499-maximize-active-section-with-trade-i](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3499-maximize-active-section-with-trade-i) |
 | [3614-process-string-with-special-operations-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3614-process-string-with-special-operations-ii) |
 ## Divide and Conquer
@@ -310,6 +311,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [2807-insert-greatest-common-divisors-in-linked-list](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2807-insert-greatest-common-divisors-in-linked-list) |
 | [3014-minimum-number-of-pushes-to-type-word-i](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3014-minimum-number-of-pushes-to-type-word-i) |
 | [3336-find-the-number-of-subsequences-with-equal-gcd](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3336-find-the-number-of-subsequences-with-equal-gcd) |
+| [3348-smallest-divisible-digit-product-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3348-smallest-divisible-digit-product-ii) |
 | [3513-number-of-unique-xor-triplets-i](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3513-number-of-unique-xor-triplets-i) |
 | [3558-number-of-ways-to-assign-edge-weights-i](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3558-number-of-ways-to-assign-edge-weights-i) |
 | [3559-number-of-ways-to-assign-edge-weights-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3559-number-of-ways-to-assign-edge-weights-ii) |
@@ -467,6 +469,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [2450-minimum-replacements-to-sort-the-array](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2450-minimum-replacements-to-sort-the-array) |
 | [3014-minimum-number-of-pushes-to-type-word-i](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3014-minimum-number-of-pushes-to-type-word-i) |
 | [3016-minimum-number-of-pushes-to-type-word-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3016-minimum-number-of-pushes-to-type-word-ii) |
+| [3348-smallest-divisible-digit-product-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3348-smallest-divisible-digit-product-ii) |
 | [3534-path-existence-queries-in-a-graph-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3534-path-existence-queries-in-a-graph-ii) |
 | [3689-maximum-total-subarray-value-i](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3689-maximum-total-subarray-value-i) |
 ## Binary Search
@@ -536,6 +539,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0773-sliding-puzzle](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0773-sliding-puzzle) |
 | [1079-letter-tile-possibilities](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1079-letter-tile-possibilities) |
 | [1863-sum-of-all-subset-xor-totals](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1863-sum-of-all-subset-xor-totals) |
+| [3348-smallest-divisible-digit-product-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3348-smallest-divisible-digit-product-ii) |
 ## Breadth-First Search
 |  |
 | ------- |
@@ -639,6 +643,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [1979-find-greatest-common-divisor-of-array](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1979-find-greatest-common-divisor-of-array) |
 | [2807-insert-greatest-common-divisors-in-linked-list](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2807-insert-greatest-common-divisors-in-linked-list) |
 | [3336-find-the-number-of-subsequences-with-equal-gcd](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3336-find-the-number-of-subsequences-with-equal-gcd) |
+| [3348-smallest-divisible-digit-product-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3348-smallest-divisible-digit-product-ii) |
 ## Game Theory
 |  |
 | ------- |
