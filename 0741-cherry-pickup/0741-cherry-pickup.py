@@ -1,8 +1,8 @@
 class Solution:
     def cherryPickup(self, grid: List[List[int]]) -> int:
         n = len(grid)
-        dp = {}
 
+        @lru_cache(None)
         def dfs(r1, c1, r2):
             c2 = r1 + c1 - r2
 
@@ -12,9 +12,6 @@ class Solution:
 
             if r1 == n - 1 and c1 == n - 1:
                 return grid[r1][c1]
-
-            if (r1, c1, r2) in dp:
-                return dp[(r1, c1, r2)]
 
             cherries = grid[r1][c1]
 
@@ -28,8 +25,8 @@ class Solution:
                 dfs(r1, c1 + 1, r2)
             )
 
-            dp[(r1, c1, r2)] = cherries + nextMove
+            return cherries + nextMove
 
-            return dp[(r1, c1, r2)]
+        ans = dfs(0, 0, 0)
 
-        return max(0, dfs(0, 0, 0))
+        return max(0, ans)
