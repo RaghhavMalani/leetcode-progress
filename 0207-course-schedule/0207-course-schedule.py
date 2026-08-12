@@ -1,29 +1,31 @@
 class Solution:
+    def dfs(self, node, graph, vis, pathVis):
+        vis[node] = 1
+        pathVis[node] = 1
+
+        for nbr in graph[node]:
+            if not vis[nbr]:
+                if self.dfs(nbr, graph, vis, pathVis):
+                    return True
+
+            elif pathVis[nbr]:
+                return True
+
+        pathVis[node] = 0
+        return False
+
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         graph = [[] for _ in range(numCourses)]
-        indegree = [0] * numCourses
 
         for course, pre in prerequisites:
             graph[pre].append(course)
-            indegree[course] += 1
 
-        queue = deque()
+        vis = [0] * numCourses
+        pathVis = [0] * numCourses
 
-        for course in range(numCourses):
-            if indegree[course] == 0:
-                queue.append(course)
+        for node in range(numCourses):
+            if not vis[node]:
+                if self.dfs(node, graph, vis, pathVis):
+                    return False
 
-        count = 0
-
-        while queue:
-            node = queue.popleft()
-            count += 1
-
-            for nbr in graph[node]:
-                indegree[nbr] -= 1
-
-                if indegree[nbr] == 0:
-                    queue.append(nbr)
-
-        return count == numCourses
-
+        return True
