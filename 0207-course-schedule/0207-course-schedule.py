@@ -1,31 +1,31 @@
 class Solution:
-    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        adj = [[] for _ in range(numCourses)]
+    def dfs(self, node, graph, vis, pathVis):
+        vis[node] = 1
+        pathVis[node] = 1
 
-        for course, prerequisite in prerequisites:
-            adj[prerequisite].append(course)
-
-        visited = [False] * numCourses
-        path_visited = [False] * numCourses
-
-        def dfs(course):
-            visited[course] = True
-            path_visited[course] = True
-
-            for next_course in adj[course]:
-                if not visited[next_course]:
-                    if dfs(next_course):
-                        return True
-
-                elif path_visited[next_course]:
+        for nbr in graph[node]:
+            if not vis[nbr]:
+                if self.dfs(nbr, graph, vis, pathVis):
                     return True
 
-            path_visited[course] = False
-            return False
+            elif pathVis[nbr]:
+                return True
 
-        for course in range(numCourses):
-            if not visited[course]:
-                if dfs(course):
+        pathVis[node] = 0
+        return False
+
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        graph = [[] for _ in range(numCourses)]
+
+        for course, pre in prerequisites:
+            graph[pre].append(course)
+
+        vis = [0] * numCourses
+        pathVis = [0] * numCourses
+
+        for node in range(numCourses):
+            if not vis[node]:
+                if self.dfs(node, graph, vis, pathVis):
                     return False
 
         return True
