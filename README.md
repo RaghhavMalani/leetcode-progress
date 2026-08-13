@@ -86,6 +86,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0934-bitwise-ors-of-subarrays](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0934-bitwise-ors-of-subarrays) |
 | [0994-rotting-oranges](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0994-rotting-oranges) |
 | [1020-number-of-enclaves](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1020-number-of-enclaves) |
+| [1199-minimum-time-to-build-blocks](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1199-minimum-time-to-build-blocks) |
 | [1288-remove-covered-intervals](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1288-remove-covered-intervals) |
 | [1406-stone-game-iii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1406-stone-game-iii) |
 | [1464-maximum-product-of-two-elements-in-an-array](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1464-maximum-product-of-two-elements-in-an-array) |
@@ -238,6 +239,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0347-top-k-frequent-elements](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0347-top-k-frequent-elements) |
 | [0703-kth-largest-element-in-a-stream](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0703-kth-largest-element-in-a-stream) |
 | [0912-sort-an-array](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0912-sort-an-array) |
+| [1199-minimum-time-to-build-blocks](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1199-minimum-time-to-build-blocks) |
 | [1464-maximum-product-of-two-elements-in-an-array](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1464-maximum-product-of-two-elements-in-an-array) |
 | [1631-path-with-minimum-effort](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1631-path-with-minimum-effort) |
 | [2812-find-the-safest-path-in-a-grid](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2812-find-the-safest-path-in-a-grid) |
@@ -305,6 +307,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0867-new-21-game](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0867-new-21-game) |
 | [0877-stone-game](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0877-stone-game) |
 | [1071-greatest-common-divisor-of-strings](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1071-greatest-common-divisor-of-strings) |
+| [1199-minimum-time-to-build-blocks](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1199-minimum-time-to-build-blocks) |
 | [1344-angle-between-hands-of-a-clock](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1344-angle-between-hands-of-a-clock) |
 | [1406-stone-game-iii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1406-stone-game-iii) |
 | [1448-maximum-69-number](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1448-maximum-69-number) |
@@ -468,6 +471,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0122-best-time-to-buy-and-sell-stock-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0122-best-time-to-buy-and-sell-stock-ii) |
 | [0860-lemonade-change](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0860-lemonade-change) |
 | [1081-smallest-subsequence-of-distinct-characters](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1081-smallest-subsequence-of-distinct-characters) |
+| [1199-minimum-time-to-build-blocks](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1199-minimum-time-to-build-blocks) |
 | [1448-maximum-69-number](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1448-maximum-69-number) |
 | [1833-maximum-ice-cream-bars](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1833-maximum-ice-cream-bars) |
 | [1846-maximum-element-after-decreasing-and-rearranging](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1846-maximum-element-after-decreasing-and-rearranging) |
