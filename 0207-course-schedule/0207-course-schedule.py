@@ -1,31 +1,28 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        adj = [[] for _ in range(numCourses)]
+        graph = [[] for _ in range(numCourses)]
+        indegree = [0] * numCourses
 
         for course, prerequisite in prerequisites:
-            adj[prerequisite].append(course)
+            graph[prerequisite].append(course)
+            indegree[course] += 1
 
-        visited = [False] * numCourses
-        path_visited = [False] * numCourses
-
-        def dfs(course):
-            visited[course] = True
-            path_visited[course] = True
-
-            for next_course in adj[course]:
-                if not visited[next_course]:
-                    if dfs(next_course):
-                        return True
-
-                elif path_visited[next_course]:
-                    return True
-
-            path_visited[course] = False
-            return False
+        queue = deque()
 
         for course in range(numCourses):
-            if not visited[course]:
-                if dfs(course):
-                    return False
+            if indegree[course] == 0:
+                queue.append(course)
 
-        return True
+        completed = 0
+
+        while queue:
+            course = queue.popleft()
+            completed += 1
+
+            for next_course in graph[course]:
+                indegree[next_course] -= 1
+
+                if indegree[next_course] == 0:
+                    queue.append(next_course)
+
+        return completed == numCourses
