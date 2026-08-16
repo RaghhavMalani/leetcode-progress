@@ -1,37 +1,32 @@
-from typing import List
-
 class Solution:
-    def dfsCheck(self, node, graph, vis, pathVis, check):
-        vis[node] = 1
-        pathVis[node] = 1
-
-        for nbr in graph[node]:
-            if not vis[nbr]:
-                if self.dfsCheck(nbr, graph, vis, pathVis, check):
-                    return True
-
-            elif pathVis[nbr]:
-                return True
-
-        check[node] = 1
-        pathVis[node] = 0
-        return False
-
     def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
         n = len(graph)
 
-        vis = [0] * n
-        pathVis = [0] * n
-        check = [0] * n
+        reverse_graph = [[] for _ in range(n)]
+        outdegree = [0] * n
 
         for node in range(n):
-            if not vis[node]:
-                self.dfsCheck(node, graph, vis, pathVis, check)
+            outdegree[node] = len(graph[node])
 
-        safeNodes = []
+            for neighbor in graph[node]:
+                reverse_graph[neighbor].append(node)
+
+        queue = deque()
 
         for node in range(n):
-            if check[node] == 1:
-                safeNodes.append(node)
+            if outdegree[node] == 0:
+                queue.append(node)
 
-        return safeNodes
+        is_safe = [False] * n
+
+        while queue:
+            node = queue.popleft()
+            is_safe[node] = True
+
+            for previous in reverse_graph[node]:
+                outdegree[previous] -= 1
+
+                if outdegree[previous] == 0:
+                    queue.append(previous)
+
+        return [node for node in range(n) if is_safe[node]]
