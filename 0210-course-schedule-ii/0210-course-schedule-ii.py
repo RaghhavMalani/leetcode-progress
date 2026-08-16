@@ -1,10 +1,10 @@
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
-        adj = [[] for _ in range(numCourses)]
+        graph = [[] for _ in range(numCourses)]
         indegree = [0] * numCourses
 
-        for course, prerequisite in prerequisites:
-            adj[prerequisite].append(course)
+        for course, prereq in prerequisites:
+            graph[prereq].append(course)
             indegree[course] += 1
 
         queue = deque()
@@ -16,16 +16,15 @@ class Solution:
         order = []
 
         while queue:
-            course = queue.popleft()
-            order.append(course)
+            node = queue.popleft()
+            order.append(node)
 
-            for next_course in adj[course]:
-                indegree[next_course] -= 1
+            for neighbor in graph[node]:
+                indegree[neighbor] -= 1
+                if indegree[neighbor] == 0:
+                    queue.append(neighbor)
 
-                if indegree[next_course] == 0:
-                    queue.append(next_course)
+        if len(order) == numCourses:
+            return order
 
-        if len(order) != numCourses:
-            return []
-
-        return order
+        return []
