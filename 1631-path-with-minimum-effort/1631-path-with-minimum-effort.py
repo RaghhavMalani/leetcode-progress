@@ -3,22 +3,32 @@ class Solution:
         ROWS = len(heights)
         COLS = len(heights[0])
 
-        minHeap = [[0,0,0]] #[diff,r,c]
-        visit = set()
-        directions = [[1,0],[0,1],[0,-1],[-1,0]]
+        difference = [[float('inf')] * COLS for _ in range(ROWS)]
+        
+        sr, sc = 0, 0
+        dr, dc = ROWS - 1, COLS - 1
 
-        while minHeap:
-            diff, r, c = heapq.heappop(minHeap)
+        difference[sr][sc] = 0
+        minheap = [[0, 0, 0]]
+        
+        row_dir = [-1, 0, 1, 0]
+        col_dir = [0, 1, 0, -1]
 
-            if (r,c) in visit:
-                continue
-            visit.add((r,c))
-            if (r,c) == (ROWS - 1, COLS -1):
-                return diff
+        while minheap:
+            dis, r, c = heapq.heappop(minheap)
 
-            for dr, dc in directions:
-                newR, newC = r + dr, c + dc
-                if (newR < 0 or newC < 0 or newR == ROWS or newC == COLS or (newR, newC) in visit):
-                    continue
-                newDiff = max(diff, abs(heights[r][c] - heights[newR][newC]))
-                heapq.heappush(minHeap,[newDiff, newR, newC])
+            if r == dr and c == dc:
+                return dis
+
+            for i in range(4):
+                newr = r + row_dir[i]
+                newc = c + col_dir[i]
+
+                if (newr >= 0 and newr < ROWS and newc >= 0 and newc < COLS):
+                    newdiff = abs(heights[r][c] - heights[newr][newc])
+                    MAX = max(newdiff, dis)
+
+                    if difference[newr][newc] > MAX:
+                        difference[newr][newc] = MAX
+                        heapq.heappush(minheap, [MAX, newr, newc])
+
