@@ -370,6 +370,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0877-stone-game](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0877-stone-game) |
 | [0934-bitwise-ors-of-subarrays](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0934-bitwise-ors-of-subarrays) |
 | [1406-stone-game-iii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1406-stone-game-iii) |
+| [1976-number-of-ways-to-arrive-at-destination](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1976-number-of-ways-to-arrive-at-destination) |
 | [3336-find-the-number-of-subsequences-with-equal-gcd](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3336-find-the-number-of-subsequences-with-equal-gcd) |
 | [3534-path-existence-queries-in-a-graph-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3534-path-existence-queries-in-a-graph-ii) |
 | [3559-number-of-ways-to-assign-edge-weights-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3559-number-of-ways-to-assign-edge-weights-ii) |
@@ -645,6 +646,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0785-is-graph-bipartite](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0785-is-graph-bipartite) |
 | [0787-cheapest-flights-within-k-stops](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0787-cheapest-flights-within-k-stops) |
 | [0802-find-eventual-safe-states](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0802-find-eventual-safe-states) |
+| [1976-number-of-ways-to-arrive-at-destination](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1976-number-of-ways-to-arrive-at-destination) |
 | [2685-count-the-number-of-complete-components](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2685-count-the-number-of-complete-components) |
 | [3310-remove-methods-from-project](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3310-remove-methods-from-project) |
 | [3532-path-existence-queries-in-a-graph-i](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3532-path-existence-queries-in-a-graph-i) |
@@ -657,12 +659,14 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0210-course-schedule-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0210-course-schedule-ii) |
 | [0269-alien-dictionary](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0269-alien-dictionary) |
 | [0802-find-eventual-safe-states](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0802-find-eventual-safe-states) |
+| [1976-number-of-ways-to-arrive-at-destination](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1976-number-of-ways-to-arrive-at-destination) |
 | [3620-network-recovery-pathways](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3620-network-recovery-pathways) |
 ## Shortest Path
 |  |
 | ------- |
 | [0743-network-delay-time](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0743-network-delay-time) |
 | [0787-cheapest-flights-within-k-stops](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0787-cheapest-flights-within-k-stops) |
+| [1976-number-of-ways-to-arrive-at-destination](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1976-number-of-ways-to-arrive-at-destination) |
 | [3620-network-recovery-pathways](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3620-network-recovery-pathways) |
 ## Binary Search Tree
 |  |
@@ -722,4 +726,5 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | ------- |
 | [0743-network-delay-time](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0743-network-delay-time) |
 | [1631-path-with-minimum-effort](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1631-path-with-minimum-effort) |
+| [1976-number-of-ways-to-arrive-at-destination](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1976-number-of-ways-to-arrive-at-destination) |
 <!---LeetCode Topics End-->
