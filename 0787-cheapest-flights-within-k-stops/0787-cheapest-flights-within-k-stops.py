@@ -21,16 +21,11 @@ class Solution:
                 continue
 
             for neighbor, price in adj[node]:
-
                 newCost = cost + price
 
                 if newCost < dist[neighbor]:
-
                     dist[neighbor] = newCost
-
-                    q.append(
-                        (stops + 1, neighbor, newCost)
-                    )
+                    q.append( (stops + 1, neighbor, newCost))
 
         if dist[dst] == float('inf'):
             return -1
