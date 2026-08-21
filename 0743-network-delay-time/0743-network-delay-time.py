@@ -8,7 +8,6 @@ class Solution:
         dist = [float('inf')] * (n + 1)
         dist[k] = 0
 
-        # (stops, node, cost)
         minheap = [(0, k)]
 
         while minheap:
