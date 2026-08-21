@@ -247,6 +247,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0023-merge-k-sorted-lists](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0023-merge-k-sorted-lists) |
 | [0347-top-k-frequent-elements](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0347-top-k-frequent-elements) |
 | [0703-kth-largest-element-in-a-stream](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0703-kth-largest-element-in-a-stream) |
+| [0743-network-delay-time](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0743-network-delay-time) |
 | [0787-cheapest-flights-within-k-stops](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0787-cheapest-flights-within-k-stops) |
 | [0912-sort-an-array](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0912-sort-an-array) |
 | [1199-minimum-time-to-build-blocks](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1199-minimum-time-to-build-blocks) |
@@ -401,6 +402,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0547-number-of-provinces](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0547-number-of-provinces) |
 | [0694-number-of-distinct-islands](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0694-number-of-distinct-islands) |
 | [0733-flood-fill](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0733-flood-fill) |
+| [0743-network-delay-time](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0743-network-delay-time) |
 | [0785-is-graph-bipartite](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0785-is-graph-bipartite) |
 | [0787-cheapest-flights-within-k-stops](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0787-cheapest-flights-within-k-stops) |
 | [0802-find-eventual-safe-states](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0802-find-eventual-safe-states) |
@@ -583,6 +585,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0547-number-of-provinces](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0547-number-of-provinces) |
 | [0694-number-of-distinct-islands](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0694-number-of-distinct-islands) |
 | [0733-flood-fill](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0733-flood-fill) |
+| [0743-network-delay-time](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0743-network-delay-time) |
 | [0773-sliding-puzzle](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0773-sliding-puzzle) |
 | [0785-is-graph-bipartite](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0785-is-graph-bipartite) |
 | [0787-cheapest-flights-within-k-stops](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0787-cheapest-flights-within-k-stops) |
@@ -638,6 +641,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0269-alien-dictionary](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0269-alien-dictionary) |
 | [0323-number-of-connected-components-in-an-undirected-graph](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0323-number-of-connected-components-in-an-undirected-graph) |
 | [0547-number-of-provinces](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0547-number-of-provinces) |
+| [0743-network-delay-time](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0743-network-delay-time) |
 | [0785-is-graph-bipartite](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0785-is-graph-bipartite) |
 | [0787-cheapest-flights-within-k-stops](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0787-cheapest-flights-within-k-stops) |
 | [0802-find-eventual-safe-states](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0802-find-eventual-safe-states) |
@@ -657,6 +661,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 ## Shortest Path
 |  |
 | ------- |
+| [0743-network-delay-time](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0743-network-delay-time) |
 | [0787-cheapest-flights-within-k-stops](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0787-cheapest-flights-within-k-stops) |
 | [3620-network-recovery-pathways](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3620-network-recovery-pathways) |
 ## Binary Search Tree
@@ -715,5 +720,6 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 ## Dijkstra's Algorithm
 |  |
 | ------- |
+| [0743-network-delay-time](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0743-network-delay-time) |
 | [1631-path-with-minimum-effort](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1631-path-with-minimum-effort) |
 <!---LeetCode Topics End-->
