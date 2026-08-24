@@ -68,6 +68,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0287-find-the-duplicate-number](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0287-find-the-duplicate-number) |
 | [0304-range-sum-query-2d-immutable](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0304-range-sum-query-2d-immutable) |
 | [0347-top-k-frequent-elements](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0347-top-k-frequent-elements) |
+| [0362-design-hit-counter](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0362-design-hit-counter) |
 | [0463-island-perimeter](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0463-island-perimeter) |
 | [0542-01-matrix](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0542-01-matrix) |
 | [0622-design-circular-queue](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0622-design-circular-queue) |
@@ -491,6 +492,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 ## Queue
 |  |
 | ------- |
+| [0362-design-hit-counter](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0362-design-hit-counter) |
 | [0387-first-unique-character-in-a-string](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0387-first-unique-character-in-a-string) |
 | [0622-design-circular-queue](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0622-design-circular-queue) |
 ## Greedy
@@ -515,6 +517,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | ------- |
 | [0081-search-in-rotated-sorted-array-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0081-search-in-rotated-sorted-array-ii) |
 | [0287-find-the-duplicate-number](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0287-find-the-duplicate-number) |
+| [0362-design-hit-counter](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0362-design-hit-counter) |
 | [0704-binary-search](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0704-binary-search) |
 | [0981-time-based-key-value-store](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0981-time-based-key-value-store) |
 | [1631-path-with-minimum-effort](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1631-path-with-minimum-effort) |
@@ -532,6 +535,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | ------- |
 | [0146-lru-cache](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0146-lru-cache) |
 | [0304-range-sum-query-2d-immutable](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0304-range-sum-query-2d-immutable) |
+| [0362-design-hit-counter](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0362-design-hit-counter) |
 | [0460-lfu-cache](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0460-lfu-cache) |
 | [0622-design-circular-queue](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0622-design-circular-queue) |
 | [0703-kth-largest-element-in-a-stream](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0703-kth-largest-element-in-a-stream) |
@@ -693,6 +697,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 ## Data Stream
 |  |
 | ------- |
+| [0362-design-hit-counter](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0362-design-hit-counter) |
 | [0703-kth-largest-element-in-a-stream](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0703-kth-largest-element-in-a-stream) |
 ## Combinatorics
 |  |
