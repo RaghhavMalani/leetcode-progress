@@ -102,6 +102,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [1929-concatenation-of-array](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1929-concatenation-of-array) |
 | [1967-number-of-strings-that-appear-as-substrings-in-word](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1967-number-of-strings-that-appear-as-substrings-in-word) |
 | [1979-find-greatest-common-divisor-of-array](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1979-find-greatest-common-divisor-of-array) |
+| [2097-valid-arrangement-of-pairs](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2097-valid-arrangement-of-pairs) |
 | [2133-number-of-pairs-of-strings-with-concatenation-equal-to-target](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2133-number-of-pairs-of-strings-with-concatenation-equal-to-target) |
 | [2144-minimum-cost-of-buying-candies-with-discount](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2144-minimum-cost-of-buying-candies-with-discount) |
 | [2196-create-binary-tree-from-descriptions](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2196-create-binary-tree-from-descriptions) |
@@ -415,6 +416,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [1020-number-of-enclaves](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1020-number-of-enclaves) |
 | [1631-path-with-minimum-effort](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1631-path-with-minimum-effort) |
 | [1858-longest-word-with-all-prefixes](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1858-longest-word-with-all-prefixes) |
+| [2097-valid-arrangement-of-pairs](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2097-valid-arrangement-of-pairs) |
 | [2685-count-the-number-of-complete-components](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2685-count-the-number-of-complete-components) |
 | [3310-remove-methods-from-project](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3310-remove-methods-from-project) |
 | [3558-number-of-ways-to-assign-edge-weights-i](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3558-number-of-ways-to-assign-edge-weights-i) |
@@ -657,6 +659,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0841-keys-and-rooms](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0841-keys-and-rooms) |
 | [1334-find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1334-find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance) |
 | [1976-number-of-ways-to-arrive-at-destination](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1976-number-of-ways-to-arrive-at-destination) |
+| [2097-valid-arrangement-of-pairs](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2097-valid-arrangement-of-pairs) |
 | [2685-count-the-number-of-complete-components](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2685-count-the-number-of-complete-components) |
 | [3310-remove-methods-from-project](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3310-remove-methods-from-project) |
 | [3532-path-existence-queries-in-a-graph-i](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3532-path-existence-queries-in-a-graph-i) |
@@ -747,4 +750,16 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [1334-find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1334-find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance) |
+## Eulerian Circuit
+|  |
+| ------- |
+| [2097-valid-arrangement-of-pairs](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2097-valid-arrangement-of-pairs) |
+## Eulerian Path
+|  |
+| ------- |
+| [2097-valid-arrangement-of-pairs](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2097-valid-arrangement-of-pairs) |
+## Semi-Eulerian Graph
+|  |
+| ------- |
+| [2097-valid-arrangement-of-pairs](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2097-valid-arrangement-of-pairs) |
 <!---LeetCode Topics End-->
