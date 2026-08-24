@@ -69,6 +69,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0304-range-sum-query-2d-immutable](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0304-range-sum-query-2d-immutable) |
 | [0347-top-k-frequent-elements](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0347-top-k-frequent-elements) |
 | [0362-design-hit-counter](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0362-design-hit-counter) |
+| [0380-insert-delete-getrandom-o1](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0380-insert-delete-getrandom-o1) |
 | [0463-island-perimeter](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0463-island-perimeter) |
 | [0542-01-matrix](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0542-01-matrix) |
 | [0622-design-circular-queue](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0622-design-circular-queue) |
@@ -148,6 +149,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0242-valid-anagram](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0242-valid-anagram) |
 | [0291-word-pattern-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0291-word-pattern-ii) |
 | [0347-top-k-frequent-elements](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0347-top-k-frequent-elements) |
+| [0380-insert-delete-getrandom-o1](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0380-insert-delete-getrandom-o1) |
 | [0387-first-unique-character-in-a-string](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0387-first-unique-character-in-a-string) |
 | [0460-lfu-cache](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0460-lfu-cache) |
 | [0694-number-of-distinct-islands](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0694-number-of-distinct-islands) |
@@ -319,6 +321,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0062-unique-paths](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0062-unique-paths) |
 | [0070-climbing-stairs](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0070-climbing-stairs) |
 | [0168-excel-sheet-column-title](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0168-excel-sheet-column-title) |
+| [0380-insert-delete-getrandom-o1](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0380-insert-delete-getrandom-o1) |
 | [0628-maximum-product-of-three-numbers](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0628-maximum-product-of-three-numbers) |
 | [0867-new-21-game](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0867-new-21-game) |
 | [0877-stone-game](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0877-stone-game) |
@@ -536,6 +539,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0146-lru-cache](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0146-lru-cache) |
 | [0304-range-sum-query-2d-immutable](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0304-range-sum-query-2d-immutable) |
 | [0362-design-hit-counter](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0362-design-hit-counter) |
+| [0380-insert-delete-getrandom-o1](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0380-insert-delete-getrandom-o1) |
 | [0460-lfu-cache](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0460-lfu-cache) |
 | [0622-design-circular-queue](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0622-design-circular-queue) |
 | [0703-kth-largest-element-in-a-stream](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0703-kth-largest-element-in-a-stream) |
@@ -771,4 +775,8 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [2097-valid-arrangement-of-pairs](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2097-valid-arrangement-of-pairs) |
+## Randomized
+|  |
+| ------- |
+| [0380-insert-delete-getrandom-o1](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0380-insert-delete-getrandom-o1) |
 <!---LeetCode Topics End-->
