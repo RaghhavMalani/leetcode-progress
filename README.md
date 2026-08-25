@@ -226,6 +226,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0003-longest-substring-without-repeating-characters](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0003-longest-substring-without-repeating-characters) |
+| [0005-longest-palindromic-substring](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0005-longest-palindromic-substring) |
 | [0014-longest-common-prefix](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0014-longest-common-prefix) |
 | [0017-letter-combinations-of-a-phone-number](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0017-letter-combinations-of-a-phone-number) |
 | [0022-generate-parentheses](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0022-generate-parentheses) |
@@ -386,6 +387,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 ## Dynamic Programming
 |  |
 | ------- |
+| [0005-longest-palindromic-substring](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0005-longest-palindromic-substring) |
 | [0022-generate-parentheses](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0022-generate-parentheses) |
 | [0042-trapping-rain-water](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0042-trapping-rain-water) |
 | [0062-unique-paths](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0062-unique-paths) |
@@ -460,6 +462,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 ## Two Pointers
 |  |
 | ------- |
+| [0005-longest-palindromic-substring](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0005-longest-palindromic-substring) |
 | [0019-remove-nth-node-from-end-of-list](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0019-remove-nth-node-from-end-of-list) |
 | [0042-trapping-rain-water](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0042-trapping-rain-water) |
 | [0075-sort-colors](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0075-sort-colors) |
@@ -815,4 +818,8 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [1146-snapshot-array](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1146-snapshot-array) |
+## Manacher
+|  |
+| ------- |
+| [0005-longest-palindromic-substring](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0005-longest-palindromic-substring) |
 <!---LeetCode Topics End-->
