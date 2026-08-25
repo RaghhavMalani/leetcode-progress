@@ -49,6 +49,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0042-trapping-rain-water](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0042-trapping-rain-water) |
 | [0046-permutations](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0046-permutations) |
 | [0047-permutations-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0047-permutations-ii) |
+| [0048-rotate-image](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0048-rotate-image) |
 | [0049-group-anagrams](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0049-group-anagrams) |
 | [0054-spiral-matrix](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0054-spiral-matrix) |
 | [0057-insert-interval](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0057-insert-interval) |
@@ -182,6 +183,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0036-valid-sudoku](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0036-valid-sudoku) |
+| [0048-rotate-image](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0048-rotate-image) |
 | [0054-spiral-matrix](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0054-spiral-matrix) |
 | [0079-word-search](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0079-word-search) |
 | [0130-surrounded-regions](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0130-surrounded-regions) |
@@ -334,6 +336,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0002-add-two-numbers](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0002-add-two-numbers) |
+| [0048-rotate-image](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0048-rotate-image) |
 | [0062-unique-paths](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0062-unique-paths) |
 | [0070-climbing-stairs](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0070-climbing-stairs) |
 | [0168-excel-sheet-column-title](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0168-excel-sheet-column-title) |
