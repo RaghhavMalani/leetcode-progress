@@ -50,6 +50,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0046-permutations](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0046-permutations) |
 | [0047-permutations-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0047-permutations-ii) |
 | [0049-group-anagrams](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0049-group-anagrams) |
+| [0054-spiral-matrix](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0054-spiral-matrix) |
 | [0057-insert-interval](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0057-insert-interval) |
 | [0075-sort-colors](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0075-sort-colors) |
 | [0078-subsets](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0078-subsets) |
@@ -178,6 +179,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0036-valid-sudoku](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0036-valid-sudoku) |
+| [0054-spiral-matrix](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0054-spiral-matrix) |
 | [0079-word-search](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0079-word-search) |
 | [0130-surrounded-regions](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0130-surrounded-regions) |
 | [0200-number-of-islands](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0200-number-of-islands) |
@@ -649,6 +651,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 ## Simulation
 |  |
 | ------- |
+| [0054-spiral-matrix](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0054-spiral-matrix) |
 | [0682-baseball-game](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0682-baseball-game) |
 | [1929-concatenation-of-array](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1929-concatenation-of-array) |
 | [2502-design-memory-allocator](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2502-design-memory-allocator) |
