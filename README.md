@@ -63,6 +63,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0128-longest-consecutive-sequence](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0128-longest-consecutive-sequence) |
 | [0130-surrounded-regions](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0130-surrounded-regions) |
 | [0136-single-number](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0136-single-number) |
+| [0189-rotate-array](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0189-rotate-array) |
 | [0200-number-of-islands](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0200-number-of-islands) |
 | [0217-contains-duplicate](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0217-contains-duplicate) |
 | [0219-contains-duplicate-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0219-contains-duplicate-ii) |
@@ -341,6 +342,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0062-unique-paths](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0062-unique-paths) |
 | [0070-climbing-stairs](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0070-climbing-stairs) |
 | [0168-excel-sheet-column-title](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0168-excel-sheet-column-title) |
+| [0189-rotate-array](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0189-rotate-array) |
 | [0380-insert-delete-getrandom-o1](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0380-insert-delete-getrandom-o1) |
 | [0628-maximum-product-of-three-numbers](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0628-maximum-product-of-three-numbers) |
 | [0670-maximum-swap](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0670-maximum-swap) |
@@ -468,6 +470,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0075-sort-colors](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0075-sort-colors) |
 | [0141-linked-list-cycle](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0141-linked-list-cycle) |
 | [0143-reorder-list](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0143-reorder-list) |
+| [0189-rotate-array](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0189-rotate-array) |
 | [0287-find-the-duplicate-number](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0287-find-the-duplicate-number) |
 | [0344-reverse-string](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0344-reverse-string) |
 | [2095-delete-the-middle-node-of-a-linked-list](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2095-delete-the-middle-node-of-a-linked-list) |
