@@ -42,6 +42,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0001-two-sum](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0001-two-sum) |
+| [0004-median-of-two-sorted-arrays](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0004-median-of-two-sorted-arrays) |
 | [0014-longest-common-prefix](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0014-longest-common-prefix) |
 | [0036-valid-sudoku](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0036-valid-sudoku) |
 | [0039-combination-sum](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0039-combination-sum) |
@@ -260,6 +261,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 ## Divide and Conquer
 |  |
 | ------- |
+| [0004-median-of-two-sorted-arrays](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0004-median-of-two-sorted-arrays) |
 | [0023-merge-k-sorted-lists](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0023-merge-k-sorted-lists) |
 | [0347-top-k-frequent-elements](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0347-top-k-frequent-elements) |
 | [0912-sort-an-array](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0912-sort-an-array) |
@@ -550,6 +552,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 ## Binary Search
 |  |
 | ------- |
+| [0004-median-of-two-sorted-arrays](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0004-median-of-two-sorted-arrays) |
 | [0081-search-in-rotated-sorted-array-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0081-search-in-rotated-sorted-array-ii) |
 | [0287-find-the-duplicate-number](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0287-find-the-duplicate-number) |
 | [0362-design-hit-counter](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0362-design-hit-counter) |
