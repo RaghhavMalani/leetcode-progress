@@ -246,6 +246,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0291-word-pattern-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0291-word-pattern-ii) |
 | [0344-reverse-string](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0344-reverse-string) |
 | [0387-first-unique-character-in-a-string](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0387-first-unique-character-in-a-string) |
+| [0428-serialize-and-deserialize-n-ary-tree](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0428-serialize-and-deserialize-n-ary-tree) |
 | [0736-parse-lisp-expression](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0736-parse-lisp-expression) |
 | [0981-time-based-key-value-store](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0981-time-based-key-value-store) |
 | [1071-greatest-common-divisor-of-strings](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1071-greatest-common-divisor-of-strings) |
@@ -425,6 +426,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | ------- |
 | [0094-binary-tree-inorder-traversal](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0094-binary-tree-inorder-traversal) |
 | [0124-binary-tree-maximum-path-sum](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0124-binary-tree-maximum-path-sum) |
+| [0428-serialize-and-deserialize-n-ary-tree](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0428-serialize-and-deserialize-n-ary-tree) |
 | [0703-kth-largest-element-in-a-stream](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0703-kth-largest-element-in-a-stream) |
 | [2196-create-binary-tree-from-descriptions](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2196-create-binary-tree-from-descriptions) |
 | [3558-number-of-ways-to-assign-edge-weights-i](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3558-number-of-ways-to-assign-edge-weights-i) |
@@ -442,6 +444,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0210-course-schedule-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0210-course-schedule-ii) |
 | [0269-alien-dictionary](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0269-alien-dictionary) |
 | [0323-number-of-connected-components-in-an-undirected-graph](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0323-number-of-connected-components-in-an-undirected-graph) |
+| [0428-serialize-and-deserialize-n-ary-tree](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0428-serialize-and-deserialize-n-ary-tree) |
 | [0463-island-perimeter](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0463-island-perimeter) |
 | [0547-number-of-provinces](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0547-number-of-provinces) |
 | [0694-number-of-distinct-islands](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0694-number-of-distinct-islands) |
@@ -643,6 +646,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0210-course-schedule-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0210-course-schedule-ii) |
 | [0269-alien-dictionary](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0269-alien-dictionary) |
 | [0323-number-of-connected-components-in-an-undirected-graph](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0323-number-of-connected-components-in-an-undirected-graph) |
+| [0428-serialize-and-deserialize-n-ary-tree](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0428-serialize-and-deserialize-n-ary-tree) |
 | [0463-island-perimeter](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0463-island-perimeter) |
 | [0542-01-matrix](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0542-01-matrix) |
 | [0547-number-of-provinces](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0547-number-of-provinces) |
