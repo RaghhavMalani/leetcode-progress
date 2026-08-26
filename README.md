@@ -158,6 +158,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0219-contains-duplicate-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0219-contains-duplicate-ii) |
 | [0242-valid-anagram](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0242-valid-anagram) |
 | [0291-word-pattern-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0291-word-pattern-ii) |
+| [0314-binary-tree-vertical-order-traversal](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0314-binary-tree-vertical-order-traversal) |
 | [0347-top-k-frequent-elements](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0347-top-k-frequent-elements) |
 | [0380-insert-delete-getrandom-o1](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0380-insert-delete-getrandom-o1) |
 | [0387-first-unique-character-in-a-string](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0387-first-unique-character-in-a-string) |
@@ -213,6 +214,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0075-sort-colors](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0075-sort-colors) |
 | [0217-contains-duplicate](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0217-contains-duplicate) |
 | [0242-valid-anagram](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0242-valid-anagram) |
+| [0314-binary-tree-vertical-order-traversal](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0314-binary-tree-vertical-order-traversal) |
 | [0347-top-k-frequent-elements](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0347-top-k-frequent-elements) |
 | [0621-task-scheduler](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0621-task-scheduler) |
 | [0628-maximum-product-of-three-numbers](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0628-maximum-product-of-three-numbers) |
@@ -429,6 +431,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | ------- |
 | [0094-binary-tree-inorder-traversal](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0094-binary-tree-inorder-traversal) |
 | [0124-binary-tree-maximum-path-sum](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0124-binary-tree-maximum-path-sum) |
+| [0314-binary-tree-vertical-order-traversal](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0314-binary-tree-vertical-order-traversal) |
 | [0428-serialize-and-deserialize-n-ary-tree](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0428-serialize-and-deserialize-n-ary-tree) |
 | [0703-kth-largest-element-in-a-stream](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0703-kth-largest-element-in-a-stream) |
 | [2196-create-binary-tree-from-descriptions](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2196-create-binary-tree-from-descriptions) |
@@ -446,6 +449,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0207-course-schedule](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0207-course-schedule) |
 | [0210-course-schedule-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0210-course-schedule-ii) |
 | [0269-alien-dictionary](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0269-alien-dictionary) |
+| [0314-binary-tree-vertical-order-traversal](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0314-binary-tree-vertical-order-traversal) |
 | [0323-number-of-connected-components-in-an-undirected-graph](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0323-number-of-connected-components-in-an-undirected-graph) |
 | [0428-serialize-and-deserialize-n-ary-tree](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0428-serialize-and-deserialize-n-ary-tree) |
 | [0463-island-perimeter](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0463-island-perimeter) |
@@ -470,6 +474,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | ------- |
 | [0094-binary-tree-inorder-traversal](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0094-binary-tree-inorder-traversal) |
 | [0124-binary-tree-maximum-path-sum](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0124-binary-tree-maximum-path-sum) |
+| [0314-binary-tree-vertical-order-traversal](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0314-binary-tree-vertical-order-traversal) |
 | [0703-kth-largest-element-in-a-stream](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0703-kth-largest-element-in-a-stream) |
 | [2196-create-binary-tree-from-descriptions](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2196-create-binary-tree-from-descriptions) |
 ## Two Pointers
@@ -649,6 +654,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0207-course-schedule](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0207-course-schedule) |
 | [0210-course-schedule-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0210-course-schedule-ii) |
 | [0269-alien-dictionary](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0269-alien-dictionary) |
+| [0314-binary-tree-vertical-order-traversal](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0314-binary-tree-vertical-order-traversal) |
 | [0323-number-of-connected-components-in-an-undirected-graph](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0323-number-of-connected-components-in-an-undirected-graph) |
 | [0428-serialize-and-deserialize-n-ary-tree](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0428-serialize-and-deserialize-n-ary-tree) |
 | [0463-island-perimeter](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0463-island-perimeter) |
