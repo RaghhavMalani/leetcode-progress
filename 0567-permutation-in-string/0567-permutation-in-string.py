@@ -3,23 +3,23 @@ class Solution:
         if len(s1) > len(s2):
             return False
 
-        need = Counter(s1)
-        window = Counter()
+        s1_count = [0] * 26
+        window_count = [0] * 26
 
-        left = 0
+        for char in s1:
+            s1_count[ord(char) - ord('a')] += 1
 
-        for right in range(len(s2)):
-            window[s2[right]] += 1
+        for i in range(len(s1)):
+            window_count[ord(s2[i]) - ord('a')] += 1
 
-            if right - left + 1 > len(s1):
-                window[s2[left]] -= 1
+        if s1_count == window_count:
+            return True
 
-                if window[s2[left]] == 0:
-                    del window[s2[left]]
+        for i in range(len(s1), len(s2)):
+             window_count[ord(s2[i]) - ord('a')] += 1
+             window_count[ord(s2[i - len(s1)]) - ord('a')] -= 1
 
-                left += 1
-
-            if window == need:
+             if s1_count == window_count:
                 return True
-
+        
         return False
