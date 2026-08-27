@@ -96,6 +96,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0912-sort-an-array](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0912-sort-an-array) |
 | [0934-bitwise-ors-of-subarrays](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0934-bitwise-ors-of-subarrays) |
 | [0994-rotting-oranges](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0994-rotting-oranges) |
+| [1004-max-consecutive-ones-iii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1004-max-consecutive-ones-iii) |
 | [1020-number-of-enclaves](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1020-number-of-enclaves) |
 | [1091-shortest-path-in-binary-matrix](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1091-shortest-path-in-binary-matrix) |
 | [1146-snapshot-array](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1146-snapshot-array) |
@@ -316,6 +317,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0304-range-sum-query-2d-immutable](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0304-range-sum-query-2d-immutable) |
 | [0560-subarray-sum-equals-k](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0560-subarray-sum-equals-k) |
 | [0713-subarray-product-less-than-k](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0713-subarray-product-less-than-k) |
+| [1004-max-consecutive-ones-iii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1004-max-consecutive-ones-iii) |
 | [1423-maximum-points-you-can-obtain-from-cards](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1423-maximum-points-you-can-obtain-from-cards) |
 | [1732-find-the-highest-altitude](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1732-find-the-highest-altitude) |
 | [2574-left-and-right-sum-differences](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2574-left-and-right-sum-differences) |
@@ -397,6 +399,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0567-permutation-in-string](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0567-permutation-in-string) |
 | [0713-subarray-product-less-than-k](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0713-subarray-product-less-than-k) |
 | [0867-new-21-game](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0867-new-21-game) |
+| [1004-max-consecutive-ones-iii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1004-max-consecutive-ones-iii) |
 | [1358-number-of-substrings-containing-all-three-characters](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1358-number-of-substrings-containing-all-three-characters) |
 | [1423-maximum-points-you-can-obtain-from-cards](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1423-maximum-points-you-can-obtain-from-cards) |
 | [2958-length-of-longest-subarray-with-at-most-k-frequency](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2958-length-of-longest-subarray-with-at-most-k-frequency) |
@@ -577,6 +580,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0704-binary-search](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0704-binary-search) |
 | [0713-subarray-product-less-than-k](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0713-subarray-product-less-than-k) |
 | [0981-time-based-key-value-store](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0981-time-based-key-value-store) |
+| [1004-max-consecutive-ones-iii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1004-max-consecutive-ones-iii) |
 | [1146-snapshot-array](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1146-snapshot-array) |
 | [1631-path-with-minimum-effort](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1631-path-with-minimum-effort) |
 | [2812-find-the-safest-path-in-a-grid](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2812-find-the-safest-path-in-a-grid) |
