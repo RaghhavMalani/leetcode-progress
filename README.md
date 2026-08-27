@@ -166,6 +166,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0347-top-k-frequent-elements](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0347-top-k-frequent-elements) |
 | [0380-insert-delete-getrandom-o1](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0380-insert-delete-getrandom-o1) |
 | [0387-first-unique-character-in-a-string](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0387-first-unique-character-in-a-string) |
+| [0424-longest-repeating-character-replacement](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0424-longest-repeating-character-replacement) |
 | [0460-lfu-cache](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0460-lfu-cache) |
 | [0560-subarray-sum-equals-k](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0560-subarray-sum-equals-k) |
 | [0567-permutation-in-string](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0567-permutation-in-string) |
@@ -255,6 +256,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0340-longest-substring-with-at-most-k-distinct-characters](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0340-longest-substring-with-at-most-k-distinct-characters) |
 | [0344-reverse-string](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0344-reverse-string) |
 | [0387-first-unique-character-in-a-string](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0387-first-unique-character-in-a-string) |
+| [0424-longest-repeating-character-replacement](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0424-longest-repeating-character-replacement) |
 | [0428-serialize-and-deserialize-n-ary-tree](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0428-serialize-and-deserialize-n-ary-tree) |
 | [0567-permutation-in-string](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0567-permutation-in-string) |
 | [0736-parse-lisp-expression](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0736-parse-lisp-expression) |
@@ -401,6 +403,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0003-longest-substring-without-repeating-characters](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0003-longest-substring-without-repeating-characters) |
 | [0219-contains-duplicate-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0219-contains-duplicate-ii) |
 | [0340-longest-substring-with-at-most-k-distinct-characters](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0340-longest-substring-with-at-most-k-distinct-characters) |
+| [0424-longest-repeating-character-replacement](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0424-longest-repeating-character-replacement) |
 | [0567-permutation-in-string](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0567-permutation-in-string) |
 | [0713-subarray-product-less-than-k](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0713-subarray-product-less-than-k) |
 | [0867-new-21-game](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0867-new-21-game) |
