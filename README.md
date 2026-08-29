@@ -280,6 +280,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [3348-smallest-divisible-digit-product-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3348-smallest-divisible-digit-product-ii) |
 | [3499-maximize-active-section-with-trade-i](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3499-maximize-active-section-with-trade-i) |
 | [3614-process-string-with-special-operations-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3614-process-string-with-special-operations-ii) |
+| [3734-lexicographically-smallest-palindromic-permutation-greater-than-target](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3734-lexicographically-smallest-palindromic-permutation-greater-than-target) |
 ## Divide and Conquer
 |  |
 | ------- |
@@ -522,6 +523,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0567-permutation-in-string](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0567-permutation-in-string) |
 | [2095-delete-the-middle-node-of-a-linked-list](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2095-delete-the-middle-node-of-a-linked-list) |
 | [3534-path-existence-queries-in-a-graph-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3534-path-existence-queries-in-a-graph-ii) |
+| [3734-lexicographically-smallest-palindromic-permutation-greater-than-target](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3734-lexicographically-smallest-palindromic-permutation-greater-than-target) |
 ## Stack
 |  |
 | ------- |
@@ -564,6 +566,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [3020-find-the-maximum-number-of-elements-in-subset](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3020-find-the-maximum-number-of-elements-in-subset) |
 | [3221-find-the-peaks](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3221-find-the-peaks) |
 | [3499-maximize-active-section-with-trade-i](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3499-maximize-active-section-with-trade-i) |
+| [3734-lexicographically-smallest-palindromic-permutation-greater-than-target](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3734-lexicographically-smallest-palindromic-permutation-greater-than-target) |
 ## Trie
 |  |
 | ------- |
