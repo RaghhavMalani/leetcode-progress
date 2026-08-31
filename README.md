@@ -362,6 +362,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0622-design-circular-queue](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0622-design-circular-queue) |
 | [0705-design-hashset](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0705-design-hashset) |
 | [0706-design-hashmap](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0706-design-hashmap) |
+| [2058-find-the-minimum-and-maximum-number-of-nodes-between-critical-points](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2058-find-the-minimum-and-maximum-number-of-nodes-between-critical-points) |
 | [2095-delete-the-middle-node-of-a-linked-list](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2095-delete-the-middle-node-of-a-linked-list) |
 | [2807-insert-greatest-common-divisors-in-linked-list](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2807-insert-greatest-common-divisors-in-linked-list) |
 ## Math
