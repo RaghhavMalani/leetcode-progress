@@ -119,6 +119,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [1967-number-of-strings-that-appear-as-substrings-in-word](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1967-number-of-strings-that-appear-as-substrings-in-word) |
 | [1979-find-greatest-common-divisor-of-array](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1979-find-greatest-common-divisor-of-array) |
 | [2097-valid-arrangement-of-pairs](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2097-valid-arrangement-of-pairs) |
+| [2126-destroying-asteroids](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2126-destroying-asteroids) |
 | [2133-number-of-pairs-of-strings-with-concatenation-equal-to-target](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2133-number-of-pairs-of-strings-with-concatenation-equal-to-target) |
 | [2144-minimum-cost-of-buying-candies-with-discount](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2144-minimum-cost-of-buying-candies-with-discount) |
 | [2196-create-binary-tree-from-descriptions](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2196-create-binary-tree-from-descriptions) |
@@ -244,6 +245,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [1833-maximum-ice-cream-bars](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1833-maximum-ice-cream-bars) |
 | [1840-maximum-building-height](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1840-maximum-building-height) |
 | [1846-maximum-element-after-decreasing-and-rearranging](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1846-maximum-element-after-decreasing-and-rearranging) |
+| [2126-destroying-asteroids](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2126-destroying-asteroids) |
 | [2144-minimum-cost-of-buying-candies-with-discount](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2144-minimum-cost-of-buying-candies-with-discount) |
 | [3016-minimum-number-of-pushes-to-type-word-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3016-minimum-number-of-pushes-to-type-word-ii) |
 | [3534-path-existence-queries-in-a-graph-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3534-path-existence-queries-in-a-graph-ii) |
@@ -611,6 +613,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [1448-maximum-69-number](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1448-maximum-69-number) |
 | [1833-maximum-ice-cream-bars](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1833-maximum-ice-cream-bars) |
 | [1846-maximum-element-after-decreasing-and-rearranging](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1846-maximum-element-after-decreasing-and-rearranging) |
+| [2126-destroying-asteroids](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2126-destroying-asteroids) |
 | [2144-minimum-cost-of-buying-candies-with-discount](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2144-minimum-cost-of-buying-candies-with-discount) |
 | [2450-minimum-replacements-to-sort-the-array](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2450-minimum-replacements-to-sort-the-array) |
 | [3014-minimum-number-of-pushes-to-type-word-i](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3014-minimum-number-of-pushes-to-type-word-i) |
