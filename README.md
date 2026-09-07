@@ -122,6 +122,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [2133-number-of-pairs-of-strings-with-concatenation-equal-to-target](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2133-number-of-pairs-of-strings-with-concatenation-equal-to-target) |
 | [2144-minimum-cost-of-buying-candies-with-discount](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2144-minimum-cost-of-buying-candies-with-discount) |
 | [2196-create-binary-tree-from-descriptions](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2196-create-binary-tree-from-descriptions) |
+| [2355-maximum-number-of-books-you-can-take](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2355-maximum-number-of-books-you-can-take) |
 | [2450-minimum-replacements-to-sort-the-array](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2450-minimum-replacements-to-sort-the-array) |
 | [2502-design-memory-allocator](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2502-design-memory-allocator) |
 | [2503-longest-subarray-with-maximum-bitwise-and](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2503-longest-subarray-with-maximum-bitwise-and) |
@@ -466,6 +467,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [1334-find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1334-find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance) |
 | [1406-stone-game-iii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1406-stone-game-iii) |
 | [1976-number-of-ways-to-arrive-at-destination](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1976-number-of-ways-to-arrive-at-destination) |
+| [2355-maximum-number-of-books-you-can-take](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2355-maximum-number-of-books-you-can-take) |
 | [3336-find-the-number-of-subsequences-with-equal-gcd](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3336-find-the-number-of-subsequences-with-equal-gcd) |
 | [3534-path-existence-queries-in-a-graph-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3534-path-existence-queries-in-a-graph-ii) |
 | [3559-number-of-ways-to-assign-edge-weights-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3559-number-of-ways-to-assign-edge-weights-ii) |
@@ -550,12 +552,14 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0736-parse-lisp-expression](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0736-parse-lisp-expression) |
 | [0739-daily-temperatures](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0739-daily-temperatures) |
 | [1081-smallest-subsequence-of-distinct-characters](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1081-smallest-subsequence-of-distinct-characters) |
+| [2355-maximum-number-of-books-you-can-take](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2355-maximum-number-of-books-you-can-take) |
 ## Monotonic Stack
 |  |
 | ------- |
 | [0042-trapping-rain-water](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0042-trapping-rain-water) |
 | [0739-daily-temperatures](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0739-daily-temperatures) |
 | [1081-smallest-subsequence-of-distinct-characters](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1081-smallest-subsequence-of-distinct-characters) |
+| [2355-maximum-number-of-books-you-can-take](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2355-maximum-number-of-books-you-can-take) |
 ## Bit Manipulation
 |  |
 | ------- |
