@@ -275,6 +275,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0567-permutation-in-string](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0567-permutation-in-string) |
 | [0727-minimum-window-subsequence](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0727-minimum-window-subsequence) |
 | [0736-parse-lisp-expression](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0736-parse-lisp-expression) |
+| [0940-distinct-subsequences-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0940-distinct-subsequences-ii) |
 | [0981-time-based-key-value-store](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0981-time-based-key-value-store) |
 | [1071-greatest-common-divisor-of-strings](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1071-greatest-common-divisor-of-strings) |
 | [1079-letter-tile-possibilities](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1079-letter-tile-possibilities) |
@@ -461,6 +462,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0867-new-21-game](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0867-new-21-game) |
 | [0877-stone-game](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0877-stone-game) |
 | [0934-bitwise-ors-of-subarrays](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0934-bitwise-ors-of-subarrays) |
+| [0940-distinct-subsequences-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0940-distinct-subsequences-ii) |
 | [1334-find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1334-find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance) |
 | [1406-stone-game-iii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1406-stone-game-iii) |
 | [1976-number-of-ways-to-arrive-at-destination](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1976-number-of-ways-to-arrive-at-destination) |
