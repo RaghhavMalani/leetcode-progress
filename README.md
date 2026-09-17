@@ -111,6 +111,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [1477-find-two-non-overlapping-sub-arrays-each-with-target-sum](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1477-find-two-non-overlapping-sub-arrays-each-with-target-sum) |
 | [1631-path-with-minimum-effort](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1631-path-with-minimum-effort) |
 | [1732-find-the-highest-altitude](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1732-find-the-highest-altitude) |
+| [1762-buildings-with-an-ocean-view](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1762-buildings-with-an-ocean-view) |
 | [1833-maximum-ice-cream-bars](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1833-maximum-ice-cream-bars) |
 | [1840-maximum-building-height](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1840-maximum-building-height) |
 | [1846-maximum-element-after-decreasing-and-rearranging](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1846-maximum-element-after-decreasing-and-rearranging) |
@@ -565,6 +566,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0736-parse-lisp-expression](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0736-parse-lisp-expression) |
 | [0739-daily-temperatures](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0739-daily-temperatures) |
 | [1081-smallest-subsequence-of-distinct-characters](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1081-smallest-subsequence-of-distinct-characters) |
+| [1762-buildings-with-an-ocean-view](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1762-buildings-with-an-ocean-view) |
 | [2355-maximum-number-of-books-you-can-take](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2355-maximum-number-of-books-you-can-take) |
 ## Monotonic Stack
 |  |
@@ -572,6 +574,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0042-trapping-rain-water](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0042-trapping-rain-water) |
 | [0739-daily-temperatures](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0739-daily-temperatures) |
 | [1081-smallest-subsequence-of-distinct-characters](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1081-smallest-subsequence-of-distinct-characters) |
+| [1762-buildings-with-an-ocean-view](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1762-buildings-with-an-ocean-view) |
 | [2355-maximum-number-of-books-you-can-take](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2355-maximum-number-of-books-you-can-take) |
 ## Bit Manipulation
 |  |
