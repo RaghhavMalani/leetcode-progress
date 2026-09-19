@@ -1,0 +1,78 @@
+name: Publish progress bridge
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: progress-bridge-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    # Pull requests validate the generator without writing. The generated contract
+    # commit causes a second push and must not publish again.
+    if: github.event_name == 'pull_request' || github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Require Playbook dispatch token
+        if: github.event_name == 'push'
+        env:
+          PLAYBOOK_REPO_TOKEN: ${{ secrets.PLAYBOOK_REPO_TOKEN }}
+        run: |
+          if [ -z "$PLAYBOOK_REPO_TOKEN" ]; then
+            echo "::error::PLAYBOOK_REPO_TOKEN is required to dispatch progress-updated."
+            exit 1
+          fi
+
+      - name: Test the contract generator
+        run: node --test scripts/generate-progress.test.mjs
+
+      - name: Generate and validate progress.json
+        run: node scripts/generate-progress.mjs --source-commit "$GITHUB_SHA"
+
+      - name: Commit the versioned contract
+        if: github.event_name == 'push'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add progress.json
+          git commit -m "chore(progress): publish ${GITHUB_SHA::7} [skip ci]"
+          git push
+
+      - name: Read contract metadata
+        if: github.event_name == 'push'
+        id: contract
+        shell: bash
+        run: |
+          echo "generated_at=$(node -p \"JSON.parse(require('node:fs').readFileSync('progress.json','utf8')).generatedAt\")" >> "$GITHUB_OUTPUT"
+          echo "published_commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Trigger Playbook snapshot and rebuild
+        if: github.event_name == 'push'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.PLAYBOOK_REPO_TOKEN }}
+          script: |
+            await github.rest.repos.createDispatchEvent({
+              owner: "RaghhavMalani",
+              repo: "PLAYBOOK-theDSAEngine",
+              event_type: "progress-updated",
+              client_payload: {
+                sourceCommit: context.sha,
+                generatedAt: "${{ steps.contract.outputs.generated_at }}",
+                publishedCommit: "${{ steps.contract.outputs.published_commit }}"
+              }
+            });
