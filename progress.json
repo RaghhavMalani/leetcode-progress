@@ -1,0 +1,4814 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-08-08T10:53:20.106Z",
+  "sourceCommit": "f0bcb2c4bfabeee4163d2dda8b41acd43abe1bc2",
+  "repository": "https://github.com/RaghhavMalani/leetcode-progress",
+  "declaredStats": {
+    "solved": 128,
+    "easy": 36,
+    "medium": 73,
+    "hard": 19
+  },
+  "problems": [
+    {
+      "number": 1,
+      "slug": "two-sum",
+      "directory": "0001-two-sum",
+      "difficulty": "easy",
+      "classification": {
+        "label": "Hash map · complement lookup",
+        "family": "Hashing"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0001-two-sum/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0001-two-sum.html"
+        }
+      },
+      "solutionHashes": {
+        "0001-two-sum/0001-two-sum.py": "9579328d3c85334bd5004810e7291b7fe651096d2f6b71f3a12f22a1d6cef56f"
+      },
+      "firstSolvedAt": "2025-07-24T14:51:00+05:30",
+      "lastSolvedAt": "2025-07-24T14:51:00+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 2,
+      "slug": "add-two-numbers",
+      "directory": "0002-add-two-numbers",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Linked list · digit-by-digit carry",
+        "family": "Linked lists"
+      },
+      "languages": [
+        "cpp",
+        "java",
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0002-add-two-numbers/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0002-add-two-numbers.html"
+        }
+      },
+      "solutionHashes": {
+        "0002-add-two-numbers/0002-add-two-numbers.cpp": "34517053973cdb2fe8e07976c31934c180e91234e306fe3a0ecb049b4f3f4b03",
+        "0002-add-two-numbers/0002-add-two-numbers.java": "a783d3755650a8b309fd65779d5af465b088b6e93c5a452072cece14a07c52ff",
+        "0002-add-two-numbers/0002-add-two-numbers.py": "ee408fd3bf56c8112b3cd4b0ef51357a835674d4a943a16eecb9680da73c5f20"
+      },
+      "firstSolvedAt": "2025-07-26T22:25:01+05:30",
+      "lastSolvedAt": "2026-06-15T21:14:00+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "24a013bab4e8029b099c232d869db62c5d3445a5",
+          "solvedAt": "2026-06-15T18:05:31+05:30",
+          "languages": [
+            "cpp"
+          ]
+        },
+        {
+          "sourceCommit": "12c3799b6d01f126d5277b8f31e3e3a9dc2046b9",
+          "solvedAt": "2026-06-15T21:14:00+05:30",
+          "languages": [
+            "java"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "slug": "longest-substring-without-repeating-characters",
+      "directory": "0003-longest-substring-without-repeating-characters",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Sliding window · variable size",
+        "family": "Two pointers & sliding window"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0003-longest-substring-without-repeating-characters/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0003-longest-substring-without-repeating-characters.html"
+        }
+      },
+      "solutionHashes": {
+        "0003-longest-substring-without-repeating-characters/0003-longest-substring-without-repeating-characters.py": "1da7eab3743a93fe7112fd74ad7c238d119d20a1d64ddf324c5e6300780b739b"
+      },
+      "firstSolvedAt": "2025-07-26T23:34:26+05:30",
+      "lastSolvedAt": "2025-07-26T23:34:26+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 14,
+      "slug": "longest-common-prefix",
+      "directory": "0014-longest-common-prefix",
+      "difficulty": "easy",
+      "classification": {
+        "label": "Vertical scanning",
+        "family": "Two pointers & sliding window"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0014-longest-common-prefix/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0014-longest-common-prefix.html"
+        }
+      },
+      "solutionHashes": {
+        "0014-longest-common-prefix/0014-longest-common-prefix.py": "536544110133f0188fba1b5369b7448fe3bac0882ae85294f867da90f984cfb1"
+      },
+      "firstSolvedAt": "2025-07-31T15:56:51+05:30",
+      "lastSolvedAt": "2025-07-31T15:56:51+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 17,
+      "slug": "letter-combinations-of-a-phone-number",
+      "directory": "0017-letter-combinations-of-a-phone-number",
+      "difficulty": "",
+      "classification": {
+        "label": "",
+        "family": ""
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": false,
+          "path": null
+        },
+        "trace": {
+          "available": false,
+          "path": null
+        }
+      },
+      "solutionHashes": {
+        "0017-letter-combinations-of-a-phone-number/0017-letter-combinations-of-a-phone-number.py": "5f006aeb7bb6d73fa60880b2f8083233f5ce86b32239d11dba60d10385f2f0de"
+      },
+      "firstSolvedAt": "2026-07-29T11:55:22+05:30",
+      "lastSolvedAt": "2026-07-29T11:55:22+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 19,
+      "slug": "remove-nth-node-from-end-of-list",
+      "directory": "0019-remove-nth-node-from-end-of-list",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Linked list · two pointers with a gap",
+        "family": "Two pointers & sliding window"
+      },
+      "languages": [
+        "cpp",
+        "java",
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0019-remove-nth-node-from-end-of-list/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0019-remove-nth-node-from-end-of-list.html"
+        }
+      },
+      "solutionHashes": {
+        "0019-remove-nth-node-from-end-of-list/0019-remove-nth-node-from-end-of-list.cpp": "341d2c62a6a34cdf3f9c64fe57c0330676d085c3a64b66902c1857665b35a9b9",
+        "0019-remove-nth-node-from-end-of-list/0019-remove-nth-node-from-end-of-list.java": "297d57d1edf75ba3341d1e17131c8fa4041b90817a7101a33392480b6e4cff7c",
+        "0019-remove-nth-node-from-end-of-list/0019-remove-nth-node-from-end-of-list.py": "fcc230d425bf642219085e36fcfbbc0e8b699fdf8072b27ee662fd190c2dee62"
+      },
+      "firstSolvedAt": "2026-06-15T13:19:35+05:30",
+      "lastSolvedAt": "2026-06-15T13:32:35+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "533c66429a4d6eb85b2f884e1bc8490560eced82",
+          "solvedAt": "2026-06-15T13:31:08+05:30",
+          "languages": [
+            "java"
+          ]
+        },
+        {
+          "sourceCommit": "08c13f289d248e0e7d9ade6065721ba69baf3dca",
+          "solvedAt": "2026-06-15T13:32:35+05:30",
+          "languages": [
+            "cpp"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "slug": "merge-two-sorted-lists",
+      "directory": "0021-merge-two-sorted-lists",
+      "difficulty": "easy",
+      "classification": {
+        "label": "Linked list · dummy head + merge",
+        "family": "Linked lists"
+      },
+      "languages": [
+        "cpp",
+        "java",
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0021-merge-two-sorted-lists/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0021-merge-two-sorted-lists.html"
+        }
+      },
+      "solutionHashes": {
+        "0021-merge-two-sorted-lists/0021-merge-two-sorted-lists.cpp": "4e64f26ed011a8714af26ab242a253fced6ab7d21131707b23da893774f95b98",
+        "0021-merge-two-sorted-lists/0021-merge-two-sorted-lists.java": "cfd9750319ac043fb45d8c5fffd9f731260d1b24d39fdce2e4d83baf8537664b",
+        "0021-merge-two-sorted-lists/0021-merge-two-sorted-lists.py": "a8fde7338894702e5bdcd50b20ca3f254cd9a7296d098b02a6d2171500af969c"
+      },
+      "firstSolvedAt": "2026-06-11T10:50:10+05:30",
+      "lastSolvedAt": "2026-06-11T10:55:44+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "aea40e58789d87c95f6566894269766baeaaae11",
+          "solvedAt": "2026-06-11T10:54:37+05:30",
+          "languages": [
+            "cpp"
+          ]
+        },
+        {
+          "sourceCommit": "2fa72a7c580e8b2e64ff9592180ab6d017001277",
+          "solvedAt": "2026-06-11T10:55:44+05:30",
+          "languages": [
+            "py"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "slug": "generate-parentheses",
+      "directory": "0022-generate-parentheses",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Backtracking · build-and-undo",
+        "family": "Backtracking"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0022-generate-parentheses/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0022-generate-parentheses.html"
+        }
+      },
+      "solutionHashes": {
+        "0022-generate-parentheses/0022-generate-parentheses.py": "0966eed16004cebfd3c74cbf37ac96a0d3e3e850834d5ad6fedaa4269effdc49"
+      },
+      "firstSolvedAt": "2026-07-26T21:49:31+05:30",
+      "lastSolvedAt": "2026-07-26T21:49:31+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 23,
+      "slug": "merge-k-sorted-lists",
+      "directory": "0023-merge-k-sorted-lists",
+      "difficulty": "hard",
+      "classification": {
+        "label": "Divide and conquer · pairwise merge",
+        "family": "Sorting & divide and conquer"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0023-merge-k-sorted-lists/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0023-merge-k-sorted-lists.html"
+        }
+      },
+      "solutionHashes": {
+        "0023-merge-k-sorted-lists/0023-merge-k-sorted-lists.py": "e77b80f19c9fc94e6075bc9adbe87971f8708f775bb42995f486a67961ae47a0"
+      },
+      "firstSolvedAt": "2026-06-24T22:21:54+05:30",
+      "lastSolvedAt": "2026-06-24T22:21:54+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 36,
+      "slug": "valid-sudoku",
+      "directory": "0036-valid-sudoku",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Hash sets · index-to-bucket mapping",
+        "family": "Hashing"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0036-valid-sudoku/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0036-valid-sudoku.html"
+        }
+      },
+      "solutionHashes": {
+        "0036-valid-sudoku/0036-valid-sudoku.py": "81e6b9b189d514bea73b7bb764fb811f81f64c445ecf0b46964dfed68a09b3d7"
+      },
+      "firstSolvedAt": "2025-07-24T12:39:58+05:30",
+      "lastSolvedAt": "2025-07-24T12:39:58+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 39,
+      "slug": "combination-sum",
+      "directory": "0039-combination-sum",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Backtracking · take / skip",
+        "family": "Backtracking"
+      },
+      "languages": [
+        "cpp",
+        "java",
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0039-combination-sum/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0039-combination-sum.html"
+        }
+      },
+      "solutionHashes": {
+        "0039-combination-sum/0039-combination-sum.cpp": "f5a11f6f9eceed421cc3f23200305f89aba6a58e23df6a2a44e8729222c0a2f6",
+        "0039-combination-sum/0039-combination-sum.java": "ce654b059aa8a596d6b0ba32cef4fce497ea05b835874e8936d6e38c84d68b4b",
+        "0039-combination-sum/0039-combination-sum.py": "c1ab6ff0807e450dea5424409bd0f6c2cddf15b0ba7683902db77a61606dfce0"
+      },
+      "firstSolvedAt": "2026-07-25T15:17:10+05:30",
+      "lastSolvedAt": "2026-07-25T16:03:39+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "475159c72f11360b49f75507519d98ea7e1af68b",
+          "solvedAt": "2026-07-25T15:58:52+05:30",
+          "languages": [
+            "java"
+          ]
+        },
+        {
+          "sourceCommit": "2df86c32dc817ab7424c90db78bf9d5a7ef02ae8",
+          "solvedAt": "2026-07-25T16:03:39+05:30",
+          "languages": [
+            "cpp"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 40,
+      "slug": "combination-sum-ii",
+      "directory": "0040-combination-sum-ii",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Backtracking · duplicate suppression",
+        "family": "Backtracking"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0040-combination-sum-ii/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0040-combination-sum-ii.html"
+        }
+      },
+      "solutionHashes": {
+        "0040-combination-sum-ii/0040-combination-sum-ii.py": "5dbf11718904041a98b93b0324c55c68bc9c793d29be8ca1032463c6599b9eee"
+      },
+      "firstSolvedAt": "2026-07-26T17:00:42+05:30",
+      "lastSolvedAt": "2026-07-26T17:00:42+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 42,
+      "slug": "trapping-rain-water",
+      "directory": "0042-trapping-rain-water",
+      "difficulty": "hard",
+      "classification": {
+        "label": "Two pointers · converging",
+        "family": "Two pointers & sliding window"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0042-trapping-rain-water/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0042-trapping-rain-water.html"
+        }
+      },
+      "solutionHashes": {
+        "0042-trapping-rain-water/0042-trapping-rain-water.py": "2e73117457261142f61caac28b4992ef3efa221410b7cfefb4d8ed3c9bbd3c14"
+      },
+      "firstSolvedAt": "2025-07-27T17:34:44+05:30",
+      "lastSolvedAt": "2025-07-27T17:34:44+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 46,
+      "slug": "permutations",
+      "directory": "0046-permutations",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Recursion · bottom-up construction (NOT backtracking)",
+        "family": "Backtracking"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0046-permutations/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0046-permutations.html"
+        }
+      },
+      "solutionHashes": {
+        "0046-permutations/0046-permutations.py": "a1d75ff63db573c6461d19727abf81f403bab69e240fdf47aa5daf29008d5888"
+      },
+      "firstSolvedAt": "2026-07-26T00:03:26+05:30",
+      "lastSolvedAt": "2026-07-26T00:03:26+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 47,
+      "slug": "permutations-ii",
+      "directory": "0047-permutations-ii",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Backtracking · counter as state",
+        "family": "Backtracking"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0047-permutations-ii/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0047-permutations-ii.html"
+        }
+      },
+      "solutionHashes": {
+        "0047-permutations-ii/0047-permutations-ii.py": "6fe0347f182a0c98bf4dce5f732f42c5e392c0b9cda2e882c1a455f858a71020"
+      },
+      "firstSolvedAt": "2026-07-26T16:08:06+05:30",
+      "lastSolvedAt": "2026-07-26T16:08:06+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 49,
+      "slug": "group-anagrams",
+      "directory": "0049-group-anagrams",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Hash map · canonical key",
+        "family": "Hashing"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0049-group-anagrams/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0049-group-anagrams.html"
+        }
+      },
+      "solutionHashes": {
+        "0049-group-anagrams/0049-group-anagrams.py": "d441dbd3f2d250908e619b93bdb00e23bb7689c127f479ad585c06a7d5790edc"
+      },
+      "firstSolvedAt": "2025-07-24T14:58:51+05:30",
+      "lastSolvedAt": "2026-06-02T22:07:56+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "0e001639e0fb16c5e5ab7a980edbfc328b8378e5",
+          "solvedAt": "2026-06-02T22:07:56+05:30",
+          "languages": [
+            "py"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 57,
+      "slug": "insert-interval",
+      "directory": "0057-insert-interval",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Intervals · three-case scan",
+        "family": "Prefix sums & intervals"
+      },
+      "languages": [
+        "cpp",
+        "java",
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0057-insert-interval/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0057-insert-interval.html"
+        }
+      },
+      "solutionHashes": {
+        "0057-insert-interval/0057-insert-interval.cpp": "14091d24db19337ada7327abd573c028f47f492128c4df5b8fea7e7094d45b25",
+        "0057-insert-interval/0057-insert-interval.java": "e1d8c9f8405a786084c71b3c13a42d49947cb59d3d6c85534af28bf5707946e7",
+        "0057-insert-interval/0057-insert-interval.py": "7d23ced71d484e1bc3d0c78053c66e5d3cc28384ceb2fd935e629e1a0f99d7e4"
+      },
+      "firstSolvedAt": "2026-07-07T16:48:38+05:30",
+      "lastSolvedAt": "2026-07-07T17:02:01+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "ad6b835d22e6da7dda0f33f5a3f669c6e73db451",
+          "solvedAt": "2026-07-07T17:01:43+05:30",
+          "languages": [
+            "java"
+          ]
+        },
+        {
+          "sourceCommit": "b6dc945dfd975cec211a3eb3ebd31684cbb970d6",
+          "solvedAt": "2026-07-07T17:02:01+05:30",
+          "languages": [
+            "py"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 62,
+      "slug": "unique-paths",
+      "directory": "0062-unique-paths",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Grid DP · rolling row",
+        "family": "Dynamic programming"
+      },
+      "languages": [
+        "cpp",
+        "java",
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0062-unique-paths/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0062-unique-paths.html"
+        }
+      },
+      "solutionHashes": {
+        "0062-unique-paths/0062-unique-paths.cpp": "371afe797f7479af5db63b518c62f45c8bf45453482e49c3618f2cdd1aeba031",
+        "0062-unique-paths/0062-unique-paths.java": "79d616f1fb5d64f98a3dcb8cb4c1397176c9646a4806b2fb096a857777dfeeb8",
+        "0062-unique-paths/0062-unique-paths.py": "ecde550e2494ef99be93e561f4904564dd10fbe52b570b942c1a6c3f59a6ea3e"
+      },
+      "firstSolvedAt": "2026-07-14T11:23:44+05:30",
+      "lastSolvedAt": "2026-07-14T11:32:42+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "5e9df62bd747e1b8039585eab0189bc2eb694c34",
+          "solvedAt": "2026-07-14T11:31:00+05:30",
+          "languages": [
+            "java"
+          ]
+        },
+        {
+          "sourceCommit": "981a98cd1547e0fdea2ef96e2816a2eae85788c4",
+          "solvedAt": "2026-07-14T11:32:42+05:30",
+          "languages": [
+            "cpp"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 70,
+      "slug": "climbing-stairs",
+      "directory": "0070-climbing-stairs",
+      "difficulty": "easy",
+      "classification": {
+        "label": "DP · Fibonacci with rolling variables",
+        "family": "Dynamic programming"
+      },
+      "languages": [
+        "cpp",
+        "java",
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0070-climbing-stairs/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0070-climbing-stairs.html"
+        }
+      },
+      "solutionHashes": {
+        "0070-climbing-stairs/0070-climbing-stairs.cpp": "495db2be2ff9e9d30693c17c697fde6c24c6839f4f73ed81c766b19b806730a2",
+        "0070-climbing-stairs/0070-climbing-stairs.java": "41c94ce7d69dd0b737af0304242644014e35e9a2070564ad9a4be27f51c2ed08",
+        "0070-climbing-stairs/0070-climbing-stairs.py": "845d730230f711a6d8b066473af651d28746dad2fe5c67767b0f80b64d1bbf19"
+      },
+      "firstSolvedAt": "2026-07-13T22:02:38+05:30",
+      "lastSolvedAt": "2026-07-14T09:03:06+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "c413c5c9a693d0182221db6df50370c485ed1cfd",
+          "solvedAt": "2026-07-14T09:02:56+05:30",
+          "languages": [
+            "java"
+          ]
+        },
+        {
+          "sourceCommit": "ae697d309cdb4a127de3c7649bf961a2533e556e",
+          "solvedAt": "2026-07-14T09:03:06+05:30",
+          "languages": [
+            "cpp"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 75,
+      "slug": "sort-colors",
+      "directory": "0075-sort-colors",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Three pointers · Dutch national flag",
+        "family": "Two pointers & sliding window"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0075-sort-colors/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0075-sort-colors.html"
+        }
+      },
+      "solutionHashes": {
+        "0075-sort-colors/0075-sort-colors.py": "c13753b5a8a7d54573052717f3ae94b95a317906afb66b59fccd56e863cdea26"
+      },
+      "firstSolvedAt": "2026-06-04T10:27:31+05:30",
+      "lastSolvedAt": "2026-06-04T10:27:31+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 77,
+      "slug": "combinations",
+      "directory": "0077-combinations",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Backtracking · loop form",
+        "family": "Backtracking"
+      },
+      "languages": [
+        "java",
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0077-combinations/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0077-combinations.html"
+        }
+      },
+      "solutionHashes": {
+        "0077-combinations/0077-combinations.java": "c834168773b4562f60e5a03abeab2f56b93693558c8f5dd34265aab4d5fc2fe1",
+        "0077-combinations/0077-combinations.py": "56a8935af7b40d08874e52e08d2830dad16e6cef4dde0dc6a6d05c095c4ea2bb"
+      },
+      "firstSolvedAt": "2026-07-25T16:49:36+05:30",
+      "lastSolvedAt": "2026-07-25T17:16:00+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "5fd81f29d9375c0ef7a6a6289f45a5b853d71a5a",
+          "solvedAt": "2026-07-25T17:16:00+05:30",
+          "languages": [
+            "java"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 78,
+      "slug": "subsets",
+      "directory": "0078-subsets",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Backtracking · take / skip",
+        "family": "Backtracking"
+      },
+      "languages": [
+        "cpp",
+        "java",
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0078-subsets/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0078-subsets.html"
+        }
+      },
+      "solutionHashes": {
+        "0078-subsets/0078-subsets.cpp": "43cad39daa61f40fa15a4e3bda689b4c88f8ea51209987ea0703d654b2c1d83f",
+        "0078-subsets/0078-subsets.java": "94b5d1ab9324b6c43283220371f916c980dd22be392cd746f5c82fb6ccd59c32",
+        "0078-subsets/0078-subsets.py": "91940df7cdec8fb3bbaf7b979974458aa5305817ca6b1911d5508e6aac302c89"
+      },
+      "firstSolvedAt": "2026-07-25T11:55:40+05:30",
+      "lastSolvedAt": "2026-07-25T12:41:55+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "59437cdd33d77f825cf0bd5f5816f8638b0d81ef",
+          "solvedAt": "2026-07-25T12:08:47+05:30",
+          "languages": [
+            "cpp"
+          ]
+        },
+        {
+          "sourceCommit": "2c75e9d7e7efbed204fceb39811244c7c2978421",
+          "solvedAt": "2026-07-25T12:41:55+05:30",
+          "languages": [
+            "java"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 79,
+      "slug": "word-search",
+      "directory": "0079-word-search",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Auto-traced from real execution",
+        "family": "Graphs, BFS & DFS"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0079-word-search/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0079-word-search.auto.html"
+        }
+      },
+      "solutionHashes": {
+        "0079-word-search/0079-word-search.py": "3e3af6fc8589bba2fd6269f707af9e9a0ff669c59af7db48f15296a33fc4ae23"
+      },
+      "firstSolvedAt": "2026-07-28T12:56:48+05:30",
+      "lastSolvedAt": "2026-07-28T12:56:48+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 81,
+      "slug": "search-in-rotated-sorted-array-ii",
+      "directory": "0081-search-in-rotated-sorted-array-ii",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Binary search · rotated + duplicates",
+        "family": "Binary search"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0081-search-in-rotated-sorted-array-ii/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0081-search-in-rotated-sorted-array-ii.html"
+        }
+      },
+      "solutionHashes": {
+        "0081-search-in-rotated-sorted-array-ii/0081-search-in-rotated-sorted-array-ii.py": "a2115b5e81a060de8701f8505bfc5613905900602ec95917f5f308dcd137c4af"
+      },
+      "firstSolvedAt": "2025-08-16T14:19:28+05:30",
+      "lastSolvedAt": "2025-08-16T14:24:23+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "91cef368c038b05846903bfe16462215dc408286",
+          "solvedAt": "2025-08-16T14:24:23+05:30",
+          "languages": [
+            "py"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 90,
+      "slug": "subsets-ii",
+      "directory": "0090-subsets-ii",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Backtracking · duplicate suppression",
+        "family": "Backtracking"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0090-subsets-ii/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0090-subsets-ii.html"
+        }
+      },
+      "solutionHashes": {
+        "0090-subsets-ii/0090-subsets-ii.py": "fef9b3262f5b303fde18be1e38e40fffffb4fe1928d1481e4b251965ef3a2ddb"
+      },
+      "firstSolvedAt": "2026-07-26T20:25:32+05:30",
+      "lastSolvedAt": "2026-07-26T20:25:32+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 92,
+      "slug": "reverse-linked-list-ii",
+      "directory": "0092-reverse-linked-list-ii",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Linked list · partial reversal + seams",
+        "family": "Linked lists"
+      },
+      "languages": [
+        "cpp",
+        "java",
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0092-reverse-linked-list-ii/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0092-reverse-linked-list-ii.html"
+        }
+      },
+      "solutionHashes": {
+        "0092-reverse-linked-list-ii/0092-reverse-linked-list-ii.cpp": "0be4ac0be52469fc33dbdca850e25eca0f03015d65b84f44fde199b9cf839026",
+        "0092-reverse-linked-list-ii/0092-reverse-linked-list-ii.java": "66e0390b41d2b309e51d35f4aec773bad13422e0bc7db17efece9f44912fc948",
+        "0092-reverse-linked-list-ii/0092-reverse-linked-list-ii.py": "91b00a71c1f18dc164dd29ddc46fb69a83a33f2abd2ca7f6f5c2ab2a026ed6d4"
+      },
+      "firstSolvedAt": "2026-06-17T12:28:37+05:30",
+      "lastSolvedAt": "2026-06-17T12:41:00+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "4e5cf71c02ebfb121dbee201cf4241f5d639ef67",
+          "solvedAt": "2026-06-17T12:39:37+05:30",
+          "languages": [
+            "cpp"
+          ]
+        },
+        {
+          "sourceCommit": "2593c981af527ed971580d75333e5c8be0e7f41e",
+          "solvedAt": "2026-06-17T12:41:00+05:30",
+          "languages": [
+            "java"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 93,
+      "slug": "restore-ip-addresses",
+      "directory": "0093-restore-ip-addresses",
+      "difficulty": "",
+      "classification": {
+        "label": "",
+        "family": ""
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": false,
+          "path": null
+        },
+        "trace": {
+          "available": false,
+          "path": null
+        }
+      },
+      "solutionHashes": {
+        "0093-restore-ip-addresses/0093-restore-ip-addresses.py": "1354e4c705766e6c17c4119fd5476936c88e09a8d82bafa0db829bfa4e0fb24c"
+      },
+      "firstSolvedAt": "2026-07-29T09:48:50+05:30",
+      "lastSolvedAt": "2026-07-29T09:48:50+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 94,
+      "slug": "binary-tree-inorder-traversal",
+      "directory": "0094-binary-tree-inorder-traversal",
+      "difficulty": "easy",
+      "classification": {
+        "label": "Tree traversal · explicit stack",
+        "family": "Trees"
+      },
+      "languages": [
+        "cpp",
+        "java",
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0094-binary-tree-inorder-traversal/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0094-binary-tree-inorder-traversal.html"
+        }
+      },
+      "solutionHashes": {
+        "0094-binary-tree-inorder-traversal/0094-binary-tree-inorder-traversal.cpp": "572658e65b9b5a81bd048809d6ca9f0b00675aa614c2ae3cf262bea2b62c982c",
+        "0094-binary-tree-inorder-traversal/0094-binary-tree-inorder-traversal.java": "a812b90231e1d5cd3072d3d7e82e597578b389009a7d175c1f371eed289295a1",
+        "0094-binary-tree-inorder-traversal/0094-binary-tree-inorder-traversal.py": "8b0bd196251b4ecf1a509db3c7eb62db2cb6722705289110ceba0c8ee65c5d41"
+      },
+      "firstSolvedAt": "2026-07-01T20:20:14+05:30",
+      "lastSolvedAt": "2026-07-01T21:06:08+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "1646a2a04d4bdcd4b515a40655f17e7168c9d997",
+          "solvedAt": "2026-07-01T20:42:13+05:30",
+          "languages": [
+            "py"
+          ]
+        },
+        {
+          "sourceCommit": "26804ec5adde8a6fc6324d21b7641405ddb99989",
+          "solvedAt": "2026-07-01T20:47:06+05:30",
+          "languages": [
+            "java"
+          ]
+        },
+        {
+          "sourceCommit": "185caadfe2832b82d21387b68a9735279c9b5def",
+          "solvedAt": "2026-07-01T20:59:47+05:30",
+          "languages": [
+            "cpp"
+          ]
+        },
+        {
+          "sourceCommit": "3c1cd43696cb2d7a6f1ca428e7f83b16191c1da9",
+          "solvedAt": "2026-07-01T21:06:08+05:30",
+          "languages": [
+            "cpp"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 122,
+      "slug": "best-time-to-buy-and-sell-stock-ii",
+      "directory": "0122-best-time-to-buy-and-sell-stock-ii",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Greedy · decompose into local gains",
+        "family": "Greedy"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0122-best-time-to-buy-and-sell-stock-ii/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0122-best-time-to-buy-and-sell-stock-ii.html"
+        }
+      },
+      "solutionHashes": {
+        "0122-best-time-to-buy-and-sell-stock-ii/0122-best-time-to-buy-and-sell-stock-ii.py": "ef3d6313fddb5d5009b61fd69c1cd44e55ae4b0bc8b02fe3409f7a9c13c6df50"
+      },
+      "firstSolvedAt": "2026-06-07T21:05:56+05:30",
+      "lastSolvedAt": "2026-06-07T21:05:56+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 124,
+      "slug": "binary-tree-maximum-path-sum",
+      "directory": "0124-binary-tree-maximum-path-sum",
+      "difficulty": "hard",
+      "classification": {
+        "label": "Tree DFS · return one thing, track another",
+        "family": "Trees"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0124-binary-tree-maximum-path-sum/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0124-binary-tree-maximum-path-sum.html"
+        }
+      },
+      "solutionHashes": {
+        "0124-binary-tree-maximum-path-sum/0124-binary-tree-maximum-path-sum.py": "de15a61df341b8dcb59697a35e42fd62eb3f5b90a0a68beee170785354bdf059"
+      },
+      "firstSolvedAt": "2025-07-27T14:05:55+05:30",
+      "lastSolvedAt": "2025-07-27T14:05:55+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 126,
+      "slug": "word-ladder-ii",
+      "directory": "0126-word-ladder-ii",
+      "difficulty": "",
+      "classification": {
+        "label": "",
+        "family": ""
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": false,
+          "path": null
+        },
+        "trace": {
+          "available": false,
+          "path": null
+        }
+      },
+      "solutionHashes": {
+        "0126-word-ladder-ii/0126-word-ladder-ii.py": "2157aa45d00b24ca9d80a9f8be3462a831c399248d382658766304679a1a5d4a"
+      },
+      "firstSolvedAt": "2026-08-05T16:40:01+05:30",
+      "lastSolvedAt": "2026-08-05T16:40:01+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 127,
+      "slug": "word-ladder",
+      "directory": "0127-word-ladder",
+      "difficulty": "",
+      "classification": {
+        "label": "",
+        "family": ""
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": false,
+          "path": null
+        },
+        "trace": {
+          "available": false,
+          "path": null
+        }
+      },
+      "solutionHashes": {
+        "0127-word-ladder/0127-word-ladder.py": "fb66b1a2824dfb220e79bd4940e87992091c20f29108540bc22c6d8e4d74b74f"
+      },
+      "firstSolvedAt": "2026-08-05T16:31:46+05:30",
+      "lastSolvedAt": "2026-08-05T16:31:46+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 128,
+      "slug": "longest-consecutive-sequence",
+      "directory": "0128-longest-consecutive-sequence",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Hash set · amortised scan",
+        "family": "Hashing"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0128-longest-consecutive-sequence/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0128-longest-consecutive-sequence.html"
+        }
+      },
+      "solutionHashes": {
+        "0128-longest-consecutive-sequence/0128-longest-consecutive-sequence.py": "610d5ac42f2e476bb41f5c8b3864ed24da8cc89c02fc25db3c288d4e0c57220b"
+      },
+      "firstSolvedAt": "2025-07-26T19:29:18+05:30",
+      "lastSolvedAt": "2025-07-26T19:29:18+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 130,
+      "slug": "surrounded-regions",
+      "directory": "0130-surrounded-regions",
+      "difficulty": "",
+      "classification": {
+        "label": "",
+        "family": ""
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": false,
+          "path": null
+        },
+        "trace": {
+          "available": false,
+          "path": null
+        }
+      },
+      "solutionHashes": {
+        "0130-surrounded-regions/0130-surrounded-regions.py": "4cf97ab291623c32aded56d92f9792bba020e98da1d19405f994b3d31490bef2"
+      },
+      "firstSolvedAt": "2026-08-04T20:59:01+05:30",
+      "lastSolvedAt": "2026-08-04T20:59:01+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 131,
+      "slug": "palindrome-partitioning",
+      "directory": "0131-palindrome-partitioning",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Auto-traced from real execution",
+        "family": "Backtracking"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0131-palindrome-partitioning/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0131-palindrome-partitioning.auto.html"
+        }
+      },
+      "solutionHashes": {
+        "0131-palindrome-partitioning/0131-palindrome-partitioning.py": "d4da06714bde1bba903db383d623f34a8ed9217096e90b119f5bf10a1bf590d4"
+      },
+      "firstSolvedAt": "2026-07-28T20:39:35+05:30",
+      "lastSolvedAt": "2026-07-28T20:39:35+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 136,
+      "slug": "single-number",
+      "directory": "0136-single-number",
+      "difficulty": "easy",
+      "classification": {
+        "label": "Bit manipulation · XOR cancellation",
+        "family": "Bit manipulation"
+      },
+      "languages": [
+        "cpp",
+        "java",
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0136-single-number/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0136-single-number.html"
+        }
+      },
+      "solutionHashes": {
+        "0136-single-number/0136-single-number.cpp": "29cabd039493886d800881a309a91a667e458db87f654fdd13bcb9d61e11f51b",
+        "0136-single-number/0136-single-number.java": "e1edcc3204f38590a6975853f6eac2b7d646f87fcad8f4c587c7be6c501f3a8e",
+        "0136-single-number/0136-single-number.py": "78a97381b5a4208dfdcca1869fc296213fa82a2521fd38693f6f8747c2f5ab2f"
+      },
+      "firstSolvedAt": "2026-07-14T11:47:41+05:30",
+      "lastSolvedAt": "2026-07-14T11:49:49+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "65b868a11aa3c0f077440df9ac92b3c2f40b56e9",
+          "solvedAt": "2026-07-14T11:48:52+05:30",
+          "languages": [
+            "py"
+          ]
+        },
+        {
+          "sourceCommit": "12971621e158f03dca6adabe3887f55376480871",
+          "solvedAt": "2026-07-14T11:49:49+05:30",
+          "languages": [
+            "cpp"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 138,
+      "slug": "copy-list-with-random-pointer",
+      "directory": "0138-copy-list-with-random-pointer",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Hash map old→new · two-pass clone",
+        "family": "Hashing"
+      },
+      "languages": [
+        "cpp",
+        "java"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0138-copy-list-with-random-pointer/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0138-copy-list-with-random-pointer.html"
+        }
+      },
+      "solutionHashes": {
+        "0138-copy-list-with-random-pointer/0138-copy-list-with-random-pointer.cpp": "948cd85aa4388fcaad6dba9b1fcf7e805149eac9a8700ea9034d85ce4dfa2ebf",
+        "0138-copy-list-with-random-pointer/0138-copy-list-with-random-pointer.java": "1977832ef33f41c1c15d56b1f1a3baa62bf6f744f594203bef60cbf584066089"
+      },
+      "firstSolvedAt": "2026-06-15T17:30:04+05:30",
+      "lastSolvedAt": "2026-06-15T17:36:13+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "9cbafc698dc0f2ef882642d434369ab2316bb5cb",
+          "solvedAt": "2026-06-15T17:36:13+05:30",
+          "languages": [
+            "cpp"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 141,
+      "slug": "linked-list-cycle",
+      "directory": "0141-linked-list-cycle",
+      "difficulty": "easy",
+      "classification": {
+        "label": "Fast & slow pointers · Floyd",
+        "family": "Two pointers & sliding window"
+      },
+      "languages": [
+        "cpp",
+        "java",
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0141-linked-list-cycle/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0141-linked-list-cycle.html"
+        }
+      },
+      "solutionHashes": {
+        "0141-linked-list-cycle/0141-linked-list-cycle.cpp": "957b6e7cf75248911c26eee40442edac8c2a1318706fad54b23edc988057070b",
+        "0141-linked-list-cycle/0141-linked-list-cycle.java": "56d10455c9ee57ef6aa1df28d29eaffe15535a8cd53e953b59197b1e19a6a164",
+        "0141-linked-list-cycle/0141-linked-list-cycle.py": "3e64e8d4bb1b9950a19be431899f2e37581341227ca50b46905d39bdb48d9b6d"
+      },
+      "firstSolvedAt": "2026-06-11T20:19:54+05:30",
+      "lastSolvedAt": "2026-06-11T20:44:20+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "4047fb706a105bd8e04019ca473fe46e64b1a9df",
+          "solvedAt": "2026-06-11T20:30:08+05:30",
+          "languages": [
+            "cpp"
+          ]
+        },
+        {
+          "sourceCommit": "990066a1c1a6f867d5f83a2ab0e1a8ffe85f12c4",
+          "solvedAt": "2026-06-11T20:44:20+05:30",
+          "languages": [
+            "java"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 143,
+      "slug": "reorder-list",
+      "directory": "0143-reorder-list",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Linked list · compose three primitives",
+        "family": "Linked lists"
+      },
+      "languages": [
+        "cpp",
+        "java",
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0143-reorder-list/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0143-reorder-list.html"
+        }
+      },
+      "solutionHashes": {
+        "0143-reorder-list/0143-reorder-list.cpp": "3246634d08ed11c2931cfcf808af3a777523f1e5341a3cb538d76f217937bff5",
+        "0143-reorder-list/0143-reorder-list.java": "50dcf53e2417d31631083618003d933574f94fa9048422038d13154a6654a33f",
+        "0143-reorder-list/0143-reorder-list.py": "9503e760752e3556ed874869776dbec9636bc96ce8af32759546cf47a224ccfe"
+      },
+      "firstSolvedAt": "2026-06-14T16:50:49+05:30",
+      "lastSolvedAt": "2026-06-14T17:34:40+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "9b17796267397aa6f1ec4ba9f4b0b9ec34043ad6",
+          "solvedAt": "2026-06-14T17:06:59+05:30",
+          "languages": [
+            "cpp"
+          ]
+        },
+        {
+          "sourceCommit": "c35bc39cb0b3b344001ea36126b5b613a38dd038",
+          "solvedAt": "2026-06-14T17:34:40+05:30",
+          "languages": [
+            "java"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 146,
+      "slug": "lru-cache",
+      "directory": "0146-lru-cache",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Design · hash map + doubly linked list",
+        "family": "Hashing"
+      },
+      "languages": [
+        "cpp",
+        "java",
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0146-lru-cache/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0146-lru-cache.html"
+        }
+      },
+      "solutionHashes": {
+        "0146-lru-cache/0146-lru-cache.cpp": "29ad2e898430715b0251d1762998159391d45be2b752c0baac9e2fb111fa46f1",
+        "0146-lru-cache/0146-lru-cache.java": "c7ad2b896e46ee6b5eeb98bcc437ed71f4858c09800ce8dfdcbcc6328d043b80",
+        "0146-lru-cache/0146-lru-cache.py": "3f2acd915720edb53ebf6081d68e7142f789f4bfba132675dfa4d7f9d9a1b16f"
+      },
+      "firstSolvedAt": "2026-06-17T22:43:03+05:30",
+      "lastSolvedAt": "2026-06-18T11:47:50+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "31fa0f3585ea75e58fa946dd415d4424791a6f0e",
+          "solvedAt": "2026-06-18T10:50:52+05:30",
+          "languages": [
+            "py"
+          ]
+        },
+        {
+          "sourceCommit": "1c935158bc74d44feecc82f7d63a02c929b60284",
+          "solvedAt": "2026-06-18T10:53:04+05:30",
+          "languages": [
+            "py"
+          ]
+        },
+        {
+          "sourceCommit": "a432e7e33dbbbce0d0806b7d7359cdde70f5cc9b",
+          "solvedAt": "2026-06-18T11:33:21+05:30",
+          "languages": [
+            "java"
+          ]
+        },
+        {
+          "sourceCommit": "6a84b72c3701ec88fca00bcb4b232f7047c07abf",
+          "solvedAt": "2026-06-18T11:34:40+05:30",
+          "languages": [
+            "java"
+          ]
+        },
+        {
+          "sourceCommit": "635bb5f1ee7d086d9949cdb8a53ad53f08255567",
+          "solvedAt": "2026-06-18T11:35:08+05:30",
+          "languages": [
+            "java"
+          ]
+        },
+        {
+          "sourceCommit": "d25397dc56321b40f963cc9c4d42fee390cc5848",
+          "solvedAt": "2026-06-18T11:47:50+05:30",
+          "languages": [
+            "cpp"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 168,
+      "slug": "excel-sheet-column-title",
+      "directory": "0168-excel-sheet-column-title",
+      "difficulty": "easy",
+      "classification": {
+        "label": "Math · bijective base conversion",
+        "family": "Math & number theory"
+      },
+      "languages": [
+        "cpp",
+        "java",
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0168-excel-sheet-column-title/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0168-excel-sheet-column-title.html"
+        }
+      },
+      "solutionHashes": {
+        "0168-excel-sheet-column-title/0168-excel-sheet-column-title.cpp": "067d4fa50be2112e8cccc20f9a031337c2ab6ada6faef4a664e8bfafb4962049",
+        "0168-excel-sheet-column-title/0168-excel-sheet-column-title.java": "c3a8a1fd2ff1ad5df50d0b7961e2f23055a6270a9bd3f6c67fd82367dde16bf1",
+        "0168-excel-sheet-column-title/0168-excel-sheet-column-title.py": "e54d3771b7e0dabbdd6c9d45533eec55adb655b027f6046c13554f5f566b7ae5"
+      },
+      "firstSolvedAt": "2026-07-14T17:11:59+05:30",
+      "lastSolvedAt": "2026-07-21T22:12:45+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "3a5c6052e469609d02fadadca5730c1a594f0f69",
+          "solvedAt": "2026-07-14T17:44:36+05:30",
+          "languages": [
+            "cpp"
+          ]
+        },
+        {
+          "sourceCommit": "0938c94a3e8652c708d87557f6b652bfa9b0f46d",
+          "solvedAt": "2026-07-14T17:46:50+05:30",
+          "languages": [
+            "java"
+          ]
+        },
+        {
+          "sourceCommit": "fe291bea893dfe11355cdb79f2ca25a829b39352",
+          "solvedAt": "2026-07-21T22:12:45+05:30",
+          "languages": [
+            "py"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 200,
+      "slug": "number-of-islands",
+      "directory": "0200-number-of-islands",
+      "difficulty": "",
+      "classification": {
+        "label": "",
+        "family": ""
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": false,
+          "path": null
+        },
+        "trace": {
+          "available": false,
+          "path": null
+        }
+      },
+      "solutionHashes": {
+        "0200-number-of-islands/0200-number-of-islands.py": "bab30bf2924981fe7baaf60263dfaae15d3bc80bcf5dbf509afb646b29a0f549"
+      },
+      "firstSolvedAt": "2026-08-02T21:17:33+05:30",
+      "lastSolvedAt": "2026-08-02T21:17:33+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 206,
+      "slug": "reverse-linked-list",
+      "directory": "0206-reverse-linked-list",
+      "difficulty": "easy",
+      "classification": {
+        "label": "Linked list · pointer rewiring",
+        "family": "Linked lists"
+      },
+      "languages": [
+        "cpp",
+        "java",
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0206-reverse-linked-list/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0206-reverse-linked-list.html"
+        }
+      },
+      "solutionHashes": {
+        "0206-reverse-linked-list/0206-reverse-linked-list.cpp": "6e5cf179af52f683f51ed174f251f097fa3efaf747e47e131cfcc3008bee2903",
+        "0206-reverse-linked-list/0206-reverse-linked-list.java": "57d343120023af754c64511ee73072fea45d8d9bcda2f472efde618a2b047849",
+        "0206-reverse-linked-list/0206-reverse-linked-list.py": "0b7fb3ad558c94535d362af0250f5ccbc22fda525185fe5c56564d1956014463"
+      },
+      "firstSolvedAt": "2026-06-10T20:46:03+05:30",
+      "lastSolvedAt": "2026-07-01T10:52:07+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "794efdec1a6c85d9257fce9bc8a39c6195a4ea4d",
+          "solvedAt": "2026-06-10T20:50:27+05:30",
+          "languages": [
+            "cpp"
+          ]
+        },
+        {
+          "sourceCommit": "cbd5eb9a36bbd3d73b720e3761147ecd0c0f1104",
+          "solvedAt": "2026-06-10T20:53:29+05:30",
+          "languages": [
+            "java"
+          ]
+        },
+        {
+          "sourceCommit": "36ba7ecf8c9deb6165d65aaff2c0fd694a220bea",
+          "solvedAt": "2026-07-01T10:49:39+05:30",
+          "languages": [
+            "java"
+          ]
+        },
+        {
+          "sourceCommit": "62270151a240643a1727b45ed7d19a5cf7ba59b0",
+          "solvedAt": "2026-07-01T10:51:44+05:30",
+          "languages": [
+            "cpp"
+          ]
+        },
+        {
+          "sourceCommit": "61fbadfcf2c3e1a6370688288e284dc321973a65",
+          "solvedAt": "2026-07-01T10:52:07+05:30",
+          "languages": [
+            "py"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 207,
+      "slug": "course-schedule",
+      "directory": "0207-course-schedule",
+      "difficulty": "",
+      "classification": {
+        "label": "",
+        "family": ""
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": false,
+          "path": null
+        },
+        "trace": {
+          "available": false,
+          "path": null
+        }
+      },
+      "solutionHashes": {
+        "0207-course-schedule/0207-course-schedule.py": "1e25ba6031b8535d2ae5484224360ffd2be704c3d9f3550a3b7970fbf56f46ab"
+      },
+      "firstSolvedAt": "2026-08-04T15:49:23+05:30",
+      "lastSolvedAt": "2026-08-04T15:56:10+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "1965c66fb259eba6c594629098fca0de8fd1bac4",
+          "solvedAt": "2026-08-04T15:52:16+05:30",
+          "languages": [
+            "py"
+          ]
+        },
+        {
+          "sourceCommit": "f7026f1f4c256b4f4db2662fb6b42eb68abfd8da",
+          "solvedAt": "2026-08-04T15:56:10+05:30",
+          "languages": [
+            "py"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 210,
+      "slug": "course-schedule-ii",
+      "directory": "0210-course-schedule-ii",
+      "difficulty": "",
+      "classification": {
+        "label": "",
+        "family": ""
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": false,
+          "path": null
+        },
+        "trace": {
+          "available": false,
+          "path": null
+        }
+      },
+      "solutionHashes": {
+        "0210-course-schedule-ii/0210-course-schedule-ii.py": "df9017bfa0a8795028160d8bc820f153a1ef798f1c3b8cc2e2d2973b205e6248"
+      },
+      "firstSolvedAt": "2026-08-05T14:00:07+05:30",
+      "lastSolvedAt": "2026-08-05T14:00:34+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "07d7e6cd366d9e9a4c6cd3d252da50a684ddc2ab",
+          "solvedAt": "2026-08-05T14:00:15+05:30",
+          "languages": [
+            "py"
+          ]
+        },
+        {
+          "sourceCommit": "654fe05c32f8f81ccf9a34a85377376c9f17edc8",
+          "solvedAt": "2026-08-05T14:00:34+05:30",
+          "languages": [
+            "py"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 217,
+      "slug": "contains-duplicate",
+      "directory": "0217-contains-duplicate",
+      "difficulty": "easy",
+      "classification": {
+        "label": "Hash set · membership",
+        "family": "Hashing"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0217-contains-duplicate/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0217-contains-duplicate.html"
+        }
+      },
+      "solutionHashes": {
+        "0217-contains-duplicate/0217-contains-duplicate.py": "8727065150a568d69208333f0da07ba69c0eb3543bbd93b413b3c30754825fec"
+      },
+      "firstSolvedAt": "2025-07-24T13:03:18+05:30",
+      "lastSolvedAt": "2025-07-24T13:03:18+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 219,
+      "slug": "contains-duplicate-ii",
+      "directory": "0219-contains-duplicate-ii",
+      "difficulty": "easy",
+      "classification": {
+        "label": "Sliding window · fixed size",
+        "family": "Two pointers & sliding window"
+      },
+      "languages": [
+        "cpp",
+        "java",
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0219-contains-duplicate-ii/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0219-contains-duplicate-ii.html"
+        }
+      },
+      "solutionHashes": {
+        "0219-contains-duplicate-ii/0219-contains-duplicate-ii.cpp": "97ad4279d4d49d48ac1a1af43da8410cde0025d79276761acb8e46d042e85817",
+        "0219-contains-duplicate-ii/0219-contains-duplicate-ii.java": "26c909e6d14649958ce32d679c29947b1d532eca6b3d27936e171b8cf7b65b8b",
+        "0219-contains-duplicate-ii/0219-contains-duplicate-ii.py": "0ef0e05fedc3dcc3e3b3ca2a87e0e28372fd476f9f04db1fd0032c59cf8e5677"
+      },
+      "firstSolvedAt": "2026-06-30T17:57:13+05:30",
+      "lastSolvedAt": "2026-06-30T18:10:18+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "dc1a2941310e2e2895f54221e143599c37cbbd50",
+          "solvedAt": "2026-06-30T18:08:34+05:30",
+          "languages": [
+            "java"
+          ]
+        },
+        {
+          "sourceCommit": "e50a97c3ec15692e030edf966c30eecebaf3004b",
+          "solvedAt": "2026-06-30T18:10:18+05:30",
+          "languages": [
+            "cpp"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 237,
+      "slug": "delete-node-in-a-linked-list",
+      "directory": "0237-delete-node-in-a-linked-list",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Linked list · impersonation trick",
+        "family": "Linked lists"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0237-delete-node-in-a-linked-list/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0237-delete-node-in-a-linked-list.html"
+        }
+      },
+      "solutionHashes": {
+        "0237-delete-node-in-a-linked-list/0237-delete-node-in-a-linked-list.py": "dc62c30e813041e7035ce886c765d46f0b751e2e207b0792f6d2b79fa6b123a7"
+      },
+      "firstSolvedAt": "2026-06-10T20:34:43+05:30",
+      "lastSolvedAt": "2026-06-10T20:34:43+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 238,
+      "slug": "product-of-array-except-self",
+      "directory": "0238-product-of-array-except-self",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Prefix / suffix accumulation",
+        "family": "Prefix sums & intervals"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0238-product-of-array-except-self/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0238-product-of-array-except-self.html"
+        }
+      },
+      "solutionHashes": {
+        "0238-product-of-array-except-self/0238-product-of-array-except-self.py": "e467911a9c0ecc19561cdf0b44e7de8d60a7e887e8d1475432825aa4a50a5eea"
+      },
+      "firstSolvedAt": "2025-07-26T19:06:02+05:30",
+      "lastSolvedAt": "2025-07-26T19:06:02+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 242,
+      "slug": "valid-anagram",
+      "directory": "0242-valid-anagram",
+      "difficulty": "easy",
+      "classification": {
+        "label": "Hash map · frequency count",
+        "family": "Hashing"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0242-valid-anagram/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0242-valid-anagram.html"
+        }
+      },
+      "solutionHashes": {
+        "0242-valid-anagram/0242-valid-anagram.py": "723fb4448a1ba34be29a651cc82d18b3b0eb836b4102a75b223b4880b4a75603"
+      },
+      "firstSolvedAt": "2025-07-24T14:47:49+05:30",
+      "lastSolvedAt": "2025-07-25T15:05:59+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "0f9829ddf20c6a94e44422fa7644513a14926db4",
+          "solvedAt": "2025-07-25T15:05:59+05:30",
+          "languages": [
+            "py"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 287,
+      "slug": "find-the-duplicate-number",
+      "directory": "0287-find-the-duplicate-number",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Floyd cycle detection · fast & slow",
+        "family": "Two pointers & sliding window"
+      },
+      "languages": [
+        "cpp",
+        "java",
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0287-find-the-duplicate-number/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0287-find-the-duplicate-number.html"
+        }
+      },
+      "solutionHashes": {
+        "0287-find-the-duplicate-number/0287-find-the-duplicate-number.cpp": "c5e7469bc69efce7d0e70dae463408374c09f4fa5f69d70344dc79c505ab3f4a",
+        "0287-find-the-duplicate-number/0287-find-the-duplicate-number.java": "8733424987d295a2142c9b413d48da2e07dee78e5d78306f255147327aaae44a",
+        "0287-find-the-duplicate-number/0287-find-the-duplicate-number.py": "2725e06563df398f03edd4cc9188b28b8070aa3cad5af68e95e51e34fb678fdf"
+      },
+      "firstSolvedAt": "2026-06-16T22:56:53+05:30",
+      "lastSolvedAt": "2026-06-17T11:33:09+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "6255b0f47899cb99a34d5a257d54ce0788e21b41",
+          "solvedAt": "2026-06-17T11:32:31+05:30",
+          "languages": [
+            "cpp"
+          ]
+        },
+        {
+          "sourceCommit": "5fe181c6552db22bc041fc770fdf3b9ab997ca62",
+          "solvedAt": "2026-06-17T11:33:09+05:30",
+          "languages": [
+            "java"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 288,
+      "slug": "unique-word-abbreviation",
+      "directory": "0288-unique-word-abbreviation",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Design · precompute a canonical key",
+        "family": "Hashing"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0288-unique-word-abbreviation/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0288-unique-word-abbreviation.html"
+        }
+      },
+      "solutionHashes": {
+        "0288-unique-word-abbreviation/0288-unique-word-abbreviation.py": "c172cb9ca86e2c4f3f52e5862001bbb9aa115580901bd0bc1d9d4086131c289f"
+      },
+      "firstSolvedAt": "2026-07-03T08:37:06+05:30",
+      "lastSolvedAt": "2026-07-03T08:37:06+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 291,
+      "slug": "word-pattern-ii",
+      "directory": "0291-word-pattern-ii",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Backtracking · bijection search",
+        "family": "Backtracking"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0291-word-pattern-ii/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0291-word-pattern-ii.html"
+        }
+      },
+      "solutionHashes": {
+        "0291-word-pattern-ii/0291-word-pattern-ii.py": "4c33b4c87d1b96439cb04a3b208dcae8e9c58a187fa45cccd41a29773deec33f"
+      },
+      "firstSolvedAt": "2026-07-09T08:31:26+05:30",
+      "lastSolvedAt": "2026-07-09T08:31:26+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 304,
+      "slug": "range-sum-query-2d-immutable",
+      "directory": "0304-range-sum-query-2d-immutable",
+      "difficulty": "medium",
+      "classification": {
+        "label": "2D prefix sum · inclusion–exclusion",
+        "family": "Prefix sums & intervals"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0304-range-sum-query-2d-immutable/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0304-range-sum-query-2d-immutable.html"
+        }
+      },
+      "solutionHashes": {
+        "0304-range-sum-query-2d-immutable/0304-range-sum-query-2d-immutable.py": "047fb84a3d8194763c47f8c8a180a931d7ac8f5f4dc9633ad700400bac14f165"
+      },
+      "firstSolvedAt": "2026-06-04T11:16:15+05:30",
+      "lastSolvedAt": "2026-06-04T11:16:15+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 323,
+      "slug": "number-of-connected-components-in-an-undirected-graph",
+      "directory": "0323-number-of-connected-components-in-an-undirected-graph",
+      "difficulty": "",
+      "classification": {
+        "label": "",
+        "family": ""
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": false,
+          "path": null
+        },
+        "trace": {
+          "available": false,
+          "path": null
+        }
+      },
+      "solutionHashes": {
+        "0323-number-of-connected-components-in-an-undirected-graph/0323-number-of-connected-components-in-an-undirected-graph.py": "a7fce0b66b9199ec608ac67cfc876206d983e92c9134d10103fdc63d7d559632"
+      },
+      "firstSolvedAt": "2026-08-06T09:53:06+05:30",
+      "lastSolvedAt": "2026-08-06T09:53:06+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 344,
+      "slug": "reverse-string",
+      "directory": "0344-reverse-string",
+      "difficulty": "easy",
+      "classification": {
+        "label": "Two pointers · converging",
+        "family": "Two pointers & sliding window"
+      },
+      "languages": [
+        "cpp",
+        "java",
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0344-reverse-string/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0344-reverse-string.html"
+        }
+      },
+      "solutionHashes": {
+        "0344-reverse-string/0344-reverse-string.cpp": "d56dc7088354f631d88e8f530ae60c9fff45b587b61825ddd82db71acdaab732",
+        "0344-reverse-string/0344-reverse-string.java": "418fc81b6653edd438ca9ed880fef8dffa03fae83df4269ec2b7677e7c41de89",
+        "0344-reverse-string/0344-reverse-string.py": "e072854d3b1534c60d534d0bce58d163e41aa2d86da483dee03a84cbf23ef35f"
+      },
+      "firstSolvedAt": "2026-06-29T13:28:50+05:30",
+      "lastSolvedAt": "2026-06-29T13:32:56+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "5a7a06d62d80b161142ec1b0041166baebaf93b6",
+          "solvedAt": "2026-06-29T13:31:42+05:30",
+          "languages": [
+            "cpp"
+          ]
+        },
+        {
+          "sourceCommit": "1005b526b755fea25c6f19c270ed1c0c3bae279d",
+          "solvedAt": "2026-06-29T13:32:56+05:30",
+          "languages": [
+            "java"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 347,
+      "slug": "top-k-frequent-elements",
+      "directory": "0347-top-k-frequent-elements",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Bucket sort · frequency",
+        "family": "Hashing"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0347-top-k-frequent-elements/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0347-top-k-frequent-elements.html"
+        }
+      },
+      "solutionHashes": {
+        "0347-top-k-frequent-elements/0347-top-k-frequent-elements.py": "7b1ccc8cf6fb4d54a45737409a7db6cd7417b0ad443b7ceb5c6155a37abc7ff3"
+      },
+      "firstSolvedAt": "2025-07-26T18:17:44+05:30",
+      "lastSolvedAt": "2026-06-04T10:54:10+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "24f9be2ee96efccd3e13b6152ec4502fa88f8481",
+          "solvedAt": "2026-06-04T10:44:58+05:30",
+          "languages": [
+            "py"
+          ]
+        },
+        {
+          "sourceCommit": "8ded83e4c547867b30a99ac04c0947eb95902dea",
+          "solvedAt": "2026-06-04T10:54:10+05:30",
+          "languages": [
+            "py"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 387,
+      "slug": "first-unique-character-in-a-string",
+      "directory": "0387-first-unique-character-in-a-string",
+      "difficulty": "easy",
+      "classification": {
+        "label": "Hash map · two-pass frequency",
+        "family": "Hashing"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0387-first-unique-character-in-a-string/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0387-first-unique-character-in-a-string.html"
+        }
+      },
+      "solutionHashes": {
+        "0387-first-unique-character-in-a-string/0387-first-unique-character-in-a-string.py": "7d847e54b32617b8e3156fab93c8979e6a078b866db6d6b7cb113522b2760796"
+      },
+      "firstSolvedAt": "2025-08-01T13:01:50+05:30",
+      "lastSolvedAt": "2025-08-01T13:01:50+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 460,
+      "slug": "lfu-cache",
+      "directory": "0460-lfu-cache",
+      "difficulty": "hard",
+      "classification": {
+        "label": "Design · three maps + per-frequency LRU lists",
+        "family": "Design"
+      },
+      "languages": [
+        "cpp",
+        "java",
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0460-lfu-cache/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0460-lfu-cache.html"
+        }
+      },
+      "solutionHashes": {
+        "0460-lfu-cache/0460-lfu-cache.cpp": "af87cf416826fcea26d18f4e0790a6abef57f7834ae34bd104b261a8ae10dabf",
+        "0460-lfu-cache/0460-lfu-cache.java": "7ee8b591cb95ac1814c77b0a7ed1357ab6e4fdc2cb9ef50615ba9af8140e55a7",
+        "0460-lfu-cache/0460-lfu-cache.py": "30fea698cb8c11be3b26a9f180a0e38aa71e6b0ef252635e841c42c821c5b7e8"
+      },
+      "firstSolvedAt": "2026-06-23T23:30:16+05:30",
+      "lastSolvedAt": "2026-06-24T20:09:09+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "bdda9e16540341ec8cf4323dc36ce6b6ff568c2b",
+          "solvedAt": "2026-06-24T11:52:43+05:30",
+          "languages": [
+            "java"
+          ]
+        },
+        {
+          "sourceCommit": "be721a465444ac814146b5e1ac84314276694893",
+          "solvedAt": "2026-06-24T20:09:09+05:30",
+          "languages": [
+            "cpp"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 463,
+      "slug": "island-perimeter",
+      "directory": "0463-island-perimeter",
+      "difficulty": "easy",
+      "classification": {
+        "label": "Grid DFS · flood fill",
+        "family": "Graphs, BFS & DFS"
+      },
+      "languages": [
+        "cpp",
+        "java",
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0463-island-perimeter/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0463-island-perimeter.html"
+        }
+      },
+      "solutionHashes": {
+        "0463-island-perimeter/0463-island-perimeter.cpp": "44427d6736162e6c7ef8fe60e0276e3625b81fc12eaac1d6d9c71bff2cce604a",
+        "0463-island-perimeter/0463-island-perimeter.java": "e7c31ab169e747f80070e6c416b8ebe26388f5228c2e6c833d24cb8afdce1f3c",
+        "0463-island-perimeter/0463-island-perimeter.py": "a68a5f3455b94e7abeae242ff81e9e947359ca43164394e747be2e0c4381fdf8"
+      },
+      "firstSolvedAt": "2026-07-09T17:07:59+05:30",
+      "lastSolvedAt": "2026-07-09T22:57:31+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "3dee4edb4f6eb7733a4a6174cab36ab0bf8d3cd9",
+          "solvedAt": "2026-07-09T22:11:47+05:30",
+          "languages": [
+            "java"
+          ]
+        },
+        {
+          "sourceCommit": "d88756b9966f8032de3c5c8c11f1fb062062c83e",
+          "solvedAt": "2026-07-09T22:57:31+05:30",
+          "languages": [
+            "cpp"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 542,
+      "slug": "01-matrix",
+      "directory": "0542-01-matrix",
+      "difficulty": "",
+      "classification": {
+        "label": "",
+        "family": ""
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": false,
+          "path": null
+        },
+        "trace": {
+          "available": false,
+          "path": null
+        }
+      },
+      "solutionHashes": {
+        "0542-01-matrix/0542-01-matrix.py": "84714c1c52a0e61f46d7d6ace9a935489ba84f358a3137d39cad63a63b5bdf1c"
+      },
+      "firstSolvedAt": "2026-08-04T16:19:55+05:30",
+      "lastSolvedAt": "2026-08-04T16:19:55+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 547,
+      "slug": "number-of-provinces",
+      "directory": "0547-number-of-provinces",
+      "difficulty": "",
+      "classification": {
+        "label": "",
+        "family": ""
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": false,
+          "path": null
+        },
+        "trace": {
+          "available": false,
+          "path": null
+        }
+      },
+      "solutionHashes": {
+        "0547-number-of-provinces/0547-number-of-provinces.py": "3ba854ca4c2d34eaded1a1eddb02809db6024de450d6a2e5c530983161d8a548"
+      },
+      "firstSolvedAt": "2026-08-01T15:46:03+05:30",
+      "lastSolvedAt": "2026-08-01T15:46:03+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 622,
+      "slug": "design-circular-queue",
+      "directory": "0622-design-circular-queue",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Design · doubly linked list with sentinels",
+        "family": "Linked lists"
+      },
+      "languages": [
+        "cpp",
+        "java",
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0622-design-circular-queue/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0622-design-circular-queue.html"
+        }
+      },
+      "solutionHashes": {
+        "0622-design-circular-queue/0622-design-circular-queue.cpp": "65d85c23568cc9ce498dcbee6ac355ae3b8138e292cd9012e149cc6079980b7f",
+        "0622-design-circular-queue/0622-design-circular-queue.java": "057965eff7140371c791476e5018379d47e34ad3cdae2105393bb27037055ad9",
+        "0622-design-circular-queue/0622-design-circular-queue.py": "bee3cc674b44821c7e8da0a72e01cf07b93f7acf3c0dc86c52f6ba4431b6ee13"
+      },
+      "firstSolvedAt": "2026-06-17T15:46:44+05:30",
+      "lastSolvedAt": "2026-06-17T16:23:15+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "f25cf54ca0353530cd58e1bbd07e98639d46eb2c",
+          "solvedAt": "2026-06-17T15:47:41+05:30",
+          "languages": [
+            "py"
+          ]
+        },
+        {
+          "sourceCommit": "f054b1ac1322c6ea1dce05c12a86334d5b03ccfc",
+          "solvedAt": "2026-06-17T16:11:04+05:30",
+          "languages": [
+            "java"
+          ]
+        },
+        {
+          "sourceCommit": "4cab53a0a9441934724b6a9498c5dac8cfb8a943",
+          "solvedAt": "2026-06-17T16:21:06+05:30",
+          "languages": [
+            "cpp"
+          ]
+        },
+        {
+          "sourceCommit": "0bd2c5056f6ad11c43868ee948914ef1be6ae083",
+          "solvedAt": "2026-06-17T16:22:53+05:30",
+          "languages": [
+            "cpp"
+          ]
+        },
+        {
+          "sourceCommit": "0d7d9f8474413a119a8dd68dcd9388f8261a8576",
+          "solvedAt": "2026-06-17T16:23:15+05:30",
+          "languages": [
+            "cpp"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 628,
+      "slug": "maximum-product-of-three-numbers",
+      "directory": "0628-maximum-product-of-three-numbers",
+      "difficulty": "easy",
+      "classification": {
+        "label": "Sorting · exhaustive case analysis",
+        "family": "Math & number theory"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0628-maximum-product-of-three-numbers/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0628-maximum-product-of-three-numbers.html"
+        }
+      },
+      "solutionHashes": {
+        "0628-maximum-product-of-three-numbers/0628-maximum-product-of-three-numbers.py": "eb9c2d915f2101a73a6ecd9c6d339e4dc7d1abe098bf5e33504bd9919b97bcc8"
+      },
+      "firstSolvedAt": "2026-07-26T16:10:09+05:30",
+      "lastSolvedAt": "2026-07-26T16:10:09+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 682,
+      "slug": "baseball-game",
+      "directory": "0682-baseball-game",
+      "difficulty": "easy",
+      "classification": {
+        "label": "Stack · simulation with undo",
+        "family": "Stacks & monotonic stacks"
+      },
+      "languages": [
+        "cpp",
+        "java",
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0682-baseball-game/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0682-baseball-game.html"
+        }
+      },
+      "solutionHashes": {
+        "0682-baseball-game/0682-baseball-game.cpp": "a8eac54eb73311f60aa121a7f3b5c70ace70f3194765fb40c0acffb9e0217669",
+        "0682-baseball-game/0682-baseball-game.java": "265815044012842cc6fb49c820a8c29ccd30ee6047381f14907b874457c42e08",
+        "0682-baseball-game/0682-baseball-game.py": "2db50d0aae14ece4e118e1f05be2e5e5886640dbd337bb3f0ff731f5f684b24e"
+      },
+      "firstSolvedAt": "2026-06-29T13:41:09+05:30",
+      "lastSolvedAt": "2026-06-29T14:00:08+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "dbd99a7055120b5fb18cb0b2966b1f6090ec7f16",
+          "solvedAt": "2026-06-29T13:52:14+05:30",
+          "languages": [
+            "java"
+          ]
+        },
+        {
+          "sourceCommit": "c20fc30f861a62b45ea6a030b02ac0ff97af99dd",
+          "solvedAt": "2026-06-29T14:00:08+05:30",
+          "languages": [
+            "cpp"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 694,
+      "slug": "number-of-distinct-islands",
+      "directory": "0694-number-of-distinct-islands",
+      "difficulty": "",
+      "classification": {
+        "label": "",
+        "family": ""
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": false,
+          "path": null
+        },
+        "trace": {
+          "available": false,
+          "path": null
+        }
+      },
+      "solutionHashes": {
+        "0694-number-of-distinct-islands/0694-number-of-distinct-islands.py": "c119f69fa9bfab9ab199df782f8ae82dad81cc045e6f0ef545ea40c6859a5013"
+      },
+      "firstSolvedAt": "2026-08-05T11:11:18+05:30",
+      "lastSolvedAt": "2026-08-05T11:11:18+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 703,
+      "slug": "kth-largest-element-in-a-stream",
+      "directory": "0703-kth-largest-element-in-a-stream",
+      "difficulty": "easy",
+      "classification": {
+        "label": "Heap · bounded size-k min-heap",
+        "family": "Sorting & divide and conquer"
+      },
+      "languages": [
+        "cpp",
+        "java",
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0703-kth-largest-element-in-a-stream/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0703-kth-largest-element-in-a-stream.html"
+        }
+      },
+      "solutionHashes": {
+        "0703-kth-largest-element-in-a-stream/0703-kth-largest-element-in-a-stream.cpp": "1779bf4344cb73b0988b90b07482f5f6c43f238988ff460d5fa1a7a4a640af59",
+        "0703-kth-largest-element-in-a-stream/0703-kth-largest-element-in-a-stream.java": "b93486d5aea29ac87cc4e6af4f1e2fc3f0971189e4e58fb77393f4e86ff60e81",
+        "0703-kth-largest-element-in-a-stream/0703-kth-largest-element-in-a-stream.py": "096911a79d97a2d678efd4dcd7f38b67f9e431c7ebfe778d695d4bb95b8237bc"
+      },
+      "firstSolvedAt": "2026-07-06T17:18:49+05:30",
+      "lastSolvedAt": "2026-07-06T17:26:51+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "51a32a3f50b771c97f7ed7d99efef062483c69da",
+          "solvedAt": "2026-07-06T17:25:02+05:30",
+          "languages": [
+            "cpp"
+          ]
+        },
+        {
+          "sourceCommit": "a19e209c4e4ee68ba4759f21e0377b500aad575f",
+          "solvedAt": "2026-07-06T17:26:51+05:30",
+          "languages": [
+            "java"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 704,
+      "slug": "binary-search",
+      "directory": "0704-binary-search",
+      "difficulty": "easy",
+      "classification": {
+        "label": "Binary search · exact match",
+        "family": "Binary search"
+      },
+      "languages": [
+        "cpp",
+        "java",
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0704-binary-search/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0704-binary-search.html"
+        }
+      },
+      "solutionHashes": {
+        "0704-binary-search/0704-binary-search.cpp": "b8fdf1b66ec8ea136250415b7a1812b75b3a2bbcc8c728ac92a5cf481fdbc253",
+        "0704-binary-search/0704-binary-search.java": "38905775e24de8d1d1a195b80dcc112c1f138c3c38e1b4e3079c2f19abd52d94",
+        "0704-binary-search/0704-binary-search.py": "e2267531c3333480f1d6660898f9ec3d4f6dd927e84ab8de4447198a60abbdcb"
+      },
+      "firstSolvedAt": "2026-06-29T16:38:41+05:30",
+      "lastSolvedAt": "2026-06-29T16:43:28+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "9646f67d02eb8464c29016de725fabc7c4ce1ba5",
+          "solvedAt": "2026-06-29T16:42:22+05:30",
+          "languages": [
+            "cpp"
+          ]
+        },
+        {
+          "sourceCommit": "fcb718c4d5930d50e7fd5b66d57e51c2073ab6ea",
+          "solvedAt": "2026-06-29T16:43:28+05:30",
+          "languages": [
+            "java"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 705,
+      "slug": "design-hashset",
+      "directory": "0705-design-hashset",
+      "difficulty": "easy",
+      "classification": {
+        "label": "Design · hash table internals",
+        "family": "Design"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0705-design-hashset/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0705-design-hashset.html"
+        }
+      },
+      "solutionHashes": {
+        "0705-design-hashset/0705-design-hashset.py": "4c18a1d9840fd540e95cd19260a2526220d72c34e9789c53276bfdef2dd310bf"
+      },
+      "firstSolvedAt": "2026-06-03T21:55:37+05:30",
+      "lastSolvedAt": "2026-06-03T21:55:37+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 706,
+      "slug": "design-hashmap",
+      "directory": "0706-design-hashmap",
+      "difficulty": "easy",
+      "classification": {
+        "label": "Design · hash table internals",
+        "family": "Design"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0706-design-hashmap/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0706-design-hashmap.html"
+        }
+      },
+      "solutionHashes": {
+        "0706-design-hashmap/0706-design-hashmap.py": "154d53edf55e69ff92e87256c0455d33c5e7281f000c17c8b888685e8490ede3"
+      },
+      "firstSolvedAt": "2026-06-03T22:14:51+05:30",
+      "lastSolvedAt": "2026-06-03T22:14:51+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 733,
+      "slug": "flood-fill",
+      "directory": "0733-flood-fill",
+      "difficulty": "",
+      "classification": {
+        "label": "",
+        "family": ""
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": false,
+          "path": null
+        },
+        "trace": {
+          "available": false,
+          "path": null
+        }
+      },
+      "solutionHashes": {
+        "0733-flood-fill/0733-flood-fill.py": "408155b32b1af40e038b32acc8488702ac13a6a61aa42f92cf62e15a0e242565"
+      },
+      "firstSolvedAt": "2026-08-03T11:36:22+05:30",
+      "lastSolvedAt": "2026-08-03T11:39:56+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "1295a5a90c6e13bcfa28bff4662caac02c312a3c",
+          "solvedAt": "2026-08-03T11:39:56+05:30",
+          "languages": [
+            "py"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 739,
+      "slug": "daily-temperatures",
+      "directory": "0739-daily-temperatures",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Monotonic stack · next greater element",
+        "family": "Stacks & monotonic stacks"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0739-daily-temperatures/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0739-daily-temperatures.html"
+        }
+      },
+      "solutionHashes": {
+        "0739-daily-temperatures/0739-daily-temperatures.py": "d0a159abcc2f79cc4af6c217c801b158602e1850fa6af7ee9ed13dbc63a6926f"
+      },
+      "firstSolvedAt": "2026-06-05T19:21:34+05:30",
+      "lastSolvedAt": "2026-06-05T19:21:34+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 741,
+      "slug": "cherry-pickup",
+      "directory": "0741-cherry-pickup",
+      "difficulty": "",
+      "classification": {
+        "label": "",
+        "family": ""
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": false,
+          "path": null
+        },
+        "trace": {
+          "available": false,
+          "path": null
+        }
+      },
+      "solutionHashes": {
+        "0741-cherry-pickup/0741-cherry-pickup.py": "693b053f19aac92c0d1624d114278c518f1286688a1f593a5ec5d08ae7e0393a"
+      },
+      "firstSolvedAt": "2026-08-08T14:51:39+05:30",
+      "lastSolvedAt": "2026-08-08T14:54:46+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "2b19f26baac4f88dd623389f7c3ceb8595645862",
+          "solvedAt": "2026-08-08T14:54:46+05:30",
+          "languages": [
+            "py"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 773,
+      "slug": "sliding-puzzle",
+      "directory": "0773-sliding-puzzle",
+      "difficulty": "hard",
+      "classification": {
+        "label": "BFS on a state graph",
+        "family": "Graphs, BFS & DFS"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0773-sliding-puzzle/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0773-sliding-puzzle.html"
+        }
+      },
+      "solutionHashes": {
+        "0773-sliding-puzzle/0773-sliding-puzzle.py": "7ba20f77c09f671cade4e0319ccce00d26a8d6e75822e2f10644b29e305d8816"
+      },
+      "firstSolvedAt": "2026-06-05T19:06:50+05:30",
+      "lastSolvedAt": "2026-06-05T19:06:50+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 785,
+      "slug": "is-graph-bipartite",
+      "directory": "0785-is-graph-bipartite",
+      "difficulty": "",
+      "classification": {
+        "label": "",
+        "family": ""
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": false,
+          "path": null
+        },
+        "trace": {
+          "available": false,
+          "path": null
+        }
+      },
+      "solutionHashes": {
+        "0785-is-graph-bipartite/0785-is-graph-bipartite.py": "bd2c15a4f30014bdcf58223ac65aca394cad811ef8cd2d271a1ef4888afd6d90"
+      },
+      "firstSolvedAt": "2026-08-05T13:33:47+05:30",
+      "lastSolvedAt": "2026-08-05T13:55:57+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "7b61ac3e79b18012f4cd57c23ffdcd45d40f5334",
+          "solvedAt": "2026-08-05T13:55:57+05:30",
+          "languages": [
+            "py"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 802,
+      "slug": "find-eventual-safe-states",
+      "directory": "0802-find-eventual-safe-states",
+      "difficulty": "",
+      "classification": {
+        "label": "",
+        "family": ""
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": false,
+          "path": null
+        },
+        "trace": {
+          "available": false,
+          "path": null
+        }
+      },
+      "solutionHashes": {
+        "0802-find-eventual-safe-states/0802-find-eventual-safe-states.py": "9736c8f1ec2d5eafafa71136ced2f7bd7af43fa9efa1cc9ed47c4cc60775969b"
+      },
+      "firstSolvedAt": "2026-08-05T23:42:22+05:30",
+      "lastSolvedAt": "2026-08-05T23:42:46+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "e329c8b441482b4d18fdf7ef2a6c6823654a94f0",
+          "solvedAt": "2026-08-05T23:42:46+05:30",
+          "languages": [
+            "py"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 860,
+      "slug": "lemonade-change",
+      "directory": "0860-lemonade-change",
+      "difficulty": "easy",
+      "classification": {
+        "label": "Greedy · spend the least flexible resource first",
+        "family": "Greedy"
+      },
+      "languages": [
+        "cpp",
+        "java"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0860-lemonade-change/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0860-lemonade-change.html"
+        }
+      },
+      "solutionHashes": {
+        "0860-lemonade-change/0860-lemonade-change.cpp": "1633e78546b322af51cf4da3b20d95ac518e9855d75a8bdba4f659fc418162d8",
+        "0860-lemonade-change/0860-lemonade-change.java": "d0921c556f43fc70dd12624bc5f65649a137cfdc9d1bf936cc2157483b1bf0eb"
+      },
+      "firstSolvedAt": "2026-07-08T12:43:07+05:30",
+      "lastSolvedAt": "2026-07-08T12:43:30+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "b6694395b5772cd7ac135d8b6164f4c0c50957a9",
+          "solvedAt": "2026-07-08T12:43:30+05:30",
+          "languages": [
+            "java"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 867,
+      "slug": "new-21-game",
+      "directory": "0867-new-21-game",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Probability DP · sliding window sum",
+        "family": "Two pointers & sliding window"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0867-new-21-game/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0867-new-21-game.html"
+        }
+      },
+      "solutionHashes": {
+        "0867-new-21-game/0867-new-21-game.py": "4aeba574212740248e0f270149b53d498c6777827c249fc28ad27817dc074776"
+      },
+      "firstSolvedAt": "2025-08-17T15:11:16+05:30",
+      "lastSolvedAt": "2025-08-17T15:11:16+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 877,
+      "slug": "stone-game",
+      "directory": "0877-stone-game",
+      "difficulty": "",
+      "classification": {
+        "label": "",
+        "family": ""
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": false,
+          "path": null
+        },
+        "trace": {
+          "available": false,
+          "path": null
+        }
+      },
+      "solutionHashes": {
+        "0877-stone-game/0877-stone-game.py": "b44300485befb90ea6ae44a5294e8ef5f3313a77e02f620b41e688a87e5ca93f"
+      },
+      "firstSolvedAt": "2026-08-02T10:29:40+05:30",
+      "lastSolvedAt": "2026-08-02T10:29:40+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 912,
+      "slug": "sort-an-array",
+      "directory": "0912-sort-an-array",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Divide and conquer · merge sort",
+        "family": "Sorting & divide and conquer"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0912-sort-an-array/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0912-sort-an-array.html"
+        }
+      },
+      "solutionHashes": {
+        "0912-sort-an-array/0912-sort-an-array.py": "ff8833586cc669ac68e66563b7f053e9371f12e8fe2ed147b59838471af988f0"
+      },
+      "firstSolvedAt": "2026-06-03T22:29:44+05:30",
+      "lastSolvedAt": "2026-06-03T22:29:44+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 934,
+      "slug": "bitwise-ors-of-subarrays",
+      "directory": "0934-bitwise-ors-of-subarrays",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Monotone bit operation · bounded frontier",
+        "family": "Bit manipulation"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "0934-bitwise-ors-of-subarrays/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/0934-bitwise-ors-of-subarrays.html"
+        }
+      },
+      "solutionHashes": {
+        "0934-bitwise-ors-of-subarrays/0934-bitwise-ors-of-subarrays.py": "a1a4a80cbe57efd5d2ec5174456f59b2cbe304d710a3a1d9a7ed3adeff2b15c1"
+      },
+      "firstSolvedAt": "2025-07-31T11:41:42+05:30",
+      "lastSolvedAt": "2025-07-31T11:41:42+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 994,
+      "slug": "rotting-oranges",
+      "directory": "0994-rotting-oranges",
+      "difficulty": "",
+      "classification": {
+        "label": "",
+        "family": ""
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": false,
+          "path": null
+        },
+        "trace": {
+          "available": false,
+          "path": null
+        }
+      },
+      "solutionHashes": {
+        "0994-rotting-oranges/0994-rotting-oranges.py": "64fd05c484d7f67ae0830f080ac4d908040e15841b3e626de0da58a2c58c2d8d"
+      },
+      "firstSolvedAt": "2026-08-03T21:59:12+05:30",
+      "lastSolvedAt": "2026-08-03T22:02:08+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "14520235cd4318a30d6090c0e2c46a7ff41c5457",
+          "solvedAt": "2026-08-03T22:02:08+05:30",
+          "languages": [
+            "py"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 1020,
+      "slug": "number-of-enclaves",
+      "directory": "1020-number-of-enclaves",
+      "difficulty": "",
+      "classification": {
+        "label": "",
+        "family": ""
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": false,
+          "path": null
+        },
+        "trace": {
+          "available": false,
+          "path": null
+        }
+      },
+      "solutionHashes": {
+        "1020-number-of-enclaves/1020-number-of-enclaves.py": "424e58f17400e1f5f20fccecdf8ebd01f3cde72d9bb5efbf4be6c5bded6f74f2"
+      },
+      "firstSolvedAt": "2026-08-04T22:45:40+05:30",
+      "lastSolvedAt": "2026-08-04T22:45:40+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 1071,
+      "slug": "greatest-common-divisor-of-strings",
+      "directory": "1071-greatest-common-divisor-of-strings",
+      "difficulty": "easy",
+      "classification": {
+        "label": "Number theory analogy · gcd on lengths",
+        "family": "Math & number theory"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "1071-greatest-common-divisor-of-strings/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/1071-greatest-common-divisor-of-strings.html"
+        }
+      },
+      "solutionHashes": {
+        "1071-greatest-common-divisor-of-strings/1071-greatest-common-divisor-of-strings.py": "a67a43b3ab9c225315677111119afef2bfd27df28f4296333aef9e92fb86b48e"
+      },
+      "firstSolvedAt": "2026-07-21T22:04:27+05:30",
+      "lastSolvedAt": "2026-07-21T22:04:44+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "8f5555266939c357bf2e091ce1569d1395ecf632",
+          "solvedAt": "2026-07-21T22:04:44+05:30",
+          "languages": [
+            "py"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 1079,
+      "slug": "letter-tile-possibilities",
+      "directory": "1079-letter-tile-possibilities",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Auto-traced from real execution",
+        "family": "Hashing"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "1079-letter-tile-possibilities/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/1079-letter-tile-possibilities.auto.html"
+        }
+      },
+      "solutionHashes": {
+        "1079-letter-tile-possibilities/1079-letter-tile-possibilities.py": "978ecf7f97e0de37b7d3c38413224071d689a0076fd0bd5fa8ece412c3d4b8e9"
+      },
+      "firstSolvedAt": "2026-07-27T17:18:23+05:30",
+      "lastSolvedAt": "2026-07-27T17:18:23+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 1081,
+      "slug": "smallest-subsequence-of-distinct-characters",
+      "directory": "1081-smallest-subsequence-of-distinct-characters",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Monotonic stack · greedy with a safety check",
+        "family": "Stacks & monotonic stacks"
+      },
+      "languages": [
+        "cpp"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "1081-smallest-subsequence-of-distinct-characters/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/1081-smallest-subsequence-of-distinct-characters.html"
+        }
+      },
+      "solutionHashes": {
+        "1081-smallest-subsequence-of-distinct-characters/1081-smallest-subsequence-of-distinct-characters.cpp": "0d6d00c7ec8f1a718eafc2da45ee7bfc919db4b0ce62ea90f6470eee95fcd024"
+      },
+      "firstSolvedAt": "2026-07-20T08:38:23+05:30",
+      "lastSolvedAt": "2026-07-20T08:38:23+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 1260,
+      "slug": "shift-2d-grid",
+      "directory": "1260-shift-2d-grid",
+      "difficulty": "easy",
+      "classification": {
+        "label": "Flatten · modular shift · unflatten",
+        "family": "Math & number theory"
+      },
+      "languages": [
+        "cpp"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "1260-shift-2d-grid/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/1260-shift-2d-grid.html"
+        }
+      },
+      "solutionHashes": {
+        "1260-shift-2d-grid/1260-shift-2d-grid.cpp": "07f33221156d05657ac20caf2680953bb5fb42174f494d78100b7c8a7ba83cbc"
+      },
+      "firstSolvedAt": "2026-07-20T08:39:37+05:30",
+      "lastSolvedAt": "2026-07-20T08:39:37+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 1288,
+      "slug": "remove-covered-intervals",
+      "directory": "1288-remove-covered-intervals",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Intervals · sort key does the work",
+        "family": "Prefix sums & intervals"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "1288-remove-covered-intervals/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/1288-remove-covered-intervals.html"
+        }
+      },
+      "solutionHashes": {
+        "1288-remove-covered-intervals/1288-remove-covered-intervals.py": "d8f878da1f8e74c24d9a3f948dbabdea7552d8871bd58ac22b550c5bb5ab86fe"
+      },
+      "firstSolvedAt": "2026-07-06T08:02:04+05:30",
+      "lastSolvedAt": "2026-07-06T08:02:04+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 1291,
+      "slug": "sequential-digits",
+      "directory": "1291-sequential-digits",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Generate the small candidate set, then filter",
+        "family": "Greedy"
+      },
+      "languages": [
+        "cpp"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "1291-sequential-digits/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/1291-sequential-digits.html"
+        }
+      },
+      "solutionHashes": {
+        "1291-sequential-digits/1291-sequential-digits.cpp": "944e50512df5c3a138861029ab5626ea43f4abf61c2b957448d89ed1c9122c9e"
+      },
+      "firstSolvedAt": "2026-07-13T11:11:35+05:30",
+      "lastSolvedAt": "2026-07-13T11:11:35+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 1344,
+      "slug": "angle-between-hands-of-a-clock",
+      "directory": "1344-angle-between-hands-of-a-clock",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Math · modular geometry",
+        "family": "Math & number theory"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "1344-angle-between-hands-of-a-clock/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/1344-angle-between-hands-of-a-clock.html"
+        }
+      },
+      "solutionHashes": {
+        "1344-angle-between-hands-of-a-clock/1344-angle-between-hands-of-a-clock.py": "d0722471d423eaf0435371924c26db964ea8d911c4f61c47da139a5990c45d09"
+      },
+      "firstSolvedAt": "2026-06-18T11:23:52+05:30",
+      "lastSolvedAt": "2026-06-18T11:23:52+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 1358,
+      "slug": "number-of-substrings-containing-all-three-characters",
+      "directory": "1358-number-of-substrings-containing-all-three-characters",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Sliding window · counting",
+        "family": "Two pointers & sliding window"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "1358-number-of-substrings-containing-all-three-characters/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/1358-number-of-substrings-containing-all-three-characters.html"
+        }
+      },
+      "solutionHashes": {
+        "1358-number-of-substrings-containing-all-three-characters/1358-number-of-substrings-containing-all-three-characters.py": "94db76b2c295f46c7c83ee497e264c4837ae1ddf8316f769d3389a85d4f101c5"
+      },
+      "firstSolvedAt": "2026-06-30T11:40:30+05:30",
+      "lastSolvedAt": "2026-06-30T11:40:30+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 1406,
+      "slug": "stone-game-iii",
+      "directory": "1406-stone-game-iii",
+      "difficulty": "",
+      "classification": {
+        "label": "",
+        "family": ""
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": false,
+          "path": null
+        },
+        "trace": {
+          "available": false,
+          "path": null
+        }
+      },
+      "solutionHashes": {
+        "1406-stone-game-iii/1406-stone-game-iii.py": "8f54c4b1c6489e0e845ec76a715bc3bb843ed2a07241a428873ba24680d04e4a"
+      },
+      "firstSolvedAt": "2026-08-03T10:54:56+05:30",
+      "lastSolvedAt": "2026-08-03T10:54:56+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 1448,
+      "slug": "maximum-69-number",
+      "directory": "1448-maximum-69-number",
+      "difficulty": "easy",
+      "classification": {
+        "label": "Greedy · positional value",
+        "family": "Greedy"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "1448-maximum-69-number/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/1448-maximum-69-number.html"
+        }
+      },
+      "solutionHashes": {
+        "1448-maximum-69-number/1448-maximum-69-number.py": "4d82a39f9a8a9f5f72cb9e98c831efa468d8061820a0b7dc052d3bc8158ab3a2"
+      },
+      "firstSolvedAt": "2025-08-16T09:42:31+05:30",
+      "lastSolvedAt": "2025-08-16T09:42:31+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 1464,
+      "slug": "maximum-product-of-two-elements-in-an-array",
+      "directory": "1464-maximum-product-of-two-elements-in-an-array",
+      "difficulty": "easy",
+      "classification": {
+        "label": "Single pass · top-k tracking",
+        "family": "Math & number theory"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "1464-maximum-product-of-two-elements-in-an-array/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/1464-maximum-product-of-two-elements-in-an-array.html"
+        }
+      },
+      "solutionHashes": {
+        "1464-maximum-product-of-two-elements-in-an-array/1464-maximum-product-of-two-elements-in-an-array.py": "67086ac21e58076a8b499f0e0c60f036952b0f6bbb4f7d9b5789ac596ff515ce"
+      },
+      "firstSolvedAt": "2026-07-27T09:15:55+05:30",
+      "lastSolvedAt": "2026-07-27T09:15:55+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 1631,
+      "slug": "path-with-minimum-effort",
+      "directory": "1631-path-with-minimum-effort",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Dijkstra · minimax path",
+        "family": "Graphs, BFS & DFS"
+      },
+      "languages": [
+        "cpp",
+        "java",
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "1631-path-with-minimum-effort/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/1631-path-with-minimum-effort.html"
+        }
+      },
+      "solutionHashes": {
+        "1631-path-with-minimum-effort/1631-path-with-minimum-effort.cpp": "629753edf494dc1d716ffc05a1962ff220a3c07e642f8b538fb1ab453b8c72f1",
+        "1631-path-with-minimum-effort/1631-path-with-minimum-effort.java": "c665ebb0f78694efe6eb98daf52ada916376ec01dbea2df6a9edd19355586529",
+        "1631-path-with-minimum-effort/1631-path-with-minimum-effort.py": "41f96cff0eb163ff26ed3ce39563cbbfd69718d26ef2ed1d4c30f2a95799db54"
+      },
+      "firstSolvedAt": "2026-07-08T13:19:42+05:30",
+      "lastSolvedAt": "2026-07-08T16:36:57+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "cd2be267239eddc6989e475127fa83a7559fff64",
+          "solvedAt": "2026-07-08T16:36:31+05:30",
+          "languages": [
+            "java"
+          ]
+        },
+        {
+          "sourceCommit": "3a42cf24b1568e9fe2438a041547f5b8f0151e29",
+          "solvedAt": "2026-07-08T16:36:57+05:30",
+          "languages": [
+            "cpp"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 1732,
+      "slug": "find-the-highest-altitude",
+      "directory": "1732-find-the-highest-altitude",
+      "difficulty": "easy",
+      "classification": {
+        "label": "Prefix sum · running maximum",
+        "family": "Prefix sums & intervals"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "1732-find-the-highest-altitude/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/1732-find-the-highest-altitude.html"
+        }
+      },
+      "solutionHashes": {
+        "1732-find-the-highest-altitude/1732-find-the-highest-altitude.py": "73cfa0a81752de0a37e99c90530fe8144a3f3bfed303beec592c413359920115"
+      },
+      "firstSolvedAt": "2026-06-19T11:04:19+05:30",
+      "lastSolvedAt": "2026-06-19T11:04:19+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 1833,
+      "slug": "maximum-ice-cream-bars",
+      "directory": "1833-maximum-ice-cream-bars",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Greedy · counting sort",
+        "family": "Greedy"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "1833-maximum-ice-cream-bars/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/1833-maximum-ice-cream-bars.html"
+        }
+      },
+      "solutionHashes": {
+        "1833-maximum-ice-cream-bars/1833-maximum-ice-cream-bars.py": "ca58001d3064e76223cb7a06b9b76c1e51f2bf0c7cf0e8a6f7e76d17ebc91200"
+      },
+      "firstSolvedAt": "2026-06-21T15:36:59+05:30",
+      "lastSolvedAt": "2026-06-21T15:36:59+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 1840,
+      "slug": "maximum-building-height",
+      "directory": "1840-maximum-building-height",
+      "difficulty": "hard",
+      "classification": {
+        "label": "Constraint propagation · two sweeps + geometry",
+        "family": "Prefix sums & intervals"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "1840-maximum-building-height/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/1840-maximum-building-height.html"
+        }
+      },
+      "solutionHashes": {
+        "1840-maximum-building-height/1840-maximum-building-height.py": "4429b4cad536f9bd620c7b72c81953bf2504f64b193a48a26694a73d523ac1f2"
+      },
+      "firstSolvedAt": "2026-06-20T19:48:15+05:30",
+      "lastSolvedAt": "2026-06-20T19:48:15+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 1846,
+      "slug": "maximum-element-after-decreasing-and-rearranging",
+      "directory": "1846-maximum-element-after-decreasing-and-rearranging",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Greedy · sort then climb",
+        "family": "Greedy"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "1846-maximum-element-after-decreasing-and-rearranging/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/1846-maximum-element-after-decreasing-and-rearranging.html"
+        }
+      },
+      "solutionHashes": {
+        "1846-maximum-element-after-decreasing-and-rearranging/1846-maximum-element-after-decreasing-and-rearranging.py": "55f23efff563057b1c889db9c2e3ff7383b9491a8509ef8c668242175298e404"
+      },
+      "firstSolvedAt": "2026-06-28T22:31:14+05:30",
+      "lastSolvedAt": "2026-06-28T22:31:14+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 1858,
+      "slug": "longest-word-with-all-prefixes",
+      "directory": "1858-longest-word-with-all-prefixes",
+      "difficulty": "",
+      "classification": {
+        "label": "",
+        "family": ""
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": false,
+          "path": null
+        },
+        "trace": {
+          "available": false,
+          "path": null
+        }
+      },
+      "solutionHashes": {
+        "1858-longest-word-with-all-prefixes/1858-longest-word-with-all-prefixes.py": "b4bf1ad2aa68e67efec7b850831367c47953c9d74621e6a9f23b5a857f85b9e0"
+      },
+      "firstSolvedAt": "2026-07-30T09:23:28+05:30",
+      "lastSolvedAt": "2026-07-30T09:23:28+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 1863,
+      "slug": "sum-of-all-subset-xor-totals",
+      "directory": "1863-sum-of-all-subset-xor-totals",
+      "difficulty": "easy",
+      "classification": {
+        "label": "Bit counting · contribution technique",
+        "family": "Bit manipulation"
+      },
+      "languages": [
+        "cpp",
+        "java",
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "1863-sum-of-all-subset-xor-totals/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/1863-sum-of-all-subset-xor-totals.html"
+        }
+      },
+      "solutionHashes": {
+        "1863-sum-of-all-subset-xor-totals/1863-sum-of-all-subset-xor-totals.cpp": "273645f3e1acb0bf8cd8ce035726521b8d63926c4faabce5b4ed720365808883",
+        "1863-sum-of-all-subset-xor-totals/1863-sum-of-all-subset-xor-totals.java": "4925ea4e0a13393febafc9312935f3a5335aff128ff4266bfe27fd3e4fbe0b10",
+        "1863-sum-of-all-subset-xor-totals/1863-sum-of-all-subset-xor-totals.py": "5c7fae5761c83dab1b56ae06e303edb3d338069d1f5012883663677e09fb722d"
+      },
+      "firstSolvedAt": "2026-07-07T11:55:28+05:30",
+      "lastSolvedAt": "2026-07-07T12:26:38+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "d64b06e2491d76757c4bc74259a9520aa4036d49",
+          "solvedAt": "2026-07-07T12:01:27+05:30",
+          "languages": [
+            "java"
+          ]
+        },
+        {
+          "sourceCommit": "2f472f0ddd080af636f476a0c8ba83a635cc14b6",
+          "solvedAt": "2026-07-07T12:04:56+05:30",
+          "languages": [
+            "cpp"
+          ]
+        },
+        {
+          "sourceCommit": "ed431c9b1c3422ff8b53eb8a6063347a7b6093f3",
+          "solvedAt": "2026-07-07T12:25:36+05:30",
+          "languages": [
+            "py"
+          ]
+        },
+        {
+          "sourceCommit": "656665fc242a30570e59851373ebfef0c761d4f1",
+          "solvedAt": "2026-07-07T12:26:23+05:30",
+          "languages": [
+            "java"
+          ]
+        },
+        {
+          "sourceCommit": "062dafab913ee8a16c914cbd62822f55dd1ccaa7",
+          "solvedAt": "2026-07-07T12:26:38+05:30",
+          "languages": [
+            "cpp"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 1929,
+      "slug": "concatenation-of-array",
+      "directory": "1929-concatenation-of-array",
+      "difficulty": "easy",
+      "classification": {
+        "label": "Index arithmetic · pre-sized output",
+        "family": "Math & number theory"
+      },
+      "languages": [
+        "cpp",
+        "java"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "1929-concatenation-of-array/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/1929-concatenation-of-array.html"
+        }
+      },
+      "solutionHashes": {
+        "1929-concatenation-of-array/1929-concatenation-of-array.cpp": "4d87f6e6c5d9cd137de9294b879d9307f19358117dbe5a1884f1830e3915ac29",
+        "1929-concatenation-of-array/1929-concatenation-of-array.java": "201f41910583b34d368dac4855263f38ba93229d2e5b0a21a583fe0c70d71bb5"
+      },
+      "firstSolvedAt": "2026-06-27T12:30:29+05:30",
+      "lastSolvedAt": "2026-06-27T22:45:30+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "e90b056ad481b615100224d97646057e263b1f39",
+          "solvedAt": "2026-06-27T22:45:30+05:30",
+          "languages": [
+            "cpp"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 1967,
+      "slug": "number-of-strings-that-appear-as-substrings-in-word",
+      "directory": "1967-number-of-strings-that-appear-as-substrings-in-word",
+      "difficulty": "easy",
+      "classification": {
+        "label": "String matching · know what your library does",
+        "family": "Brute force done right"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "1967-number-of-strings-that-appear-as-substrings-in-word/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/1967-number-of-strings-that-appear-as-substrings-in-word.html"
+        }
+      },
+      "solutionHashes": {
+        "1967-number-of-strings-that-appear-as-substrings-in-word/1967-number-of-strings-that-appear-as-substrings-in-word.py": "203b0264c0538e841b2b665230e55efd3c3959c943609d1e9efbf46d88a010e5"
+      },
+      "firstSolvedAt": "2026-06-29T10:40:58+05:30",
+      "lastSolvedAt": "2026-06-29T10:40:58+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 1979,
+      "slug": "find-greatest-common-divisor-of-array",
+      "directory": "1979-find-greatest-common-divisor-of-array",
+      "difficulty": "easy",
+      "classification": {
+        "label": "Number theory · Euclidean algorithm",
+        "family": "Math & number theory"
+      },
+      "languages": [
+        "cpp"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "1979-find-greatest-common-divisor-of-array/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/1979-find-greatest-common-divisor-of-array.html"
+        }
+      },
+      "solutionHashes": {
+        "1979-find-greatest-common-divisor-of-array/1979-find-greatest-common-divisor-of-array.cpp": "a608bfd683344e4628efab12788ef72de9412fd78f13ee4620233a9eeffcebcf"
+      },
+      "firstSolvedAt": "2026-07-18T12:21:11+05:30",
+      "lastSolvedAt": "2026-07-18T12:21:11+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 2095,
+      "slug": "delete-the-middle-node-of-a-linked-list",
+      "directory": "2095-delete-the-middle-node-of-a-linked-list",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Fast & slow pointers · find the middle",
+        "family": "Two pointers & sliding window"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "2095-delete-the-middle-node-of-a-linked-list/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/2095-delete-the-middle-node-of-a-linked-list.html"
+        }
+      },
+      "solutionHashes": {
+        "2095-delete-the-middle-node-of-a-linked-list/2095-delete-the-middle-node-of-a-linked-list.py": "ec3126760a89fac81332a3e0e91e69c96cd733dc48b4d0a708f364c7891af231"
+      },
+      "firstSolvedAt": "2026-06-15T13:01:25+05:30",
+      "lastSolvedAt": "2026-06-15T13:01:25+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 2133,
+      "slug": "number-of-pairs-of-strings-with-concatenation-equal-to-target",
+      "directory": "2133-number-of-pairs-of-strings-with-concatenation-equal-to-target",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Brute force · index vs value identity",
+        "family": "Brute force done right"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "2133-number-of-pairs-of-strings-with-concatenation-equal-to-target/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/2133-number-of-pairs-of-strings-with-concatenation-equal-to-target.html"
+        }
+      },
+      "solutionHashes": {
+        "2133-number-of-pairs-of-strings-with-concatenation-equal-to-target/2133-number-of-pairs-of-strings-with-concatenation-equal-to-target.py": "8055e4b0fb77e8bfd06826251ab100b2e4d4a2f702cf0b879c5ae612dd306916"
+      },
+      "firstSolvedAt": "2025-08-16T10:35:19+05:30",
+      "lastSolvedAt": "2025-08-16T10:35:19+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 2144,
+      "slug": "minimum-cost-of-buying-candies-with-discount",
+      "directory": "2144-minimum-cost-of-buying-candies-with-discount",
+      "difficulty": "easy",
+      "classification": {
+        "label": "Greedy · sort descending, take every third",
+        "family": "Greedy"
+      },
+      "languages": [
+        "cpp"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "2144-minimum-cost-of-buying-candies-with-discount/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/2144-minimum-cost-of-buying-candies-with-discount.html"
+        }
+      },
+      "solutionHashes": {
+        "2144-minimum-cost-of-buying-candies-with-discount/2144-minimum-cost-of-buying-candies-with-discount.cpp": "fc4c76ab192956adc91206fa94374a3d59e8be54ffae0fac6f9d64f02b68834a"
+      },
+      "firstSolvedAt": "2026-07-21T09:24:33+05:30",
+      "lastSolvedAt": "2026-07-21T09:24:33+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 2161,
+      "slug": "partition-array-according-to-given-pivot",
+      "directory": "2161-partition-array-according-to-given-pivot",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Stable three-way partition",
+        "family": "Two pointers & sliding window"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "2161-partition-array-according-to-given-pivot/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/2161-partition-array-according-to-given-pivot.html"
+        }
+      },
+      "solutionHashes": {
+        "2161-partition-array-according-to-given-pivot/2161-partition-array-according-to-given-pivot.py": "b57efc747215e7db09aeca49e56174908983a64da9cce5e6ce62a7980a44a815"
+      },
+      "firstSolvedAt": "2026-06-08T17:04:36+05:30",
+      "lastSolvedAt": "2026-06-08T17:04:36+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 2196,
+      "slug": "create-binary-tree-from-descriptions",
+      "directory": "2196-create-binary-tree-from-descriptions",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Hash map · build a structure from edges",
+        "family": "Hashing"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "2196-create-binary-tree-from-descriptions/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/2196-create-binary-tree-from-descriptions.html"
+        }
+      },
+      "solutionHashes": {
+        "2196-create-binary-tree-from-descriptions/2196-create-binary-tree-from-descriptions.py": "87d2a66ab03e23a2d79ec8151be889d7282dad2c4cee6384aa1cbfffd5da3006"
+      },
+      "firstSolvedAt": "2026-06-07T20:33:47+05:30",
+      "lastSolvedAt": "2026-06-07T20:33:47+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 2450,
+      "slug": "minimum-replacements-to-sort-the-array",
+      "directory": "2450-minimum-replacements-to-sort-the-array",
+      "difficulty": "hard",
+      "classification": {
+        "label": "Greedy from the right · equal splitting",
+        "family": "Greedy"
+      },
+      "languages": [
+        "c"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "2450-minimum-replacements-to-sort-the-array/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/2450-minimum-replacements-to-sort-the-array.html"
+        }
+      },
+      "solutionHashes": {
+        "2450-minimum-replacements-to-sort-the-array/2450-minimum-replacements-to-sort-the-array.c": "19949ff8e4ce5530bd03cfa33f96d803056fad2bdbc4fc56023df3b369baa218"
+      },
+      "firstSolvedAt": "2025-08-17T12:17:43+05:30",
+      "lastSolvedAt": "2025-08-17T12:17:43+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 2503,
+      "slug": "longest-subarray-with-maximum-bitwise-and",
+      "directory": "2503-longest-subarray-with-maximum-bitwise-and",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Observation-driven · monotone operation",
+        "family": "Greedy"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "2503-longest-subarray-with-maximum-bitwise-and/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/2503-longest-subarray-with-maximum-bitwise-and.html"
+        }
+      },
+      "solutionHashes": {
+        "2503-longest-subarray-with-maximum-bitwise-and/2503-longest-subarray-with-maximum-bitwise-and.py": "77051983cff095dc5f930ab11cdaeda77a6fc7df0b1a42bb80e4bca6f3498793"
+      },
+      "firstSolvedAt": "2025-07-30T11:16:45+05:30",
+      "lastSolvedAt": "2025-07-30T11:16:45+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 2574,
+      "slug": "left-and-right-sum-differences",
+      "directory": "2574-left-and-right-sum-differences",
+      "difficulty": "easy",
+      "classification": {
+        "label": "Prefix sum · total minus prefix",
+        "family": "Prefix sums & intervals"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "2574-left-and-right-sum-differences/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/2574-left-and-right-sum-differences.html"
+        }
+      },
+      "solutionHashes": {
+        "2574-left-and-right-sum-differences/2574-left-and-right-sum-differences.py": "3d96b0e655885071f2c1fbea3d19b9092c794f2a355f5b0b5a453cd823991701"
+      },
+      "firstSolvedAt": "2026-06-06T14:09:57+05:30",
+      "lastSolvedAt": "2026-06-06T14:09:57+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 2685,
+      "slug": "count-the-number-of-complete-components",
+      "directory": "2685-count-the-number-of-complete-components",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Connected components + a counting criterion",
+        "family": "Graphs, BFS & DFS"
+      },
+      "languages": [
+        "cpp"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "2685-count-the-number-of-complete-components/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/2685-count-the-number-of-complete-components.html"
+        }
+      },
+      "solutionHashes": {
+        "2685-count-the-number-of-complete-components/2685-count-the-number-of-complete-components.cpp": "49185a756f7b94bf383d26063ac754eeb1b0f9af07880f01623d2585dbe0a52d"
+      },
+      "firstSolvedAt": "2026-07-11T16:13:55+05:30",
+      "lastSolvedAt": "2026-07-11T16:13:55+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 2807,
+      "slug": "insert-greatest-common-divisors-in-linked-list",
+      "directory": "2807-insert-greatest-common-divisors-in-linked-list",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Linked list · insert between pairs",
+        "family": "Linked lists"
+      },
+      "languages": [
+        "cpp"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "2807-insert-greatest-common-divisors-in-linked-list/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/2807-insert-greatest-common-divisors-in-linked-list.html"
+        }
+      },
+      "solutionHashes": {
+        "2807-insert-greatest-common-divisors-in-linked-list/2807-insert-greatest-common-divisors-in-linked-list.cpp": "21baf5a76849ee3742a40f73507016a9bb3728b7189c5f4bff5f3d33bc73d31a"
+      },
+      "firstSolvedAt": "2026-07-21T09:35:54+05:30",
+      "lastSolvedAt": "2026-07-21T09:35:54+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 2812,
+      "slug": "find-the-safest-path-in-a-grid",
+      "directory": "2812-find-the-safest-path-in-a-grid",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Multi-source BFS + maximin Dijkstra",
+        "family": "Graphs, BFS & DFS"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "2812-find-the-safest-path-in-a-grid/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/2812-find-the-safest-path-in-a-grid.html"
+        }
+      },
+      "solutionHashes": {
+        "2812-find-the-safest-path-in-a-grid/2812-find-the-safest-path-in-a-grid.py": "14b4fa679a2801d29d31ecb90eb6db8bc9abf6f84865c880bf24acc9f9e5d863"
+      },
+      "firstSolvedAt": "2026-07-01T10:22:13+05:30",
+      "lastSolvedAt": "2026-07-01T10:22:25+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "5ea7eb0c033ae93e8dbeeb64069b7e14de9a50d5",
+          "solvedAt": "2026-07-01T10:22:25+05:30",
+          "languages": [
+            "py"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 3014,
+      "slug": "minimum-number-of-pushes-to-type-word-i",
+      "directory": "3014-minimum-number-of-pushes-to-type-word-i",
+      "difficulty": "",
+      "classification": {
+        "label": "",
+        "family": ""
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": false,
+          "path": null
+        },
+        "trace": {
+          "available": false,
+          "path": null
+        }
+      },
+      "solutionHashes": {
+        "3014-minimum-number-of-pushes-to-type-word-i/3014-minimum-number-of-pushes-to-type-word-i.py": "6f77a7e392ee02bcd9646c086618e57e5ac1f061e799178f05d8cc9f8170063f"
+      },
+      "firstSolvedAt": "2026-07-30T08:53:37+05:30",
+      "lastSolvedAt": "2026-07-30T08:53:37+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 3016,
+      "slug": "minimum-number-of-pushes-to-type-word-ii",
+      "directory": "3016-minimum-number-of-pushes-to-type-word-ii",
+      "difficulty": "",
+      "classification": {
+        "label": "",
+        "family": ""
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": false,
+          "path": null
+        },
+        "trace": {
+          "available": false,
+          "path": null
+        }
+      },
+      "solutionHashes": {
+        "3016-minimum-number-of-pushes-to-type-word-ii/3016-minimum-number-of-pushes-to-type-word-ii.py": "a86f043b0e0cdf8e19cceaad1c014c4cc13b0ca3b401c29efd6eba5fbe515924"
+      },
+      "firstSolvedAt": "2026-07-31T08:36:55+05:30",
+      "lastSolvedAt": "2026-07-31T08:36:55+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 3020,
+      "slug": "find-the-maximum-number-of-elements-in-subset",
+      "directory": "3020-find-the-maximum-number-of-elements-in-subset",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Frequency map · chain following",
+        "family": "Hashing"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "3020-find-the-maximum-number-of-elements-in-subset/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/3020-find-the-maximum-number-of-elements-in-subset.html"
+        }
+      },
+      "solutionHashes": {
+        "3020-find-the-maximum-number-of-elements-in-subset/3020-find-the-maximum-number-of-elements-in-subset.py": "7cb257096d38c62eb783ed6fd74cd9992fd3cf5ee5a506d2b70e36600cfe1f03"
+      },
+      "firstSolvedAt": "2026-06-27T12:25:46+05:30",
+      "lastSolvedAt": "2026-06-27T12:25:46+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 3221,
+      "slug": "find-the-peaks",
+      "directory": "3221-find-the-peaks",
+      "difficulty": "easy",
+      "classification": {
+        "label": "Array scan · local property",
+        "family": "Math & number theory"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "3221-find-the-peaks/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/3221-find-the-peaks.html"
+        }
+      },
+      "solutionHashes": {
+        "3221-find-the-peaks/3221-find-the-peaks.py": "b3d060e4e10f62fffdf593a5e129598f012a1c9879a20261c26d481ccfd55e6b"
+      },
+      "firstSolvedAt": "2025-07-31T12:35:26+05:30",
+      "lastSolvedAt": "2025-07-31T12:35:26+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 3310,
+      "slug": "remove-methods-from-project",
+      "directory": "3310-remove-methods-from-project",
+      "difficulty": "",
+      "classification": {
+        "label": "",
+        "family": ""
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": false,
+          "path": null
+        },
+        "trace": {
+          "available": false,
+          "path": null
+        }
+      },
+      "solutionHashes": {
+        "3310-remove-methods-from-project/3310-remove-methods-from-project.py": "0314836fd13eeaba47d14ec5364fd049ccfcfe483f9ba856991b4b3741d17e5f"
+      },
+      "firstSolvedAt": "2026-08-05T10:39:25+05:30",
+      "lastSolvedAt": "2026-08-05T10:39:25+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 3336,
+      "slug": "find-the-number-of-subsequences-with-equal-gcd",
+      "directory": "3336-find-the-number-of-subsequences-with-equal-gcd",
+      "difficulty": "hard",
+      "classification": {
+        "label": "DP over a bounded state (gcd × gcd)",
+        "family": "Dynamic programming"
+      },
+      "languages": [
+        "cpp"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "3336-find-the-number-of-subsequences-with-equal-gcd/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/3336-find-the-number-of-subsequences-with-equal-gcd.html"
+        }
+      },
+      "solutionHashes": {
+        "3336-find-the-number-of-subsequences-with-equal-gcd/3336-find-the-number-of-subsequences-with-equal-gcd.cpp": "3ecb10e5f7ad40a3df9cc2ebdb6795e435dab2c1d63ab8e3296079c9c2ed50c2"
+      },
+      "firstSolvedAt": "2026-07-14T08:59:58+05:30",
+      "lastSolvedAt": "2026-07-14T08:59:58+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 3348,
+      "slug": "smallest-divisible-digit-product-ii",
+      "directory": "3348-smallest-divisible-digit-product-ii",
+      "difficulty": "",
+      "classification": {
+        "label": "",
+        "family": ""
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": false,
+          "path": null
+        },
+        "trace": {
+          "available": false,
+          "path": null
+        }
+      },
+      "solutionHashes": {
+        "3348-smallest-divisible-digit-product-ii/3348-smallest-divisible-digit-product-ii.py": "1fbe1d26a32e0bf193c42882684a496515ba92539d6b66f2fe642a79b18ddd40"
+      },
+      "firstSolvedAt": "2026-08-07T10:54:48+05:30",
+      "lastSolvedAt": "2026-08-07T10:54:48+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 3499,
+      "slug": "maximize-active-section-with-trade-i",
+      "directory": "3499-maximize-active-section-with-trade-i",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Run-length scan · pair of adjacent runs",
+        "family": "Prefix sums & intervals"
+      },
+      "languages": [
+        "cpp"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "3499-maximize-active-section-with-trade-i/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/3499-maximize-active-section-with-trade-i.html"
+        }
+      },
+      "solutionHashes": {
+        "3499-maximize-active-section-with-trade-i/3499-maximize-active-section-with-trade-i.cpp": "2a58b789c403128f7d5226e92d006b1933681dc8fa1fe6347ae553ad47cbc821"
+      },
+      "firstSolvedAt": "2026-07-21T09:02:22+05:30",
+      "lastSolvedAt": "2026-07-21T09:02:22+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 3513,
+      "slug": "number-of-unique-xor-triplets-i",
+      "directory": "3513-number-of-unique-xor-triplets-i",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Bit reasoning · closed form",
+        "family": "Bit manipulation"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "3513-number-of-unique-xor-triplets-i/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/3513-number-of-unique-xor-triplets-i.html"
+        }
+      },
+      "solutionHashes": {
+        "3513-number-of-unique-xor-triplets-i/3513-number-of-unique-xor-triplets-i.py": "ff132da8548f69230e782633c9b75d6769e42cd284201b197c4c825650cb9351"
+      },
+      "firstSolvedAt": "2026-07-23T08:51:27+05:30",
+      "lastSolvedAt": "2026-07-23T08:51:27+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 3532,
+      "slug": "path-existence-queries-in-a-graph-i",
+      "directory": "3532-path-existence-queries-in-a-graph-i",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Sorted structure collapses a graph",
+        "family": "Graphs, BFS & DFS"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "3532-path-existence-queries-in-a-graph-i/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/3532-path-existence-queries-in-a-graph-i.html"
+        }
+      },
+      "solutionHashes": {
+        "3532-path-existence-queries-in-a-graph-i/3532-path-existence-queries-in-a-graph-i.py": "5223e5710c92615ede9283106845c7f3acdda10e9c7cb87e1799753e2a78fff4"
+      },
+      "firstSolvedAt": "2026-07-09T08:33:51+05:30",
+      "lastSolvedAt": "2026-07-09T08:33:51+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 3534,
+      "slug": "path-existence-queries-in-a-graph-ii",
+      "directory": "3534-path-existence-queries-in-a-graph-ii",
+      "difficulty": "hard",
+      "classification": {
+        "label": "Sort + greedy farthest + binary lifting",
+        "family": "Graphs, BFS & DFS"
+      },
+      "languages": [
+        "cpp"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "3534-path-existence-queries-in-a-graph-ii/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/3534-path-existence-queries-in-a-graph-ii.html"
+        }
+      },
+      "solutionHashes": {
+        "3534-path-existence-queries-in-a-graph-ii/3534-path-existence-queries-in-a-graph-ii.cpp": "85b85d6e73efd4fdeee1328a82dba614511ec06748977932738422696ec74283"
+      },
+      "firstSolvedAt": "2026-07-10T09:40:18+05:30",
+      "lastSolvedAt": "2026-07-10T09:40:18+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 3558,
+      "slug": "number-of-ways-to-assign-edge-weights-i",
+      "directory": "3558-number-of-ways-to-assign-edge-weights-i",
+      "difficulty": "medium",
+      "classification": {
+        "label": "BFS height + parity counting",
+        "family": "Graphs, BFS & DFS"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "3558-number-of-ways-to-assign-edge-weights-i/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/3558-number-of-ways-to-assign-edge-weights-i.html"
+        }
+      },
+      "solutionHashes": {
+        "3558-number-of-ways-to-assign-edge-weights-i/3558-number-of-ways-to-assign-edge-weights-i.py": "b48420af2681def33c00dc8f4b65cdd8532fd3d157152f7d21322b3c7798adc6"
+      },
+      "firstSolvedAt": "2026-06-11T11:02:36+05:30",
+      "lastSolvedAt": "2026-06-11T11:02:36+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 3559,
+      "slug": "number-of-ways-to-assign-edge-weights-ii",
+      "directory": "3559-number-of-ways-to-assign-edge-weights-ii",
+      "difficulty": "hard",
+      "classification": {
+        "label": "Binary lifting LCA + parity counting",
+        "family": "Trees"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "3559-number-of-ways-to-assign-edge-weights-ii/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/3559-number-of-ways-to-assign-edge-weights-ii.html"
+        }
+      },
+      "solutionHashes": {
+        "3559-number-of-ways-to-assign-edge-weights-ii/3559-number-of-ways-to-assign-edge-weights-ii.py": "3032a3c662fa809c26b6efe8a71992b1fadf63857615b7bf4d0873df8d4af24b"
+      },
+      "firstSolvedAt": "2026-06-12T12:53:03+05:30",
+      "lastSolvedAt": "2026-06-12T12:53:03+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 3614,
+      "slug": "process-string-with-special-operations-ii",
+      "directory": "3614-process-string-with-special-operations-ii",
+      "difficulty": "hard",
+      "classification": {
+        "label": "Forward lengths + backward index mapping",
+        "family": "Math & number theory"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "3614-process-string-with-special-operations-ii/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/3614-process-string-with-special-operations-ii.html"
+        }
+      },
+      "solutionHashes": {
+        "3614-process-string-with-special-operations-ii/3614-process-string-with-special-operations-ii.py": "6cc1edcd11e73d436b79c26c612012590ce8724d06783c696b7287f38b76c3e3"
+      },
+      "firstSolvedAt": "2026-06-18T11:24:28+05:30",
+      "lastSolvedAt": "2026-06-18T11:24:28+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 3620,
+      "slug": "network-recovery-pathways",
+      "directory": "3620-network-recovery-pathways",
+      "difficulty": "hard",
+      "classification": {
+        "label": "Binary search on the answer + DAG shortest path",
+        "family": "Binary search"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "3620-network-recovery-pathways/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/3620-network-recovery-pathways.html"
+        }
+      },
+      "solutionHashes": {
+        "3620-network-recovery-pathways/3620-network-recovery-pathways.py": "8ffbf605bed745a10ed6519f1c28dc2102a9aa6966f719557e90c42d5e92b221"
+      },
+      "firstSolvedAt": "2026-07-03T08:35:47+05:30",
+      "lastSolvedAt": "2026-07-03T08:35:52+05:30",
+      "reSolveHistory": [
+        {
+          "sourceCommit": "47231a292e826f07fa33a2eb0fb2bd02b6dda132",
+          "solvedAt": "2026-07-03T08:35:52+05:30",
+          "languages": [
+            "py"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 3689,
+      "slug": "maximum-total-subarray-value-i",
+      "directory": "3689-maximum-total-subarray-value-i",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Observation · the constraint that is not there",
+        "family": "Greedy"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "3689-maximum-total-subarray-value-i/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/3689-maximum-total-subarray-value-i.html"
+        }
+      },
+      "solutionHashes": {
+        "3689-maximum-total-subarray-value-i/3689-maximum-total-subarray-value-i.py": "bd3c25dcf7317022a9e50f089dbdb52abfefcbdc69b5ca7dec01caecfec0310b"
+      },
+      "firstSolvedAt": "2026-06-09T22:46:13+05:30",
+      "lastSolvedAt": "2026-06-09T22:46:13+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 3699,
+      "slug": "number-of-zigzag-arrays-i",
+      "directory": "3699-number-of-zigzag-arrays-i",
+      "difficulty": "hard",
+      "classification": {
+        "label": "DP with direction state + prefix-sum transitions",
+        "family": "Dynamic programming"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "3699-number-of-zigzag-arrays-i/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/3699-number-of-zigzag-arrays-i.html"
+        }
+      },
+      "solutionHashes": {
+        "3699-number-of-zigzag-arrays-i/3699-number-of-zigzag-arrays-i.py": "a0ffd89310c7ea37ed013842d4c5410958ed2682750f2ac360a3d8bfdbf0913a"
+      },
+      "firstSolvedAt": "2026-06-23T22:55:30+05:30",
+      "lastSolvedAt": "2026-06-23T22:55:30+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 3700,
+      "slug": "number-of-zigzag-arrays-ii",
+      "directory": "3700-number-of-zigzag-arrays-ii",
+      "difficulty": "hard",
+      "classification": {
+        "label": "Matrix exponentiation of a linear recurrence",
+        "family": "Dynamic programming"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "3700-number-of-zigzag-arrays-ii/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/3700-number-of-zigzag-arrays-ii.html"
+        }
+      },
+      "solutionHashes": {
+        "3700-number-of-zigzag-arrays-ii/3700-number-of-zigzag-arrays-ii.py": "dceb82e6161d39042a76c18d7fec1ff36e5d17091b9de0e31739a581d88d6f2a"
+      },
+      "firstSolvedAt": "2026-06-24T11:02:14+05:30",
+      "lastSolvedAt": "2026-06-24T11:02:14+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 3731,
+      "slug": "find-missing-elements",
+      "directory": "3731-find-missing-elements",
+      "difficulty": "",
+      "classification": {
+        "label": "",
+        "family": ""
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": false,
+          "path": null
+        },
+        "trace": {
+          "available": false,
+          "path": null
+        }
+      },
+      "solutionHashes": {
+        "3731-find-missing-elements/3731-find-missing-elements.py": "f7d2800687a6844b7b69dfa59a462b7ef5bf6675a849f9e1f6b8d69d303e3cbf"
+      },
+      "firstSolvedAt": "2026-08-04T11:06:37+05:30",
+      "lastSolvedAt": "2026-08-04T11:06:37+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 3737,
+      "slug": "count-subarrays-with-majority-element-i",
+      "directory": "3737-count-subarrays-with-majority-element-i",
+      "difficulty": "medium",
+      "classification": {
+        "label": "Brute force with incremental state",
+        "family": "Brute force done right"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "3737-count-subarrays-with-majority-element-i/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/3737-count-subarrays-with-majority-element-i.html"
+        }
+      },
+      "solutionHashes": {
+        "3737-count-subarrays-with-majority-element-i/3737-count-subarrays-with-majority-element-i.py": "a2f02872b6dc9a40dbd294ec09ab2660cfa29007094301525fef375824573a47"
+      },
+      "firstSolvedAt": "2026-06-25T10:20:26+05:30",
+      "lastSolvedAt": "2026-06-25T10:20:26+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 3739,
+      "slug": "count-subarrays-with-majority-element-ii",
+      "directory": "3739-count-subarrays-with-majority-element-ii",
+      "difficulty": "hard",
+      "classification": {
+        "label": "+1/−1 transform · prefix sums · Fenwick tree",
+        "family": "Prefix sums & intervals"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "3739-count-subarrays-with-majority-element-ii/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/3739-count-subarrays-with-majority-element-ii.html"
+        }
+      },
+      "solutionHashes": {
+        "3739-count-subarrays-with-majority-element-ii/3739-count-subarrays-with-majority-element-ii.py": "72c9ec91340f6be1ddfd6b3b22e6123883bd1077b315e319d5af0021d792b665"
+      },
+      "firstSolvedAt": "2026-06-26T22:18:59+05:30",
+      "lastSolvedAt": "2026-06-26T22:18:59+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 3753,
+      "slug": "total-waviness-of-numbers-in-range-ii",
+      "directory": "3753-total-waviness-of-numbers-in-range-ii",
+      "difficulty": "hard",
+      "classification": {
+        "label": "Digit DP · tight / started / carried context",
+        "family": "Dynamic programming"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "3753-total-waviness-of-numbers-in-range-ii/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/3753-total-waviness-of-numbers-in-range-ii.html"
+        }
+      },
+      "solutionHashes": {
+        "3753-total-waviness-of-numbers-in-range-ii/3753-total-waviness-of-numbers-in-range-ii.py": "066888b3b9a5fd197a8a6cbf47977593c77cab9320bf7db1004b36bf24937186"
+      },
+      "firstSolvedAt": "2026-06-05T11:32:40+05:30",
+      "lastSolvedAt": "2026-06-05T11:32:40+05:30",
+      "reSolveHistory": []
+    },
+    {
+      "number": 3754,
+      "slug": "concatenate-non-zero-digits-and-multiply-by-sum-i",
+      "directory": "3754-concatenate-non-zero-digits-and-multiply-by-sum-i",
+      "difficulty": "easy",
+      "classification": {
+        "label": "Digit manipulation · single pass, two accumulators",
+        "family": "Math & number theory"
+      },
+      "languages": [
+        "py"
+      ],
+      "artifacts": {
+        "notes": {
+          "available": true,
+          "path": "3754-concatenate-non-zero-digits-and-multiply-by-sum-i/NOTES.md"
+        },
+        "trace": {
+          "available": true,
+          "path": "visualizations/3754-concatenate-non-zero-digits-and-multiply-by-sum-i.html"
+        }
+      },
+      "solutionHashes": {
+        "3754-concatenate-non-zero-digits-and-multiply-by-sum-i/3754-concatenate-non-zero-digits-and-multiply-by-sum-i.py": "1665ed68f37f3093b98a3e1725db092ce1f5b72daa7a087126ae6aeb4299fa1c"
+      },
+      "firstSolvedAt": "2026-07-07T08:19:13+05:30",
+      "lastSolvedAt": "2026-07-07T08:19:13+05:30",
+      "reSolveHistory": []
+    }
+  ]
+}
