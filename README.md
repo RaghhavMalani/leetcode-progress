@@ -289,6 +289,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [1071-greatest-common-divisor-of-strings](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1071-greatest-common-divisor-of-strings) |
 | [1079-letter-tile-possibilities](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1079-letter-tile-possibilities) |
 | [1081-smallest-subsequence-of-distinct-characters](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1081-smallest-subsequence-of-distinct-characters) |
+| [1190-reverse-substrings-between-each-pair-of-parentheses](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1190-reverse-substrings-between-each-pair-of-parentheses) |
 | [1358-number-of-substrings-containing-all-three-characters](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1358-number-of-substrings-containing-all-three-characters) |
 | [1858-longest-word-with-all-prefixes](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1858-longest-word-with-all-prefixes) |
 | [1967-number-of-strings-that-appear-as-substrings-in-word](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1967-number-of-strings-that-appear-as-substrings-in-word) |
@@ -569,6 +570,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0736-parse-lisp-expression](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0736-parse-lisp-expression) |
 | [0739-daily-temperatures](https://github.com/RaghhavMalani/leetcode-progress/tree/master/0739-daily-temperatures) |
 | [1081-smallest-subsequence-of-distinct-characters](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1081-smallest-subsequence-of-distinct-characters) |
+| [1190-reverse-substrings-between-each-pair-of-parentheses](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1190-reverse-substrings-between-each-pair-of-parentheses) |
 | [1762-buildings-with-an-ocean-view](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1762-buildings-with-an-ocean-view) |
 | [2355-maximum-number-of-books-you-can-take](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2355-maximum-number-of-books-you-can-take) |
 ## Monotonic Stack
@@ -928,4 +930,8 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [1401-circle-and-rectangle-overlapping](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1401-circle-and-rectangle-overlapping) |
+## Bracket Sequences
+|  |
+| ------- |
+| [1190-reverse-substrings-between-each-pair-of-parentheses](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1190-reverse-substrings-between-each-pair-of-parentheses) |
 <!---LeetCode Topics End-->
