@@ -125,6 +125,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [2133-number-of-pairs-of-strings-with-concatenation-equal-to-target](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2133-number-of-pairs-of-strings-with-concatenation-equal-to-target) |
 | [2144-minimum-cost-of-buying-candies-with-discount](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2144-minimum-cost-of-buying-candies-with-discount) |
 | [2196-create-binary-tree-from-descriptions](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2196-create-binary-tree-from-descriptions) |
+| [2267-check-if-there-is-a-valid-parentheses-string-path](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2267-check-if-there-is-a-valid-parentheses-string-path) |
 | [2355-maximum-number-of-books-you-can-take](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2355-maximum-number-of-books-you-can-take) |
 | [2450-minimum-replacements-to-sort-the-array](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2450-minimum-replacements-to-sort-the-array) |
 | [2502-design-memory-allocator](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2502-design-memory-allocator) |
@@ -229,6 +230,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [1020-number-of-enclaves](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1020-number-of-enclaves) |
 | [1091-shortest-path-in-binary-matrix](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1091-shortest-path-in-binary-matrix) |
 | [1631-path-with-minimum-effort](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1631-path-with-minimum-effort) |
+| [2267-check-if-there-is-a-valid-parentheses-string-path](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2267-check-if-there-is-a-valid-parentheses-string-path) |
 | [2812-find-the-safest-path-in-a-grid](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2812-find-the-safest-path-in-a-grid) |
 | [3568-minimum-moves-to-clean-the-classroom](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3568-minimum-moves-to-clean-the-classroom) |
 ## Sorting
@@ -484,6 +486,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [1477-find-two-non-overlapping-sub-arrays-each-with-target-sum](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1477-find-two-non-overlapping-sub-arrays-each-with-target-sum) |
 | [1621-number-of-sets-of-k-non-overlapping-line-segments](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1621-number-of-sets-of-k-non-overlapping-line-segments) |
 | [1976-number-of-ways-to-arrive-at-destination](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1976-number-of-ways-to-arrive-at-destination) |
+| [2267-check-if-there-is-a-valid-parentheses-string-path](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2267-check-if-there-is-a-valid-parentheses-string-path) |
 | [2355-maximum-number-of-books-you-can-take](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2355-maximum-number-of-books-you-can-take) |
 | [3336-find-the-number-of-subsequences-with-equal-gcd](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3336-find-the-number-of-subsequences-with-equal-gcd) |
 | [3414-maximum-score-of-non-overlapping-intervals](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3414-maximum-score-of-non-overlapping-intervals) |
@@ -934,4 +937,5 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [1190-reverse-substrings-between-each-pair-of-parentheses](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1190-reverse-substrings-between-each-pair-of-parentheses) |
+| [2267-check-if-there-is-a-valid-parentheses-string-path](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2267-check-if-there-is-a-valid-parentheses-string-path) |
 <!---LeetCode Topics End-->
