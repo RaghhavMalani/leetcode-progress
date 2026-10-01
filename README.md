@@ -127,6 +127,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [2196-create-binary-tree-from-descriptions](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2196-create-binary-tree-from-descriptions) |
 | [2267-check-if-there-is-a-valid-parentheses-string-path](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2267-check-if-there-is-a-valid-parentheses-string-path) |
 | [2355-maximum-number-of-books-you-can-take](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2355-maximum-number-of-books-you-can-take) |
+| [2361-minimum-costs-using-the-train-line](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2361-minimum-costs-using-the-train-line) |
 | [2450-minimum-replacements-to-sort-the-array](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2450-minimum-replacements-to-sort-the-array) |
 | [2502-design-memory-allocator](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2502-design-memory-allocator) |
 | [2503-longest-subarray-with-maximum-bitwise-and](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2503-longest-subarray-with-maximum-bitwise-and) |
@@ -490,6 +491,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [1976-number-of-ways-to-arrive-at-destination](https://github.com/RaghhavMalani/leetcode-progress/tree/master/1976-number-of-ways-to-arrive-at-destination) |
 | [2267-check-if-there-is-a-valid-parentheses-string-path](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2267-check-if-there-is-a-valid-parentheses-string-path) |
 | [2355-maximum-number-of-books-you-can-take](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2355-maximum-number-of-books-you-can-take) |
+| [2361-minimum-costs-using-the-train-line](https://github.com/RaghhavMalani/leetcode-progress/tree/master/2361-minimum-costs-using-the-train-line) |
 | [3336-find-the-number-of-subsequences-with-equal-gcd](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3336-find-the-number-of-subsequences-with-equal-gcd) |
 | [3414-maximum-score-of-non-overlapping-intervals](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3414-maximum-score-of-non-overlapping-intervals) |
 | [3534-path-existence-queries-in-a-graph-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3534-path-existence-queries-in-a-graph-ii) |
