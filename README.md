@@ -432,6 +432,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [3559-number-of-ways-to-assign-edge-weights-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3559-number-of-ways-to-assign-edge-weights-ii) |
 | [3622-check-divisibility-by-digit-sum-and-product](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3622-check-divisibility-by-digit-sum-and-product) |
 | [3700-number-of-zigzag-arrays-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3700-number-of-zigzag-arrays-ii) |
+| [3723-maximize-sum-of-squares-of-digits](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3723-maximize-sum-of-squares-of-digits) |
 | [3753-total-waviness-of-numbers-in-range-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3753-total-waviness-of-numbers-in-range-ii) |
 | [3754-concatenate-non-zero-digits-and-multiply-by-sum-i](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3754-concatenate-non-zero-digits-and-multiply-by-sum-i) |
 | [3870-count-commas-in-range](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3870-count-commas-in-range) |
@@ -655,6 +656,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [3348-smallest-divisible-digit-product-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3348-smallest-divisible-digit-product-ii) |
 | [3534-path-existence-queries-in-a-graph-ii](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3534-path-existence-queries-in-a-graph-ii) |
 | [3689-maximum-total-subarray-value-i](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3689-maximum-total-subarray-value-i) |
+| [3723-maximize-sum-of-squares-of-digits](https://github.com/RaghhavMalani/leetcode-progress/tree/master/3723-maximize-sum-of-squares-of-digits) |
 ## Binary Search
 |  |
 | ------- |
